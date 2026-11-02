@@ -2,14 +2,9 @@
 
 Hier liegen neue Fragen und Aufgaben, bis Tom „Patch durchführen“ sagt.
 
-Letzter Patch: 1.4 am 02.11.2026 (Korrekturen nach Toms Test, Fach-Blatt schließen). Wartend:
-- `2026-11-02 Baustoffkunde V04 Bauinformatik Übung 01-02.js` (63 Fragen inkl. 8 zu V04 Folie 35 Duktilität/Bruchfläche und 13 zu Folie 46 Porenarten/Porosität, 2 Lösungsweg-Aufgaben, neues Thema bsk „Gefüge und Kristalle“ = B5)
-- `2026-11-02 Durchgang Vorlesungen und Übungen.js` (43 Fragen, 15 Lösungsweg-Aufgaben; nutzt B5, muss nach der BSK-Datei kommen)
-- `2026-11-02 Baukonstruktion vertieft.js` (39 Fragen, 6 Lösungsweg-Aufgaben; neue Themen K8 „Stahl und Stahlbeton“, K9 „Schnittgrößen und Aussteifung“)
-- `2026-11-02 Baukonstruktion Übung 01-02 ergänzt.js` (11 Fragen, 3 Aufgaben; nach „Baukonstruktion vertieft“ einspielen, nutzt K9)
-- `app/app-1.5.html`: App-Vorlage für 1.5 (ersetzt app.html im Build, APP_VERSION beim Patch auf 1.5 setzen) – neu: **Anmerkungen** (Stift oben rechts bei Fragen und Aufgaben, „Wunsch zu diesem Fach“ im Fach-Blatt, Verwaltung unter Lernstand; Senden als GitHub-Issue per Link oder mit eigenem Schlüssel direkt; „unnötig“ blendet lokal aus), `KORREKTUR[id] = {weg:true}` entfernt Fragen/Aufgaben zentral, KORREKTUR gilt jetzt auch für Aufgaben-IDs
+Letzter Patch: 1.5 am 02.11.2026 (156 Fragen, 26 Aufgaben, Anmerkungen per GitHub-Issue). Stand jetzt: 520 Fragen, 40 Aufgaben. Wartend: nichts.
+
 - `app/anmerkungen.py`: liest offene Anmerkungs-Issues (gh api) und listet sie je Frage-ID
-- `app/figs-1.5.js`: App-Änderung für den nächsten Patch – neue Skizzen vt, kruemmer, behaelter, poren (ersetzt figs.js im Build)
 
 ## Offen
 - **Frage (02.11.2026):** Benachrichtigungen – Optionen an Tom geschickt (Push mit kleinem Server, App-Symbol-Zähler, iPhone-Kurzbefehl). Entscheidung von Tom offen.
