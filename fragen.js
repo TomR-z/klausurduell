@@ -319,3 +319,92 @@ mc("stat", S2, "Was ist a·a′ für einen Spaltenvektor a der Länge m?", ["Ein
 mc("stat", S2, "Welche Diagonalelemente hat eine schiefsymmetrische Matrix?", ["Alle 0", "Alle 1", "Beliebige", "Alle gleich"], "Aus a_ii = −a_ii folgt a_ii = 0.", "Angewandte Statistik Kap. 2");
 pair("stat", S1, "Aufgaben der Statistik im Ingenieurwesen – ordne zu.", [["Richtigkeit", "optimaler Wert trotz Abweichungen"], ["Präzision", "wie genau der Wert angesichts der Streuung ist"], ["Zuverlässigkeit", "wie verlässlich die Aussage ist"], ["Datenerhebung", "genug und repräsentativ messen"]], "„Eine Messung ist keine Messung!“", "Angewandte Statistik Kap. 1");
 mc("stat", S1, "Was zeigt das Beispiel mit den EM-Toren auf linearer und logarithmischer Achse?", ["Darstellungen können täuschen – Achsen genau lesen", "Logarithmische Achsen sind immer falsch", "Tore fallen meist am Ende", "Man braucht mehr Daten"], "„Lügen, gemeine Lügen und Statistik.“", "Angewandte Statistik Kap. 1");
+
+/* ───────── Version 1.2 (02.11.2026): Bildfragen, „Mehr erfahren“, klarere Formulierungen ───────── */
+function bild(f, t, q, a, e, s, v) { FRAGEN.push({ f, t, typ: "mc", q, a, e, s, v }); }
+
+bild("hydro", H1, "Zwei Röhrchen stehen in zwei Flüssigkeiten. Welche Flüssigkeit ist rechts?", ["Quecksilber", "Wasser", "Alkohol", "Öl"], "Rechts sinkt der Spiegel ab und der Meniskus ist nach oben gewölbt (konvex): Depression einer nicht benetzenden Flüssigkeit. Links steigt Wasser mit konkavem Meniskus.", "Hydromechanik V01", "kapillar");
+bild("hydro", H2, "Das Bild zeigt den Druckverlauf in einem Behälter mit zwei Schichten. Was steht im oberen Bereich?", ["Eine leichtere Flüssigkeit, z. B. Öl", "Eine schwerere Flüssigkeit", "Luft unter Überdruck", "Dieselbe Flüssigkeit wie unten"], "Oben steigt der Druck flacher an – dort ist die Dichte kleiner. An der Grenze knickt die Linie, sie springt aber nicht.", "Hydromechanik V02", "schichtung");
+bild("hydro", H3, "Ein Ponton schwimmt. Wie heißt die mit ? markierte Strecke?", ["Freibord f", "Tiefgang h_W", "Gesamthöhe H", "Wasserlinie"], "Freibord = Gesamthöhe minus Tiefgang: der Teil über Wasser.", "Hydromechanik V03", "schwimmen");
+bild("bsk", B2, "Welche σ-ε-Linie gehört zu Baustahl unter Zug?", ["Linie B", "Linie A", "Linie C", "Linie D"], "B steigt linear an, fließt dann (Plateau) und verfestigt sich wieder – typisch duktiler Baustahl.", "Baustoffkunde V02", "sigeps");
+bild("bsk", B2, "Welche σ-ε-Linie zeigt einen spröden Baustoff wie Ziegel?", ["Linie A", "Linie B", "Linie C", "Linie D"], "Linear bis zum plötzlichen Bruch, ohne plastischen Bereich – keine Vorwarnung.", "Baustoffkunde V02", "sigeps");
+bild("bsk", B2, "Welche σ-ε-Linie passt zu Beton unter Druck?", ["Linie D", "Linie A", "Linie B", "Linie C"], "Beton erreicht ein Maximum und fällt danach ab (Entfestigung).", "Baustoffkunde V02", "sigeps");
+bild("bsk", B2, "Was beschreibt der waagerechte Teil der Wöhlerlinie?", ["Die Dauerfestigkeit", "Die Bruchfestigkeit unter statischer Last", "Den E-Modul", "Die Kerbschlagarbeit"], "Unterhalb dieser Spannungsamplitude hält das Bauteil praktisch beliebig viele Lastwechsel aus.", "Baustoffkunde V02", "woehler");
+bild("bauko", K3, "Welches Bauteil des Pfettendachs ist mit ② markiert?", ["Pfette", "Sparren", "Stütze", "First"], "① Sparren tragen die Dachlast zur ② Pfette, diese gibt sie an die ③ Stütze weiter.", "Leitfaden Rechenweg, Überblick", "pfettendach");
+bild("bauko", K3, "Wo ist das Biegemoment eines Einfeldträgers unter Gleichlast am größten?", ["In Feldmitte", "An den Auflagern", "Im Viertelpunkt", "Überall gleich"], "Die Momentenlinie ist eine Parabel mit dem Maximum q·l²/8 in Feldmitte; an den Auflagern ist M = 0.", "Leitfaden Rechenweg, Schritt 5", "traeger");
+bild("phys", P4, "In welchem Punkt der Wurfbahn ist die Geschwindigkeit am kleinsten?", ["Im Scheitel ②", "Beim Abwurf ①", "Beim Aufprall ③", "Überall gleich"], "Im Scheitel ist v_y = 0, es bleibt nur die konstante horizontale Komponente v_x.", "Physik V03", "wurf");
+bild("phys", P4, "Gleichförmige Kreisbewegung: Welcher Pfeil zeigt die Beschleunigung?", ["Pfeil B", "Pfeil A", "Pfeil C", "Es gibt keine Beschleunigung"], "A ist die Geschwindigkeit (tangential), B zeigt zum Mittelpunkt: Zentripetalbeschleunigung.", "Physik V03", "kreis");
+bild("dap", D4, "Wie viel Prozent der Werte liegen in der markierten Fläche (μ ± 1σ)?", ["68,3 %", "95,5 %", "99,7 %", "50 %"], "Rund zwei Drittel liegen innerhalb einer Standardabweichung um den Mittelwert.", "DAP L03", "normal");
+bild("dap", D4, "Welche Kurve ist die Verteilungsfunktion (CDF)?", ["Kurve B", "Kurve A", "Beide", "Keine"], "Die CDF steigt S-förmig von 0 auf 1. Kurve A ist die Dichte (PDF).", "DAP L03", "pdfcdf");
+
+/* Bilder zu bestehenden Fragen, Umformulierungen und Zusatzinfos.
+   Schlüssel = ursprünglicher Fragetext, damit der Lernstand erhalten bleibt. */
+const EXTRA = {
+  "Wo greift die Wasserdruckkraft auf eine senkrechte Wand an?": { v: "druck" },
+  "Welche Ordnung hat das Produkt einer (2, 3)- mit einer (3, 4)-Matrix?": { v: "matrix" },
+  "Einfeldträger – ordne zu.": { q: "Einfeldträger: Ordne die Formel der Größe zu.", v: "traeger" },
+  "Ordne zu.": null,
+  "Goldene Regel bei kommunizierenden Röhren:": { q: "Was gilt in kommunizierenden Röhren immer?" },
+  "Kraft auf eine beliebige ebene, geneigte Fläche:": { q: "Wie berechnest du die Wasserdruckkraft auf eine schräge, ebene Fläche?" },
+  "Gekrümmte Fläche: Was ist die vertikale Kraftkomponente F_V?": { q: "Wasser drückt auf eine gekrümmte Fläche. Wie groß ist die senkrechte Kraftkomponente F_V?" },
+  "Kreuzprodukt zweier paralleler oder antiparalleler Vektoren:": { q: "Was ergibt das Kreuzprodukt zweier paralleler Vektoren?" },
+  "Mehrachsiger Druck auf ein Bauteil …": { q: "Ein Bauteil wird von mehreren Seiten zugleich gedrückt (mehrachsiger Druck). Was passiert mit seiner Druckfestigkeit?", a: ["Sie steigt stark", "Sie sinkt", "Sie bleibt gleich", "Der Baustoff wird spröde"] },
+  "E-Modul von Baustahl:": { q: "Wie groß ist der E-Modul von Baustahl ungefähr?" },
+  "Schneeformbeiwert μ₁ bei einer Dachneigung ab 60°:": { q: "Ein Dach ist 60° oder steiler geneigt. Welchen Schneeformbeiwert μ₁ setzt du an?" },
+  "Wichten zum Auswendigkönnen:": { q: "Welche Wichte hat der Baustoff?" },
+  "Durchlaufträger: Wie bekommt man eine Auflagerkraft?": { q: "Wie berechnest du die Auflagerkraft eines Durchlaufträgers mit gleich langen Feldern?" },
+  "Welche Kombination ist bei Holz maßgebend?": { q: "Bei Holz gibt es mehrere Lastkombinationen. Welche ist maßgebend?" },
+  "Ordne die Klasse der Lasteinwirkungsdauer zu.": { q: "Wie lange wirkt die Last – und welches kmod gehört dazu?" },
+  "Biegefestigkeit f_m,k von Vollholz C24:": { q: "Wie groß ist die charakteristische Biegefestigkeit f_m,k von Vollholz C24?" },
+  "Welcher Token-Typ ist das?": { q: "Zu welcher Art von Token gehört der Codeschnipsel?" },
+  "Begriffe am Betonfertigteil – ordne zu.": { q: "Ein Betonfertigteil wird zehnmal vermessen. Ordne die Begriffe zu." },
+  "Determinante einer Dreiecksmatrix:": { q: "Wie berechnest du die Determinante einer Dreiecksmatrix am schnellsten?" },
+  "Typische Folge von Item-Nonresponse in Mobilitätsbefragungen:": { q: "Befragte lassen einzelne Angaben weg (Item-Nonresponse). Was ist die typische Folge in Mobilitätsbefragungen?" },
+  "Phänomen und Korrektur – ordne zu.": { q: "Welche Verzerrung lässt sich wie korrigieren?" },
+  "ψ₂ für Nutzlast Kategorie A (Wohnen):": { q: "Welchen Beiwert ψ₂ hat die Nutzlast im Wohnungsbau (Kategorie A)?" },
+  "Höhenbeiwert k_h für Vollholz mit h ≥ 150 mm:": { q: "Ein Vollholzbalken ist mindestens 150 mm hoch. Welchen Höhenbeiwert k_h hat er?" },
+  "Faustregel zur Wärmedämmung:": { q: "Welche Faustregel gilt für die Wärmedämmung von Baustoffen?" },
+  "Vitruvs drei Anforderungen an jedes Bauwerk:": { q: "Vitruv nennt drei Anforderungen an jedes Bauwerk. Was bedeuten sie?" },
+  "Gleiche Strecken mit v₁ und v₂: Welche Durchschnittsgeschwindigkeit?": { q: "Du fährst eine Strecke mit v₁ hin und mit v₂ zurück. Wie groß ist die Durchschnittsgeschwindigkeit?" },
+  "Was gilt im Scheitelpunkt eines Wurfs?": { v: "wurf" }
+};
+/* Mehrere Fragen heißen „Ordne zu.“ – je nach Fach eigener Titel */
+const ORDNE_ZU = {
+  hydro: "Begriffe aus V01 – ordne zu.", bauko: "Sicherheitskonzept – ordne die Begriffe zu.",
+  binf_tools: "Werkzeuge rund um Java – ordne zu.", binf_typ: "Welcher Datentyp passt zum Wert?",
+  dap: "Begriffe zu Verteilungen – ordne zu.", phys: "Vektorformeln – ordne zu."
+};
+
+/* „Mehr erfahren“: 2–3 Sätze Hintergrund je Thema */
+const THEMEN = {
+  "hydro|Eigenschaften des Wassers": "Wasser ist fast inkompressibel, hat bei 4 °C seine größte Dichte und haftet an Oberflächen. Diese drei Eigenschaften erklären, warum man in HM I mit konstanter Dichte rechnet, warum Seen von oben zufrieren und warum Wasser im Boden und im Mauerwerk kapillar aufsteigt.",
+  "hydro|Hydrostatik 1": "In ruhendem Wasser gibt es nur Druck, und der hängt allein von der Tiefe ab: p = ρ·g·z. Daraus folgen alle Kräfte auf Wände, Schütze und Klappen – man integriert den Druck über die Fläche, was bei Rechtecken auf das Druckdreieck mit Angriffspunkt bei ⅔·h führt.",
+  "hydro|Hydrostatik 2": "Auftrieb ist nichts anderes als der Druckunterschied zwischen Unter- und Oberseite eines Körpers. Daraus ergeben sich Schwimmen, Tiefgang und Freibord. Wird der Behälter beschleunigt, rechnet man einfach mit der effektiven Beschleunigung g + b weiter.",
+  "hydro|Hydrodynamik": "Sobald Wasser strömt, braucht man Begriffe für die Bewegung: Stromlinien, stationär oder instationär, Euler- oder Lagrange-Sicht. Die wichtigste Gleichung ist die Kontinuität: Was vorne hineinfließt, muss hinten herauskommen, Q = v·A bleibt konstant.",
+  "hydro|Energiesatz": "Bernoulli ist eine Energiebilanz entlang einer Stromlinie: Geschwindigkeitshöhe, Druckhöhe und Lagehöhe tauschen sich aus, ihre Summe bleibt gleich. In realen Strömungen kommen Verlusthöhen dazu, die die Energielinie absinken lassen.",
+  "hydro|Impulssatz": "Der Impulssatz betrachtet nur den Zustand am Ein- und Austritt eines Kontrollraums. Damit lassen sich Kräfte auf Krümmer, Düsen oder Wehre bestimmen, ohne die Verluste im Inneren zu kennen.",
+  "hydro|Gerinneströmung": "Im offenen Gerinne entscheidet die Froude-Zahl über den Fließzustand: unter 1 strömt das Wasser ruhig, über 1 schießt es. Beim Übergang vom Schießen ins Strömen entsteht ein Wechselsprung, der viel Energie vernichtet – erwünscht etwa im Tosbecken unter einem Wehr.",
+  "phys|Einheiten": "Alle physikalischen Größen lassen sich auf sieben SI-Basiseinheiten zurückführen. Wer Einheiten mitschreibt, findet Fehler sofort: Eine Rechnung, die am Ende kg·m/s² statt N/m² liefert, ist falsch, egal wie die Zahl aussieht.",
+  "phys|Geradlinige Bewegung": "Ort, Geschwindigkeit und Beschleunigung hängen über Ableitungen zusammen. Im Diagramm heißt das: Steigung von x(t) ist v, Steigung von v(t) ist a, und die Fläche unter v(t) ist der zurückgelegte Weg.",
+  "phys|Vektoren": "Vektoren haben Betrag und Richtung. Das Skalarprodukt misst, wie stark zwei Vektoren in dieselbe Richtung zeigen, das Kreuzprodukt liefert einen senkrechten Vektor, dessen Betrag der aufgespannten Fläche entspricht.",
+  "phys|Bewegung in 2D/3D": "Beim Wurf zerlegt man die Bewegung in zwei unabhängige Richtungen: waagerecht gleichförmig, senkrecht gleichmäßig beschleunigt. Bei der Kreisbewegung ändert sich die Richtung ständig, deshalb gibt es auch bei konstantem Tempo eine Beschleunigung zum Mittelpunkt.",
+  "bsk|Einteilung und Grundlagen": "Baustoffe werden nach ihrem Aufbau in vier Gruppen eingeteilt und nach Gewicht, Festigkeit, Verformbarkeit und Dauerhaftigkeit bewertet. Verbundwerkstoffe wie Stahlbeton kombinieren gezielt die Stärken zweier Baustoffe.",
+  "bsk|Mechanische Eigenschaften": "Die σ-ε-Linie ist der Fingerabdruck eines Baustoffs: Die Steigung zeigt die Steifigkeit (E-Modul), die Höhe die Festigkeit und die Länge die Verformbarkeit. Zeitabhängige Effekte wie Kriechen, Relaxation und Ermüdung kommen bei realen Bauwerken dazu.",
+  "bsk|Physikalische Eigenschaften": "Poren bestimmen, wie Wasser, Salze und Wärme durch einen Baustoff wandern. Viele kleine, durchgängige Kapillaren saugen Wasser hoch; viele luftgefüllte Poren dämmen gut. Deshalb ist ein leichter, poriger Stoff meist ein guter Dämmstoff, aber ein schwacher Tragstoff.",
+  "bauko|Sicherheitskonzept": "Lasten und Tragfähigkeit streuen. Statt mit einem globalen Sicherheitsfaktor arbeitet die Norm mit Teilsicherheitsbeiwerten: Lasten werden erhöht, Festigkeiten abgemindert, bis E_d ≤ R_d erfüllt ist. So bleibt die Versagenswahrscheinlichkeit sehr klein.",
+  "bauko|Lasten": "Lasten werden immer getrennt nach Art aufgestellt, weil Eigengewicht, Schnee, Wind und Nutzlast unterschiedlich lange wirken und andere Beiwerte bekommen. Entscheidend ist auch die Bezugsfläche: Schnee je m² Grundfläche, Eigengewicht je m² Dachfläche, Wind senkrecht zur Dachfläche.",
+  "bauko|Einwirkungen": "Schnee, Wind und Nutzlasten stammen aus der DIN EN 1991 und hängen vom Standort, der Höhe und der Nutzung ab. Die Werte sind charakteristisch, also so gewählt, dass sie in 50 Jahren nur selten überschritten werden.",
+  "bauko|Rechenweg": "Jede Bauko-Aufgabe folgt derselben Kette: Lasten, Lastweg, Auflagerkräfte, Schnittgrößen, Kombination, Nachweis. Die Auflagerkraft eines Bauteils ist immer die Last auf das nächste Bauteil darunter.",
+  "bauko|Holzbemessung": "Holz wird fester, je kürzer eine Last wirkt. Deshalb teilt man jede Lastkombination durch das kmod ihrer kürzesten Last und sucht so die maßgebende. Der Nachweis selbst ist immer eine Ausnutzung η = Beanspruchung / Festigkeit ≤ 1.",
+  "binf|Java und JDK": "Java-Code wird zuerst in plattformunabhängigen Bytecode übersetzt und erst beim Ausführen von der JVM in Maschinencode verwandelt. Deshalb läuft dieselbe .class-Datei auf Windows, macOS und Linux.",
+  "binf|Programmrahmen": "Jedes Programm steckt in einer Klasse, und gestartet wird immer die main-Methode. Java ist streng: Groß- und Kleinschreibung zählt, jede Anweisung endet mit einem Semikolon, und Klassen- und Dateiname müssen übereinstimmen.",
+  "binf|Datentypen": "Primitive Typen speichern den Wert direkt und haben feste Größen – mehr Bits heißen größerer Wertebereich. Referenztypen wie String verweisen auf Objekte. Beim Umwandeln von groß nach klein, etwa double → int, braucht man einen expliziten Cast.",
+  "binf|Operatoren": "Java wertet Ausdrücke von links nach rechts aus. Zwei int-Werte ergeben bei Division wieder ein int, und sobald ein String im Spiel ist, wird + zur Verkettung. Code-Ausgaben vorherzusagen ist genau das, was in den eTests gefragt wird.",
+  "stat|Einführung": "Statistik schließt von einer Stichprobe auf das Ganze. Das funktioniert nur mit repräsentativen Daten, und vorher müssen grobe Fehler aussortiert werden – eine einzelne falsche Messung kann den Mittelwert stark verzerren.",
+  "stat|Matrizen": "Matrizen sind das Werkzeug für die späteren Kapitel: Ausgleichsrechnung, Varianzfortpflanzung und Regression werden alle in Matrixform geschrieben. Wichtig sind die Regeln fürs Multiplizieren, Transponieren und Invertieren.",
+  "stat|Gleichungssysteme": "Ein lineares Gleichungssystem lässt sich als A·x = b schreiben. Ob und wie viele Lösungen es gibt, verrät der Rang. Mit dem Gauß-Verfahren bringt man A auf Dreiecksform und setzt dann rückwärts ein.",
+  "dap|Daten und Befragungen": "Verkehrsplanung stützt sich auf Register, Befragungen und passive Daten. Befragungen wie die MiD liefern die reichsten Informationen über Wege und Gründe, haben aber typische Schwächen wie Nichtteilnahme und vergessene Wege.",
+  "dap|Gewichtung und Post-Processing": "Eine Stichprobe bildet die Bevölkerung nie perfekt ab. Mit Design- und Redressment-Gewichten, IPF und Imputation korrigiert man bekannte Verzerrungen, bevor hochgerechnet wird. Was durch das Thema der Befragung selbst verzerrt ist, lässt sich so aber kaum heilen.",
+  "dap|R-Grundlagen": "R arbeitet vektorbasiert: Fast alles ist ein Vektor, und Funktionen wirken auf alle Elemente zugleich. Typische Stolpersteine sind der Index ab 1, die automatische Typumwandlung in Vektoren und die Groß-/Kleinschreibung.",
+  "dap|Verteilungen": "Verteilungen beschreiben, wie wahrscheinlich welche Werte sind. Die Normalverteilung ist zentral, weil sich viele Summen zufälliger Einflüsse ihr annähern – das ist der zentrale Grenzwertsatz aus der nächsten Vorlesung."
+};

@@ -6,4 +6,4 @@ Lern-App für das Bauingenieurstudium an der RWTH: Merk- und Vorgehensfragen mit
 - iPhone: in Safari öffnen → Teilen → „Zum Home-Bildschirm“
 - Der Lernstand liegt nur auf dem Gerät. Backup unter „Lernstand → Daten sichern“.
 
-Version 1.1 · Fragen in `fragen.js`, App in `index.html`.
+Version 1.2 · Fragen in `fragen.js`, App in `index.html`.

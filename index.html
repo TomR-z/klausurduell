@@ -252,6 +252,15 @@ h2{font-size:21px;font-weight:700;letter-spacing:-.022em;margin:0}
 .fb .src svg{width:14px;height:14px}
 .fb ol{margin:0;padding-left:20px;font-size:14.5px;color:var(--ink-2);display:flex;flex-direction:column;gap:3px}
 .qfoot{padding-top:10px}
+.fig{margin:2px -4px 0;padding:10px 8px 4px;border-radius:18px;background:color-mix(in srgb,var(--glass-soft) 70%,transparent);border:1px solid var(--edge-2)}
+.fig svg{width:100%;height:auto;max-height:210px}
+.fig text{font-family:var(--font);font-size:13px}
+.more{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;font-size:14px;font-weight:650;color:var(--accent);padding:6px 0}
+.more .chev{width:8px;height:12px;color:var(--accent);transition:transform .3s}
+.more.open .chev{transform:rotate(90deg)}
+.moretext{border-top:1px solid var(--hair);padding-top:12px;display:flex;flex-direction:column;gap:4px;animation:fbIn .4s both}
+.moretext b{font-size:13px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em}
+.moretext p{font-size:15px;line-height:1.5;color:var(--ink-2)}
 /* result */
 .res{display:flex;flex-direction:column;gap:22px;align-items:stretch;padding-top:8px;animation:viewIn .5s both}
 .res .ring{width:170px;height:170px;margin:6px auto 0}
@@ -288,6 +297,91 @@ h2{font-size:21px;font-weight:700;letter-spacing:-.022em;margin:0}
 <div class="toast glass" id="toast" role="status"></div>
 
 <script src="fragen.js"></script>
+<script>
+/* Abbildungen für Bildfragen (SVG, Farben aus den Theme-Tokens) */
+const FIG = (() => {
+  const S = (inner, h=180) => `<svg viewBox="0 0 320 ${h}" role="img" aria-hidden="true">${inner}</svg>`;
+  const ink = "stroke:var(--ink);fill:none", ink2 = "fill:var(--ink-2)", acc = "stroke:var(--accent)";
+  const water = "fill:color-mix(in srgb,var(--c-hydro) 24%,transparent)";
+  const t = (x,y,s,anchor="middle",extra="") => `<text x="${x}" y="${y}" text-anchor="${anchor}" style="${ink2};${extra}">${s}</text>`;
+  const arrow = (id,col) => `<defs><marker id="${id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" style="fill:${col}"/></marker></defs>`;
+  const bell = (x0,x1,base,mu,sig,amp) => { let d=""; for(let x=x0;x<=x1;x+=3){const z=(x-mu)/sig;d+=(d?"L":"M")+x+","+(base-amp*Math.exp(-.5*z*z)).toFixed(1);} return d; };
+  return {
+    druck: () => S(arrow("ad","var(--accent)")+`
+      <rect x="40" y="35" width="130" height="115" style="${water}"/>
+      <path d="M40 35H170" style="stroke:var(--c-hydro);stroke-width:2"/><path d="M58 26l6 8 6-8z" style="fill:var(--c-hydro)"/>
+      <rect x="170" y="20" width="14" height="130" rx="2" style="fill:var(--ink-3);opacity:.55"/>
+      <path d="M20 150H300" style="${ink};stroke-width:1.5"/>
+      <path d="M184 35V150H274Z" style="fill:color-mix(in srgb,var(--accent) 16%,transparent);${acc};stroke-width:1.5"/>
+      <path d="M220 90H186M247 120H186M262 140H186" style="${acc};stroke-width:1.2" marker-end="url(#ad)"/>
+      <path d="M28 35V150M24 35H32M24 150H32" style="${ink};stroke-width:1"/>${t(16,97,"h")}
+      ${t(229,168,"ρ·g·h")}${t(296,96,"F = ?","middle","fill:var(--accent);font-weight:700")}`),
+    kapillar: () => S(`
+      <rect x="20" y="110" width="120" height="50" style="${water}"/><path d="M20 110H140" style="stroke:var(--c-hydro);stroke-width:1.5"/>
+      <path d="M72 150V62Q80 70 88 62V150Z" style="${water}"/><path d="M72 62Q80 70 88 62" style="stroke:var(--c-hydro);stroke-width:2;fill:none"/>
+      <path d="M72 30V152M88 30V152" style="${ink};stroke-width:1.5"/>
+      <rect x="180" y="110" width="120" height="50" style="fill:color-mix(in srgb,var(--ink-3) 45%,transparent)"/><path d="M180 110H300" style="stroke:var(--ink-3);stroke-width:1.5"/>
+      <path d="M232 152V128Q240 120 248 128V152Z" style="fill:color-mix(in srgb,var(--ink-3) 45%,transparent)"/><path d="M232 128Q240 120 248 128" style="stroke:var(--ink-3);stroke-width:2;fill:none"/>
+      <path d="M232 30V152M248 30V152" style="${ink};stroke-width:1.5"/>
+      ${t(80,176,"links: Wasser")}${t(240,176,"rechts: ?")}`),
+    schichtung: () => S(`
+      <rect x="40" y="30" width="100" height="50" style="fill:color-mix(in srgb,var(--warn) 22%,transparent)"/>
+      <rect x="40" y="80" width="100" height="70" style="${water}"/>
+      <path d="M40 22V150H140V22" style="${ink};stroke-width:1.5"/>${t(90,60,"?")}${t(90,120,"Wasser")}
+      <path d="M160 30V150" style="${ink};stroke-width:1.2"/><path d="M160 30L190 80L260 150H160Z" style="fill:color-mix(in srgb,var(--accent) 16%,transparent);${acc};stroke-width:1.8"/>
+      <path d="M40 80H290" style="stroke:var(--ink-3);stroke-dasharray:4 4"/>${t(262,166,"p")}${t(168,22,"Tiefe ↓","start")}`),
+    schwimmen: () => S(`
+      <rect x="20" y="95" width="280" height="70" style="${water}"/><path d="M20 95H300" style="stroke:var(--c-hydro);stroke-width:2"/>
+      <rect x="110" y="60" width="100" height="80" rx="4" style="fill:var(--glass-strong);stroke:var(--ink);stroke-width:1.5"/>
+      <path d="M234 60V140M230 60H238M230 140H238" style="${ink};stroke-width:1"/>${t(244,104,"H","start")}
+      <path d="M266 95V140M262 95H270M262 140H270" style="${ink};stroke-width:1"/>${t(274,122,"h_W","start")}
+      <path d="M92 60V95M88 60H96M88 95H96" style="${acc};stroke-width:2"/>${t(82,82,"?","end","fill:var(--accent);font-weight:700;font-size:16px")}`),
+    sigeps: () => S(`
+      <path d="M40 15V155H305" style="${ink};stroke-width:1.5"/>${t(300,172,"ε","end")}${t(30,22,"σ","end")}
+      <path d="M40 155L112 50" style="stroke:var(--c-bauko);stroke-width:2.2;fill:none"/><path d="M106 44l12 12M118 44l-12 12" style="stroke:var(--c-bauko);stroke-width:1.5"/>${t(124,42,"A","start","font-weight:700")}
+      <path d="M40 155L70 82H130Q190 82 232 48L255 58" style="stroke:var(--accent);stroke-width:2.2;fill:none"/>${t(262,60,"B","start","font-weight:700")}
+      <path d="M40 155Q210 152 292 92" style="stroke:var(--c-stat);stroke-width:2.2;fill:none"/>${t(296,92,"C","start","font-weight:700")}
+      <path d="M40 155Q75 95 120 98Q160 102 190 132" style="stroke:var(--c-bsk);stroke-width:2.2;fill:none"/>${t(118,90,"D","middle","font-weight:700")}`),
+    woehler: () => S(`
+      <path d="M45 15V150H305" style="${ink};stroke-width:1.5"/>${t(300,168,"Lastspiele N (log)","end")}${t(38,24,"σ_a","end")}
+      <path d="M52 34Q120 50 175 108Q190 116 205 116H300" style="${acc};stroke-width:2.4;fill:none"/>
+      <path d="M205 116H300" style="stroke:var(--accent);stroke-width:5;opacity:.25"/>${t(252,104,"?","middle","fill:var(--accent);font-weight:700")}`),
+    pfettendach: () => S(`
+      <path d="M30 142H290" style="${ink};stroke-width:3"/>
+      <path d="M40 140L160 38L280 140" style="stroke:var(--c-bsk);stroke-width:5;fill:none;stroke-linejoin:round"/>
+      <rect x="94" y="90" width="13" height="13" style="fill:var(--c-bauko)"/><rect x="214" y="90" width="13" height="13" style="fill:var(--c-bauko)"/>
+      <rect x="97" y="103" width="7" height="38" style="fill:var(--ink-3)"/><rect x="217" y="103" width="7" height="38" style="fill:var(--ink-3)"/>
+      ${t(56,98,"①","middle","font-size:17px;font-weight:700")}${t(132,108,"②","middle","font-size:17px;font-weight:700")}${t(84,130,"③","middle","font-size:17px;font-weight:700")}`),
+    traeger: () => S(arrow("aq","var(--accent)")+`
+      <path d="M50 36H270" style="${acc};stroke-width:1.5"/>${[50,72,94,116,138,160,182,204,226,248,270].map(x=>`<path d="M${x} 36V64" style="${acc};stroke-width:1.2" marker-end="url(#aq)"/>`).join("")}${t(160,28,"q","middle","fill:var(--accent);font-weight:700")}
+      <path d="M50 70H270" style="stroke:var(--ink);stroke-width:5"/>
+      <path d="M50 72l-10 18h20z" style="fill:none;stroke:var(--ink);stroke-width:1.5"/><circle cx="270" cy="80" r="8" style="fill:none;stroke:var(--ink);stroke-width:1.5"/><path d="M36 92H64M256 90H284" style="${ink};stroke-width:1.5"/>
+      ${t(50,110,"A")}${t(270,110,"B")}<path d="M50 128H270M50 122V134M270 122V134" style="${ink};stroke-width:1"/>${t(160,148,"l")}`),
+    wurf: () => S(`
+      <path d="M20 150H300" style="${ink};stroke-width:1.5"/><path d="M40 150Q160 -30 280 150" style="stroke:var(--accent);stroke-width:2.2;fill:none;stroke-dasharray:6 5"/>
+      <circle cx="40" cy="150" r="6" style="fill:var(--accent)"/><circle cx="160" cy="60" r="6" style="fill:var(--accent)"/><circle cx="280" cy="150" r="6" style="fill:var(--accent)"/>
+      ${t(40,172,"① Abwurf")}${t(160,46,"② Scheitel")}${t(280,172,"③ Aufprall")}`),
+    kreis: () => S(arrow("ak","var(--ink)")+`
+      <circle cx="160" cy="98" r="62" style="stroke:var(--ink-3);fill:none;stroke-width:1.5;stroke-dasharray:5 5"/><circle cx="160" cy="98" r="3" style="fill:var(--ink-3)"/>${t(170,112,"M","start")}
+      <circle cx="160" cy="36" r="6" style="fill:var(--accent)"/>
+      <path d="M166 36H226" style="${ink};stroke-width:2" marker-end="url(#ak)"/>${t(236,40,"A","start","font-weight:700")}
+      <path d="M160 42V80" style="${ink};stroke-width:2" marker-end="url(#ak)"/>${t(146,72,"B","end","font-weight:700")}
+      <path d="M160 30V6" style="${ink};stroke-width:2" marker-end="url(#ak)"/>${t(146,14,"C","end","font-weight:700")}`),
+    normal: () => S(`
+      <path d="${bell(30,290,150,160,45,115)}V150H30Z" style="fill:color-mix(in srgb,var(--c-dap) 10%,transparent)"/>
+      <path d="${bell(115,205,150,160,45,115)}V150H115Z" style="fill:color-mix(in srgb,var(--c-dap) 35%,transparent)"/>
+      <path d="${bell(30,290,150,160,45,115)}" style="stroke:var(--c-dap);stroke-width:2.2;fill:none"/>
+      <path d="M20 150H300" style="${ink};stroke-width:1.5"/><path d="M160 150V35" style="stroke:var(--ink-3);stroke-dasharray:4 4"/>
+      ${t(115,168,"μ − σ")}${t(160,168,"μ")}${t(205,168,"μ + σ")}`),
+    pdfcdf: () => S(`
+      <path d="M20 140H150M20 140V30" style="${ink};stroke-width:1.2"/><path d="${bell(22,148,140,85,24,95)}" style="stroke:var(--c-dap);stroke-width:2.2;fill:none"/>${t(85,162,"Kurve A","middle","font-weight:700")}
+      <path d="M170 140H300M170 140V30" style="${ink};stroke-width:1.2"/><path d="M172 138C215 138 222 44 298 42" style="stroke:var(--accent);stroke-width:2.2;fill:none"/><path d="M170 42H300" style="stroke:var(--ink-3);stroke-dasharray:3 4"/>${t(165,46,"1","end")}${t(235,162,"Kurve B","middle","font-weight:700")}`),
+    matrix: () => { const g=(x,y,r,c,col)=>{let s="";for(let i=0;i<r;i++)for(let j=0;j<c;j++)s+=`<rect x="${x+j*16}" y="${y+i*16}" width="14" height="14" rx="3" style="fill:color-mix(in srgb,${col} 30%,transparent)"/>`;return s;};
+      return S(g(20,60,2,3,"var(--c-stat)")+t(94,82,"·","middle","font-size:24px")+g(112,44,3,4,"var(--accent)")+t(196,82,"=","middle","font-size:22px")+`<rect x="214" y="50" width="70" height="50" rx="8" style="fill:none;stroke:var(--ink-3);stroke-dasharray:5 4"/>`+t(249,82,"?","middle","font-size:20px;font-weight:700")+t(44,124,"(2, 3)")+t(144,124,"(3, 4)"), 150); }
+  };
+})();
+
+</script>
 <script>
 (() => {
 const FACH = {
@@ -333,10 +427,13 @@ const cssC = f => `var(--c-${f})`;
 /* ids */
 function hash(s){let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return (h>>>0).toString(36)}
 FRAGEN.forEach(q => q.id = q.f + "-" + hash(q.q + (q.a ? q.a[0] : "") + (q.steps ? q.steps[0] : "") + (q.pairs ? q.pairs[0][0] : "")));
+/* v1.2: Umformulierungen und Bilder nach der ID-Vergabe anwenden (Lernstand bleibt) */
+if (typeof EXTRA !== "undefined") FRAGEN.forEach(q => { const x = EXTRA[q.q]; if (x) Object.assign(q, x); });
+if (typeof ORDNE_ZU !== "undefined") FRAGEN.forEach(q => { if (q.q === "Ordne zu.") { const k = q.f === "binf" ? (q.pairs[0][0] === "JDK" ? "binf_tools" : "binf_typ") : q.f; if (ORDNE_ZU[k]) q.q = ORDNE_ZU[k]; } });
 const BYID = Object.fromEntries(FRAGEN.map(q => [q.id, q]));
 
 /* storage */
-const APP_VERSION = "1.1";
+const APP_VERSION = "1.2";
 const KEY = "klausurduell.v1";
 let S = {cards:{}, days:{}};
 try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch(e) {}
@@ -494,8 +591,8 @@ function renderQ(){
   Q.state = {done:false};
   let body="";
   if(q.typ==="mc"){
-    Q.state.opts = shuffle(q.a.map((t,k)=>({t,ok:k===0})));
-    body = `<div class="opts">${Q.state.opts.map((o,k)=>`<button class="opt glass press" data-act="mc" data-k="${k}"><span class="k">${"ABCD"[k]}</span><span>${esc(o.t)}</span></button>`).join("")}</div>`;
+    Q.state.opts = q.v && q.a.every(x=>/^(Linie|Kurve|Pfeil) /.test(x)) ? q.a.map((t,k)=>({t,ok:k===0})).sort((x,y)=>x.t.localeCompare(y.t,"de")) : shuffle(q.a.map((t,k)=>({t,ok:k===0})));
+    body = `<div class="opts">${Q.state.opts.map((o,k)=>`<button class="opt glass press" data-act="mc" data-k="${k}"><span class="k">${q.v ? "" : "ABCD"[k]}</span><span>${esc(o.t)}</span></button>`).join("")}</div>`;
   } else if(q.typ==="wf"){
     body = `<div class="wfrow"><button class="wf glass press" data-act="wf" data-v="1">${I.check}Wahr</button><button class="wf glass press" data-act="wf" data-v="0">${I.x}Falsch</button></div>`;
   } else if(q.typ==="ord"){
@@ -508,7 +605,7 @@ function renderQ(){
   }
   el.innerHTML = `<div class="ambient tint" style="--tint:${cssC(q.f)}"><i></i><i></i><i></i><i></i></div>
   <div class="qwrap"><div class="qtop"><button class="round glass press" data-act="quit" aria-label="Beenden">${I.close}</button><div class="seg">${segs()}</div><span class="qcount">${Q.i+1}/${Q.list.length}</span></div>
-  <div class="qbody" id="qbody"><div class="qcard glass" style="--c:${cssC(q.f)}"><div class="qmeta"><span class="dot"></span><span class="lab">${FACH[q.f].n} · ${esc(q.t)}</span><span class="typ">${TYPNAME[q.typ]}</span></div><div class="qtext">${esc(q.q)}</div></div>${body}<div id="fb"></div></div>
+  <div class="qbody" id="qbody"><div class="qcard glass" style="--c:${cssC(q.f)}"><div class="qmeta"><span class="dot"></span><span class="lab">${FACH[q.f].n} · ${esc(q.t)}</span><span class="typ">${q.v ? "Bild" : TYPNAME[q.typ]}</span></div><div class="qtext">${esc(q.q)}</div>${q.v && typeof FIG!=="undefined" && FIG[q.v] ? `<div class="fig">${FIG[q.v]()}</div>` : ""}</div>${body}<div id="fb"></div></div>
   <div class="qfoot" id="qfoot"></div></div>`;
   if(q.typ==="ord") drawOrd(); if(q.typ==="pair") drawPairs();
   el.querySelector("#qbody").scrollTop=0;
@@ -537,7 +634,7 @@ function record(ok){
   const extra = q.typ==="ord" && !ok ? `<ol>${q.steps.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>` : "";
   const pairExtra = q.typ==="pair" && !ok ? `<p style="color:var(--ink-2);font-size:14px">${Q.state.miss} ${Q.state.miss===1?"Fehlversuch":"Fehlversuche"} beim Zuordnen – die Frage kommt bald wieder.</p>` : "";
   $("#fb").innerHTML = `<div class="fb glass"><div class="fh"><span class="badge ${ok?"ok":"no"}">${ok?I.check:I.x}</span><b>${ok?["Richtig","Genau","Sitzt"][Math.floor(Math.random()*3)]:"Nicht ganz"}</b></div>
-    ${extra}${pairExtra}<p>${q.typ==="wf" ? `<b>Die Aussage ist ${q.c?"wahr":"falsch"}.</b> `+esc(q.e.replace(/^(Richtig|Falsch)\s*[.–-]?\s*/,"").replace(/^./,c=>c.toUpperCase())) : esc(q.e)}</p><div class="src">${I.book}${esc(q.s)}</div></div>`;
+    ${extra}${pairExtra}<p>${q.typ==="wf" ? `<b>Die Aussage ist ${q.c?"wahr":"falsch"}.</b> `+esc(q.e.replace(/^(Richtig|Falsch)\s*[.–-]?\s*/,"").replace(/^./,c=>c.toUpperCase())) : esc(q.e)}</p><div class="src">${I.book}${esc(q.s)}</div>${typeof THEMEN!=="undefined" && THEMEN[q.f+"|"+q.t] ? `<button class="more press" data-act="more">Mehr erfahren ${I.chev}</button><div class="moretext" hidden><b>${esc(q.t)}</b><p>${esc(THEMEN[q.f+"|"+q.t])}</p></div>` : ""}</div>`;
   $("#qfoot").innerHTML = `<button class="cta press" data-act="next">${Q.i<Q.list.length-1?"Weiter":"Ergebnis ansehen"}</button>`;
   document.querySelector(".seg").innerHTML = segs().replace('class="cur"', `class="${ok?"r":"f"}"`);
   setTimeout(()=>{const b=$("#qbody"); b.scrollTo({top:b.scrollHeight,behavior:"smooth"});},60);
@@ -572,6 +669,7 @@ document.addEventListener("click", e => {
   else if(a==="export") exportBackup();
   else if(a==="import") $("#importFile").click();
   else if(a==="reload") location.reload();
+  else if(a==="more"){ const m=b.nextElementSibling; m.hidden=!m.hidden; b.classList.toggle("open",!m.hidden); if(!m.hidden) setTimeout(()=>m.scrollIntoView({behavior:"smooth",block:"nearest"}),50); }
   else if(a==="reset-yes"){ S={cards:{},days:{}}; save(); closeSheet(); render(); toast("Fortschritt zurückgesetzt"); }
   else if(a==="close") closeSheet();
   else if(a==="quit"||a==="done") endQuiz();
