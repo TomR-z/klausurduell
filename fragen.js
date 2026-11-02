@@ -698,7 +698,7 @@ aufgabe({
    "r": "V = 3,923 / (1000 · 9,81) = 0,400 · 10⁻³ m³ = 0,400 l"
   },
   {
-   "f": "Was brauchst du außerdem?",
+   "f": "Du kennst jetzt das Volumen. Welche zweite Größe brauchst du, um Kupfer und Zink auseinanderzurechnen?",
    "o": [
     [
      "Die Masse m = F_G / g",
@@ -720,7 +720,7 @@ aufgabe({
    "r": "m = 32,079 / 9,81 = 3,270 kg"
   },
   {
-   "f": "Wie bestimmst du m_Cu und m_Zn?",
+   "f": "Wie stellst du daraus die Gleichungen für m_Cu und m_Zn auf?",
    "o": [
     [
      "Zwei Gleichungen: Massen addieren sich, Volumina addieren sich",
@@ -742,7 +742,7 @@ aufgabe({
    "r": "m_Cu + m_Zn = 3,270 kg\nm_Cu/8930 + m_Zn/7100 = 0,400 · 10⁻³ m³"
   },
   {
-   "f": "Wie löst du das System am schnellsten?",
+   "f": "Zwei Gleichungen, zwei Unbekannte – wie löst du das System am schnellsten?",
    "o": [
     [
      "Eine Gleichung nach m_Zn umstellen und in die andere einsetzen",
@@ -764,7 +764,7 @@ aufgabe({
    "r": "m_Cu ≈ 2,10 kg · m_Zn ≈ 1,17 kg"
   },
   {
-   "f": "Und die Dichte des Messings?",
+   "f": "Zum Schluss: Wie bekommst du die Dichte des Messings?",
    "o": [
     [
      "ρ = m / V",
@@ -807,7 +807,7 @@ aufgabe({
  "ges": "Druck p₂ im Querschnitt 2, Verlauf von Energie- und Drucklinie",
  "schritte": [
   {
-   "f": "Womit beginnst du?",
+   "f": "Für Bernoulli brauchst du v₁ und v₂. Womit beginnst du?",
    "o": [
     [
      "Geschwindigkeiten aus der Kontinuität v = Q/A",
@@ -829,7 +829,7 @@ aufgabe({
    "r": "v₁ = 10/1 = 10 m/s · v₂ = 10/2 = 5 m/s"
   },
   {
-   "f": "Welchen Bezugshorizont wählst du?",
+   "f": "Für die Lagehöhen z₁ und z₂: Welchen Bezugshorizont wählst du?",
    "o": [
     [
      "Die Rohrachse – dann ist z₁ = z₂ = 0",
@@ -851,7 +851,7 @@ aufgabe({
    "r": "z₁ = z₂ = 0"
   },
   {
-   "f": "Was setzt du zwischen 1 und 2 gleich?",
+   "f": "Was setzt du zwischen Querschnitt 1 und 2 gleich, um an p₂ zu kommen?",
    "o": [
     [
      "Die Energiehöhen: p/(ρg) + v²/(2g) in 1 und 2",
@@ -873,7 +873,7 @@ aufgabe({
    "r": "p₁/(ρg) + v₁²/(2g) = p₂/(ρg) + v₂²/(2g)"
   },
   {
-   "f": "Wie rechnest du am bequemsten weiter?",
+   "f": "Druck und Geschwindigkeit haben verschiedene Einheiten. Wie bringst du sie zusammen?",
    "o": [
     [
      "Alles in Höhen [m] umrechnen",
@@ -957,7 +957,7 @@ aufgabe({
  "ges": "Grenztiefe, Grenzgeschwindigkeit, Mindestenergiehöhe und der Fließzustand bei h = 0,40 m und h = 1,50 m",
  "schritte": [
   {
-   "f": "Was rechnest du zuerst?",
+   "f": "Für Grenztiefe und Grenzgeschwindigkeit: Was rechnest du zuerst?",
    "o": [
     [
      "Den Abfluss pro Meter Breite q = Q/b",
@@ -1023,7 +1023,7 @@ aufgabe({
    "r": "v_gr = 2/0,74 = 2,70 m/s · Probe: √(9,81 · 0,74) = 2,70 m/s ✓"
   },
   {
-   "f": "Und die Mindestenergiehöhe?",
+   "f": "Jetzt die Mindestenergiehöhe – wie bekommst du sie?",
    "o": [
     [
      "h_E,min = 1,5 · h_gr",
@@ -1067,7 +1067,7 @@ aufgabe({
    "r": "v = 2/0,40 = 5,0 m/s · Fr = 5,0/√(9,81 · 0,40) = 2,52 > 1\nh_E = 0,40 + 5,0²/(2 · 9,81) = 1,67 m"
   },
   {
-   "f": "Und bei h = 1,50 m?",
+   "f": "Welcher Fließzustand liegt bei h = 1,50 m vor?",
    "o": [
     [
      "Strömen – h liegt über der Grenztiefe, Fr < 1",
@@ -1132,7 +1132,7 @@ aufgabe({
  "ges": "Querschnitt, Biege- und Schubnachweis",
  "schritte": [
   {
-   "f": "Womit startest du?",
+   "f": "Ziel sind Biege- und Schubnachweis. Womit startest du?",
    "o": [
     [
      "Schnittgrößen je Lastart getrennt berechnen",
@@ -1154,7 +1154,7 @@ aufgabe({
    "r": "A_g = 3 · 4/2 = 6 kN · M_g = 3 · 4²/8 = 6 kNm\nA_q = 3 kN · M_q = 1,5 · 4²/8 = 3 kNm"
   },
   {
-   "f": "Welche kmod-Werte gelten?",
+   "f": "Für die Kombinationen brauchst du kmod. Welche Werte gelten?",
    "o": [
     [
      "g ständig → 0,6 · q kurz → 0,9",
@@ -1198,7 +1198,7 @@ aufgabe({
    "r": "nur g: 1,35 · 6 = 8,1 kNm → /0,6 = 13,5\ng + q: 1,35 · 6 + 1,5 · 3 = 12,6 kNm → /0,9 = 14,0 ✓\nM_Ed = 12,6 kNm · V_Ed = 12,6 kN · k_mod = 0,9"
   },
   {
-   "f": "Wie wählst du den Querschnitt?",
+   "f": "M_Ed steht fest. Wie wählst du den Querschnitt?",
    "o": [
     [
      "erf W aus M_Ed/(k_h · f_m,d), dann aus der Tabelle wählen",
@@ -1440,7 +1440,7 @@ aufgabe({
  "ges": "Druckspannungen, geeigneter Werkstoff, Stauchung mit und ohne Erwärmung",
  "schritte": [
   {
-   "f": "Womit beginnst du?",
+   "f": "Gegeben ist eine Masse in Tonnen. Was ist der erste Schritt zur Spannung?",
    "o": [
     [
      "Die Masse in eine Kraft umrechnen: F = m · g",
@@ -1484,7 +1484,7 @@ aufgabe({
    "r": "rund: A = π · 150²/4 = 17 671 mm² → σ = 24,4 N/mm²\nquadratisch: A = 22 500 mm² → σ = 19,2 N/mm²"
   },
   {
-   "f": "Welche Kombination ist geeignet?",
+   "f": "Welche Kombination aus Werkstoff und Querschnitt trägt die Last sicher?",
    "o": [
     [
      "Beton mit rundem Querschnitt: Ausnutzung rund 49 %",
@@ -1591,7 +1591,7 @@ aufgabe({
    "r": "x(t) = v₀ cos α · t\ny(t) = v₀ sin α · t − ½ g t²"
   },
   {
-   "f": "Was bestimmst du zuerst?",
+   "f": "Um die Höhe an der Wand zu finden: Was bestimmst du zuerst?",
    "o": [
     [
      "Die Flugzeit bis zur Wand aus x(t) = D",
@@ -1657,7 +1657,7 @@ aufgabe({
    "r": "v_x = v₀ cos α"
   },
   {
-   "f": "Und die vertikale Geschwindigkeit?",
+   "f": "Wie groß ist die vertikale Geschwindigkeit an der Wand?",
    "o": [
     [
      "v_y = v₀ sin α − g · t_W",
@@ -1763,7 +1763,7 @@ aufgabe({
    "r": "v_hin = v_FL − v_LB · v_rück = v_FL + v_LB"
   },
   {
-   "f": "Wie kombinierst du die beiden Zeiten?",
+   "f": "Wie bekommst du daraus die Gesamtzeit für Hin- und Rückflug?",
    "o": [
     [
      "Beide Zeiten einzeln berechnen und addieren",
@@ -2028,7 +2028,7 @@ aufgabe({
    "r": "rechts unten: 6 + 6 + 4 = 16 · links unten: 6 + 2 + 12 = 20\ndet A = 16 − 20 = −4 ≠ 0 → eindeutig lösbar"
   },
   {
-   "f": "Wie löst du das System geschickt?",
+   "f": "det A ≠ 0, es gibt also genau eine Lösung. Wie findest du sie geschickt?",
    "o": [
     [
      "II − I bilden: x₂ und x₃ fallen weg",
@@ -2050,7 +2050,7 @@ aufgabe({
    "r": "(2 − 1)x₁ = 4 − 1 → x₁ = 3"
   },
   {
-   "f": "Wie geht es weiter?",
+   "f": "x₁ = 3 ist bekannt. Wie bekommst du x₂ und x₃?",
    "o": [
     [
      "x₁ einsetzen und III − I bilden",
@@ -2171,7 +2171,7 @@ aufgabe({
    "r": "III′ = (0 1 2)"
   },
   {
-   "f": "Und die 1 in der zweiten Spalte von III′?",
+   "f": "In III′ steht in der zweiten Spalte noch eine 1. Wie eliminierst du sie?",
    "o": [
     [
      "III′ − II",
@@ -2402,7 +2402,7 @@ aufgabe({
    ]
   },
   {
-   "f": "Was ist der erste Schritt?",
+   "f": "Womit beginnst du die Anpassung?",
    "o": [
     [
      "Zeilenfaktor = Ziel / jetzt, ganze Zeile damit multiplizieren",
@@ -2446,7 +2446,7 @@ aufgabe({
    "r": "Spaltenfaktoren: ohne Pkw 13,2/7,2 = 1,83 · mit Pkw 86,8/92,8 = 0,94"
   },
   {
-   "f": "Was ist der zweite Schritt?",
+   "f": "Wie bringst du jetzt die Spalten auf ihre Zielwerte?",
    "o": [
     [
      "Jede Spalte mit ihrem Spaltenfaktor multiplizieren",
@@ -2492,3 +2492,231 @@ aufgabe({
  ],
  "fazit": "IPF: Zeilen anpassen, Spalten anpassen, wiederholen. Es braucht nur die Randverteilungen der Grundgesamtheit, nicht die einzelnen Zellen."
 });
+
+/* ═════════ Patch 1.4 · eingespielt 02.11.2026 ═════════ */
+/* Patch 1.4 · erstellt 02.11.2026 · Korrekturen nach Toms Test
+   KORREKTUR: Felder je Frage-ID überschreiben (Lernstand bleibt). 70 ausführlichere Erklärungen, Durchbiegung als Auswahlfrage */
+const KORREKTUR = {
+"hydro-1aedhad": {
+"e": "p = ρ·g·z: Doppelte Tiefe heißt doppelter Druck. Der Druck wächst also linear – deshalb ist die Druckfigur an einer senkrechten Wand ein Dreieck."
+},
+"hydro-15hgt78": {
+"e": "In derselben ruhenden, zusammenhängenden Flüssigkeit herrscht auf jeder waagerechten Ebene derselbe Druck – egal wie breit die Röhre ist. Damit löst du jedes Manometer und U-Rohr."
+},
+"phys-2g2zee": {
+"e": "Variablen wie m, v oder t stehen kursiv, Konstanten und Einheiten wie π oder m (Meter) aufrecht. Vektoren schreibt man zusätzlich fett oder mit Pfeil."
+},
+"phys-1lk98g4": {
+"e": "v = dx/dt: Die Geschwindigkeit sagt, wie schnell sich der Ort ändert. Leitet man die Geschwindigkeit noch einmal ab, erhält man die Beschleunigung a = dv/dt."
+},
+"phys-y8fvi3": {
+"e": "Die Steigung der Tangente im x(t)-Diagramm ist dx/dt = v. Die Beschleunigung liest man erst im v(t)-Diagramm als Steigung ab."
+},
+"phys-172no65": {
+"e": "a·b = |a|·|b|·cos 90° = 0, weil cos 90° = 0 ist. Das Skalarprodukt ist eine Zahl, kein Vektor – deshalb prüft man damit, ob zwei Vektoren senkrecht stehen."
+},
+"phys-1w6izjb": {
+"e": "Ohne Luftwiderstand wirkt nur die Schwerkraft: a = −g·e_y, auf der ganzen Bahn gleich – auch im Scheitel. Waagerecht gibt es keine Beschleunigung, v_x bleibt konstant."
+},
+"phys-1l9rk00": {
+"e": "Im Scheitel ist nur v_y = 0. Der Ball fliegt mit v_x weiter, und g wirkt weiter nach unten – weder die Geschwindigkeit noch die Beschleunigung ist null."
+},
+"bsk-1etwl4g": {
+"e": "Um 1850 entstanden die ersten Bauteile aus eisenbewehrtem Beton, 1867 folgte Moniers Patent. Spannbeton kam erst um 1930, der römische Beton (ca. 100 v. Chr.) hatte keine Bewehrung."
+},
+"bsk-19xavjv": {
+"e": "Vereinbarung: Druck negativ, Zug positiv. Deshalb haben Stauchungen ein Minus, etwa ε = −0,6 ‰ bei der Betonstütze aus Ü01."
+},
+"bauko-17j0mws": {
+"e": "Ständige Lasten wie das Eigengewicht kennt man genau, sie streuen wenig – deshalb reicht 1,35. Die 1,50 ist γ_Q für veränderliche Lasten wie Nutzlast, Schnee und Wind, die viel unsicherer sind. Wirkt eine ständige Last günstig, setzt man γ_G = 1,00 an."
+},
+"bauko-afvv76": {
+"e": "Vereinbarung bei c_pe: Plus heißt Druck auf die Fläche, Minus heißt Sog – der Wind zieht an der Fläche. Das gilt in allen Bereichen gleich."
+},
+"bauko-zfi11p": {
+"e": "Beim Durchlaufträger ist A nicht einfach q·l/2. Man nimmt Tafelwert × q × l, z. B. beim Zweifeldträger A = 0,375·q·l und B = 1,25·q·l – die Mittelstütze bekommt mehr."
+},
+"bauko-1j1gkm2": {
+"e": "γ_M = 1,3 ist der Materialbeiwert für Holz. Damit gilt f_d = kmod · f_k / γ_M. Zum Vergleich: Baustahl γ_M0 = 1,0, Betonstahl γ_S = 1,15."
+},
+"bauko-h48m33": {
+"e": "Hält das Eigengewicht gegen das Abheben, darf man es nicht vergrößern – das läge auf der unsicheren Seite. Deshalb γ_G = 1,0 statt 1,35. Ganz weglassen darf man es aber nicht, es ist ja vorhanden."
+},
+"binf-vuzr0z": {
+"e": "Das JDK braucht man zum Programmieren – es enthält den Compiler javac. Das JRE reicht nur zum Ausführen. Eclipse ist die IDE aus der Übung, und javac übersetzt den Quelltext in plattformunabhängigen Bytecode."
+},
+"binf-17sbrm4": {
+"e": "println hängt nach der Ausgabe einen Zeilenumbruch an, print nicht – die nächste Ausgabe steht dann direkt dahinter. Beide geben Texte, Zahlen und Wahrheitswerte aus."
+},
+"binf-1dxe92g": {
+"e": "java.lang ist immer verfügbar, ohne import. Darin stecken String, System und Math. Für Scanner aus java.util brauchst du dagegen ein import."
+},
+"binf-1v7o0hj": {
+"e": "class ist ein reserviertes Schlüsselwort, \"Hallo\" ein fester Wert (Literal), summe ein selbst gewählter Name (Bezeichner) und ; trennt Anweisungen (Separator). Dazu kommen Operatoren wie = + == &&."
+},
+"binf-f3uvr5": {
+"e": "byte hat 8 Bit, also 256 Werte. Weil auch negative Zahlen dabei sind, reicht er von −128 bis 127. 0 … 255 wäre ein Byte ohne Vorzeichen – das gibt es in Java nicht."
+},
+"binf-1glct40": {
+"e": "Falsch – Java nutzt den Punkt: 2.5. Das Komma trennt in Java Parameter, etwa in Math.max(2, 5)."
+},
+"stat-1mansf7": {
+"e": "Die Länge ist die Zufallsvariable, jede Messung eine Realisierung. Alle möglichen Längen bilden die Grundgesamtheit, die wiederholten Messungen die Stichprobe. „Eine Messung ist keine Messung!“"
+},
+"stat-1o65oqa": {
+"e": "i ist die Zeile, j die Spalte – „Zeile zuerst, Spalte später“. a₂₃ steht also in Zeile 2, Spalte 3."
+},
+"stat-w1qpum": {
+"e": "Beim Transponieren werden Zeilen zu Spalten: Aus (m, n) wird (n, m). Quadratisch wird die Matrix dadurch nicht, und die Werte behalten ihr Vorzeichen."
+},
+"stat-kniqu7": {
+"e": "Die inneren Zahlen müssen gleich sein (3 = 3), die äußeren bleiben übrig → (2, 4). Andersherum, (3, 4)·(2, 3), wäre das Produkt nicht definiert."
+},
+"stat-1k4n50j": {
+"e": "Symmetrisch heißt A = A′, also spiegelgleich zur Diagonale. Die Einheitsmatrix ist eine besondere Diagonalmatrix mit lauter Einsen. Schiefsymmetrisch wäre A = −A′."
+},
+"stat-jb0678": {
+"e": "det A = 0 heißt: Die Zeilen sind linear abhängig, A ist singulär und hat keine Inverse. Ein System Ax = b ist dann nicht eindeutig lösbar."
+},
+"stat-1vax8ar": {
+"e": "Bei einer Dreiecksmatrix ist die Determinante das Produkt der Diagonale. Die Summe der Diagonale ist etwas anderes: die Spur."
+},
+"stat-5jgbsi": {
+"e": "Orthogonal heißt senkrecht: a′b = 0. Parallele Vektoren haben dagegen ein Kreuzprodukt von 0. Orthonormal sind sie, wenn zusätzlich beide die Länge 1 haben."
+},
+"stat-600vua": {
+"e": "Alle Zeilenumformungen wirken auf beide Seiten. Steht links I, steht rechts A⁻¹. Entsteht links eine Nullzeile, ist det A = 0 und es gibt keine Inverse."
+},
+"dap-14vjgrr": {
+"e": "Ein Vektor hat nur einen Typ, eine Liste darf alles mischen. Eine Matrix ist ein Vektor mit zwei Dimensionen, ein Data Frame eine Liste gleich langer Spalten – also eine Tabelle."
+},
+"dap-1sgpysp": {
+"e": "sd() und var() teilen durch n − 1. So schätzen sie die Streuung der Grundgesamtheit aus einer Stichprobe, ohne sie systematisch zu unterschätzen."
+},
+"dap-hjo7uh": {
+"e": "each = 2 wiederholt jedes Element einzeln: 1 1 2 2. times = 2 wiederholt den ganzen Vektor: 1 2 1 2."
+},
+"dap-7so915": {
+"e": "R füllt Matrizen standardmäßig Spalte für Spalte (byrow = FALSE): erste Spalte 5, 6 – zweite Spalte 7, 8. Zeilenweise füllt R nur mit byrow = TRUE, dann stünde 5, 6 in der ersten Zeile."
+},
+"dap-o0fj1t": {
+"e": "Die Standardnormalverteilung hat Mittelwert 0 und Standardabweichung 1: z ~ N(0, 1). Ihre Verteilungsfunktion heißt Φ(z). σ = 0 hieße gar keine Streuung."
+},
+"hydro-d4n2dr": {
+"e": "Potentialströmung heißt: keine Reibung und keine Drehung der Wasserteilchen (wirbelfrei). Das Gegenstück ist die Wirbelströmung."
+},
+"hydro-55jklh": {
+"e": "Leistung ist Energie pro Zeit: P = E/t in Watt = J/s. Joule ist die Einheit der Energie, N·s die des Impulses, Pa die des Drucks."
+},
+"bauko-mqtpgg": {
+"e": "s_k ist die Schneelast am Boden – sie hängt nur von der Schneelastzone und der Geländehöhe ab. Die Dachneigung kommt erst über den Formbeiwert dazu: s = μ₁ · s_k."
+},
+"bauko-ywnwk6": {
+"e": "Zwischen zwei Tabellenwerten wird linear interpoliert, wie in Ü02 bei α = 35° zwischen 30° und 45°. Einfach den kleineren Wert zu nehmen, kann auf der unsicheren Seite liegen."
+},
+"bauko-14ormv2": {
+"e": "k_h erhöht die Biegefestigkeit nur bei niedrigen Querschnitten. Ab h = 150 mm gilt k_h = 1,0, darunter steigt er bis höchstens 1,3."
+},
+"bsk-xvsjup": {
+"e": "Enge Kapillaren saugen höher, weite schneller. Die Steighöhe wächst, je kleiner der Radius ist."
+},
+"bsk-xoj0q8": {
+"e": "Luft leitet Wärme schlecht. Viele Poren heißen viel eingeschlossene Luft – deshalb dämmen leichte, poröse Stoffe gut. Feuchte verschlechtert die Dämmung, weil Wasser die Luft verdrängt."
+},
+"bsk-1uj5ag0": {
+"e": "Bei Brinell drückt man eine Kugel ein und vermisst den Eindruck. Der Pendelschlag auf eine gekerbte Probe ist der Kerbschlagversuch, das Ziehen bis zum Bruch der Zugversuch."
+},
+"bsk-1a3v4cm": {
+"e": "Ab etwa 10⁶ Lastspielen verläuft die Wöhlerlinie bei Stahl praktisch waagerecht. Spannungen darunter hält das Bauteil beliebig oft aus – das ist die Dauerfestigkeit."
+},
+"phys-1xj6od8": {
+"e": "a = dv/dt = d²x/dt²: Die Beschleunigung ist die Änderung der Geschwindigkeit. Das Integral der Geschwindigkeit ergibt dagegen den Ort."
+},
+"phys-1spxrz1": {
+"e": "Ein Einheitsvektor hat immer den Betrag 1. Man erhält ihn, indem man einen Vektor durch seinen Betrag teilt: e = a/|a|. Er gibt nur die Richtung an."
+},
+"phys-nnpp3p": {
+"e": "Eine Umdrehung sind 2π, und sie dauert T – also ω = 2π/T. ω = 1/T wäre die Frequenz f, also Umdrehungen pro Sekunde."
+},
+"phys-so8o5a": {
+"e": "v = ω·r: Weiter außen legt ein Punkt pro Umdrehung mehr Weg zurück. Gleichwertig ist v = 2πr/T."
+},
+"phys-871r7i": {
+"e": "a = v²/r, sie zeigt zum Kreismittelpunkt. Gleichwertig ist a = ω²·r. Doppelte Geschwindigkeit heißt vierfache Zentripetalbeschleunigung."
+},
+"binf-1vnr44v": {
+"e": "x++ erhöht x um 1, also von 5 auf 6. x-- würde um 1 verringern."
+},
+"binf-xfgu5l": {
+"e": "3 > 2 ist true, das ! kehrt den Wahrheitswert um → false. Das Ergebnis ist ein boolean, keine Zahl."
+},
+"binf-1irnuun": {
+"e": "Die Stellenwerte von rechts sind 1, 2, 4. Also 101 = 1·4 + 0·2 + 1·1 = 5."
+},
+"binf-ga3khu": {
+"e": "1 Byte = 8 Bit. Deshalb hat der Java-Typ byte 2⁸ = 256 Werte, von −128 bis 127."
+},
+"binf-103nehk": {
+"e": "Jeder Ganzzahltyp verdoppelt die Bits: byte 8, short 16, int 32, long 64. Bei Kommazahlen hat float 32 und double 64 Bit."
+},
+"binf-s5rh8q": {
+"e": "IEEE 754 speichert Vorzeichen, Exponent und Mantisse: x = (−1)^v · m · 2^e. So lassen sich sehr große und sehr kleine Zahlen darstellen – mit kleinen Rundungsfehlern."
+},
+"binf-5y4lru": {
+"e": "Java rechnet von links: \"a\" + 'b' ergibt den String \"ab\", danach wird auch die 1 als Text angehängt → ab1. Ohne den String vorne ergäbe 'b' + 1 die Zahl 99, weil b den Zeichencode 98 hat."
+},
+"stat-1p90efz": {
+"e": "sp(A) = Σ a_ii, die Summe der Diagonale. Das Produkt der Diagonale ist nur bei Dreiecksmatrizen die Determinante."
+},
+"stat-1c5mqkl": {
+"e": "|a| = √(a′·a): a′·a ist die Summe der Quadrate, also eine Zahl. a·a′ wäre dagegen eine (m, m)-Matrix."
+},
+"stat-a36j49": {
+"e": "rg(A) ≤ min(m, n) = min(3, 5) = 3. Mehr unabhängige Zeilen, als es Zeilen gibt, kann es nicht geben."
+},
+"stat-1luocql": {
+"e": "Richtig – eine Nullzeile heißt, eine Zeile hing von den anderen ab: rg(A) < n und det A = 0."
+},
+"stat-1xzfkgf": {
+"e": "a·a′ (Spalte mal Zeile) ergibt eine (m, m)-Matrix, deren Zeilen alle Vielfache von a′ sind – Rang 1. a′·a (Zeile mal Spalte) ist dagegen eine Zahl (Ü1, Aufgabe 4)."
+},
+"stat-gp8y7u": {
+"e": "Schiefsymmetrisch heißt a_ij = −a_ji. Auf der Diagonale gilt dann a_ii = −a_ii – das geht nur mit 0."
+},
+"stat-ed4rx2": {
+"e": "Richtigkeit fragt nach dem besten Wert, Präzision nach der Streuung, Zuverlässigkeit nach der Verlässlichkeit der Aussage. Und ohne genug repräsentative Daten geht nichts: „Eine Messung ist keine Messung!“"
+},
+"stat-1tyhjvz": {
+"e": "Dieselben Daten wirken auf linearer und logarithmischer Achse völlig verschieden. Deshalb immer zuerst die Achsen lesen – „Lügen, gemeine Lügen und Statistik“."
+},
+"bauko-qky7im": {
+"e": "Bei Rechteckquerschnitten aus Vollholz gilt k_m = 0,7: Die größten Spannungen beider Biegerichtungen treffen nur an einer Ecke zusammen. Für andere Querschnitte gilt k_m = 1,0."
+},
+"bauko-13h07f2": {
+"e": "Erst die Schnittgrößen je Lastart, dann die Kombinationen durch kmod teilen und die größte wählen. Danach Festigkeit und Ausnutzung. In Ü06 ergab das den Querschnitt 8/24 mit η = 0,99."
+},
+"bauko-lzv38s": {
+"e": "Teil I bringt rund 20 Punkte mit Kurzfragen, Teil II rund 70 Punkte mit drei Rechenaufgaben – zusammen etwa 90 Punkte."
+},
+"bauko-1f66s5k": {
+"e": "Holzbau (≈ 25 P.), Mauerwerk (≈ 30 P.) und Gründung (≈ 15 P.) – die Verteilung ist seit Jahren fest. Mauerwerk bringt die meisten Punkte."
+},
+"dap-14zztj2": {
+"e": "TRUE/FALSE ist logical, das L macht 1L zur ganzen Zahl (integer), 1.5 ist numeric, Text in Anführungszeichen ist character. Ohne L wäre auch 1 numeric."
+},
+"bauko-nnx202": {
+"typ": "mc",
+"q": "Welcher Grenzwert gilt allgemein für die Enddurchbiegung w_fin eines Holzbalkens?",
+"a": [
+"l / 200",
+"l / 300",
+"l / 150",
+"l / 500"
+],
+"e": "w_fin ist die Durchbiegung am Ende der Nutzungsdauer, inklusive Kriechen – dafür ist l / 200 erlaubt. Für die Sofortdurchbiegung w_inst und die Netto-Enddurchbiegung w_net,fin gilt das strengere l / 300. Kragarme: l_k/150, l_k/100, l_k/150."
+}
+};
+/* Neue Fragen zur Durchbiegung (Toms Feedback 02.11.2026) */
+pair("bauko", K4, "Was beschreibt welche Durchbiegung?", [["w_inst", "sofort beim Belasten, rein elastisch"], ["w_fin", "am Ende der Nutzung, mit Kriechen"], ["w_net,fin", "Endzustand aus Dauerlasten minus Überhöhung"]], "w_fin = w_inst + w_creep: Holz gibt unter Dauerlast über Jahre nach (Kriechen, Beiwert k_def). Bei w_net,fin zählen nur die quasi-ständigen Lasten, und eine Überhöhung w_c des Balkens wird abgezogen – das ist das, was man am Ende sieht.", "Baukonstruktion V03, Ü06");
+mc("bauko", K4, "Welcher Grenzwert gilt allgemein für w_inst und für w_net,fin?", ["Beide l / 300", "Beide l / 200", "w_inst l / 200, w_net,fin l / 300", "Beide l / 150"], "Sofortdurchbiegung und Netto-Enddurchbiegung sind auf l / 300 begrenzt, nur die Enddurchbiegung w_fin darf mit l / 200 etwas größer sein.", "Baukonstruktion V03, SBT S. 9.15");
+mc("bauko", K4, "Ein Holzbalken hat 4 m Spannweite. Was bedeutet w_inst ≤ l / 300?", ["Er darf sich sofort höchstens 13,3 mm durchbiegen", "Er darf sich höchstens 300 mm durchbiegen", "Er darf sich höchstens 3,0 mm durchbiegen", "Er muss 300 kg tragen"], "l / 300 heißt: höchstens ein Dreihundertstel der Spannweite. 4000 mm / 300 = 13,3 mm. Je länger der Balken, desto mehr Durchbiegung ist erlaubt.", "Baukonstruktion V03");
