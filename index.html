@@ -157,13 +157,13 @@ h2{font-size:21px;font-weight:700;letter-spacing:-.022em;margin:0}
 
 /* tab bar */
 .tabbar{position:fixed;z-index:20;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom, 0px));
-  width:min(380px, calc(100% - 32px - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px)));height:66px;border-radius:33px;
-  display:grid;grid-template-columns:repeat(3,1fr);padding:5px}
-.tabbar .pill{position:absolute;top:5px;bottom:5px;left:5px;width:calc((100% - 10px)/3);border-radius:28px;
+  width:min(420px, calc(100% - 32px - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px)));height:66px;border-radius:33px;
+  display:grid;grid-template-columns:repeat(4,1fr);padding:5px}
+.tabbar .pill{position:absolute;top:5px;bottom:5px;left:5px;width:calc((100% - 10px)/4);border-radius:28px;
   background:var(--glass-strong);box-shadow:inset 0 1px 0 var(--edge),0 4px 12px -6px rgba(0,0,0,.25);
   transition:transform .55s cubic-bezier(.3,1.35,.4,1)}
 .tab{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
-  font-size:11px;font-weight:600;color:var(--ink-2);border-radius:28px}
+  font-size:10.5px;font-weight:600;color:var(--ink-2);border-radius:28px;white-space:nowrap}
 .tab svg{width:23px;height:23px}
 .tab.on{color:var(--accent)}
 
@@ -277,7 +277,43 @@ h2{font-size:21px;font-weight:700;letter-spacing:-.022em;margin:0}
 .empty{padding:18px;text-align:center;color:var(--ink-3);font-size:14.5px}
 .toast{position:fixed;z-index:60;left:50%;top:calc(16px + env(safe-area-inset-top,0px));transform:translate(-50%,-150%);padding:12px 18px;border-radius:99px;font-weight:650;font-size:14.5px;transition:transform .45s cubic-bezier(.2,.9,.25,1.2)}
 .toast.show{transform:translate(-50%,0)}
-@media (max-width:380px){ h1{font-size:30px} .hero{grid-template-columns:1fr;justify-items:center;text-align:center} .hero-t{align-items:center} .qtext{font-size:20px} .statgrid b{font-size:22px} }
+
+/* Lösungsweg-Trainer */
+.seg i.h{background:var(--warn)}
+.feature{border-radius:24px;padding:16px;display:flex;align-items:center;gap:14px;text-align:left;width:100%}
+.feature .t{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.feature .t .eyebrow{font-size:11.5px}
+.feature .t b{font-size:17px;font-weight:700;letter-spacing:-.018em;line-height:1.25}
+.feature .t small{font-size:13px;color:var(--ink-3)}
+.feature .round{width:40px;height:40px;background:var(--accent);color:#fff;box-shadow:0 8px 18px -8px var(--accent)}
+.feature .round svg{width:17px;height:17px}
+.st{font-size:12px;font-weight:700;padding:4px 9px;border-radius:99px;background:var(--glass-soft);color:var(--ink-2);white-space:nowrap;font-variant-numeric:tabular-nums}
+.st.new{color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,transparent)}
+.st.due{color:var(--warn);background:color-mix(in srgb,var(--warn) 16%,transparent)}
+.st.ok{color:var(--ok);background:var(--ok-soft)}
+.task .qtext{font-size:21px}
+.angabe{font-size:15.5px;line-height:1.48;margin:0;color:var(--ink)}
+.geg{display:flex;flex-wrap:wrap;gap:6px}
+.geg span{font-size:13.5px;font-weight:600;padding:6px 10px;border-radius:12px;background:var(--glass-soft);border:1px solid var(--edge-2);font-variant-numeric:tabular-nums}
+.ges{font-size:14.5px;color:var(--ink-2);line-height:1.4}.ges b{color:var(--ink)}
+.path{border-radius:24px;overflow:hidden}
+.path .ph{font-size:12px;font-weight:700;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;padding:12px 16px 4px}
+.pstep{display:flex;gap:12px;padding:11px 16px;align-items:flex-start}
+.pstep+.pstep{border-top:1px solid var(--hair)}
+.pstep .n{width:24px;height:24px;border-radius:50%;flex:none;display:grid;place-items:center;color:#fff;font-size:12px;font-weight:700;background:var(--ok);margin-top:1px}
+.pstep .n.half{background:var(--warn)}.pstep .n.no{background:var(--bad)}
+.pstep>div{font-size:14.5px;font-weight:600;line-height:1.35;min-width:0}
+.pstep small{display:block;color:var(--ink-2);font-weight:500;font-size:13.5px;margin-top:3px;font-variant-numeric:tabular-nums;line-height:1.45}
+.stepcard{border-radius:28px;padding:20px;display:flex;flex-direction:column;gap:14px;animation:cardIn .55s cubic-bezier(.2,.9,.25,1.1) both;scroll-margin-top:8px}
+.stepcard .eyebrow{color:var(--c,var(--ink-3))}
+.stepq{font-size:19px;font-weight:700;letter-spacing:-.02em;line-height:1.3;text-wrap:balance}
+.calc{font-size:15px;font-weight:650;padding:12px 14px;border-radius:14px;background:color-mix(in srgb,var(--c,var(--accent)) 12%,transparent);border:1px solid color-mix(in srgb,var(--c,var(--accent)) 28%,transparent);font-variant-numeric:tabular-nums;line-height:1.5;overflow-wrap:anywhere}
+.fb .badge.half{background:var(--warn)}
+.tsrc{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-3);font-weight:600}
+.tsrc svg{width:14px;height:14px;flex:none}
+.fb .tip{font-size:14px;color:var(--ink-3)}
+.ritem .m.half{background:var(--warn)}
+@media (max-width:380px){ .tab{font-size:9.5px} h1{font-size:30px} .hero{grid-template-columns:1fr;justify-items:center;text-align:center} .hero-t{align-items:center} .qtext{font-size:20px} .statgrid b{font-size:22px} }
 @media (prefers-reduced-motion: reduce){ *,*::before,*::after{animation:none!important;transition:none!important} }
 </style>
 </head><body>
@@ -289,6 +325,7 @@ h2{font-size:21px;font-weight:700;letter-spacing:-.022em;margin:0}
   <div class="pill" id="pill"></div>
   <button class="tab on" data-tab="heute" aria-label="Heute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.8v2.1M12 19.1v2.1M2.8 12h2.1M19.1 12h2.1M5.5 5.5 7 7M17 17l1.5 1.5M5.5 18.5 7 17M17 7l1.5-1.5"/></svg>Heute</button>
   <button class="tab" data-tab="faecher" aria-label="Fächer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7.5" height="7.5" rx="2.2"/><rect x="13" y="3.5" width="7.5" height="7.5" rx="2.2"/><rect x="3.5" y="13" width="7.5" height="7.5" rx="2.2"/><rect x="13" y="13" width="7.5" height="7.5" rx="2.2"/></svg>Fächer</button>
+  <button class="tab" data-tab="aufgaben" aria-label="Aufgaben"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 19.5h4v-4.5h4.5v-4.5h4.5V6h4"/><circle cx="20.5" cy="6" r="0.6" fill="currentColor"/></svg>Aufgaben</button>
   <button class="tab" data-tab="stand" aria-label="Lernstand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M5 20V12M10 20V6M15 20v-9M20 20V9"/></svg>Lernstand</button>
 </nav>
 <div class="scrim" id="scrim" hidden></div>
@@ -376,6 +413,53 @@ const FIG = (() => {
     pdfcdf: () => S(`
       <path d="M20 140H150M20 140V30" style="${ink};stroke-width:1.2"/><path d="${bell(22,148,140,85,24,95)}" style="stroke:var(--c-dap);stroke-width:2.2;fill:none"/>${t(85,162,"Kurve A","middle","font-weight:700")}
       <path d="M170 140H300M170 140V30" style="${ink};stroke-width:1.2"/><path d="M172 138C215 138 222 44 298 42" style="stroke:var(--accent);stroke-width:2.2;fill:none"/><path d="M170 42H300" style="stroke:var(--ink-3);stroke-dasharray:3 4"/>${t(165,46,"1","end")}${t(235,162,"Kurve B","middle","font-weight:700")}`),
+    /* v1.3 – Skizzen für Lösungsweg-Aufgaben */
+    bleikugel: () => S(`
+      <rect x="10" y="100" width="140" height="62" style="${water}"/><path d="M10 100H150" style="stroke:var(--c-hydro);stroke-width:2"/>
+      <rect x="45" y="58" width="70" height="70" rx="3" style="fill:color-mix(in srgb,var(--c-bsk) 30%,var(--glass-strong));stroke:var(--ink);stroke-width:1.5"/>
+      <circle cx="80" cy="49" r="9" style="fill:var(--ink-2)"/>${t(80,180,"a) Kugel auf dem Holz")}
+      <rect x="170" y="100" width="140" height="62" style="${water}"/><path d="M170 100H310" style="stroke:var(--c-hydro);stroke-width:2"/>
+      <rect x="205" y="64" width="70" height="70" rx="3" style="fill:color-mix(in srgb,var(--c-bsk) 30%,var(--glass-strong));stroke:var(--ink);stroke-width:1.5"/>
+      <circle cx="290" cy="153" r="9" style="fill:var(--ink-2)"/><path d="M170 162H310" style="${ink};stroke-width:1.5"/>${t(240,180,"b) Kugel im Wasser")}`, 190),
+    messing: () => S(arrow("am","var(--accent)")+`
+      <path d="M70 18V58" style="${ink};stroke-width:1.2"/><rect x="55" y="58" width="30" height="34" rx="4" style="fill:color-mix(in srgb,var(--c-bsk) 45%,transparent);stroke:var(--ink);stroke-width:1.5"/>
+      ${t(70,118,"in Luft")}${t(70,136,"F_G = 32,079 N","middle","font-weight:700")}
+      <rect x="180" y="60" width="110" height="80" style="${water}"/><path d="M180 60H290" style="stroke:var(--c-hydro);stroke-width:2"/><path d="M180 52V140H290V52" style="${ink};stroke-width:1.5"/>
+      <path d="M235 18V82" style="${ink};stroke-width:1.2"/><rect x="220" y="82" width="30" height="34" rx="4" style="fill:color-mix(in srgb,var(--c-bsk) 45%,transparent);stroke:var(--ink);stroke-width:1.5"/>
+      ${t(235,158,"in Wasser: 28,156 N","middle","font-weight:700")}`, 170),
+    rohr: () => S(arrow("ar","var(--accent)")+`
+      <path d="M20 70H130L170 45H300M20 110H130L170 135H300" style="${ink};stroke-width:2;fill:none"/>
+      <path d="M20 70H130L170 45H300V135H170L130 110H20Z" style="${water}"/>
+      <path d="M20 90H300" style="stroke:var(--ink-3);stroke-dasharray:6 5"/>
+      <path d="M70 60V120M240 35V145" style="stroke:var(--ink);stroke-width:1.3;stroke-dasharray:3 3"/>
+      ${t(70,52,"1","middle","font-weight:700")}${t(240,27,"2","middle","font-weight:700")}
+      <path d="M30 90H58" style="${acc};stroke-width:2" marker-end="url(#ar)"/><path d="M252 90H272" style="${acc};stroke-width:2" marker-end="url(#ar)"/>
+      ${t(70,140,"A₁ = 1 m²")}${t(240,165,"A₂ = 2 m²")}${t(160,104,"Rohrachse","middle","font-size:11px")}`, 175),
+    gerinne: () => S(`
+      <path d="M60 30V140H260V30" style="${ink};stroke-width:2.2;fill:none"/>
+      <rect x="62" y="70" width="196" height="68" style="${water}"/><path d="M62 70H258" style="stroke:var(--c-hydro);stroke-width:2"/><path d="M152 61l6 8 6-8z" style="fill:var(--c-hydro)"/>
+      <path d="M60 156H260M60 150V162M260 150V162" style="${ink};stroke-width:1"/>${t(160,174,"b = 5 m")}
+      <path d="M278 70V140M274 70H282M274 140H282" style="${acc};stroke-width:1.6"/>${t(288,110,"h","start","fill:var(--accent);font-weight:700")}
+      ${t(160,108,"Q = 10 m³/s","middle","font-weight:700")}`, 185),
+    stuetze: () => S(arrow("as","var(--accent)")+`
+      <path d="M160 6V36" style="${acc};stroke-width:2.4" marker-end="url(#as)"/>${t(176,24,"44 t","start","fill:var(--accent);font-weight:700")}
+      <rect x="146" y="42" width="28" height="110" rx="3" style="fill:color-mix(in srgb,var(--ink-3) 35%,transparent);stroke:var(--ink);stroke-width:1.5"/>
+      <path d="M120 152H200" style="${ink};stroke-width:2"/>${t(160,170,"l = 3 m")}
+      <circle cx="60" cy="96" r="34" style="fill:color-mix(in srgb,var(--c-bsk) 22%,transparent);stroke:var(--ink);stroke-width:1.5"/>${t(60,100,"d = 150")}${t(60,150,"rund")}
+      <rect x="226" y="62" width="68" height="68" style="fill:color-mix(in srgb,var(--c-bsk) 22%,transparent);stroke:var(--ink);stroke-width:1.5"/>${t(260,100,"a = 150")}${t(260,150,"quadratisch")}`, 180),
+    wand: () => S(arrow("aw","var(--accent)")+`
+      <path d="M20 150H300" style="${ink};stroke-width:1.5"/><rect x="262" y="30" width="16" height="120" style="fill:var(--ink-3);opacity:.5"/>
+      <path d="M40 150Q150 20 262 80" style="stroke:var(--accent);stroke-width:2.2;fill:none;stroke-dasharray:6 5"/>
+      <circle cx="40" cy="150" r="6" style="fill:var(--accent)"/><circle cx="262" cy="80" r="6" style="fill:var(--c-bauko)"/>
+      <path d="M40 150L82 108" style="${acc};stroke-width:2.2" marker-end="url(#aw)"/>${t(92,104,"v₀","start","fill:var(--accent);font-weight:700")}
+      <path d="M78 150A38 38 0 0 0 67 123" style="${ink};stroke-width:1"/>${t(88,142,"α","start")}
+      <path d="M40 166H262M40 160V172M262 160V172" style="${ink};stroke-width:1"/>${t(150,182,"D")}
+      <path d="M248 80V150M244 80H252M244 150H252" style="stroke:var(--c-bauko);stroke-width:1.6"/>${t(240,120,"h = ?","end","fill:var(--c-bauko);font-weight:700")}`, 190),
+    flug: () => S(arrow("af","var(--ink-2)")+arrow("ag","var(--accent)")+`
+      <circle cx="50" cy="90" r="7" style="fill:var(--ink)"/><circle cx="270" cy="90" r="7" style="fill:var(--ink)"/>${t(50,118,"A","middle","font-weight:700")}${t(270,118,"B","middle","font-weight:700")}
+      <path d="M62 82H258" style="${acc};stroke-width:2" marker-end="url(#ag)"/><path d="M258 98H62" style="${acc};stroke-width:2" marker-end="url(#ag)"/>${t(160,74,"Hinflug")}${t(160,116,"Rückflug")}
+      <path d="M250 30H200M180 30H130" style="stroke:var(--ink-2);stroke-width:1.6;stroke-dasharray:5 4" marker-end="url(#af)"/>${t(160,20,"Wind von B nach A")}
+      <path d="M50 146H270M50 140V152M270 140V152" style="${ink};stroke-width:1"/>${t(160,166,"D")}`, 175),
     matrix: () => { const g=(x,y,r,c,col)=>{let s="";for(let i=0;i<r;i++)for(let j=0;j<c;j++)s+=`<rect x="${x+j*16}" y="${y+i*16}" width="14" height="14" rx="3" style="fill:color-mix(in srgb,${col} 30%,transparent)"/>`;return s;};
       return S(g(20,60,2,3,"var(--c-stat)")+t(94,82,"·","middle","font-size:24px")+g(112,44,3,4,"var(--accent)")+t(196,82,"=","middle","font-size:22px")+`<rect x="214" y="50" width="70" height="50" rx="8" style="fill:none;stroke:var(--ink-3);stroke-dasharray:5 4"/>`+t(249,82,"?","middle","font-size:20px;font-weight:700")+t(44,124,"(2, 3)")+t(144,124,"(3, 4)"), 150); }
   };
@@ -431,12 +515,16 @@ FRAGEN.forEach(q => q.id = q.f + "-" + hash(q.q + (q.a ? q.a[0] : "") + (q.steps
 if (typeof EXTRA !== "undefined") FRAGEN.forEach(q => { const x = EXTRA[q.q]; if (x) Object.assign(q, x); });
 if (typeof ORDNE_ZU !== "undefined") FRAGEN.forEach(q => { if (q.q === "Ordne zu.") { const k = q.f === "binf" ? (q.pairs[0][0] === "JDK" ? "binf_tools" : "binf_typ") : q.f; if (ORDNE_ZU[k]) q.q = ORDNE_ZU[k]; } });
 const BYID = Object.fromEntries(FRAGEN.map(q => [q.id, q]));
+/* v1.3: Lösungsweg-Aufgaben */
+const AUFG = typeof AUFGABEN !== "undefined" ? AUFGABEN : [];
+const ABYID = Object.fromEntries(AUFG.map(a => [a.id, a]));
 
 /* storage */
-const APP_VERSION = "1.2";
+const APP_VERSION = "1.3";
 const KEY = "klausurduell.v1";
-let S = {cards:{}, days:{}};
+let S = {cards:{}, days:{}, aufg:{}};
 try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch(e) {}
+if(!S.aufg) S.aufg = {};
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) {} }
 const dayKey = (d=new Date()) => d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 const dayNum = (d=new Date()) => Math.floor((Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()))/864e5);
@@ -450,6 +538,22 @@ function streak(){
   while((S.days[dayKey(d)]||{}).n){ n++; d.setDate(d.getDate()-1); }
   return n;
 }
+function tDue(id){ const c = S.aufg[id]; return c && c.due <= dayNum(); }
+function nextTask(not){
+  const pool = AUFG.filter(a => a.id !== not);
+  const due = pool.filter(a => tDue(a.id)).sort((x,y) => S.aufg[x.id].b - S.aufg[y.id].b);
+  if (due.length) return due[0];
+  const fresh = pool.filter(a => !S.aufg[a.id]);
+  if (fresh.length) { const lastF = not && ABYID[not] ? ABYID[not].f : null; const other = fresh.filter(a => a.f !== lastF); return (other.length ? other : fresh)[0]; }
+  return pool.slice().sort((x,y) => S.aufg[x.id].due - S.aufg[y.id].due)[0] || null;
+}
+function tStatus(a){
+  const c = S.aufg[a.id];
+  if (!c) return `<span class="st new">Neu</span>`;
+  if (tDue(a.id)) return `<span class="st due">Fällig</span>`;
+  return `<span class="st${c.best>=1?" ok":""}">${Math.round(c.best*100)} %</span>`;
+}
+const tMin = a => Math.max(2, Math.round(a.schritte.length * .6));
 function mastery(list){ if(!list.length) return 0; return list.reduce((a,q)=>a+boxOf(q.id),0)/(list.length*5); }
 const qsOf = f => FRAGEN.filter(q => q.f === f);
 function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]} return a; }
@@ -505,7 +609,26 @@ function vHeute(){
       <button class="tile glass press" data-act="start-wrong" ${w?"":"disabled style='opacity:.55'"}><div class="round" style="background:var(--bad-soft);color:var(--bad)">${I.redo}</div><div><b>Fehler wiederholen</b><br><span>${w ? `${w} ${w===1?"Frage":"Fragen"} offen` : "Gerade nichts offen"}</span></div></button>
       <button class="tile glass press" data-act="start-quick"><div class="round" style="background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)">${I.bolt}</div><div><b>Schnelle Runde</b><br><span>5 Fragen, gemischt</span></div></button>
     </div>
+    ${AUFG.length ? `<div class="sec"><div class="sec-h"><h2>Lösungsweg</h2><small>${AUFG.length} Aufgaben</small></div>${taskFeature(nextTask())}</div>` : ""}
     <div class="sec"><div class="sec-h"><h2>Deine Fächer</h2><small>${FRAGEN.length} Fragen</small></div>${subjectList()}</div>
+  </div>`;
+}
+function taskFeature(a){
+  if(!a) return "";
+  const c = S.aufg[a.id];
+  return `<button class="feature glass press" data-act="task" data-id="${a.id}">${icon(a.f)}<div class="t"><span class="eyebrow">${c ? (tDue(a.id) ? "Wiederholen" : "Nochmal üben") : "Neue Aufgabe"}</span><b>${esc(a.titel)}</b><small>${FACH[a.f].n} · ${a.schritte.length} Schritte · ca. ${tMin(a)} Min.</small></div><span class="round">${I.play}</span></button>`;
+}
+function taskRow(a){
+  return `<button class="row press" data-act="task" data-id="${a.id}"><div class="t"><b>${esc(a.titel)}</b><small>${esc(a.s)} · ${a.schritte.length} Schritte</small></div>${tStatus(a)}${I.chev}</button>`;
+}
+function vAufgaben(){
+  const solved = AUFG.filter(a => S.aufg[a.id]).length;
+  const fs = ORDER.filter(f => AUFG.some(a => a.f === f));
+  return `<div class="view">
+    <div class="head"><div><div class="eyebrow">Lösungsweg-Trainer</div><h1>Aufgaben</h1></div><div class="chip glass">${solved}/${AUFG.length} gelöst</div></div>
+    <p class="legend" style="margin:-12px 4px 0">Übungsaufgaben Schritt für Schritt: Bei jedem Schritt wählst du aus vier Möglichkeiten, was du als Nächstes tun würdest. Die Zwischenergebnisse rechnet die App vor – du entscheidest nur den Weg. Falsch gewählt? Dann gibt es eine Erklärung und einen zweiten Versuch.</p>
+    ${AUFG.length ? taskFeature(nextTask()) : `<div class="panel glass"><p class="empty">Noch keine Aufgaben vorhanden.</p></div>`}
+    ${fs.map(f => { const l = AUFG.filter(a => a.f === f); return `<div class="sec"><div class="sec-h"><h2 style="display:flex;align-items:center;gap:10px">${icon(f,true)}${FACH[f].n}</h2><small>${l.length} ${l.length===1?"Aufgabe":"Aufgaben"}</small></div><div class="list glass">${l.map(taskRow).join("")}</div></div>`; }).join("")}
   </div>`;
 }
 function subjectList(){
@@ -518,7 +641,7 @@ function vFaecher(){
     <p class="legend" style="margin:-12px 4px 0">Tippe ein Fach an, um nach Thema zu üben. Alle Fragen sind zum Merken gedacht – Begriffe, Zusammenhänge und das Vorgehen bei Rechenwegen, ohne selbst zu rechnen.</p>
     ${subjectList()}
     <div class="sec"><div class="sec-h"><h2>Fragetypen</h2></div>
-      <div class="list glass">${[["mc","Auswahl","Eine von vier Antworten ist richtig."],["wf","Wahr oder falsch","Eine Aussage prüfen."],["ord","Reihenfolge","Schritte eines Vorgehens ordnen."],["pair","Zuordnen","Begriffe und Bedeutungen verbinden."]].map(([t,n,d])=>`<div class="row"><div class="round" style="background:var(--glass-soft);width:36px;height:36px"><b style="font-size:13px">${FRAGEN.filter(q=>q.typ===t).length}</b></div><div class="t"><b>${n}</b><small>${d}</small></div></div>`).join("")}</div></div>
+      <div class="list glass">${[["mc","Auswahl","Eine von vier Antworten ist richtig."],["wf","Wahr oder falsch","Eine Aussage prüfen."],["ord","Reihenfolge","Schritte eines Vorgehens ordnen."],["pair","Zuordnen","Begriffe und Bedeutungen verbinden."]].map(([t,n,d])=>`<div class="row"><div class="round" style="background:var(--glass-soft);width:36px;height:36px"><b style="font-size:13px">${FRAGEN.filter(q=>q.typ===t).length}</b></div><div class="t"><b>${n}</b><small>${d}</small></div></div>`).join("")}<button class="row press" data-tab="aufgaben"><div class="round" style="background:var(--glass-soft);width:36px;height:36px"><b style="font-size:13px">${AUFG.length}</b></div><div class="t"><b>Lösungsweg</b><small>Eine Übungsaufgabe Schritt für Schritt lösen.</small></div>${I.chev}</button></div></div>
   </div>`;
 }
 function vStand(){
@@ -539,6 +662,11 @@ function vStand(){
       <div class="week">${wk.map(x=>`<div class="col${x.t?" today":""}"><div class="b" style="height:100%"><div style="height:${Math.round(x.n/mx*100)}%"></div></div><span>${x.l}</span></div>`).join("")}</div></div>
     <div class="panel glass"><div class="sec-h" style="padding:0"><h2>Lernstufen</h2><small>${all} Fragen</small></div>
       <div class="boxes">${box.map((n,i)=>`<div class="boxrow"><span>${BOXNAME[i]}</span><div class="bar"><div style="width:${n/all*100}%;background:${i===0?"var(--ink-3)":`color-mix(in srgb, var(--accent) ${40+i*12}%, #7fe0ff)`}"></div></div><span>${n}</span></div>`).join("")}</div></div>
+    ${AUFG.length ? (()=>{ const runs = AUFG.filter(a=>S.aufg[a.id]); const avg = runs.length ? runs.reduce((x,a)=>x+S.aufg[a.id].best,0)/runs.length : 0; const ok = runs.filter(a=>S.aufg[a.id].best>=1).length;
+      return `<div class="panel glass"><div class="sec-h" style="padding:0"><h2>Lösungswege</h2><small>${AUFG.length} Aufgaben</small></div>
+      <div class="boxes"><div class="boxrow"><span>Bearbeitet</span><div class="bar"><div style="width:${runs.length/AUFG.length*100}%"></div></div><span>${runs.length}</span></div>
+      <div class="boxrow"><span>Fehlerfrei</span><div class="bar"><div style="width:${ok/AUFG.length*100}%;background:var(--ok)"></div></div><span>${ok}</span></div></div>
+      <p class="legend" style="margin:0">Im Schnitt ${Math.round(avg*100)} % der Schritte im besten Durchgang richtig. Ein Schritt zählt voll, wenn er im ersten Versuch sitzt, halb im zweiten.</p></div>`; })() : ""}
     <div class="sec"><div class="sec-h"><h2>Nach Fach</h2></div>${subjectList()}</div>
     <div class="panel glass"><div class="sec-h" style="padding:0"><h2>Daten sichern</h2><small>Version ${APP_VERSION}</small></div>
       <p class="legend" style="margin:0">Dein Lernstand liegt nur auf diesem Gerät. Ein Backup kannst du in Dateien oder iCloud ablegen und auf einem neuen Gerät wieder einlesen.</p>
@@ -549,7 +677,7 @@ function vStand(){
 }
 function render(){
   const app = $("#app");
-  app.innerHTML = tab==="heute" ? vHeute() : tab==="faecher" ? vFaecher() : vStand();
+  app.innerHTML = tab==="heute" ? vHeute() : tab==="faecher" ? vFaecher() : tab==="aufgaben" ? vAufgaben() : vStand();
   document.querySelectorAll(".tab").forEach((b,i)=>{ b.classList.toggle("on", b.dataset.tab===tab); if(b.dataset.tab===tab) $("#pill").style.transform=`translateX(${i*100}%)`; });
   animateRings(app);
 }
@@ -567,10 +695,11 @@ function subjectSheet(f){
   const qs=qsOf(f), topics=[...new Set(qs.map(q=>q.t))], due=qs.filter(q=>isDue(q.id)).length, fresh=qs.filter(q=>!card(q.id)).length;
   openSheet(`<div style="display:flex;gap:14px;align-items:center;margin-bottom:14px">${icon(f)}<div><h2>${FACH[f].n}</h2><p class="sub" style="margin:0">${qs.length} Fragen · ${fresh} neu · ${due} fällig</p></div></div>
     <button class="cta press" style="--accent:${cssC(f)}" data-act="start-subject" data-f="${f}">${I.play}Ganzes Fach · 10 Fragen</button>
-    <div style="margin-top:18px">${topics.map(t=>{const tq=qs.filter(q=>q.t===t),m=mastery(tq);return `<button class="topic press" data-act="start-topic" data-f="${f}" data-t="${esc(t)}"><b>${esc(t)}</b><small>${tq.length} · ${Math.round(m*100)} %</small>${I.chev}</button>`}).join("")}</div>`);
+    <div style="margin-top:18px">${topics.map(t=>{const tq=qs.filter(q=>q.t===t),m=mastery(tq);return `<button class="topic press" data-act="start-topic" data-f="${f}" data-t="${esc(t)}"><b>${esc(t)}</b><small>${tq.length} · ${Math.round(m*100)} %</small>${I.chev}</button>`}).join("")}</div>
+    ${AUFG.some(a=>a.f===f) ? `<h2 style="margin:22px 0 6px;font-size:17px">Lösungswege</h2>${AUFG.filter(a=>a.f===f).map(a=>`<button class="topic press" data-act="task" data-id="${a.id}"><b>${esc(a.titel)}</b>${tStatus(a)}${I.chev}</button>`).join("")}` : ""}`);
 }
 function resetSheet(){
-  openSheet(`<h2>Fortschritt zurücksetzen?</h2><p class="sub">Alle Lernstufen, die Serie und der Verlauf auf diesem Gerät werden gelöscht. Die Fragen bleiben erhalten.</p>
+  openSheet(`<h2>Fortschritt zurücksetzen?</h2><p class="sub">Alle Lernstufen, Aufgaben-Ergebnisse, die Serie und der Verlauf auf diesem Gerät werden gelöscht. Die Fragen bleiben erhalten.</p>
     <div class="btnrow"><button class="btn2 press" data-act="close">Abbrechen</button><button class="btn2 danger press" data-act="reset-yes">Zurücksetzen</button></div>`);
 }
 function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove("show"),2000); }
@@ -654,6 +783,92 @@ function result(){
   animateRings($("#quiz"));
 }
 
+/* Lösungsweg-Trainer */
+let A = null;
+const fmt = r => esc(r).replace(/\n/g, "<br>");
+function startTask(id){
+  const a = ABYID[id]; if(!a) return;
+  closeSheet();
+  A = {a, i:0, sc:[], tries:0, res:false, t0:Date.now()};
+  $("#quiz").hidden = false; document.body.style.overflow = "hidden";
+  renderTask();
+}
+function endTask(){ $("#quiz").hidden = true; $("#quiz").innerHTML = ""; document.body.style.overflow = ""; A = null; render(); }
+function aSegs(){ return A.a.schritte.map((_,k)=>`<i class="${k<A.i ? (A.sc[k]===1?"r":A.sc[k]===.5?"h":"f") : k===A.i ? "cur" : ""}"></i>`).join(""); }
+function taskHead(a){
+  return `<div class="qcard glass task" style="--c:${cssC(a.f)}"><div class="qmeta"><span class="dot"></span><span class="lab">${FACH[a.f].n} · ${esc(a.t)}</span><span class="typ">Lösungsweg</span></div>
+    <div class="qtext">${esc(a.titel)}</div>
+    ${a.v && typeof FIG!=="undefined" && FIG[a.v] ? `<div class="fig">${FIG[a.v]()}</div>` : ""}
+    <p class="angabe">${fmt(a.angabe)}</p>
+    ${a.geg && a.geg.length ? `<div class="geg">${a.geg.map(g=>`<span>${esc(g)}</span>`).join("")}</div>` : ""}
+    ${a.ges ? `<div class="ges"><b>Gesucht:</b> ${esc(a.ges)}</div>` : ""}
+    <div class="tsrc">${I.book}${esc(a.s)}</div></div>`;
+}
+function pstep(s, k){
+  const sc = A.sc[k], cls = sc===1 ? "" : sc===.5 ? " half" : " no";
+  return `<div class="pstep"><span class="n${cls}">${k+1}</span><div>${esc(s.o[0][0])}${s.r ? `<small>${fmt(s.r)}</small>` : ""}</div></div>`;
+}
+function renderTask(){
+  const a = A.a, st = a.schritte[A.i], n = a.schritte.length, el = $("#quiz");
+  A.tries = 0; A.res = false;
+  A.opts = shuffle(st.o.map((o,k)=>({t:o[0], e:o[1], ok:k===0})));
+  el.innerHTML = `<div class="ambient tint" style="--tint:${cssC(a.f)}"><i></i><i></i><i></i><i></i></div>
+  <div class="qwrap"><div class="qtop"><button class="round glass press" data-act="a-quit" aria-label="Beenden">${I.close}</button><div class="seg">${aSegs()}</div><span class="qcount">${A.i+1}/${n}</span></div>
+  <div class="qbody" id="qbody">${taskHead(a)}
+    ${A.i ? `<div class="path glass"><div class="ph">Bisheriger Lösungsweg</div>${a.schritte.slice(0,A.i).map(pstep).join("")}</div>` : ""}
+    <div class="stepcard glass" id="stepcard" style="--c:${cssC(a.f)}"><div class="eyebrow">Schritt ${A.i+1} von ${n}</div><div class="stepq">${esc(st.f)}</div>
+      <div class="opts">${A.opts.map((o,k)=>`<button class="opt glass press" data-act="a-opt" data-k="${k}"><span class="k">${"ABCD"[k]}</span><span>${esc(o.t)}</span></button>`).join("")}</div></div>
+    <div id="afb"></div></div>
+  <div class="qfoot" id="qfoot"></div></div>`;
+  const b = $("#qbody");
+  if (A.i) requestAnimationFrame(()=>{ const c = $("#stepcard"); b.scrollTop = c.getBoundingClientRect().top - b.getBoundingClientRect().top + b.scrollTop - 6; });
+  else b.scrollTop = 0;
+}
+function aPick(k){
+  const o = A.opts[k], btns = document.querySelectorAll("#stepcard .opt");
+  if (o.ok) { aResolve(A.tries===0 ? 1 : .5, null); return; }
+  A.tries++; haptic(false);
+  btns[k].classList.add("no"); btns[k].disabled = true; btns[k].querySelector(".k").innerHTML = I.x;
+  if (A.tries >= 2) { aResolve(0, k); return; }
+  $("#afb").innerHTML = `<div class="fb glass"><div class="fh"><span class="badge no">${I.x}</span><b>Nicht ganz</b></div><p>${esc(o.e)}</p><p class="tip">Versuch es noch einmal – eine Möglichkeit ist schon raus.</p></div>`;
+  setTimeout(()=>{ const b=$("#qbody"); b.scrollTo({top:b.scrollHeight, behavior:"smooth"}); }, 60);
+}
+function aResolve(score, kWrong){
+  const a = A.a, st = a.schritte[A.i], n = a.schritte.length, btns = document.querySelectorAll("#stepcard .opt");
+  const ci = A.opts.findIndex(o=>o.ok), c = A.opts[ci];
+  A.res = true; A.sc[A.i] = score;
+  btns.forEach((b,j)=>{ b.disabled = true; if (j===ci) { b.classList.add("ok"); b.querySelector(".k").innerHTML = I.check; } else if (!b.classList.contains("no")) b.classList.add("dim"); });
+  if (score > 0) haptic(true);
+  const k = dayKey(), d = S.days[k] || {n:0,r:0}; d.n++; if (score===1) d.r++; S.days[k] = d; save();
+  const head = score===1 ? ["Richtig","Genau","Sitzt"][Math.floor(Math.random()*3)] : score===.5 ? "Im zweiten Anlauf" : "So geht es weiter";
+  $("#afb").innerHTML = `<div class="fb glass" style="--c:${cssC(a.f)}"><div class="fh"><span class="badge ${score===1?"ok":score===.5?"half":"no"}">${score>0?I.check:I.x}</span><b>${head}</b></div>
+    ${kWrong!==null ? `<p><b>Deine Wahl:</b> ${esc(A.opts[kWrong].e)}</p><p><b>Richtig wäre:</b> ${esc(c.t)}.</p>` : ""}
+    <p>${esc(c.e)}</p>${st.r ? `<div class="calc">${fmt(st.r)}</div>` : ""}</div>`;
+  $("#qfoot").innerHTML = `<button class="cta press" data-act="a-next">${A.i < n-1 ? "Nächster Schritt" : "Lösung ansehen"}</button>`;
+  document.querySelector(".seg").innerHTML = aSegs().replace('class="cur"', `class="${score===1?"r":score===.5?"h":"f"}"`);
+  setTimeout(()=>{ const b=$("#qbody"); b.scrollTo({top:b.scrollHeight, behavior:"smooth"}); }, 60);
+}
+function aNext(){ if (A.i < A.a.schritte.length-1) { A.i++; renderTask(); } else taskResult(); }
+function taskResult(){
+  const a = A.a, n = a.schritte.length, pts = A.sc.reduce((x,y)=>x+y,0), p = pts/n, mins = Math.max(1, Math.round((Date.now()-A.t0)/60000));
+  const c = S.aufg[a.id] || {b:0, runs:0, best:0}, dn = dayNum(), good = p >= .8;
+  c.b = good ? Math.min(5, c.b+1) : 1; c.due = dn + (good ? INTERVAL[c.b] : 1); c.last = p; c.best = Math.max(c.best||0, p); c.runs = (c.runs||0)+1;
+  S.aufg[a.id] = c; save(); haptic(good);
+  const head = p===1 ? "Fehlerfrei gelöst" : p>=.8 ? "Stark gelöst" : p>=.5 ? "Weg gefunden" : "Nochmal üben";
+  const first = A.sc.filter(x=>x===1).length;
+  const nx = nextTask(a.id);
+  $("#quiz").innerHTML = `<div class="ambient tint" style="--tint:${cssC(a.f)}"><i></i><i></i><i></i><i></i></div><div class="qwrap"><div class="qbody"><div class="res">
+    ${ring(p,170,16,p>=.5?"#7fe8a0":"#ffb199",p>=.5?"var(--ok)":"var(--bad)",`<b>${first}/${n}</b><span>im 1. Versuch</span>`)}
+    <h1>${head}</h1><p class="sub">${esc(a.titel)} · ${mins} Min.</p>
+    <div class="rlist glass">${a.schritte.map((s,k)=>`<div class="ritem"><span class="m ${A.sc[k]===1?"ok":A.sc[k]===.5?"half":"no"}">${A.sc[k]>0?I.check:I.x}</span><div>${esc(s.o[0][0])}${s.r?`<small>${fmt(s.r)}</small>`:""}</div></div>`).join("")}</div>
+    ${a.fazit ? `<div class="fb glass"><div class="fh"><span class="badge" style="background:${cssC(a.f)}">${I.book}</span><b>Merke</b></div><p>${fmt(a.fazit)}</p><div class="src">${I.book}${esc(a.s)}</div></div>` : ""}
+    <p class="legend" style="text-align:center;margin:0">${good ? `Die Aufgabe kommt in ${INTERVAL[c.b]} ${INTERVAL[c.b]===1?"Tag":"Tagen"} wieder.` : "Die Aufgabe kommt morgen wieder."}</p>
+  </div></div><div class="qfoot" style="display:flex;flex-direction:column;gap:10px">
+    ${p<1 ? `<button class="cta press" data-act="a-again">${I.redo}Nochmal von vorn</button>` : nx ? `<button class="cta press" data-act="task" data-id="${nx.id}">${I.play}Nächste Aufgabe</button>` : ""}
+    <button class="btn2 glass press" style="height:56px;width:100%;flex:none" data-act="a-done">Fertig</button></div></div>`;
+  animateRings($("#quiz"));
+}
+
 /* events */
 document.addEventListener("click", e => {
   const b = e.target.closest("[data-act],[data-tab]"); if(!b || b.disabled) return;
@@ -670,9 +885,14 @@ document.addEventListener("click", e => {
   else if(a==="import") $("#importFile").click();
   else if(a==="reload") location.reload();
   else if(a==="more"){ const m=b.nextElementSibling; m.hidden=!m.hidden; b.classList.toggle("open",!m.hidden); if(!m.hidden) setTimeout(()=>m.scrollIntoView({behavior:"smooth",block:"nearest"}),50); }
-  else if(a==="reset-yes"){ S={cards:{},days:{}}; save(); closeSheet(); render(); toast("Fortschritt zurückgesetzt"); }
+  else if(a==="reset-yes"){ S={cards:{},days:{},aufg:{}}; save(); closeSheet(); render(); toast("Fortschritt zurückgesetzt"); }
   else if(a==="close") closeSheet();
   else if(a==="quit"||a==="done") endQuiz();
+  else if(a==="task"){ if(Q){ $("#quiz").innerHTML=""; Q=null; } startTask(b.dataset.id); }
+  else if(a==="a-quit"||a==="a-done") endTask();
+  else if(a==="a-opt"){ if(A && !A.res) aPick(+b.dataset.k); }
+  else if(a==="a-next"){ if(A) aNext(); }
+  else if(a==="a-again"){ if(A) startTask(A.a.id); }
   else if(a==="next") next();
   else if(a==="again-wrong"){ const w=Q.wrong; startQuiz(shuffle(w),"Fehler wiederholen"); }
   else if(Q && !Q.state.done){
@@ -697,6 +917,12 @@ document.addEventListener("click", e => {
 });
 $("#scrim").addEventListener("click", closeSheet);
 document.addEventListener("keydown", e => {
+  if(A && !$("#quiz").hidden){
+    if(e.key==="Escape"){ endTask(); return; }
+    if(/^[1-4]$/.test(e.key)){ const o=document.querySelectorAll("#stepcard .opt")[+e.key-1]; if(o && !o.disabled) o.click(); return; }
+    if(e.key==="Enter"||e.key===" "){ const n=document.querySelector('[data-act="a-next"]'); if(n){ e.preventDefault(); n.click(); } }
+    return;
+  }
   if(!Q || $("#quiz").hidden) return;
   if(e.key==="Escape"){ endQuiz(); return; }
   const q=Q.list[Q.i];
@@ -719,7 +945,7 @@ document.addEventListener("change", e => {
   if(e.target.id!=="importFile" || !e.target.files[0]) return;
   const r=new FileReader();
   r.onload=()=>{ try{ const d=JSON.parse(r.result); if(d.app!=="klausurduell"||!d.state||!d.state.cards) throw 0;
-      S={cards:d.state.cards||{}, days:d.state.days||{}}; save(); render(); toast("Backup geladen"); }
+      S={cards:d.state.cards||{}, days:d.state.days||{}, aufg:d.state.aufg||{}}; save(); render(); toast("Backup geladen"); }
     catch(err){ toast("Diese Datei ist kein Klausurduell-Backup"); } e.target.value=""; };
   r.readAsText(e.target.files[0]);
 });
