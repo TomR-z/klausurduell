@@ -16,6 +16,14 @@ const FIG = (() => {
       <path d="M220 90H186M247 120H186M262 140H186" style="${acc};stroke-width:1.2" marker-end="url(#ad)"/>
       <path d="M28 35V150M24 35H32M24 150H32" style="${ink};stroke-width:1"/>${t(16,97,"h")}
       ${t(229,168,"ρ·g·h")}${t(296,96,"F = ?","middle","fill:var(--accent);font-weight:700")}`),
+    poren: () => S(`
+      <rect x="30" y="28" width="260" height="124" rx="3" style="fill:color-mix(in srgb,var(--ink-3) 38%,transparent);stroke:var(--ink);stroke-width:1.5"/>
+      <circle cx="82" cy="92" r="17" style="fill:var(--bg);stroke:var(--ink);stroke-width:1.3"/>${t(82,97,"A","middle","font-weight:700")}
+      <path d="M162 28C150 58 180 78 164 106S170 138 168 152" style="stroke:color-mix(in srgb,var(--c-hydro) 70%,transparent);stroke-width:11;fill:none"/>
+      ${t(194,96,"B","middle","font-weight:700")}
+      <path d="M244 29C240 52 252 70 246 92" style="stroke:var(--bg);stroke-width:11;fill:none"/>
+      <circle cx="246" cy="100" r="13" style="fill:var(--bg)"/>${t(246,105,"C","middle","font-weight:700")}
+      ${t(160,172,"blau: Wasser in den Kapillaren")}`),
     kapillar: () => S(`
       <rect x="20" y="110" width="120" height="50" style="${water}"/><path d="M20 110H140" style="stroke:var(--c-hydro);stroke-width:1.5"/>
       <path d="M72 150V62Q80 70 88 62V150Z" style="${water}"/><path d="M72 62Q80 70 88 62" style="stroke:var(--c-hydro);stroke-width:2;fill:none"/>
