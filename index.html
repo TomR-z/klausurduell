@@ -189,6 +189,28 @@ body.locked{position:fixed;left:0;right:0;overflow:hidden}
 .btn2{flex:1;height:52px;border-radius:16px;font-weight:700;background:var(--glass-soft);border:1px solid var(--edge-2)}
 .btn2.danger{background:var(--bad);color:#fff;border:0}
 
+/* v1.5: Anmerkungen */
+.toast{width:max-content;max-width:calc(100vw - 32px);text-align:center}
+.qtop .nbtn svg{width:19px;height:19px}
+.kats{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 14px}
+.kat{padding:9px 13px;border-radius:99px;font-size:14px;font-weight:600;background:var(--glass-soft);border:1px solid var(--edge-2);color:var(--ink)}
+.kat.on{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+.ntext,.ntoken{width:100%;border-radius:16px;padding:12px 14px;font:inherit;font-size:16px;color:var(--ink);background:var(--glass-soft);border:1px solid var(--edge-2);outline:none}
+.ntext{min-height:110px;resize:vertical;display:block}
+.ntext:focus,.ntoken:focus{border-color:var(--accent)}
+.nq{font-size:14px;line-height:1.45;color:var(--ink-2);background:var(--glass-soft);border-radius:14px;padding:10px 12px;margin:0 0 14px}
+.nq b{color:var(--ink);font-weight:650}
+.ncheck{display:flex;gap:10px;align-items:center;font-size:15px;margin-top:12px}
+.ncheck input{width:20px;height:20px;accent-color:var(--accent);flex:none}
+.nitem{display:flex;gap:10px;align-items:flex-start;padding:12px 2px;border-top:1px solid var(--hair)}
+.nitem .t{flex:1;min-width:0;font-size:14.5px;line-height:1.4}
+.nitem small{display:block;color:var(--ink-3);font-size:12.5px;margin-top:2px}
+.nitem .del{color:var(--bad);font-size:13.5px;font-weight:650;padding:2px 4px;flex:none}
+.btn2.acc{background:var(--accent);color:var(--accent-ink);border:0}
+.sheet h3{font-size:17px;margin:22px 0 4px}
+.steps{margin:6px 0 14px 20px;padding:0;color:var(--ink-2);font-size:14px;line-height:1.55}
+.steps li{margin-bottom:4px}
+
 /* quiz */
 .quiz{position:fixed;inset:0;z-index:30;display:flex;flex-direction:column;background:var(--bg);
   padding-left:max(18px, env(safe-area-inset-left, 0px));padding-right:max(18px, env(safe-area-inset-right, 0px));
@@ -358,6 +380,14 @@ const FIG = (() => {
       <path d="M220 90H186M247 120H186M262 140H186" style="${acc};stroke-width:1.2" marker-end="url(#ad)"/>
       <path d="M28 35V150M24 35H32M24 150H32" style="${ink};stroke-width:1"/>${t(16,97,"h")}
       ${t(229,168,"ρ·g·h")}${t(296,96,"F = ?","middle","fill:var(--accent);font-weight:700")}`),
+    poren: () => S(`
+      <rect x="30" y="28" width="260" height="124" rx="3" style="fill:color-mix(in srgb,var(--ink-3) 38%,transparent);stroke:var(--ink);stroke-width:1.5"/>
+      <circle cx="82" cy="92" r="17" style="fill:var(--bg);stroke:var(--ink);stroke-width:1.3"/>${t(82,97,"A","middle","font-weight:700")}
+      <path d="M162 28C150 58 180 78 164 106S170 138 168 152" style="stroke:color-mix(in srgb,var(--c-hydro) 70%,transparent);stroke-width:11;fill:none"/>
+      ${t(194,96,"B","middle","font-weight:700")}
+      <path d="M244 29C240 52 252 70 246 92" style="stroke:var(--bg);stroke-width:11;fill:none"/>
+      <circle cx="246" cy="100" r="13" style="fill:var(--bg)"/>${t(246,105,"C","middle","font-weight:700")}
+      ${t(160,172,"blau: Wasser in den Kapillaren")}`),
     kapillar: () => S(`
       <rect x="20" y="110" width="120" height="50" style="${water}"/><path d="M20 110H140" style="stroke:var(--c-hydro);stroke-width:1.5"/>
       <path d="M72 150V62Q80 70 88 62V150Z" style="${water}"/><path d="M72 62Q80 70 88 62" style="stroke:var(--c-hydro);stroke-width:2;fill:none"/>
@@ -465,6 +495,32 @@ const FIG = (() => {
       <path d="M62 82H258" style="${acc};stroke-width:2" marker-end="url(#ag)"/><path d="M258 98H62" style="${acc};stroke-width:2" marker-end="url(#ag)"/>${t(160,74,"Hinflug")}${t(160,116,"Rückflug")}
       <path d="M250 30H200M180 30H130" style="stroke:var(--ink-2);stroke-width:1.6;stroke-dasharray:5 4" marker-end="url(#af)"/>${t(160,20,"Wind von B nach A")}
       <path d="M50 146H270M50 140V152M270 140V152" style="${ink};stroke-width:1"/>${t(160,166,"D")}`, 175),
+    /* v1.5 – weitere Skizzen für Lösungswege */
+    vt: () => S(`
+      <path d="M40 15V150H300" style="${ink};stroke-width:1.5"/>${t(300,184,"t in s","end")}${t(34,22,"v","end")}
+      <path d="M40 150L72 54H200L232 102H296" style="stroke:var(--accent);stroke-width:2.4;fill:none;stroke-linejoin:round"/>
+      <path d="M40 150L72 54H200L232 102H296V150Z" style="fill:color-mix(in srgb,var(--accent) 14%,transparent)"/>
+      <path d="M40 54H72M40 102H232" style="stroke:var(--ink-3);stroke-dasharray:3 4"/>${t(34,58,"24","end")}${t(34,106,"12","end")}
+      ${t(72,166,"2")}${t(200,166,"10")}${t(232,166,"12")}${t(296,166,"16")}${t(40,166,"0")}${t(186,30,"v in m/s","middle","font-size:11px")}`, 190),
+    kruemmer: () => S(arrow("akr","var(--accent)")+`
+      <path d="M20 70H150Q190 70 215 30L232 4M20 130H150Q215 130 262 52L282 22" style="${ink};stroke-width:2;fill:none"/>
+      <path d="M20 70H150Q190 70 215 30L232 4L282 22L262 52Q215 130 150 130H20Z" style="${water}"/>
+      <path d="M60 60V140" style="stroke:var(--ink);stroke-width:1.3;stroke-dasharray:3 3"/>${t(60,54,"1","middle","font-weight:700")}
+      <path d="M236 2L290 26" style="stroke:var(--ink);stroke-width:1.3;stroke-dasharray:3 3"/>${t(296,22,"2","start","font-weight:700")}
+      <path d="M26 100H54" style="${acc};stroke-width:2" marker-end="url(#akr)"/>${t(40,92,"v₁")}
+      <path d="M100 160H40" style="${ink};stroke-width:1"/>${t(110,164,"x","start")}
+      ${t(60,154,"D₁ = 0,4 m")}${t(250,80,"D₂ = 0,2 m","start")}${t(206,110,"60°","middle","font-weight:700")}`, 175),
+    behaelter: () => S(arrow("abh","var(--accent)")+`
+      <rect x="21" y="45" width="58" height="114" style="${water}"/><path d="M21 45H79" style="stroke:var(--c-hydro);stroke-width:2"/>
+      <path d="M20 25V160H80V147M80 133V25" style="${ink};stroke-width:2;fill:none"/>
+      <rect x="80" y="133" width="60" height="14" style="${water}"/><rect x="140" y="118" width="90" height="44" style="${water}"/><rect x="230" y="128" width="58" height="24" style="${water}"/>
+      <path d="M80 133H140V118H230V128H288M80 147H140V162H230V152H288" style="${ink};stroke-width:2;fill:none"/>
+      <path d="M100 140H112V45" style="stroke:var(--accent);stroke-width:3;fill:none"/><path d="M108 45H116" style="stroke:var(--c-hydro);stroke-width:2"/>
+      <path d="M185 118V40" style="stroke:var(--accent);stroke-width:3"/><path d="M181 55H189" style="stroke:var(--c-hydro);stroke-width:2"/>
+      ${t(112,36,"1 Pitot","middle","font-weight:700")}${t(185,32,"2 Piezometer","middle","font-weight:700")}
+      <path d="M290 140H312" style="${acc};stroke-width:2" marker-end="url(#abh)"/>${t(300,124,"3","middle","font-weight:700")}
+      <path d="M4 140H316" style="stroke:var(--ink-3);stroke-dasharray:6 5"/>${t(316,176,"Bezugshorizont = Rohrachse","end","font-size:11px")}
+      <path d="M10 45V140M6 45H14M6 140H14" style="${ink};stroke-width:1"/>${t(14,96,"h₀","start")}`, 185),
     matrix: () => { const g=(x,y,r,c,col)=>{let s="";for(let i=0;i<r;i++)for(let j=0;j<c;j++)s+=`<rect x="${x+j*16}" y="${y+i*16}" width="14" height="14" rx="3" style="fill:color-mix(in srgb,${col} 30%,transparent)"/>`;return s;};
       return S(g(20,60,2,3,"var(--c-stat)")+t(94,82,"·","middle","font-size:24px")+g(112,44,3,4,"var(--accent)")+t(196,82,"=","middle","font-size:22px")+`<rect x="214" y="50" width="70" height="50" rx="8" style="fill:none;stroke:var(--ink-3);stroke-dasharray:5 4"/>`+t(249,82,"?","middle","font-size:20px;font-weight:700")+t(44,124,"(2, 3)")+t(144,124,"(3, 4)"), 150); }
   };
@@ -502,6 +558,7 @@ const I = {
   redo: SVG('<path d="M4.5 12a7.5 7.5 0 1 0 2.4-5.5"/><path d="M4.5 4.5v4h4"/>'),
   bolt: SVG('<path d="M13 3 5.5 13.5H11L10 21l8-11h-5.6z"/>'),
   book: SVG('<path d="M4.5 5.5c2.5-1 5-1 7.5.5 2.5-1.5 5-1.5 7.5-.5v13c-2.5-1-5-1-7.5.5-2.5-1.5-5-1.5-7.5-.5z"/><path d="M12 6v13"/>'),
+  note: SVG('<path d="M4.5 19.5h4.2L19 9.2a2.1 2.1 0 0 0 0-3l-1.2-1.2a2.1 2.1 0 0 0-3 0L4.5 15.3z"/><path d="M13.5 6.5l4 4"/>'),
   target: SVG('<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/>'),
   chev: '<svg class="chev" viewBox="0 0 9 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m1.5 1.5 6 6-6 6"/></svg>'
 };
@@ -525,13 +582,20 @@ const BYID = Object.fromEntries(FRAGEN.map(q => [q.id, q]));
 /* v1.3: Lösungsweg-Aufgaben */
 const AUFG = typeof AUFGABEN !== "undefined" ? AUFGABEN : [];
 const ABYID = Object.fromEntries(AUFG.map(a => [a.id, a]));
+/* v1.5: Korrekturen auch für Aufgaben; „weg: true“ entfernt eine Frage oder Aufgabe ganz */
+if (typeof KORREKTUR !== "undefined") AUFG.forEach(a => { const x = KORREKTUR[a.id]; if (x) Object.assign(a, x); });
+const ALLQ = FRAGEN.filter(q => !q.weg), ALLA = AUFG.filter(a => !a.weg);
 
 /* storage */
-const APP_VERSION = "1.4";
+const APP_VERSION = "1.5";
 const KEY = "klausurduell.v1";
 let S = {cards:{}, days:{}, aufg:{}};
 try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch(e) {}
 if(!S.aufg) S.aufg = {};
+if(!S.notes) S.notes = []; if(!S.hide) S.hide = {};
+/* v1.5: ausgeblendete Fragen/Aufgaben aus allen Listen nehmen (Lernstand bleibt erhalten) */
+function applyHidden(){ FRAGEN.length = 0; ALLQ.forEach(q => { if(!S.hide[q.id]) FRAGEN.push(q); }); AUFG.length = 0; ALLA.forEach(a => { if(!S.hide[a.id]) AUFG.push(a); }); }
+applyHidden();
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) {} }
 const dayKey = (d=new Date()) => d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 const dayNum = (d=new Date()) => Math.floor((Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()))/864e5);
@@ -675,6 +739,9 @@ function vStand(){
       <div class="boxrow"><span>Fehlerfrei</span><div class="bar"><div style="width:${ok/AUFG.length*100}%;background:var(--ok)"></div></div><span>${ok}</span></div></div>
       <p class="legend" style="margin:0">Im Schnitt ${Math.round(avg*100)} % der Schritte im besten Durchgang richtig. Ein Schritt zählt voll, wenn er im ersten Versuch sitzt, halb im zweiten.</p></div>`; })() : ""}
     <div class="sec"><div class="sec-h"><h2>Nach Fach</h2></div>${subjectList()}</div>
+    ${(()=>{ const o = S.notes.filter(n=>!n.sent).length; return `<div class="panel glass"><div class="sec-h" style="padding:0"><h2>Anmerkungen</h2><small>${o ? `${o} offen` : `${S.notes.length} gesendet`}</small></div>
+      <p class="legend" style="margin:0">Fehler in einer Frage, unnötige Fragen oder Wünsche zu einem Thema: Während einer Frage oben rechts auf den Stift tippen. Die Anmerkungen gehen als Issue an GitHub und werden beim nächsten Patch eingearbeitet.</p>
+      <div class="btnrow" style="margin-top:0"><button class="btn2 press" data-act="notes">Verwalten</button>${o ? `<button class="btn2 acc press" data-act="nsend">Senden (${o})</button>` : `<button class="btn2 press" data-act="note-app">Neue Anmerkung</button>`}</div></div>`; })()}
     <div class="panel glass"><div class="sec-h" style="padding:0"><h2>Daten sichern</h2><small>Version ${APP_VERSION}</small></div>
       <p class="legend" style="margin:0">Dein Lernstand liegt nur auf diesem Gerät. Ein Backup kannst du in Dateien oder iCloud ablegen und auf einem neuen Gerät wieder einlesen.</p>
       <div class="btnrow" style="margin-top:0"><button class="btn2 press" data-act="export">Backup sichern</button><button class="btn2 press" data-act="import">Backup laden</button></div>
@@ -696,7 +763,7 @@ function lockPage(){ if(document.body.classList.contains("locked")) return; lock
 function unlockPage(){ if(!document.body.classList.contains("locked")) return; document.body.classList.remove("locked"); document.body.style.top = ""; window.scrollTo(0, lockY); }
 function openSheet(html){
   const sh=$("#sheet"), sc=$("#scrim"); sh.innerHTML='<div class="grab"></div><button class="sx press" data-act="close" aria-label="Schließen">'+I.close+'</button>'+html; sh.hidden=false; sc.hidden=false;
-  sh.scrollTop=0; sh.style.transform=""; lockPage();
+  sh.scrollTop=0; sh.style.transform=""; delete sh.dataset.kind; lockPage();
   requestAnimationFrame(()=>{sh.classList.add("show"); sc.classList.add("show");});
 }
 function closeSheet(){
@@ -708,7 +775,7 @@ function closeSheet(){
 (() => {
   const sh = document.getElementById("sheet"), sc = document.getElementById("scrim");
   let y0 = null, t0 = 0, dy = 0, drag = false;
-  sh.addEventListener("touchstart", e => { if (sh.scrollTop > 0) { y0 = null; return; } y0 = e.touches[0].clientY; t0 = Date.now(); dy = 0; drag = false; }, {passive:true});
+  sh.addEventListener("touchstart", e => { if (sh.scrollTop > 0 || e.target.closest("textarea,input")) { y0 = null; return; } y0 = e.touches[0].clientY; t0 = Date.now(); dy = 0; drag = false; }, {passive:true});
   sh.addEventListener("touchmove", e => {
     if (y0 === null) return;
     dy = e.touches[0].clientY - y0;
@@ -730,7 +797,8 @@ function subjectSheet(f){
   openSheet(`<div style="display:flex;gap:14px;align-items:center;margin-bottom:14px">${icon(f)}<div><h2>${FACH[f].n}</h2><p class="sub" style="margin:0">${qs.length} Fragen · ${fresh} neu · ${due} fällig</p></div></div>
     <button class="cta press" style="--accent:${cssC(f)}" data-act="start-subject" data-f="${f}">${I.play}Ganzes Fach · 10 Fragen</button>
     <div style="margin-top:18px">${topics.map(t=>{const tq=qs.filter(q=>q.t===t),m=mastery(tq);return `<button class="topic press" data-act="start-topic" data-f="${f}" data-t="${esc(t)}"><b>${esc(t)}</b><small>${tq.length} · ${Math.round(m*100)} %</small>${I.chev}</button>`}).join("")}</div>
-    ${AUFG.some(a=>a.f===f) ? `<h2 style="margin:22px 0 6px;font-size:17px">Lösungswege</h2>${AUFG.filter(a=>a.f===f).map(a=>`<button class="topic press" data-act="task" data-id="${a.id}"><b>${esc(a.titel)}</b>${tStatus(a)}${I.chev}</button>`).join("")}` : ""}`);
+    ${AUFG.some(a=>a.f===f) ? `<h2 style="margin:22px 0 6px;font-size:17px">Lösungswege</h2>${AUFG.filter(a=>a.f===f).map(a=>`<button class="topic press" data-act="task" data-id="${a.id}"><b>${esc(a.titel)}</b>${tStatus(a)}${I.chev}</button>`).join("")}` : ""}
+    <button class="link" style="margin-top:10px;display:flex;align-items:center;gap:8px" data-act="note-fach" data-f="${f}"><span style="width:18px;height:18px;display:inline-grid">${I.note}</span>Wunsch oder Anmerkung zu diesem Fach</button>`);
 }
 function resetSheet(){
   openSheet(`<h2>Fortschritt zurücksetzen?</h2><p class="sub">Alle Lernstufen, Aufgaben-Ergebnisse, die Serie und der Verlauf auf diesem Gerät werden gelöscht. Die Fragen bleiben erhalten.</p>
@@ -767,7 +835,7 @@ function renderQ(){
     body = `<div class="hint">Tippe links einen Begriff an, dann rechts die passende Bedeutung.</div><div class="pairs"><div class="colp" id="pl"></div><div class="colp" id="pr"></div></div>`;
   }
   el.innerHTML = `<div class="ambient tint" style="--tint:${cssC(q.f)}"><i></i><i></i><i></i><i></i></div>
-  <div class="qwrap"><div class="qtop"><button class="round glass press" data-act="quit" aria-label="Beenden">${I.close}</button><div class="seg">${segs()}</div><span class="qcount">${Q.i+1}/${Q.list.length}</span></div>
+  <div class="qwrap"><div class="qtop"><button class="round glass press" data-act="quit" aria-label="Beenden">${I.close}</button><div class="seg">${segs()}</div><span class="qcount">${Q.i+1}/${Q.list.length}</span><button class="round glass press nbtn" data-act="note" aria-label="Anmerkung zu dieser Frage">${I.note}</button></div>
   <div class="qbody" id="qbody"><div class="qcard glass" style="--c:${cssC(q.f)}"><div class="qmeta"><span class="dot"></span><span class="lab">${FACH[q.f].n} · ${esc(q.t)}</span><span class="typ">${q.v ? "Bild" : TYPNAME[q.typ]}</span></div><div class="qtext">${esc(q.q)}</div>${q.v && typeof FIG!=="undefined" && FIG[q.v] ? `<div class="fig">${FIG[q.v]()}</div>` : ""}</div>${body}<div id="fb"></div></div>
   <div class="qfoot" id="qfoot"></div></div>`;
   if(q.typ==="ord") drawOrd(); if(q.typ==="pair") drawPairs();
@@ -847,7 +915,7 @@ function renderTask(){
   A.tries = 0; A.res = false;
   A.opts = shuffle(st.o.map((o,k)=>({t:o[0], e:o[1], ok:k===0})));
   el.innerHTML = `<div class="ambient tint" style="--tint:${cssC(a.f)}"><i></i><i></i><i></i><i></i></div>
-  <div class="qwrap"><div class="qtop"><button class="round glass press" data-act="a-quit" aria-label="Beenden">${I.close}</button><div class="seg">${aSegs()}</div><span class="qcount">${A.i+1}/${n}</span></div>
+  <div class="qwrap"><div class="qtop"><button class="round glass press" data-act="a-quit" aria-label="Beenden">${I.close}</button><div class="seg">${aSegs()}</div><span class="qcount">${A.i+1}/${n}</span><button class="round glass press nbtn" data-act="note" aria-label="Anmerkung zu dieser Aufgabe">${I.note}</button></div>
   <div class="qbody" id="qbody">${taskHead(a)}
     ${A.i ? `<div class="path glass"><div class="ph">Bisheriger Lösungsweg</div>${a.schritte.slice(0,A.i).map(pstep).join("")}</div>` : ""}
     <div class="stepcard glass" id="stepcard" style="--c:${cssC(a.f)}"><div class="eyebrow">Schritt ${A.i+1} von ${n}</div><div class="stepq">${esc(st.f)}</div>
@@ -903,6 +971,133 @@ function taskResult(){
   animateRings($("#quiz"));
 }
 
+/* v1.5: Anmerkungen – sammeln, als GitHub-Issue senden */
+const REPO = "TomR-z/klausurduell", TKEY = "klausurduell.ghtoken";
+const getTok = () => { try { return localStorage.getItem(TKEY) || ""; } catch(e) { return ""; } };
+const setTok = v => { try { v ? localStorage.setItem(TKEY, v) : localStorage.removeItem(TKEY); } catch(e) {} };
+const KATS = {
+  frage:   [["falsch","Inhalt falsch"],["unklar","Unklar erklärt"],["unnoetig","Frage unnötig"],["wunsch","Wunsch zum Thema"],["sonst","Sonstiges"]],
+  aufgabe: [["falsch","Inhalt falsch"],["unklar","Unklar erklärt"],["unnoetig","Aufgabe unnötig"],["wunsch","Wunsch zum Thema"],["sonst","Sonstiges"]],
+  fach:    [["wunsch","Mehr dazu / Wunsch"],["unnoetig","Thema unnötig"],["falsch","Etwas stimmt nicht"],["sonst","Sonstiges"]],
+  app:     [["fehler","Fehler in der App"],["idee","Idee"],["sonst","Sonstiges"]]
+};
+let NOTE = null, NPEND = [];
+function korrektText(q){
+  if (q.typ === "mc") return q.a[0];
+  if (q.typ === "wf") return q.c ? "wahr" : "falsch";
+  if (q.typ === "ord") return q.steps.join(" → ");
+  if (q.typ === "pair") return q.pairs.map(p => p[0] + " = " + p[1]).join("; ");
+  return "";
+}
+function noteCtx(){
+  if (A) { const a = A.a; return {art:"aufgabe", ref:a.id, f:a.f, t:a.t, text:a.titel, extra:"Schritt " + (A.i+1) + ": " + a.schritte[A.i].f, korrekt:a.schritte[A.i].o[0][0], s:a.s}; }
+  if (Q) { const q = Q.list[Q.i]; return {art:"frage", ref:q.id, f:q.f, t:q.t, text:q.q, korrekt:korrektText(q), s:q.s}; }
+  return {art:"app"};
+}
+function noteSheet(ctx){
+  NOTE = {ctx, kat: KATS[ctx.art][0][0]};
+  const tok = getTok(), what = ctx.art === "frage" ? "Frage" : ctx.art === "aufgabe" ? "Aufgabe" : "";
+  const head = ctx.art === "app" ? "Fehler, Ideen oder Wünsche zur App selbst." : ctx.art === "fach" ? "Wünsche oder Hinweise zu " + FACH[ctx.f].n + ", z. B. zu einem bestimmten Thema." : "Zu dieser " + what + ". Sie wird automatisch mitgeschickt.";
+  openSheet(`<h2>Anmerkung</h2><p class="sub">${head}</p>
+    ${ctx.text ? `<div class="nq"><b>${esc(FACH[ctx.f].n)} · ${esc(ctx.t)}</b><br>${esc(ctx.text)}${ctx.extra ? `<br>${esc(ctx.extra)}` : ""}</div>` : ""}
+    <div class="kats">${KATS[ctx.art].map(([k,n],i) => `<button class="kat press${i?"":" on"}" data-act="nkat" data-k="${k}">${n}</button>`).join("")}</div>
+    <textarea id="ntext" class="ntext" placeholder="Was fällt dir auf? Was soll anders sein?"></textarea>
+    ${ctx.ref ? `<label class="ncheck" id="nhide" hidden><input type="checkbox" id="nhidecb" checked>${what} ab sofort ausblenden</label>` : ""}
+    <div class="btnrow"><button class="btn2 press" data-act="close">Abbrechen</button><button class="btn2 acc press" data-act="nsave">${tok ? "Senden" : "Speichern"}</button></div>
+    <p class="legend" style="margin-top:12px">${tok ? "Geht sofort als Issue an GitHub." : "Wird auf diesem Gerät gesammelt. Senden kannst du unter Lernstand → Anmerkungen."}</p>`);
+}
+function noteTitle(n){
+  const where = n.art === "app" ? "App" : FACH[n.f] ? FACH[n.f].n : n.f;
+  const txt = (n.text || n.msg || "").replace(/\s+/g, " ");
+  return `[${where}] ${n.katName}: ${txt.length > 70 ? txt.slice(0, 68) + "…" : txt}`;
+}
+function noteMd(n){
+  const where = n.art === "app" ? "App allgemein" : (FACH[n.f] ? FACH[n.f].n : n.f) + (n.t ? " · " + n.t : "");
+  let s = `**${n.katName}** – ${where}\n\n`;
+  if (n.text) s += `> **${n.art === "aufgabe" ? "Aufgabe" : "Frage"}:** ${n.text}  \n`;
+  if (n.extra) s += `> ${n.extra}  \n`;
+  if (n.korrekt) s += `> **Richtig laut App:** ${n.korrekt}  \n`;
+  if (n.s) s += `> **Quelle:** ${n.s}\n`;
+  s += `\n${n.msg || "(ohne Text)"}\n`;
+  if (n.hide) s += `\n_In der App ausgeblendet._\n`;
+  const meta = JSON.stringify({id:n.id, art:n.art, ref:n.ref, f:n.f, t:n.t, kat:n.kat, hide:!!n.hide, v:n.v, ts:n.ts}).replace(/--/g, "-\\u002d");
+  return s + `\n<!-- klausurduell ${meta} -->\n`;
+}
+async function ghIssue(title, body){
+  const r = await fetch(`https://api.github.com/repos/${REPO}/issues`, {method:"POST", headers:{"Authorization":"Bearer " + getTok(), "Accept":"application/vnd.github+json", "Content-Type":"application/json"}, body:JSON.stringify({title, body})});
+  if (!r.ok) throw r.status;
+  return (await r.json()).number;
+}
+function nRefresh(){ const sh = $("#sheet"); if (sh.classList.contains("show") && sh.dataset.kind === "notes") notesSheet(); else if (!Q && !A) render(); }
+async function sendNotes(list){
+  let ok = 0, err = null;
+  for (const n of list) { try { n.issue = await ghIssue(noteTitle(n), noteMd(n)); n.sent = true; ok++; save(); } catch(e) { err = e; break; } }
+  if (err !== null) toast(err === 401 ? "Schlüssel ungültig oder abgelaufen" : (err === 403 || err === 404) ? "Schlüssel darf keine Issues anlegen" : "Senden gerade nicht möglich – bleibt gespeichert");
+  else toast(ok === 1 ? `Anmerkung gesendet (#${list[0].issue})` : `${ok} Anmerkungen gesendet`);
+  nRefresh();
+}
+function sendViaLink(){
+  const open = S.notes.filter(n => !n.sent); if (!open.length) return;
+  let body = "", used = [];
+  for (const n of open) {
+    const part = (used.length ? "\n---\n\n" : "") + noteMd(n);
+    if (used.length && encodeURIComponent(body + part).length > 6500) break;
+    body += part; used.push(n);
+  }
+  const d = new Date(), title = used.length === 1 ? noteTitle(used[0]) : `Anmerkungen (${used.length}) vom ${d.getDate()}.${d.getMonth()+1}.${d.getFullYear()}`;
+  NPEND = used.map(n => n.id);
+  window.open(`https://github.com/${REPO}/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`, "_blank");
+  const rest = open.length - used.length;
+  openSheet(`<h2>Auf GitHub abgeschickt?</h2><p class="sub">GitHub ist mit ${used.length === 1 ? "deiner Anmerkung" : `${used.length} Anmerkungen`} geöffnet. Tippe dort auf „Create“ und komm zurück.${rest ? ` Die übrigen ${rest} kommen im nächsten Durchgang.` : ""}</p>
+    <div class="btnrow"><button class="btn2 press" data-act="notes">Noch nicht</button><button class="btn2 acc press" data-act="nmark">Ja, abgeschickt</button></div>`);
+}
+function notesSheet(){
+  const open = S.notes.filter(n => !n.sent), sent = S.notes.filter(n => n.sent), tok = getTok(), nh = Object.keys(S.hide).length;
+  const label = n => n.art === "app" ? "App" : (FACH[n.f] ? FACH[n.f].n : n.f) + (n.t ? " · " + n.t : "");
+  openSheet(`<h2>Anmerkungen</h2><p class="sub">${open.length} offen · ${sent.length} gesendet</p>
+    ${open.length ? open.map(n => `<div class="nitem"><div class="t"><b>${esc(n.katName)}</b> – ${esc(n.msg || n.text || "")}<small>${esc(label(n))}${n.text && n.msg ? " · " + esc(n.text.slice(0, 60)) : ""}</small></div><button class="del press" data-act="ndel" data-id="${n.id}">Löschen</button></div>`).join("") : `<p class="legend" style="margin:0">Keine offenen Anmerkungen.</p>`}
+    <div class="btnrow">${open.length ? `<button class="btn2 acc press" data-act="nsend">Senden (${open.length})</button>` : ""}<button class="btn2 press" data-act="note-app">Neue Anmerkung</button></div>
+    ${sent.length ? `<h3>Zuletzt gesendet</h3>${sent.slice(-5).reverse().map(n => `<div class="nitem"><div class="t">${esc(n.katName)} – ${esc(n.msg || n.text || "")}<small>${esc(label(n))}${n.issue ? ` · Issue #${n.issue}` : ""}</small></div></div>`).join("")}` : ""}
+    <h3>Ausgeblendet</h3><p class="legend" style="margin:0">${nh ? `${nh} ${nh === 1 ? "Frage oder Aufgabe ist" : "Fragen oder Aufgaben sind"} ausgeblendet. Der Lernstand dazu bleibt erhalten.` : "Nichts ausgeblendet."}</p>
+    ${nh ? `<button class="link" data-act="nunhide">Alle wieder einblenden</button>` : ""}
+    <h3>Direkt senden</h3>
+    ${tok ? `<p class="legend" style="margin:0">Ein GitHub-Schlüssel ist eingetragen. Anmerkungen gehen mit einem Tipp als Issue raus.</p><button class="link danger" data-act="tok-del">Schlüssel entfernen</button>`
+          : `<p class="legend" style="margin:0">Ohne Schlüssel öffnet „Senden“ GitHub mit fertig ausgefülltem Text – du tippst dort nur noch auf „Create“. Mit Schlüssel geht jede Anmerkung sofort raus.</p><button class="link" data-act="tok-setup">Schlüssel einrichten</button>`}`);
+  $("#sheet").dataset.kind = "notes";
+}
+function tokSheet(){
+  openSheet(`<h2>GitHub-Schlüssel</h2><p class="sub">Einmal einrichten, dann gehen Anmerkungen mit einem Tipp raus.</p>
+    <ol class="steps"><li>Auf github.com anmelden → Profilbild → <b>Settings</b> → <b>Developer settings</b> → <b>Personal access tokens</b> → <b>Fine-grained tokens</b> → <b>Generate new token</b>.</li>
+    <li>Name z. B. „Klausurduell“, Ablaufdatum nach Wunsch.</li>
+    <li><b>Repository access:</b> „Only select repositories“ → <b>klausurduell</b>.</li>
+    <li><b>Permissions:</b> nur <b>Issues</b> hinzufügen und auf <b>Read and write</b> stellen.</li>
+    <li>Erstellen, Schlüssel kopieren und hier einfügen.</li></ol>
+    <input id="tokin" class="ntoken" type="password" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="github_pat_…">
+    <div class="btnrow"><button class="btn2 press" data-act="notes">Abbrechen</button><button class="btn2 acc press" data-act="tok-save">Speichern</button></div>
+    <p class="legend" style="margin-top:12px">Der Schlüssel bleibt nur auf diesem Gerät. Er steht nicht im Backup und darf nur Issues in diesem einen Repo anlegen.</p>`);
+}
+async function tokSave(){
+  const v = ($("#tokin").value || "").trim();
+  if (!/^(github_pat_|ghp_)\w{20,}$/.test(v)) { toast("Das sieht nicht nach einem GitHub-Schlüssel aus"); return; }
+  try {
+    const r = await fetch(`https://api.github.com/repos/${REPO}`, {headers:{"Authorization":"Bearer " + v, "Accept":"application/vnd.github+json"}});
+    if (r.status === 401) { toast("Schlüssel ungültig oder abgelaufen"); return; }
+    if (!r.ok) { toast("GitHub antwortet gerade nicht"); return; }
+  } catch(e) { toast("Keine Verbindung zu GitHub"); return; }
+  setTok(v); toast("Schlüssel gespeichert"); notesSheet();
+}
+function nSave(){
+  const ctx = NOTE.ctx, msg = ($("#ntext").value || "").trim(), cb = $("#nhidecb");
+  if (!msg && NOTE.kat !== "unnoetig") { toast("Schreib kurz, was dir auffällt"); $("#ntext").focus(); return; }
+  const hide = !!(ctx.ref && NOTE.kat === "unnoetig" && cb && cb.checked);
+  const n = {id: Date.now().toString(36) + Math.random().toString(36).slice(2,5), ts: new Date().toISOString(), v: APP_VERSION,
+    art: ctx.art, ref: ctx.ref || null, f: ctx.f || null, t: ctx.t || null, text: ctx.text || "", extra: ctx.extra || "", korrekt: ctx.korrekt || "", s: ctx.s || "",
+    kat: NOTE.kat, katName: KATS[ctx.art].find(k => k[0] === NOTE.kat)[1], msg, hide, sent: false};
+  if (hide) { S.hide[ctx.ref] = 1; applyHidden(); }
+  S.notes.push(n); save(); closeSheet(); NOTE = null;
+  if (getTok()) sendNotes([n]); else { toast(hide ? "Gespeichert und ausgeblendet" : "Anmerkung gespeichert"); if (!Q && !A) render(); }
+}
+
 /* events */
 document.addEventListener("click", e => {
   const b = e.target.closest("[data-act],[data-tab]"); if(!b || b.disabled) return;
@@ -919,8 +1114,21 @@ document.addEventListener("click", e => {
   else if(a==="import") $("#importFile").click();
   else if(a==="reload") location.reload();
   else if(a==="more"){ const m=b.nextElementSibling; m.hidden=!m.hidden; b.classList.toggle("open",!m.hidden); if(!m.hidden) setTimeout(()=>m.scrollIntoView({behavior:"smooth",block:"nearest"}),50); }
-  else if(a==="reset-yes"){ S={cards:{},days:{},aufg:{}}; save(); closeSheet(); render(); toast("Fortschritt zurückgesetzt"); }
+  else if(a==="reset-yes"){ S={cards:{},days:{},aufg:{},notes:S.notes,hide:S.hide}; save(); closeSheet(); render(); toast("Fortschritt zurückgesetzt"); }
   else if(a==="close") closeSheet();
+  else if(a==="note") noteSheet(noteCtx());
+  else if(a==="note-fach") noteSheet({art:"fach", f:b.dataset.f});
+  else if(a==="note-app") noteSheet({art:"app"});
+  else if(a==="nkat"){ NOTE.kat=b.dataset.k; document.querySelectorAll(".kat").forEach(x=>x.classList.toggle("on", x===b)); const h=$("#nhide"); if(h) h.hidden = NOTE.kat!=="unnoetig"; }
+  else if(a==="nsave") nSave();
+  else if(a==="notes") notesSheet();
+  else if(a==="nsend"){ const o=S.notes.filter(n=>!n.sent); if(getTok()){ closeSheet(); sendNotes(o); } else sendViaLink(); }
+  else if(a==="nmark"){ S.notes.forEach(n=>{ if(NPEND.includes(n.id)) n.sent=true; }); NPEND=[]; save(); toast("Als gesendet markiert"); notesSheet(); if(!Q && !A) render(); }
+  else if(a==="ndel"){ S.notes=S.notes.filter(n=>n.id!==b.dataset.id); save(); notesSheet(); if(!Q && !A) render(); }
+  else if(a==="nunhide"){ S.hide={}; save(); applyHidden(); toast("Alles wieder eingeblendet"); notesSheet(); if(!Q && !A) render(); }
+  else if(a==="tok-setup") tokSheet();
+  else if(a==="tok-save") tokSave();
+  else if(a==="tok-del"){ setTok(""); toast("Schlüssel entfernt"); notesSheet(); }
   else if(a==="quit"||a==="done") endQuiz();
   else if(a==="task"){ if(Q){ $("#quiz").innerHTML=""; Q=null; } startTask(b.dataset.id); }
   else if(a==="a-quit"||a==="a-done") endTask();
@@ -951,6 +1159,8 @@ document.addEventListener("click", e => {
 });
 $("#scrim").addEventListener("click", closeSheet);
 document.addEventListener("keydown", e => {
+  if(e.target.closest && e.target.closest("textarea,input")) return;
+  if(!$("#sheet").hidden) { if(e.key==="Escape") closeSheet(); return; }
   if(A && !$("#quiz").hidden){
     if(e.key==="Escape"){ endTask(); return; }
     if(/^[1-4]$/.test(e.key)){ const o=document.querySelectorAll("#stepcard .opt")[+e.key-1]; if(o && !o.disabled) o.click(); return; }
@@ -979,7 +1189,7 @@ document.addEventListener("change", e => {
   if(e.target.id!=="importFile" || !e.target.files[0]) return;
   const r=new FileReader();
   r.onload=()=>{ try{ const d=JSON.parse(r.result); if(d.app!=="klausurduell"||!d.state||!d.state.cards) throw 0;
-      S={cards:d.state.cards||{}, days:d.state.days||{}, aufg:d.state.aufg||{}}; save(); render(); toast("Backup geladen"); }
+      S={cards:d.state.cards||{}, days:d.state.days||{}, aufg:d.state.aufg||{}, notes:d.state.notes||S.notes||[], hide:d.state.hide||{}}; applyHidden(); save(); render(); toast("Backup geladen"); }
     catch(err){ toast("Diese Datei ist kein Klausurduell-Backup"); } e.target.value=""; };
   r.readAsText(e.target.files[0]);
 });
