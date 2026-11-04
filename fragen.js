@@ -5859,3 +5859,2230 @@ aufgabe({
  ],
  "fazit": "Klausur-Holzbau in Kurzform: Lasten pro Balken (Dämmung nur zwischen den Balken!) → Momente mit Tabellen → Kombinationen über M_Ed/kmod → Biegung → Schub mit 1,5 und k_cr."
 });
+/* Patch-Warteschlange · Physik V04 Axiome von Newton · Übungsblatt 4 (Fragen + Lösungsweg-Aufgaben) · erstellt 03.11.2026 */
+const P5 = "Newtonsche Axiome";
+THEMEN["phys|Newtonsche Axiome"] = "Mit Newton beginnt die Dynamik: Kräfte sind die Ursache dafür, dass sich Bewegungen ändern. Das 1. Axiom sagt, ohne resultierende Kraft bleibt die Geschwindigkeit gleich, das 2. verknüpft Kraft, Masse und Beschleunigung über F = m·a, und das 3. stellt klar, dass Kräfte immer paarweise zwischen zwei Körpern auftreten. Das Handwerkszeug für jede Aufgabe ist das Freikörperbild: Körper isolieren, alle Kräfte einzeichnen, ΣF = m·a je Richtung aufschreiben.";
+
+/* ── Vorlesung V04 ── */
+pair("phys", P5, "Ordne jedem Newtonschen Axiom seinen Namen zu.", [["1. Axiom", "Trägheitsprinzip"], ["2. Axiom", "Aktionsprinzip"], ["3. Axiom", "Reaktionsprinzip (actio = reactio)"]], "1: ohne Kraft keine Bewegungsänderung. 2: F = ṗ = m·a. 3: Kraft und Gegenkraft sind gleich groß und entgegengesetzt.", "Physik V04, Folie 7");
+mc("phys", P5, "Was besagt das 1. Newtonsche Axiom (Trägheitsprinzip)?", ["Ohne Kraft bleibt ein Körper in Ruhe oder bewegt sich geradlinig gleichförmig", "Ohne Kraft kommt jeder Körper irgendwann zur Ruhe", "Jede Kraft erzeugt eine gleich große Gegenkraft", "Kraft ist Masse mal Geschwindigkeit"], "Dass Körper im Alltag zur Ruhe kommen, liegt an einer verborgenen Kraft – der Reibung. Ohne sie bliebe v konstant.", "Physik V04, Folie 3/8");
+wf("phys", P5, "Ein Körper, der sich mit konstanter Geschwindigkeit geradeaus bewegt, braucht keine resultierende Kraft.", true, "Richtig – nach dem 1. Axiom ist ΣF = 0 gleichbedeutend mit v = const. Eine Kraft braucht man nur, um die Geschwindigkeit zu ändern (Betrag oder Richtung).", "Physik V04, Folie 8");
+mc("phys", P5, "Wie lautet das 2. Newtonsche Axiom in seiner allgemeinen Form?", ["F = dp/dt – die Kraft ist die zeitliche Änderung des Impulses", "F = m·v", "F = p·t", "F = m·g immer und überall"], "Bei konstanter Masse folgt daraus F = m·a. F = m·g ist nur der Sonderfall Gewichtskraft.", "Physik V04, Folie 7/9");
+mc("phys", P5, "Wie ist der Impuls definiert?", ["p = m·v, ein Vektor in Richtung der Geschwindigkeit", "p = m·a", "p = F·s", "p = ½·m·v², ein Skalar"], "Die Masse ist ein Skalar, also zeigt p in Richtung von v. Einheit kg·m/s. ½mv² wäre die kinetische Energie.", "Physik V04, Folie 5/6");
+mc("phys", P5, "Was ist 1 Newton in SI-Basiseinheiten?", ["1 kg·m/s²", "1 kg·m/s", "1 kg·m²/s²", "1 kg/s²"], "Aus F = m·a: kg mal m/s². kg·m/s ist die Einheit des Impulses, kg·m²/s² die eines Joule.", "Physik V04, Folie 4");
+wf("phys", P5, "Verdoppelt man die Kraft auf einen Körper, verdoppelt sich seine Beschleunigung.", true, "Richtig – a = F/m: Die Beschleunigung ist proportional zur Kraft und umgekehrt proportional zur Masse.", "Physik V04, Folie 9/20");
+mc("phys", P5, "Was beschreibt die (träge) Masse eines Körpers?", ["Wie stark er sich einer Änderung seines Bewegungszustands widersetzt", "Wie stark ihn die Erde anzieht – das ist dasselbe wie sein Gewicht", "Seine Geschwindigkeit", "Wie groß sein Volumen ist"], "Je größer die Masse, desto größer die Trägheit: Bei gleicher Kraft wird ein schwerer Körper weniger beschleunigt.", "Physik V04, Folie 4/10");
+wf("phys", P5, "Masse und Gewichtskraft sind dasselbe.", false, "Falsch – die Masse (kg) ist überall gleich, die Gewichtskraft F_G = m·g (N) hängt von der Schwerebeschleunigung ab. Auf dem Mond ist die Masse gleich, das Gewicht etwa ein Sechstel.", "Physik V04, Folie 11/12");
+mc("phys", P5, "Welche Kraft hält einen Körper auf einer Kreisbahn mit Radius r?", ["Die Zentripetalkraft F_r = m·ω²·r, zum Mittelpunkt gerichtet", "Die Zentrifugalkraft nach außen", "Eine Kraft tangential in Bewegungsrichtung", "Keine – die Bewegung ist ja gleichförmig"], "Folge aus dem 2. Axiom: Die Radialbeschleunigung ω²·r braucht eine Kraft m·ω²·r zur Mitte. Die Fliehkraft ist eine Scheinkraft, die im Inertialsystem nicht auftritt.", "Physik V04, Folie 13/17");
+mc("phys", P5, "Was ist ein Inertialsystem?", ["Ein Bezugssystem, in dem ein kräftefreier Körper ruht oder sich gleichförmig geradlinig bewegt", "Ein Bezugssystem, das sich dreht", "Ein beschleunigtes Bezugssystem", "Das Bezugssystem der Erdachse"], "Nur dort gelten die Newtonschen Axiome ohne Scheinkräfte wie die Fliehkraft.", "Physik V04, Folie 17");
+mc("phys", P5, "Ein Buch liegt auf dem Tisch. Was ist nach dem 3. Axiom die Gegenkraft zur Gewichtskraft des Buches (Erde zieht Buch)?", ["Das Buch zieht die Erde mit gleich großer Kraft an", "Der Tisch drückt das Buch nach oben", "Die Reibung zwischen Buch und Tisch", "Es gibt keine, das Buch ruht ja"], "Kraft und Gegenkraft wirken immer auf zwei VERSCHIEDENE Körper. Normalkraft und Gewicht wirken beide auf das Buch – sie heben sich auf, sind aber kein actio-reactio-Paar.", "Physik V04, Folie 15/21");
+wf("phys", P5, "Kraft und Gegenkraft nach dem 3. Axiom heben sich auf, deshalb kann sich nie etwas bewegen.", false, "Falsch – die beiden Kräfte greifen an verschiedenen Körpern an. Aufheben können sich nur Kräfte, die am selben Körper wirken.", "Physik V04, Folie 15");
+
+/* ── Übungsblatt 4 ── */
+ord("phys", P5, "Rezept für jede Newton-Aufgabe: Reihenfolge?", ["Körper isolieren (Freikörperbild)", "Alle Kräfte auf diesen Körper als Pfeile einzeichnen", "Achsen festlegen, Richtung der Beschleunigung markieren", "ΣF = m·a je Richtung aufschreiben", "Gleichungen der Körper kombinieren und nach der Unbekannten auflösen"], "So ging es in allen Aufgaben von Blatt 4. Wer bei mehreren Körpern jeden einzeln isoliert, vergisst keine Kraft.", "Physik Blatt 4, Hinweise");
+pair("phys", P5, "Ordne die Kraft auf der schiefen Ebene (Winkel α) zu.", [["Hangabtrieb", "m·g·sin α"], ["Normalanteil des Gewichts", "m·g·cos α"], ["Normalkraft der Ebene", "gleich groß wie m·g·cos α, entgegengesetzt"], ["Gewichtskraft", "m·g, senkrecht nach unten"]], "Bei α = 0 ist der Hangabtrieb null und die Normalkraft gleich m·g – gute Probe, ob sin und cos richtig verteilt sind.", "Physik Blatt 4, A3–A5");
+mc("phys", P5, "Blatt 4, A1: Drei Kräfte erzeugen die Beschleunigung a. Wie bekommst du die fehlende Kraft F₃?", ["F₃ = m·a − F₁ − F₂, je Komponente", "F₃ = F₁ + F₂ − m·a", "F₃ = m·a, die anderen Kräfte spielen keine Rolle", "F₃ = −(F₁ + F₂)"], "Aus F₁ + F₂ + F₃ = m·a. −(F₁ + F₂) wäre nur richtig, wenn der Körper nicht beschleunigt (a = 0).", "Physik Blatt 4, Aufgabe 1");
+wf("phys", P5, "In einem Freikörperbild zeichnet man m·a als zusätzliche Kraft ein.", false, "Falsch – m·a ist die Summe aller echten Kräfte, keine weitere Kraft. Im Krafteck ist es der Pfeil, der vom Anfang des ersten zur Spitze des letzten Kraftpfeils reicht.", "Physik Blatt 4, Aufgabe 1");
+mc("phys", P5, "Blatt 4, A2: F schiebt zwei Blöcke (m₁ > m₂). Wann ist die Kontaktkraft zwischen den Blöcken größer?", ["Wenn F am leichten Block angreift und den schweren schiebt", "Wenn F am schweren Block angreift", "Sie ist in beiden Fällen gleich", "Das hängt nur von F ab, nicht von den Massen"], "Die Kontaktkraft muss nur den geschobenen Block beschleunigen: F_K = m_geschoben · a. Der schwere Block braucht dafür mehr Kraft.", "Physik Blatt 4, Aufgabe 2");
+wf("phys", P5, "Blatt 4, A2: Beide Blöcke haben dieselbe Beschleunigung a = F / (m₁ + m₂).", true, "Richtig – sie bewegen sich zusammen. F beschleunigt die Gesamtmasse, die Kontaktkraft ist eine innere Kraft und fällt im Gesamtsystem heraus.", "Physik Blatt 4, Aufgabe 2");
+mc("phys", P5, "Blatt 4, A3: Wann hängt das Seil zwischen den Kisten gerade durch?", ["Wenn beide Kisten allein genau gleich schnell beschleunigen würden: F/m₁ = g·sin α", "Wenn F = 0 ist", "Wenn m₁ = m₂ ist", "Nie, ein Seil ist immer gespannt"], "Dann zieht keine Kiste an der anderen, F_S = 0. Daraus folgt F_max = m₁·g·sin α.", "Physik Blatt 4, Aufgabe 3");
+wf("phys", P5, "Ein Seil kann ziehen und drücken.", false, "Falsch – ein Seil kann nur ziehen. Kommt rechnerisch F_S < 0 heraus, ist das Seil schlaff und die Annahme „gemeinsame Beschleunigung“ falsch.", "Physik Blatt 4, Aufgabe 3");
+mc("phys", P5, "Blatt 4, A4: Skifahrer mit konstanter Geschwindigkeit auf reibungsfreier Piste. Welche Kraft übt der Wind aus?", ["m·g·sin α, hangaufwärts", "m·g·sin α, hangabwärts", "m·g, waagerecht", "Keine – er fährt ja"], "Konstante Geschwindigkeit heißt ΣF = 0. Der Wind muss den Hangabtrieb genau ausgleichen.", "Physik Blatt 4, Aufgabe 4");
+mc("phys", P5, "Blatt 4, A5: Was ist die Kraft des Motorrads auf den Fahrer – im Vergleich zur resultierenden Kraft m·a?", ["Viel größer: Sie trägt auch das Gewicht, F_M = m·√(a² + g² + 2ag·sin α)", "Genau m·a", "Genau m·g", "m·a − m·g"], "m·a ist die Summe aus Gewicht und Motorradkraft. Das Motorrad muss das Gewicht zusätzlich ausgleichen, deshalb zeigt F_M steil nach oben.", "Physik Blatt 4, Aufgabe 5");
+mc("phys", P5, "Blatt 4, A6: Warum muss der Mann im Bootsmannsstuhl nur halb so stark ziehen wie ein Kollege am Boden?", ["Das Seil zieht zweimal an ihm: an der Hand und über die Rolle am Stuhl", "Die Rolle halbiert jede Kraft", "Er ist leichter als der Kollege", "Weil actio = reactio gilt, braucht er gar keine Kraft"], "Am System Mann + Stuhl greifen zwei Seilstücke an: 2F_S − m·g = m·a. Zieht der Kollege, hängt nur ein Seilstück am System.", "Physik Blatt 4, Aufgabe 6");
+mc("phys", P5, "Blatt 4, A6: Mit welcher Kraft zieht die Rolle an der Decke?", ["2·F_S – zwei Seilstücke ziehen an der Rolle nach unten", "F_S", "m·g", "Null, die Rolle ist masselos"], "Masselos heißt nur, dass sie kein eigenes Gewicht hat. Beide Seilenden ziehen mit F_S nach unten.", "Physik Blatt 4, Aufgabe 6");
+
+/* ── Lösungsweg-Aufgaben Blatt 4 ── */
+aufgabe({
+ "id": "phys-b4-a1", "f": "phys", "t": "Newtonsche Axiome", "titel": "Die fehlende dritte Kraft", "s": "Physik Übungsblatt 4, Aufgabe 1",
+ "angabe": "Ein Körper (Masse m) wird auf einer reibungsfreien horizontalen Ebene (Draufsicht) mit a beschleunigt. α liegt zwischen a und der +x-Achse. F₁ zeigt nach links unten, β liegt zwischen F₁ und der −x-Achse. F₂ zeigt in +y-Richtung. Eine dritte Kraft F₃ ist unbekannt.",
+ "geg": ["m", "F₁", "F₂", "a", "α", "β"],
+ "ges": "F₃ in Einheitsvektoren, Betrag und Richtungswinkel",
+ "schritte": [
+  { "f": "Welches Gesetz setzt du an, um F₃ zu bestimmen?", "o": [
+    ["2. Axiom: F₁ + F₂ + F₃ = m·a", "Drei Kräfte erzeugen zusammen die Beschleunigung a. Das ist eine Vektorgleichung."],
+    ["Kräftegleichgewicht F₁ + F₂ + F₃ = 0", "Das gilt nur ohne Beschleunigung. Hier wird der Körper aber beschleunigt."],
+    ["actio = reactio: F₃ = −F₁", "Das 3. Axiom verbindet Kräfte zwischen zwei Körpern. Hier wirken alle drei Kräfte auf denselben Körper."],
+    ["F₃ = m·a allein", "Dann hätten F₁ und F₂ keine Wirkung. Sie gehören aber zur Summe."]],
+   "r": "F₃ = m·a − F₁ − F₂" },
+  { "f": "Wie schreibst du F₁ in Komponenten? (β gegen die −x-Achse, nach links unten)", "o": [
+    ["F₁ = −F₁ cos β · e_x − F₁ sin β · e_y", "F₁ zeigt nach links und nach unten, also sind beide Komponenten negativ. β liegt an der x-Achse, deshalb cos für x."],
+    ["F₁ = F₁ cos β · e_x + F₁ sin β · e_y", "So würde F₁ nach rechts oben zeigen – in der Abbildung zeigt er nach links unten."],
+    ["F₁ = −F₁ sin β · e_x − F₁ cos β · e_y", "Sin und cos vertauscht: β wird gegen die x-Achse gemessen, also gehört cos β zur x-Komponente."],
+    ["F₁ = −F₁ · e_x", "Das wäre nur richtig für β = 0."]],
+   "r": "F₁ = −F₁ cos β · e_x − F₁ sin β · e_y\nF₂ = F₂ · e_y\nm·a = m a cos α · e_x + m a sin α · e_y" },
+  { "f": "Wie lautet dann die x-Komponente von F₃?", "o": [
+    ["F₃x = m a cos α + F₁ cos β", "m·a minus F₁: Das Minus vor der negativen Komponente von F₁ wird zum Plus. F₂ hat keinen x-Anteil."],
+    ["F₃x = m a cos α − F₁ cos β", "Vorzeichenfehler: Du ziehst F₁x = −F₁ cos β ab, also kommt +F₁ cos β heraus."],
+    ["F₃x = m a cos α + F₁ cos β − F₂", "F₂ zeigt genau in y-Richtung und hat keine x-Komponente."],
+    ["F₃x = m a sin α + F₁ sin β", "Das ist die Form der y-Komponente (ohne F₂)."]],
+   "r": "F₃x = m a cos α + F₁ cos β\nF₃y = m a sin α + F₁ sin β − F₂" },
+  { "f": "Wie bekommst du Betrag und Richtungswinkel von F₃?", "o": [
+    ["F₃ = √(F₃x² + F₃y²), φ = arctan(F₃y / F₃x)", "Pythagoras für den Betrag, arctan für den Winkel gegen +x. Da F₃x hier immer positiv ist, ist keine Quadrantenkorrektur nötig."],
+    ["F₃ = F₃x + F₃y", "Komponenten stehen senkrecht aufeinander, man addiert die Quadrate."],
+    ["φ = arctan(F₃x / F₃y)", "Das wäre der Winkel gegen die y-Achse."],
+    ["F₃ = m·a", "Das ist nur der Betrag der resultierenden Kraft, nicht von F₃."]],
+   "r": "Beispiel: m = 2 kg, a = 3 m/s², α = 50°, F₁ = 10 N, β = 30°, F₂ = 20 N\nF₃ = (12,5 e_x − 10,4 e_y) N, F₃ = 16,3 N, φ = −39,7°" }],
+ "fazit": "Fehlende Kraft = m·a minus alle bekannten Kräfte, Komponente für Komponente. Die meisten Fehler passieren bei Vorzeichen und bei der Frage, gegen welche Achse ein Winkel gemessen wird."
+});
+
+aufgabe({
+ "id": "phys-b4-a2", "f": "phys", "t": "Newtonsche Axiome", "titel": "Zwei Blöcke nebeneinander", "s": "Physik Übungsblatt 4, Aufgabe 2",
+ "angabe": "Zwei Blöcke stehen auf einem reibungsfreien Tisch direkt nebeneinander (m₁ > m₂). a) F schiebt von links auf den großen Block m₁. b) F schiebt von rechts auf den kleinen Block m₂.",
+ "geg": ["m₁", "m₂ < m₁", "F"],
+ "ges": "Kontaktkraft zwischen den Blöcken in a) und b)",
+ "schritte": [
+  { "f": "Womit bestimmst du zuerst die Beschleunigung?", "o": [
+    ["Gesamtsystem: F = (m₁ + m₂)·a", "Beide Blöcke bewegen sich gemeinsam. Die Kontaktkraft ist eine innere Kraft und fällt hier heraus."],
+    ["F = m₁·a", "Dann würde m₂ nicht mitbeschleunigt. F muss aber beide Blöcke bewegen."],
+    ["F = m₂·a", "Der kleine Block allein – aber F schiebt beide."],
+    ["Die Beschleunigung ist null, weil sich die Kräfte aufheben", "Auf das Gesamtsystem wirkt waagerecht nur F, also beschleunigt es."]],
+   "r": "a = F / (m₁ + m₂)" },
+  { "f": "a) F wirkt auf m₁. Welchen Block isolierst du, um die Kontaktkraft zu finden?", "o": [
+    ["m₂ – auf ihn wirkt waagerecht nur die Kontaktkraft", "Am Block ohne äußere Kraft gibt es genau eine waagerechte Kraft. So steht die Kontaktkraft allein in der Gleichung."],
+    ["m₁ – dort greift F an", "Geht auch, ist aber umständlicher: F − F_K = m₁a. Einfacher ist der Block mit nur einer Kraft."],
+    ["Keinen, die Kontaktkraft ist gleich F", "Dann bliebe für m₁ keine resultierende Kraft übrig, er würde nicht beschleunigen."],
+    ["Beide zusammen", "Im Gesamtsystem fällt die Kontaktkraft gerade heraus."]],
+   "r": "F_K = m₂·a = m₂ F / (m₁ + m₂)" },
+  { "f": "b) Jetzt wirkt F auf m₂. Wie groß ist die Kontaktkraft?", "o": [
+    ["m₁·a = m₁ F / (m₁ + m₂) – jetzt wird der schwere Block geschoben", "Isoliere m₁: Er wird nur über die Kontaktkraft beschleunigt. Da m₁ > m₂, ist die Kraft größer als in a)."],
+    ["Genauso groß wie in a)", "Die Beschleunigung ist gleich, aber der geschobene Block hat eine andere Masse."],
+    ["m₂·a, wie in a)", "Auf m₂ wirken jetzt F und die Kontaktkraft – du musst den anderen Block isolieren."],
+    ["F", "Dann würde m₂ selbst nicht beschleunigen."]],
+   "r": "F_K = m₁ F / (m₁ + m₂)\nBeispiel: m₁ = 2,3 kg, m₂ = 1,2 kg, F = 3,2 N → a) 1,10 N, b) 2,10 N" }],
+ "fazit": "Die Kontaktkraft muss genau den Block beschleunigen, der geschoben wird. Isoliere immer den Körper mit den wenigsten Kräften."
+});
+
+aufgabe({
+ "id": "phys-b4-a3", "f": "phys", "t": "Newtonsche Axiome", "titel": "Kiste am Seil auf der schiefen Ebene", "s": "Physik Übungsblatt 4, Aufgabe 3",
+ "angabe": "Kiste m₁ liegt auf einer waagerechten, reibungsfreien Fläche und wird mit F nach rechts zur Rolle gezogen. Über die Rolle ist sie per Seil mit Kiste m₂ verbunden, die auf einer reibungsfreien schiefen Ebene (Winkel α) hängt.",
+ "geg": ["m₁", "m₂", "α", "F", "g"],
+ "ges": "Seilkraft F_S; größtes F, bei dem das Seil nicht durchhängt",
+ "schritte": [
+  { "f": "m₁ isoliert: Welche Gleichung gilt waagerecht?", "o": [
+    ["F + F_S = m₁·a – beide ziehen nach rechts", "Das Seil zieht m₁ zur Rolle, also in dieselbe Richtung wie F."],
+    ["F − F_S = m₁·a", "Das Seil zieht m₁ zur Rolle hin (nach rechts), nicht zurück."],
+    ["F = m₁·a", "Die Seilkraft fehlt."],
+    ["F_S = m₁·g", "m₁·g wirkt senkrecht und wird von der Normalkraft aufgehoben."]],
+   "r": "F + F_S = m₁ a" },
+  { "f": "m₂ isoliert: Welche Gleichung gilt parallel zum Hang (abwärts positiv)?", "o": [
+    ["m₂ g sin α − F_S = m₂·a", "Der Hangabtrieb zieht abwärts, das Seil hält hangaufwärts dagegen."],
+    ["m₂ g − F_S = m₂·a", "Nur der Hangabtrieb m₂ g sin α wirkt parallel zum Hang, nicht das ganze Gewicht."],
+    ["m₂ g cos α − F_S = m₂·a", "cos α gehört zum Normalanteil, der von der Normalkraft aufgehoben wird."],
+    ["m₂ g sin α + F_S = m₂·a", "Das Seil zieht m₂ zur Rolle, also hangaufwärts – mit Minus."]],
+   "r": "m₂ g sin α − F_S = m₂ a" },
+  { "f": "Wie eliminierst du a?", "o": [
+    ["Beide Gleichungen addieren → a = (F + m₂ g sin α) / (m₁ + m₂), dann einsetzen", "Beim Addieren fällt F_S heraus. Mit a gehst du zurück in eine der Gleichungen."],
+    ["a = g setzen", "Die Kisten fallen nicht frei, das Seil koppelt sie."],
+    ["a = 0 setzen", "Es gibt keine Gleichgewichtsbedingung – die Kisten beschleunigen."],
+    ["Die beiden Gleichungen voneinander abziehen", "Dann fällt F_S nicht heraus, sondern verdoppelt sich."]],
+   "r": "F_S = m₂ g sin α − m₂ a = m₂ (m₁ g sin α − F) / (m₁ + m₂)" },
+  { "f": "b) Welche Bedingung liefert das größte F, bei dem das Seil gerade noch gespannt ist?", "o": [
+    ["F_S = 0 setzen", "Bei F_S = 0 hängt das Seil gerade durch. Für größere F würde F_S negativ – ein Seil kann aber nicht drücken."],
+    ["a = 0 setzen", "Die Kisten müssen nicht stillstehen. Entscheidend ist, ob das Seil zieht."],
+    ["F = m₂ g setzen", "Das ganze Gewicht von m₂ spielt keine Rolle, nur sein Hangabtrieb."],
+    ["F_S = F setzen", "Dafür gibt es keinen physikalischen Grund."]],
+   "r": "F_max = m₁ g sin α\nBeispiel: m₁ = 3,7 kg, m₂ = 2,3 kg, α = 30°, F = 2,3 N → F_S = 6,08 N, F_max = 18,1 N" }],
+ "fazit": "Zwei Körper am Seil: jeden einzeln isolieren, je eine Gleichung, addieren, damit die Seilkraft herausfällt. Seil schlaff ⇔ F_S = 0."
+});
+
+aufgabe({
+ "id": "phys-b4-a5", "f": "phys", "t": "Newtonsche Axiome", "titel": "Motorradfahrer auf der Rampe", "s": "Physik Übungsblatt 4, Aufgabe 5",
+ "angabe": "Motorrad und Fahrer (Fahrermasse m) beschleunigen mit a eine Rampe hinauf, die den Winkel α mit der Horizontalen bildet.",
+ "geg": ["m", "a", "g", "α"],
+ "ges": "Resultierende Kraft auf den Fahrer; Kraft des Motorrads auf den Fahrer",
+ "schritte": [
+  { "f": "Wie groß ist die resultierende Kraft auf den Fahrer?", "o": [
+    ["F_res = m·a, hangaufwärts", "2. Axiom: Die Summe aller Kräfte ist Masse mal Beschleunigung – und zeigt in Richtung von a."],
+    ["F_res = m·g", "Das ist nur die Gewichtskraft."],
+    ["F_res = m·(a + g)", "Kräfte addiert man als Vektoren, nicht als Beträge."],
+    ["F_res = 0", "Der Fahrer beschleunigt, also wirkt eine resultierende Kraft."]],
+   "r": "F_res = m a" },
+  { "f": "Welche Kräfte wirken auf den isolierten Fahrer?", "o": [
+    ["Nur F_G und die Kraft F_M vom Motorrad", "Sitz, Lenker und Fußrasten fasst man zu einer Kraft F_M zusammen. Dazu kommt das Gewicht."],
+    ["F_G, F_M und m·a", "m·a ist keine eigene Kraft, sondern die Summe der echten Kräfte."],
+    ["Nur F_M", "Das Gewicht wirkt immer."],
+    ["F_G, F_M und die Motorkraft", "Der Motor treibt das Motorrad an, nicht direkt den Fahrer."]],
+   "r": "F_G + F_M = m a (Vektoren)" },
+  { "f": "Wie zerlegst du F_M am einfachsten?", "o": [
+    ["Parallel und senkrecht zur Rampe: F_M∥ = m(a + g sin α), F_M⊥ = m g cos α", "Parallel muss F_M den Hangabtrieb ausgleichen und zusätzlich m·a liefern. Senkrecht gibt es keine Beschleunigung."],
+    ["Waagerecht und senkrecht mit F_M = m·a", "Dann fehlt der Anteil, der das Gewicht trägt."],
+    ["F_M∥ = m·a, F_M⊥ = 0", "Der Fahrer würde dann nach unten fallen – das Gewicht muss getragen werden."],
+    ["F_M∥ = m g sin α, F_M⊥ = m a", "Die Beschleunigung zeigt den Hang hinauf, nicht senkrecht dazu."]],
+   "r": "F_M = √(F_M∥² + F_M⊥²) = m √(a² + g² + 2 a g sin α)\nBeispiel: m = 60 kg, a = 2 m/s², α = 10° → F_res = 120 N, F_M = 621 N" }],
+ "fazit": "Die Kraft, die einen Körper trägt und beschleunigt, ist viel größer als m·a, weil sie zusätzlich das Gewicht ausgleichen muss."
+});
+
+aufgabe({
+ "id": "phys-b4-a6", "f": "phys", "t": "Newtonsche Axiome", "titel": "Bootsmannsstuhl", "s": "Physik Übungsblatt 4, Aufgabe 6",
+ "angabe": "Ein Mann sitzt in einem Stuhl, der an einem Seil über eine masselose, reibungsfreie Rolle an der Decke hängt. a) Er hält das andere Seilende selbst und zieht. b) Ein Kollege am Boden zieht am Seilende. Masse Mann + Stuhl: m. Gewünscht ist die Beschleunigung a nach oben.",
+ "geg": ["m", "a", "g"],
+ "ges": "Seilkraft in a) und b), Kraft der Rolle auf die Decke",
+ "schritte": [
+  { "f": "a) Der Mann zieht selbst. Wie oft greift das Seil am System Mann + Stuhl an?", "o": [
+    ["Zweimal: an der Hand und über die Rolle am Stuhl", "Beide Seilstücke enden am System und ziehen nach oben, jedes mit F_S."],
+    ["Einmal, nur am Stuhl", "Die Hand des Mannes hält das zweite Seilende – auch dort zieht das Seil nach oben."],
+    ["Gar nicht, er zieht ja an sich selbst", "Das Seil läuft über die Rolle an der Decke, also wirkt es als äußere Kraft."],
+    ["Dreimal", "Es gibt nur zwei Seilstücke unterhalb der Rolle."]],
+   "r": "2 F_S − m g = m a → F_S = m (g + a) / 2" },
+  { "f": "b) Der Kollege zieht am Boden. Welche Gleichung gilt jetzt?", "o": [
+    ["F_S − m g = m a", "Nur noch das Seilstück am Stuhl zieht am System. Der Kollege gehört nicht dazu."],
+    ["2 F_S − m g = m a", "Das zweite Seilstück endet jetzt beim Kollegen, nicht am Mann."],
+    ["F_S = m g", "Dann würde der Mann nicht beschleunigen."],
+    ["F_S + m g = m a", "Das Gewicht zieht nach unten, also mit Minus."]],
+   "r": "F_S = m (g + a)" },
+  { "f": "c) Mit welcher Kraft zieht die Rolle an der Decke?", "o": [
+    ["2 F_S – zwei Seilstücke ziehen an der Rolle nach unten", "Die Rolle ist masselos, aber beide Seilenden hängen daran."],
+    ["F_S", "Es hängen zwei Seilstücke an der Rolle."],
+    ["m g", "Das gilt nur in Ruhe und nur in Fall a)."],
+    ["Null, weil die Rolle masselos ist", "Masselos heißt kein Eigengewicht – die Seilkräfte wirken trotzdem."]],
+   "r": "a) 2 F_S = m (g + a)\nb) 2 F_S = 2 m (g + a)\nBeispiel: m = 95 kg, a = 1,3 m/s² → a) 528 N, b) 1055 N; Decke 1055 N bzw. 2111 N" }],
+ "fazit": "Zähle immer, wie viele Seilstücke am betrachteten System angreifen. Wer an seinem eigenen Seil zieht, braucht nur die halbe Kraft."
+});
+/* Anmerkungen aus der App – GitHub-Issues #3 bis #9 (04.11.2026). Korrekturen nach Frage-ID, Lernstand bleibt. */
+Object.assign(KORREKTUR, {
+ "bauko-98wn6h": {
+  "e": "Schnee ist eine veränderliche Einwirkung (Q): Er kommt und geht und liegt mal höher, mal niedriger – genau wie Nutzlast, Wind und Temperatur. Fahrzeuganprall ist dagegen außergewöhnlich (A): Ein Auto oder Lkw fährt gegen eine Stütze oder Wand. Das passiert sehr selten und nur kurz, aber mit großer Kraft – deshalb rechnet man dafür eine eigene, außergewöhnliche Bemessungssituation. Eigengewicht ist ständig (G), Vorspannung (P) zählt ebenfalls zu den ständigen Einwirkungen."
+ },
+ "phys-f65lrm": {
+  "e": "Masse ist ein Skalar: 5 kg sind 5 kg, eine Richtung gibt es nicht. Kraft ist ein Vektor, weil es darauf ankommt, wohin sie wirkt: Drückst du eine Kiste mit 10 N nach links oder mit 10 N nach rechts, passiert etwas völlig anderes, obwohl der Betrag gleich ist. Deshalb schreibt man die Kraft mit Pfeil und braucht Betrag und Richtung. Genauso sind Geschwindigkeit und Beschleunigung Vektoren. Ein Skalar wäre dagegen das Tempo, also nur der Betrag der Geschwindigkeit."
+ },
+ "bsk-22yqqh": {
+  "e": "Im linearen Bereich gilt das Hookesche Gesetz σ = E · ε. Die Steigung der Geraden, also Δσ / Δε, ist der E-Modul – je steiler, desto steifer der Stoff. Die Festigkeit ist nicht die Steigung, sondern die Höhe der Kurve (die größte Spannung). Die Bruchdehnung ist ihre Länge, also wie weit sich der Stoff bis zum Bruch dehnen lässt. Die Querdehnzahl sieht man in diesem Diagramm gar nicht – sie vergleicht die Dehnung quer zur Last mit der Dehnung in Lastrichtung.",
+  "ev": "emodul"
+ },
+ "binf-xd5cv7": {
+  "e": "&& ist der Kurzschluss-Operator: Steht links schon false, steht das Ergebnis fest, und die rechte Seite wird gar nicht mehr ausgewertet. & wertet immer beide Seiten aus. Beispiel mit int n = 0: Bei (n != 0 && 10 / n > 2) ist die linke Seite false, die Division wird übersprungen, das Ergebnis ist false. Bei (n != 0 & 10 / n > 2) wird 10 / 0 trotzdem gerechnet – das Programm bricht mit einer ArithmeticException ab. „Kein Unterschied“ stimmt also nicht, und & ist auch nicht nur für Zahlen: Mit boolean-Werten ist es ein logisches Und. Genauso gibt es || (Kurzschluss) und | (immer beide Seiten)."
+ },
+ "hydro-1wvjjtr": {
+  "q": "Welche Annahmen stecken in Q₁ = Q₂ für ein Rohr? (Q = Durchfluss, 1 und 2 = zwei Querschnitte)",
+  "e": "Q ist der Durchfluss, also das Wasservolumen pro Zeit in m³/s: Q = v · A (Geschwindigkeit mal Querschnittsfläche). Die Indizes 1 und 2 stehen für zwei Querschnitte im Rohr, zum Beispiel Anfang und Ende. Q₁ = Q₂ heißt: Was bei 1 hineinfließt, kommt in derselben Zeit bei 2 wieder heraus. Das gilt nur, wenn dazwischen nichts gespeichert wird, die Strömung stationär ist und sich die Dichte nicht ändert. Einen gleichen Querschnitt braucht es nicht – wird das Rohr enger, fließt das Wasser schneller (v₁ · A₁ = v₂ · A₂). Reibungsfreiheit gehört zur Bernoulli-Gleichung, nicht zur Kontinuität."
+ },
+ "hydro-c8zi7o": {
+  "e": "Lagrange: Du setzt dich gedanklich auf ein Wasserteilchen und fährst mit – wie eine Boje mit GPS, die mit der Strömung treibt. So erfährst du, wo genau dieses eine Teilchen wann ist und wie schnell es ist (seine Bahnlinie). Euler: Du bleibst an einem festen Ort stehen und misst, was dort vorbeiströmt – wie ein Pegel oder eine Messsonde am Brückenpfeiler. Du erhältst die Geschwindigkeit an jedem Ort als Feld v(x, y, z, t), egal welches Teilchen gerade vorbeikommt. In der Hydromechanik arbeitet man fast immer mit der Eulerschen Sicht, weil feste Querschnitte interessieren, etwa ein Rohranfang oder eine Brücke."
+ }
+});
+mc("hydro", H4, "Was bedeutet Q in der Kontinuitätsgleichung Q₁ = Q₂?", ["Den Durchfluss: Wasservolumen pro Zeit, Q = v · A in m³/s", "Die Querschnittsfläche in m²", "Die Fließgeschwindigkeit in m/s", "Den Wasserdruck in Pa"], "Q = v · A: Geschwindigkeit mal durchflossene Fläche ergibt, wie viele Kubikmeter Wasser pro Sekunde durch den Querschnitt fließen. Fläche und Geschwindigkeit sind nur die Bestandteile von Q – ändert sich der Querschnitt, ändert sich v, aber Q bleibt gleich. Die Indizes 1 und 2 bezeichnen zwei Querschnitte.", "Hydromechanik V04");
+pair("hydro", H4, "v₁ · A₁ = v₂ · A₂ – was ist was?", [["Q", "Durchfluss in m³/s"], ["v", "mittlere Fließgeschwindigkeit in m/s"], ["A", "durchflossene Querschnittsfläche in m²"], ["Index 1 und 2", "zwei Querschnitte im Rohr"]], "Q = v · A ist an jedem Querschnitt gleich. Wird das Rohr enger (A₂ kleiner), muss das Wasser schneller fließen (v₂ größer).", "Hydromechanik V04");
+mc("binf", I4, "int n = 0; Was ergibt (n != 0 && 10 / n > 2)?", ["false – 10 / n wird gar nicht ausgewertet", "Eine ArithmeticException wegen Division durch 0", "true", "Einen Compilerfehler"], "Links steht n != 0, und das ist false. Mit && steht das Ergebnis damit schon fest, die rechte Seite mit der Division wird übersprungen. Die Exception käme nur mit &, weil & immer beide Seiten auswertet.", "Bauinformatik Block 1");
+mc("binf", I4, "int n = 0; Was passiert bei (n != 0 & 10 / n > 2)?", ["Eine ArithmeticException – 10 / 0 wird trotzdem gerechnet", "Ergebnis false, ohne Fehler", "Ergebnis true", "Einen Compilerfehler"], "& wertet immer beide Seiten aus, auch wenn links schon false steht. Eine Division ganzer Zahlen durch 0 ist in Java nicht erlaubt und wirft eine ArithmeticException. „false ohne Fehler“ wäre das Ergebnis mit && gewesen.", "Bauinformatik Block 1");
+/* Selbst rechnen (App 1.6): Zwischenergebnisse je Lösungsweg-Aufgabe und Schritt (0-basiert). l = Größe, w = Wert, u = Einheit, h = Rechnung mit Zahlen (Hilfe Stufe 2), t = Toleranz (Standard 2 %). */
+const RECHNEN = {
+ "hydro-ue02-a27": {
+  "0": [
+   {
+    "l": "t",
+    "w": 0.8,
+    "u": "m",
+    "h": "800/1000 · 1 m"
+   }
+  ],
+  "1": [
+   {
+    "l": "V_a",
+    "w": 0.914,
+    "u": "m³",
+    "h": "(800 · 1 + 11 400 · 0,01) / 1000"
+   }
+  ],
+  "3": [
+   {
+    "l": "V_b",
+    "w": 0.81,
+    "u": "m³",
+    "h": "0,80 + 0,01"
+   }
+  ]
+ },
+ "hydro-ue02-a28": {
+  "0": [
+   {
+    "l": "F_A",
+    "w": 3.923,
+    "u": "N",
+    "h": "32,079 − 28,156"
+   }
+  ],
+  "1": [
+   {
+    "l": "V",
+    "w": 0.4,
+    "u": "l",
+    "h": "3,923 / (1000 · 9,81) m³, mal 1000 für Liter"
+   }
+  ],
+  "2": [
+   {
+    "l": "m",
+    "w": 3.27,
+    "u": "kg",
+    "h": "32,079 / 9,81"
+   }
+  ],
+  "4": [
+   {
+    "l": "m_Cu",
+    "w": 2.1,
+    "u": "kg",
+    "h": "m_Zn = 3,270 − m_Cu einsetzen: m_Cu/8930 + (3,270 − m_Cu)/7100 = 0,400 · 10⁻³ nach m_Cu auflösen",
+    "t": 0.03
+   },
+   {
+    "l": "m_Zn",
+    "w": 1.17,
+    "u": "kg",
+    "h": "3,270 − m_Cu",
+    "t": 0.03
+   }
+  ],
+  "5": [
+   {
+    "l": "ρ",
+    "w": 8180.0,
+    "u": "kg/m³",
+    "h": "3,270 / (0,400 · 10⁻³)"
+   }
+  ]
+ },
+ "hydro-ue03-a35": {
+  "0": [
+   {
+    "l": "v₁",
+    "w": 10.0,
+    "u": "m/s",
+    "h": "Q / A₁ = 10 / 1"
+   },
+   {
+    "l": "v₂",
+    "w": 5.0,
+    "u": "m/s",
+    "h": "Q / A₂ = 10 / 2"
+   }
+  ],
+  "3": [
+   {
+    "l": "p₁/(ρg)",
+    "w": 10.0,
+    "u": "m",
+    "h": "98 100 / 9810"
+   },
+   {
+    "l": "v₁²/(2g)",
+    "w": 5.1,
+    "u": "m",
+    "h": "10² / (2 · 9,81)"
+   },
+   {
+    "l": "v₂²/(2g)",
+    "w": 1.27,
+    "u": "m",
+    "h": "5² / (2 · 9,81)"
+   }
+  ],
+  "4": [
+   {
+    "l": "p₂/(ρg)",
+    "w": 13.82,
+    "u": "m",
+    "h": "10,00 + 5,10 − 1,27"
+   },
+   {
+    "l": "p₂",
+    "w": 135.6,
+    "u": "kN/m²",
+    "h": "13,82 · 9810 N/m², durch 1000 für kN/m²"
+   }
+  ]
+ },
+ "hydro-ue04-a43": {
+  "0": [
+   {
+    "l": "q",
+    "w": 2.0,
+    "u": "m²/s",
+    "h": "Q / b = 10 / 5"
+   }
+  ],
+  "1": [
+   {
+    "l": "h_gr",
+    "w": 0.74,
+    "u": "m",
+    "h": "∛(q²/g) = ∛(2² / 9,81)"
+   }
+  ],
+  "2": [
+   {
+    "l": "v_gr",
+    "w": 2.7,
+    "u": "m/s",
+    "h": "q / h_gr = 2 / 0,74"
+   }
+  ],
+  "3": [
+   {
+    "l": "h_E,min",
+    "w": 1.11,
+    "u": "m",
+    "h": "1,5 · h_gr = 1,5 · 0,74"
+   }
+  ],
+  "4": [
+   {
+    "l": "v",
+    "w": 5.0,
+    "u": "m/s",
+    "h": "q / h = 2 / 0,40"
+   },
+   {
+    "l": "Fr",
+    "w": 2.52,
+    "u": "",
+    "h": "v / √(g · h) = 5,0 / √(9,81 · 0,40)"
+   },
+   {
+    "l": "h_E",
+    "w": 1.67,
+    "u": "m",
+    "h": "h + v²/(2g) = 0,40 + 5,0² / (2 · 9,81)"
+   }
+  ],
+  "5": [
+   {
+    "l": "v",
+    "w": 1.33,
+    "u": "m/s",
+    "h": "q / h = 2 / 1,50"
+   },
+   {
+    "l": "Fr",
+    "w": 0.35,
+    "u": "",
+    "h": "1,33 / √(9,81 · 1,50)"
+   },
+   {
+    "l": "h_E",
+    "w": 1.59,
+    "u": "m",
+    "h": "1,50 + 1,33² / (2 · 9,81)"
+   }
+  ]
+ },
+ "hydro-ue04-a41": {
+  "0": [
+   {
+    "l": "v₁",
+    "w": 0.95,
+    "u": "m/s",
+    "h": "Q / A₁ = 0,12 / 0,126"
+   },
+   {
+    "l": "v₂",
+    "w": 3.82,
+    "u": "m/s",
+    "h": "Q / A₂ = 0,12 / 0,0314"
+   }
+  ],
+  "1": [
+   {
+    "l": "p₁",
+    "w": 55.8,
+    "u": "kPa",
+    "h": "49 + 0,5 · (3,82² − 0,95²)"
+   }
+  ],
+  "2": [
+   {
+    "l": "S₁",
+    "w": 7.13,
+    "u": "kN",
+    "h": "55,8 · 0,126 + 1,0 · 0,12 · 0,95"
+   },
+   {
+    "l": "S₂",
+    "w": 2.0,
+    "u": "kN",
+    "h": "49 · 0,0314 + 1,0 · 0,12 · 3,82"
+   }
+  ],
+  "3": [
+   {
+    "l": "F_x",
+    "w": 6.13,
+    "u": "kN",
+    "h": "7,13 − 2,00 · 0,5"
+   },
+   {
+    "l": "F_y",
+    "w": -1.73,
+    "u": "kN",
+    "h": "−2,00 · 0,866"
+   }
+  ],
+  "4": [
+   {
+    "l": "F_K",
+    "w": 6.37,
+    "u": "kN",
+    "h": "√(6,13² + 1,73²)"
+   },
+   {
+    "l": "β",
+    "w": 15.8,
+    "u": "°",
+    "h": "arctan(1,73 / 6,13)"
+   }
+  ]
+ },
+ "hydro-ue05-a54": {
+  "0": [
+   {
+    "l": "v₃",
+    "w": 6.26,
+    "u": "m/s",
+    "h": "√(2 · 9,81 · 2,0)"
+   }
+  ],
+  "1": [
+   {
+    "l": "Q",
+    "w": 1.88,
+    "u": "m³/s",
+    "h": "6,26 · 0,3"
+   }
+  ],
+  "3": [
+   {
+    "l": "h₂",
+    "w": 1.78,
+    "u": "m",
+    "h": "2,0 − 2,09² / (2 · 9,81)"
+   }
+  ]
+ },
+ "hydro-ue01-a11": {
+  "1": [
+   {
+    "l": "V",
+    "w": 4.71,
+    "u": "l",
+    "h": "π · 0,10² · 0,45 / 3 m³, mal 1000 für Liter"
+   }
+  ],
+  "3": [
+   {
+    "l": "ρ",
+    "w": 849.0,
+    "u": "kg/m³",
+    "h": "4 kg / (4,71 · 10⁻³ m³)"
+   }
+  ]
+ },
+ "hydro-ue01-a14": {
+  "2": [
+   {
+    "l": "D",
+    "w": 5.95,
+    "u": "mm",
+    "h": "4 · 0,073 / (1000 · 9,81 · 0,005) m, mal 1000 für mm"
+   }
+  ]
+ },
+ "hydro-ue03-a32": {
+  "1": [
+   {
+    "l": "v",
+    "w": 2.55,
+    "u": "m/s",
+    "h": "1,0 · 10⁻³ / 3,93 · 10⁻⁴"
+   }
+  ],
+  "3": [
+   {
+    "l": "V₁",
+    "w": 2.88,
+    "u": "m³",
+    "h": "0,8 l/s · 3600 s = 2880 l, durch 1000"
+   },
+   {
+    "l": "V₂",
+    "w": 0.72,
+    "u": "m³",
+    "h": "0,2 l/s · 3600 s, durch 1000"
+   }
+  ]
+ },
+ "hydro-ue03-a37": {
+  "3": [
+   {
+    "l": "v₁",
+    "w": 0.4,
+    "u": "m/s",
+    "h": "√(0,65 · 2 · 9,81 / 80)"
+   },
+   {
+    "l": "v₂",
+    "w": 3.59,
+    "u": "m/s",
+    "h": "9 · v₁",
+    "t": 0.03
+   },
+   {
+    "l": "Q",
+    "w": 28.0,
+    "u": "l/s",
+    "h": "0,40 · π · 0,3² / 4 m³/s, mal 1000",
+    "t": 0.03
+   }
+  ]
+ },
+ "bauko-ue06-balken": {
+  "0": [
+   {
+    "l": "A_g",
+    "w": 6.0,
+    "u": "kN",
+    "h": "3 · 4 / 2"
+   },
+   {
+    "l": "M_g",
+    "w": 6.0,
+    "u": "kNm",
+    "h": "3 · 4² / 8"
+   },
+   {
+    "l": "M_q",
+    "w": 3.0,
+    "u": "kNm",
+    "h": "1,5 · 4² / 8"
+   }
+  ],
+  "2": [
+   {
+    "l": "M_Ed (nur g)",
+    "w": 8.1,
+    "u": "kNm",
+    "h": "1,35 · 6"
+   },
+   {
+    "l": "M_Ed / k_mod (nur g)",
+    "w": 13.5,
+    "u": "kNm",
+    "h": "8,1 / 0,6"
+   },
+   {
+    "l": "M_Ed (g + q)",
+    "w": 12.6,
+    "u": "kNm",
+    "h": "1,35 · 6 + 1,5 · 3"
+   },
+   {
+    "l": "M_Ed / k_mod (g + q)",
+    "w": 14.0,
+    "u": "kNm",
+    "h": "12,6 / 0,9"
+   }
+  ],
+  "3": [
+   {
+    "l": "f_m,d",
+    "w": 16.6,
+    "u": "N/mm²",
+    "h": "0,9 · 24 / 1,3"
+   },
+   {
+    "l": "erf W",
+    "w": 759.0,
+    "u": "cm³",
+    "h": "12,6 · 10⁶ Nmm / 16,6 N/mm² ergibt mm³, durch 1000 für cm³"
+   }
+  ],
+  "5": [
+   {
+    "l": "σ_m,d",
+    "w": 16.4,
+    "u": "N/mm²",
+    "h": "12,6 · 10⁶ / (768 · 10³)"
+   },
+   {
+    "l": "η",
+    "w": 0.99,
+    "u": "",
+    "h": "16,4 / 16,6"
+   }
+  ],
+  "6": [
+   {
+    "l": "τ_d",
+    "w": 1.97,
+    "u": "N/mm²",
+    "h": "1,5 · 12 600 / (0,5 · 19 200)"
+   },
+   {
+    "l": "f_v,d",
+    "w": 2.77,
+    "u": "N/mm²",
+    "h": "0,9 · 4,0 / 1,3"
+   },
+   {
+    "l": "η",
+    "w": 0.71,
+    "u": "",
+    "h": "1,97 / 2,77"
+   }
+  ]
+ },
+ "bauko-ue06-querdruck": {
+  "1": [
+   {
+    "l": "f_c,90,d",
+    "w": 1.92,
+    "u": "N/mm²",
+    "h": "1,0 · 2,5 / 1,3"
+   }
+  ],
+  "2": [
+   {
+    "l": "A_ef",
+    "w": 280.0,
+    "u": "cm²",
+    "h": "14 · (14 + 2 · 3)"
+   }
+  ],
+  "4": [
+   {
+    "l": "σ_c,90,d",
+    "w": 1.91,
+    "u": "N/mm²",
+    "h": "53,41 kN / 280 cm² ergibt kN/cm², mal 10 für N/mm²"
+   },
+   {
+    "l": "η",
+    "w": 0.66,
+    "u": "",
+    "h": "1,91 / (1,5 · 1,92)"
+   }
+  ]
+ },
+ "bsk-ue01-stuetze": {
+  "0": [
+   {
+    "l": "F",
+    "w": 431.6,
+    "u": "kN",
+    "h": "44 000 kg · 9,81 m/s² ergibt N, durch 1000 für kN"
+   }
+  ],
+  "1": [
+   {
+    "l": "A (rund)",
+    "w": 17671.0,
+    "u": "mm²",
+    "h": "π · 150² / 4"
+   },
+   {
+    "l": "σ (rund)",
+    "w": 24.4,
+    "u": "N/mm²",
+    "h": "431 600 N / 17 671 mm²"
+   },
+   {
+    "l": "σ (quadratisch)",
+    "w": 19.2,
+    "u": "N/mm²",
+    "h": "431 600 N / 22 500 mm²"
+   }
+  ],
+  "2": [
+   {
+    "l": "Auslastung Beton rund",
+    "w": 49.0,
+    "u": "%",
+    "h": "24,4 / 50 · 100",
+    "t": 0.03
+   },
+   {
+    "l": "Auslastung Ziegel quadratisch",
+    "w": 96.0,
+    "u": "%",
+    "h": "19,2 / 20 · 100"
+   }
+  ],
+  "3": [
+   {
+    "l": "Δl",
+    "w": -1.8,
+    "u": "mm",
+    "h": "−0,0006 · 3000 mm"
+   }
+  ],
+  "4": [
+   {
+    "l": "ε_T",
+    "w": 0.48,
+    "u": "‰",
+    "h": "1,2 · 10⁻⁵ · 40 ergibt eine reine Zahl, mal 1000 für ‰"
+   },
+   {
+    "l": "ε_ges",
+    "w": -0.12,
+    "u": "‰",
+    "h": "0,48 − 0,60"
+   },
+   {
+    "l": "Δl",
+    "w": -0.36,
+    "u": "mm",
+    "h": "−0,00012 · 3000 mm"
+   }
+  ]
+ },
+ "stat-ue01-lgs": {
+  "1": [
+   {
+    "l": "det A",
+    "w": -4.0,
+    "u": "",
+    "h": "16 − 20",
+    "t": 0.0
+   }
+  ],
+  "2": [
+   {
+    "l": "x₁",
+    "w": 3.0,
+    "u": "",
+    "h": "(4 − 1) / (2 − 1)",
+    "t": 0.0
+   }
+  ],
+  "3": [
+   {
+    "l": "x₃",
+    "w": -2.5,
+    "u": "",
+    "h": "−5 / 2",
+    "t": 0.0
+   },
+   {
+    "l": "x₂",
+    "w": 0.25,
+    "u": "",
+    "h": "(−2 + 2,5) / 2",
+    "t": 0.0
+   }
+  ]
+ },
+ "stat-ue01-rang": {
+  "4": [
+   {
+    "l": "det A",
+    "w": -5.0,
+    "u": "",
+    "h": "−(1 · 1 · 5)",
+    "t": 0.0
+   }
+  ]
+ },
+ "dap-v02-gewichtung": {
+  "1": [
+   {
+    "l": "w(< 30)",
+    "w": 1.37,
+    "u": "",
+    "h": "31,0 / 22,6"
+   },
+   {
+    "l": "w(30–60)",
+    "w": 1.02,
+    "u": "",
+    "h": "41,7 / 40,7"
+   },
+   {
+    "l": "w(60+)",
+    "w": 0.74,
+    "u": "",
+    "h": "27,3 / 36,7"
+   }
+  ]
+ },
+ "dap-v02-ipf": {
+  "2": [
+   {
+    "l": "Spaltenfaktor ohne Pkw",
+    "w": 1.83,
+    "u": "",
+    "h": "13,2 / 7,2"
+   },
+   {
+    "l": "Spaltenfaktor mit Pkw",
+    "w": 0.94,
+    "u": "",
+    "h": "86,8 / 92,8"
+   }
+  ]
+ },
+ "dap-l03-normal": {
+  "0": [
+   {
+    "l": "z",
+    "w": 2.0,
+    "u": "",
+    "h": "(189 − 175) / 7",
+    "t": 0.0
+   }
+  ],
+  "2": [
+   {
+    "l": "Anteil",
+    "w": 81.9,
+    "u": "%",
+    "h": "34,15 + 47,75"
+   }
+  ]
+ },
+ "bauko-ue01-decke": {
+  "0": [
+   {
+    "l": "Σ g",
+    "w": 1.34,
+    "u": "kN/m²",
+    "h": "0,88 + 0,03 + 0,19 + 0,10 + 0,14"
+   }
+  ],
+  "3": [
+   {
+    "l": "q_k,ges",
+    "w": 3.2,
+    "u": "kN/m²",
+    "h": "2,0 + 1,2"
+   }
+  ],
+  "4": [
+   {
+    "l": "q_k (Balken)",
+    "w": 1.92,
+    "u": "kN/m",
+    "h": "3,2 · 0,6"
+   }
+  ]
+ },
+ "bauko-ue02-schnee": {
+  "0": [
+   {
+    "l": "s_k",
+    "w": 0.63,
+    "u": "kN/m²",
+    "h": "0,25 + 1,91 · ((200 + 140) / 760)²"
+   }
+  ],
+  "2": [
+   {
+    "l": "μ₁",
+    "w": 0.67,
+    "u": "",
+    "h": "0,8 · 25 / 30"
+   }
+  ],
+  "3": [
+   {
+    "l": "s",
+    "w": 0.57,
+    "u": "kN/m²",
+    "h": "0,67 · 1,0 · 1,0 · 0,85"
+   },
+   {
+    "l": "s pro Sparren",
+    "w": 0.37,
+    "u": "kN/m",
+    "h": "0,57 · 0,65"
+   }
+  ],
+  "4": [
+   {
+    "l": "F_S",
+    "w": 0.028,
+    "u": "kN",
+    "h": "0,043 · 0,65"
+   }
+  ]
+ },
+ "bauko-ue02-wind": {
+  "1": [
+   {
+    "l": "e/4",
+    "w": 1.5,
+    "u": "m",
+    "h": "6 / 4"
+   },
+   {
+    "l": "e/10",
+    "w": 0.6,
+    "u": "m",
+    "h": "6 / 10"
+   }
+  ],
+  "2": [
+   {
+    "l": "c_pe,10",
+    "w": 0.47,
+    "u": "",
+    "h": "0,4 + (0,6 − 0,4) / 15 · 5"
+   }
+  ],
+  "3": [
+   {
+    "l": "w_H",
+    "w": 0.2,
+    "u": "kN/m",
+    "h": "0,47 · 0,65 · 0,65"
+   }
+  ]
+ },
+ "bauko-ak2022-stuetze": {
+  "0": [
+   {
+    "l": "M_g",
+    "w": -7.91,
+    "u": "kNm",
+    "h": "−0,125 · 4,50 · 3,75²"
+   },
+   {
+    "l": "M_s",
+    "w": -3.69,
+    "u": "kNm",
+    "h": "−0,125 · 2,10 · 3,75²"
+   }
+  ],
+  "2": [
+   {
+    "l": "M_Ed",
+    "w": 16.21,
+    "u": "kNm",
+    "h": "1,35 · 7,91 + 1,5 · 3,69"
+   }
+  ],
+  "3": [
+   {
+    "l": "η",
+    "w": 1.22,
+    "u": "",
+    "h": "2,03 / 1,66"
+   }
+  ]
+ },
+ "bauko-ak2022-durch": {
+  "2": [
+   {
+    "l": "l/300",
+    "w": 1.49,
+    "u": "cm",
+    "h": "447 cm / 300"
+   }
+  ],
+  "3": [
+   {
+    "l": "w_fin",
+    "w": 1.79,
+    "u": "cm",
+    "h": "0,79 · 1,8 + 0,25 + 0,6 · 0,20"
+   },
+   {
+    "l": "l/200",
+    "w": 2.24,
+    "u": "cm",
+    "h": "447 cm / 200"
+   }
+  ],
+  "4": [
+   {
+    "l": "w_net,fin",
+    "w": 1.42,
+    "u": "cm",
+    "h": "0,79 · 1,8"
+   }
+  ]
+ },
+ "bauko-hue1-dach": {
+  "0": [
+   {
+    "l": "g_Sparren",
+    "w": 0.064,
+    "u": "kN/m",
+    "h": "5,0 · 0,08 · 0,16"
+   }
+  ],
+  "1": [
+   {
+    "l": "g′",
+    "w": 0.73,
+    "u": "kN/m",
+    "h": "0,63 / cos(30°)"
+   }
+  ],
+  "2": [
+   {
+    "l": "s_k",
+    "w": 1.09,
+    "u": "kN/m²",
+    "h": "1,25 · (0,19 + 0,91 · ((519 + 140) / 760)²)"
+   }
+  ],
+  "3": [
+   {
+    "l": "s",
+    "w": 0.87,
+    "u": "kN/m²",
+    "h": "0,8 · 1,09"
+   },
+   {
+    "l": "s pro Sparren",
+    "w": 0.56,
+    "u": "kN/m",
+    "h": "0,87 · 0,64"
+   }
+  ]
+ },
+ "bauko-ue06-stahl": {
+  "2": [
+   {
+    "l": "erf W",
+    "w": 53.6,
+    "u": "cm³",
+    "h": "1260 kNcm / 23,5 kN/cm²"
+   }
+  ],
+  "3": [
+   {
+    "l": "η",
+    "w": 0.69,
+    "u": "",
+    "h": "1260 / 77,3 / 23,5"
+   }
+  ]
+ },
+ "bauko-verband": {
+  "0": [
+   {
+    "l": "H_d",
+    "w": 120.0,
+    "u": "kN",
+    "h": "1,5 · 80"
+   }
+  ],
+  "1": [
+   {
+    "l": "Z_d",
+    "w": 169.7,
+    "u": "kN",
+    "h": "120 / 0,707"
+   }
+  ],
+  "2": [
+   {
+    "l": "A",
+    "w": 722.0,
+    "u": "mm²",
+    "h": "169 700 N / 235 N/mm²"
+   }
+  ],
+  "3": [
+   {
+    "l": "d",
+    "w": 30.3,
+    "u": "mm",
+    "h": "√(4 · 722 / π)"
+   }
+  ]
+ },
+ "bauko-knick-stuetze": {
+  "1": [
+   {
+    "l": "i",
+    "w": 4.04,
+    "u": "cm",
+    "h": "14 / √12"
+   },
+   {
+    "l": "λ",
+    "w": 80.9,
+    "u": "",
+    "h": "327 / 4,04"
+   }
+  ],
+  "3": [
+   {
+    "l": "σ_c,0,d",
+    "w": 2.73,
+    "u": "N/mm²",
+    "h": "53,41 kN / 196 cm² ergibt kN/cm², mal 10 für N/mm²"
+   },
+   {
+    "l": "f_c,0,d",
+    "w": 16.2,
+    "u": "N/mm²",
+    "h": "1,0 · 21 / 1,3"
+   },
+   {
+    "l": "η",
+    "w": 0.38,
+    "u": "",
+    "h": "2,73 / (0,44 · 16,2)"
+   }
+  ]
+ },
+ "bauko-ue01-massivdecke": {
+  "0": [
+   {
+    "l": "Estrich",
+    "w": 1.32,
+    "u": "kN/m²",
+    "h": "0,22 · 6"
+   }
+  ],
+  "3": [
+   {
+    "l": "g_k",
+    "w": 5.56,
+    "u": "kN/m²",
+    "h": "1,32 + 0,02 + 0,04 + 4,0 + 0,18"
+   }
+  ]
+ },
+ "bauko-ue01-unterzug": {
+  "2": [
+   {
+    "l": "p₂",
+    "w": 3.43,
+    "u": "kN/m",
+    "h": "1,143 · 2,0 · 1,5"
+   },
+   {
+    "l": "g₂",
+    "w": 2.33,
+    "u": "kN/m",
+    "h": "1,143 · 1,24 · 1,5 + 0,2"
+   }
+  ],
+  "3": [
+   {
+    "l": "P₂",
+    "w": 10.71,
+    "u": "kN",
+    "h": "1,25 · 3,43 · 2,5"
+   },
+   {
+    "l": "G₂",
+    "w": 7.27,
+    "u": "kN",
+    "h": "1,25 · 2,33 · 2,5"
+   }
+  ]
+ },
+ "bauko-ak2020-decke": {
+  "0": [
+   {
+    "l": "g_k",
+    "w": 1.08,
+    "u": "kN/m",
+    "h": "1,51 · 0,625 + 0,05 + 0,09"
+   },
+   {
+    "l": "q_k (A3)",
+    "w": 1.25,
+    "u": "kN/m",
+    "h": "2,0 · 0,625"
+   }
+  ],
+  "2": [
+   {
+    "l": "M_Ed",
+    "w": 4.06,
+    "u": "kNm",
+    "h": "1,35 · 1,32 + 1,5 · 1,52"
+   }
+  ],
+  "3": [
+   {
+    "l": "η",
+    "w": 0.8,
+    "u": "",
+    "h": "1,19 / 1,48"
+   }
+  ],
+  "4": [
+   {
+    "l": "τ",
+    "w": 0.164,
+    "u": "kN/cm²",
+    "h": "1,5 · 6,99 / (0,5 · 128)"
+   },
+   {
+    "l": "η",
+    "w": 0.67,
+    "u": "",
+    "h": "0,164 / 0,246"
+   }
+  ]
+ },
+ "phys-b1-a1": {
+  "2": [
+   {
+    "l": "A",
+    "w": 4942.0,
+    "u": "ac",
+    "h": "2 · 10⁷ m² / 4046,856 m²"
+   }
+  ],
+  "3": [
+   {
+    "l": "V",
+    "w": 1443.0,
+    "u": "ac·ft",
+    "h": "4942 · 0,292"
+   }
+  ]
+ },
+ "phys-b1-a4": {
+  "1": [
+   {
+    "l": "A₁",
+    "w": 24.0,
+    "u": "m",
+    "h": "½ · 2 · 24"
+   },
+   {
+    "l": "A₂",
+    "w": 192.0,
+    "u": "m",
+    "h": "8 · 24"
+   }
+  ],
+  "2": [
+   {
+    "l": "Rechteck 10–16 s",
+    "w": 72.0,
+    "u": "m",
+    "h": "6 · 12"
+   }
+  ],
+  "3": [
+   {
+    "l": "s",
+    "w": 300.0,
+    "u": "m",
+    "h": "24 + 192 + 12 + 72"
+   }
+  ]
+ },
+ "phys-b4-a1": {
+  "3": [
+   {
+    "l": "F₃x",
+    "w": 12.5,
+    "u": "N",
+    "h": "2 · 3 · cos(50°) + 10 · cos(30°)"
+   },
+   {
+    "l": "F₃y",
+    "w": -10.4,
+    "u": "N",
+    "h": "2 · 3 · sin(50°) + 10 · sin(30°) − 20"
+   },
+   {
+    "l": "F₃",
+    "w": 16.3,
+    "u": "N",
+    "h": "√(12,5² + 10,4²)"
+   },
+   {
+    "l": "φ",
+    "w": -39.7,
+    "u": "°",
+    "h": "arctan(−10,4 / 12,5)"
+   }
+  ]
+ },
+ "phys-b4-a2": {
+  "2": [
+   {
+    "l": "a",
+    "w": 0.914,
+    "u": "m/s²",
+    "h": "F / (m₁ + m₂) = 3,2 / (2,3 + 1,2)"
+   },
+   {
+    "l": "F_K (a)",
+    "w": 1.1,
+    "u": "N",
+    "h": "m₂ · F / (m₁ + m₂) = 1,2 · 3,2 / 3,5"
+   },
+   {
+    "l": "F_K (b)",
+    "w": 2.1,
+    "u": "N",
+    "h": "m₁ · F / (m₁ + m₂) = 2,3 · 3,2 / 3,5"
+   }
+  ]
+ },
+ "phys-b4-a3": {
+  "3": [
+   {
+    "l": "F_S",
+    "w": 6.08,
+    "u": "N",
+    "h": "2,3 · (3,7 · 9,81 · sin(30°) − 2,3) / (3,7 + 2,3)"
+   },
+   {
+    "l": "F_max",
+    "w": 18.1,
+    "u": "N",
+    "h": "3,7 · 9,81 · sin(30°)"
+   }
+  ]
+ },
+ "phys-b4-a5": {
+  "2": [
+   {
+    "l": "F_res",
+    "w": 120.0,
+    "u": "N",
+    "h": "60 · 2"
+   },
+   {
+    "l": "F_M",
+    "w": 621.0,
+    "u": "N",
+    "h": "60 · √(2² + 9,81² + 2 · 2 · 9,81 · sin(10°))"
+   }
+  ]
+ },
+ "phys-b4-a6": {
+  "2": [
+   {
+    "l": "F_S (a)",
+    "w": 528.0,
+    "u": "N",
+    "h": "95 · (9,81 + 1,3) / 2"
+   },
+   {
+    "l": "F_S (b)",
+    "w": 1055.0,
+    "u": "N",
+    "h": "95 · (9,81 + 1,3)"
+   }
+  ]
+ },
+ "binf-ue02-dual": {
+  "2": [
+   {
+    "l": "43 als Dualzahl",
+    "w": 101011.0,
+    "u": "",
+    "h": "Reste von unten nach oben lesen",
+    "t": 0.0
+   }
+  ],
+  "3": [
+   {
+    "l": "Kontrolle",
+    "w": 43.0,
+    "u": "",
+    "h": "32 + 8 + 2 + 1",
+    "t": 0.0
+   }
+  ]
+ }
+};
+/* Formelsammlung (App 1.6): eigene Zusammenstellung je Fach und Thema, in der App durchsuchbar und von den Fragen verlinkt */
+const FORMELN = [
+{
+"f": "hydro",
+"t": "Eigenschaften des Wassers",
+"n": "Dichte und Wichte",
+"x": "ρ ≈ 1000 kg/m³ · γ = ρ · g ≈ 9,81 kN/m³",
+"e": "Dichte = Masse pro Volumen, Wichte = Gewicht pro Volumen. Wasser ist bei 4 °C am dichtesten."
+},
+{
+"f": "hydro",
+"t": "Eigenschaften des Wassers",
+"n": "Kapillare Steighöhe",
+"x": "h = 4 · σ / (ρ · g · d)",
+"e": "σ ≈ 0,073 N/m (Oberflächenspannung Wasser), d = Röhrchendurchmesser. Je enger, desto höher. Quecksilber sinkt dagegen ab."
+},
+{
+"f": "hydro",
+"t": "Eigenschaften des Wassers",
+"n": "Kinematische Viskosität",
+"x": "ν = η / ρ",
+"e": "η = dynamische Viskosität in Pa·s, ν in m²/s. Beide sinken mit steigender Temperatur."
+},
+{
+"f": "hydro",
+"t": "Hydrostatik 1",
+"n": "Hydrostatischer Druck",
+"x": "p = ρ · g · h",
+"e": "Überdruck in der Tiefe h, wächst linear. Wirkt in alle Richtungen gleich und immer senkrecht auf eine Fläche."
+},
+{
+"f": "hydro",
+"t": "Hydrostatik 1",
+"n": "Absoluter Druck",
+"x": "p_abs = p_atm + ρ · g · h",
+"e": "p_atm ≈ 101 325 Pa ≈ 1 bar. Im Bauwesen rechnet man meist mit dem Überdruck."
+},
+{
+"f": "hydro",
+"t": "Hydrostatik 1",
+"n": "Geschichtete Flüssigkeiten",
+"x": "p = Σ ρᵢ · g · hᵢ",
+"e": "Druck an der Unterkante aufsummieren: Jede Schicht trägt mit ihrer eigenen Dichte bei, der Druckverlauf knickt an der Grenze."
+},
+{
+"f": "hydro",
+"t": "Hydrostatik 1",
+"n": "Druckkraft auf eine ebene Fläche",
+"x": "F = ρ · g · h_s · A",
+"e": "h_s = Tiefe des Flächenschwerpunkts. Bei einer Rechteckwand bis zur Oberfläche greift F in 2/3 der Wassertiefe an."
+},
+{
+"f": "hydro",
+"t": "Hydrostatik 2",
+"n": "Auftrieb (Archimedes)",
+"x": "F_A = ρ_W · g · V_verdrängt",
+"e": "Der Auftrieb ist das Gewicht des verdrängten Wassers – egal, wie tief der Körper liegt."
+},
+{
+"f": "hydro",
+"t": "Hydrostatik 2",
+"n": "Schwimmen",
+"x": "F_A = F_G  →  ρ_W · V_eingetaucht = ρ_K · V_K",
+"e": "Ein Körper schwimmt, wenn der Auftrieb das Gewicht ausgleicht. Tiefgang t = ρ_K / ρ_W · Höhe (bei einem Quader)."
+},
+{
+"f": "hydro",
+"t": "Hydrostatik 2",
+"n": "Gekrümmte Flächen",
+"x": "F_H = Druckkraft auf die senkrechte Projektion · F_V = Gewicht des Wasserkörpers über der Fläche",
+"e": "Die Gesamtkraft ist F = √(F_H² + F_V²)."
+},
+{
+"f": "hydro",
+"t": "Hydrodynamik",
+"n": "Durchfluss",
+"x": "Q = v · A  [m³/s]",
+"e": "v = mittlere Fließgeschwindigkeit, A = durchflossene Fläche. Kreisrohr: A = π · d² / 4."
+},
+{
+"f": "hydro",
+"t": "Hydrodynamik",
+"n": "Kontinuitätsgleichung",
+"x": "Q₁ = Q₂  →  v₁ · A₁ = v₂ · A₂",
+"e": "Gilt ohne Speicherung, stationär und bei konstanter Dichte. Engeres Rohr → schnelleres Wasser."
+},
+{
+"f": "hydro",
+"t": "Energiesatz",
+"n": "Bernoulli (Energiehöhe)",
+"x": "z + p/(ρ·g) + v²/(2·g) = H = konst.",
+"e": "Lagehöhe + Druckhöhe + Geschwindigkeitshöhe, alles in Metern. Mit Verlusten: H₁ = H₂ + h_v."
+},
+{
+"f": "hydro",
+"t": "Energiesatz",
+"n": "Ausfluss (Torricelli)",
+"x": "v = √(2 · g · h)",
+"e": "Ausflussgeschwindigkeit aus einer Öffnung in der Tiefe h unter dem Wasserspiegel."
+},
+{
+"f": "hydro",
+"t": "Energiesatz",
+"n": "Örtlicher Verlust",
+"x": "h_v = ζ · v² / (2 · g)",
+"e": "ζ = Verlustbeiwert (Einlauf, Krümmer, Schieber …). Plötzliche Erweiterung (Borda-Carnot): h_v = (v₁ − v₂)² / (2 · g)."
+},
+{
+"f": "hydro",
+"t": "Impulssatz",
+"n": "Impulssatz",
+"x": "Σ F = ρ · Q · (v₂ − v₁)",
+"e": "Vektoriell, für jede Richtung einzeln. Rechne mit Stützkräften an den Schnitten des Kontrollvolumens."
+},
+{
+"f": "hydro",
+"t": "Impulssatz",
+"n": "Stützkraft",
+"x": "S = p · A + ρ · Q · v",
+"e": "Druckkraft plus Impulsstrom, wirkt immer auf das Kontrollvolumen hin. Kraft auf einen Krümmer: Vektorsumme der Stützkräfte."
+},
+{
+"f": "hydro",
+"t": "Gerinneströmung",
+"n": "Abfluss pro Meter Breite",
+"x": "q = Q / b  [m²/s]",
+"e": "Bezugsgröße im Rechteckgerinne."
+},
+{
+"f": "hydro",
+"t": "Gerinneströmung",
+"n": "Grenztiefe",
+"x": "h_gr = ∛(q² / g) · v_gr = √(g · h_gr) · h_E,min = 1,5 · h_gr",
+"e": "Bei der Grenztiefe ist die Energiehöhe minimal und Fr = 1."
+},
+{
+"f": "hydro",
+"t": "Gerinneströmung",
+"n": "Froude-Zahl",
+"x": "Fr = v / √(g · h)",
+"e": "Fr < 1 strömend (ruhig), Fr > 1 schießend, Fr = 1 Grenzzustand."
+},
+{
+"f": "hydro",
+"t": "Gerinneströmung",
+"n": "Spezifische Energiehöhe",
+"x": "h_E = h + v² / (2 · g)",
+"e": "Bezogen auf die Sohle. Zu jedem h_E > h_E,min gibt es eine strömende und eine schießende Wassertiefe."
+},
+{
+"f": "phys",
+"t": "Einheiten",
+"n": "SI-Basiseinheiten",
+"x": "m · kg · s · A · K · mol · cd",
+"e": "Alle anderen Einheiten sind daraus abgeleitet, z. B. 1 N = 1 kg · m/s², 1 Pa = 1 N/m², 1 J = 1 N · m."
+},
+{
+"f": "phys",
+"t": "Einheiten",
+"n": "Vorsätze",
+"x": "k = 10³ · M = 10⁶ · G = 10⁹ · m = 10⁻³ · µ = 10⁻⁶ · n = 10⁻⁹",
+"e": "Beim Umrechnen von Flächen und Volumen die Potenz mitnehmen: 1 m² = 10⁶ mm², 1 m³ = 1000 l."
+},
+{
+"f": "phys",
+"t": "Geradlinige Bewegung",
+"n": "Geschwindigkeit und Beschleunigung",
+"x": "v = Δx / Δt · a = Δv / Δt",
+"e": "Momentanwerte: v = dx/dt, a = dv/dt. Weg = Fläche unter der v(t)-Kurve."
+},
+{
+"f": "phys",
+"t": "Geradlinige Bewegung",
+"n": "Gleichmäßig beschleunigt",
+"x": "v = v₀ + a · t · x = x₀ + v₀ · t + ½ · a · t²",
+"e": "Gilt nur für konstante Beschleunigung. Freier Fall: a = g ≈ 9,81 m/s²."
+},
+{
+"f": "phys",
+"t": "Geradlinige Bewegung",
+"n": "Ohne Zeit",
+"x": "v² = v₀² + 2 · a · Δx",
+"e": "Praktisch, wenn die Zeit nicht gegeben ist, z. B. Bremsweg."
+},
+{
+"f": "phys",
+"t": "Vektoren",
+"n": "Betrag",
+"x": "|a| = √(a_x² + a_y² + a_z²)",
+"e": "Länge des Vektors. Komponenten aus Betrag und Winkel: a_x = |a| · cos α, a_y = |a| · sin α."
+},
+{
+"f": "phys",
+"t": "Vektoren",
+"n": "Skalarprodukt",
+"x": "a · b = |a| · |b| · cos φ = a_x b_x + a_y b_y + a_z b_z",
+"e": "Ergibt eine Zahl. Null, wenn die Vektoren senkrecht stehen."
+},
+{
+"f": "phys",
+"t": "Vektoren",
+"n": "Kreuzprodukt",
+"x": "|a × b| = |a| · |b| · sin φ",
+"e": "Ergibt einen Vektor senkrecht zu a und b (Rechte-Hand-Regel). Betrag = aufgespannte Fläche."
+},
+{
+"f": "phys",
+"t": "Bewegung in 2D/3D",
+"n": "Schiefer Wurf",
+"x": "x = v₀ · cos α · t · y = v₀ · sin α · t − ½ · g · t²",
+"e": "Waagerecht gleichförmig, senkrecht gleichmäßig beschleunigt. Wurfweite auf gleicher Höhe: W = v₀² · sin 2α / g (größte bei 45°)."
+},
+{
+"f": "phys",
+"t": "Bewegung in 2D/3D",
+"n": "Kreisbewegung",
+"x": "v = 2π · r / T · a_z = v² / r",
+"e": "Gleichförmige Kreisbewegung: Betrag von v konstant, die Beschleunigung zeigt zum Mittelpunkt."
+},
+{
+"f": "phys",
+"t": "Bewegung in 2D/3D",
+"n": "Relativbewegung",
+"x": "v_A,Boden = v_A,Luft + v_Luft,Boden",
+"e": "Geschwindigkeiten vektoriell addieren, z. B. Flugzeug mit Wind."
+},
+{
+"f": "phys",
+"t": "Newtonsche Axiome",
+"n": "2. Axiom",
+"x": "Σ F = m · a  (allgemein F = dp/dt, p = m · v)",
+"e": "Die resultierende Kraft bestimmt die Beschleunigung. Ohne resultierende Kraft bleibt v konstant (1. Axiom)."
+},
+{
+"f": "phys",
+"t": "Newtonsche Axiome",
+"n": "3. Axiom",
+"x": "F₁₂ = −F₂₁",
+"e": "Kräfte treten immer paarweise auf, an zwei verschiedenen Körpern – sie heben sich deshalb nicht auf."
+},
+{
+"f": "phys",
+"t": "Newtonsche Axiome",
+"n": "Gewichtskraft",
+"x": "F_G = m · g",
+"e": "Masse in kg ist überall gleich, die Gewichtskraft hängt vom Ort ab."
+},
+{
+"f": "phys",
+"t": "Newtonsche Axiome",
+"n": "Schiefe Ebene",
+"x": "F_H = m · g · sin α · F_N = m · g · cos α",
+"e": "Hangabtrieb parallel, Normalkraft senkrecht zur Ebene."
+},
+{
+"f": "phys",
+"t": "Newtonsche Axiome",
+"n": "Zentripetalkraft",
+"x": "F_Z = m · v² / r",
+"e": "Die Kraft, die einen Körper auf der Kreisbahn hält, zeigt zum Mittelpunkt."
+},
+{
+"f": "bsk",
+"t": "Mechanische Eigenschaften",
+"n": "Spannung und Dehnung",
+"x": "σ = F / A · ε = Δl / l₀",
+"e": "σ in N/mm², ε dimensionslos (oft in ‰ oder %)."
+},
+{
+"f": "bsk",
+"t": "Mechanische Eigenschaften",
+"n": "Hookesches Gesetz",
+"x": "σ = E · ε",
+"e": "Gilt im linear-elastischen Bereich. E = Steigung der σ-ε-Linie (Steifigkeit)."
+},
+{
+"f": "bsk",
+"t": "Mechanische Eigenschaften",
+"n": "Querdehnzahl",
+"x": "ν = −ε_quer / ε_längs",
+"e": "Beton ≈ 0,2, Stahl ≈ 0,3. Zieht man einen Stab, wird er dünner."
+},
+{
+"f": "bsk",
+"t": "Mechanische Eigenschaften",
+"n": "Auslastung",
+"x": "η = σ / f",
+"e": "Spannung im Verhältnis zur Festigkeit, ≤ 1 bzw. ≤ 100 %."
+},
+{
+"f": "bsk",
+"t": "Physikalische Eigenschaften",
+"n": "Rohdichte und Reindichte",
+"x": "ρ_R = m / V (mit Poren) · ρ = m / V_Feststoff",
+"e": "Die Reindichte hängt nur vom Material ab, die Rohdichte sinkt mit jedem Porenanteil."
+},
+{
+"f": "bsk",
+"t": "Physikalische Eigenschaften",
+"n": "Porosität",
+"x": "p = V_P / V = 1 − ρ_R / ρ",
+"e": "Porenvolumen im Verhältnis zum Gesamtvolumen."
+},
+{
+"f": "bsk",
+"t": "Physikalische Eigenschaften",
+"n": "Wasseraufnahme",
+"x": "W_m = (m_nass − m_trocken) / m_trocken",
+"e": "Massebezogen, in %."
+},
+{
+"f": "bsk",
+"t": "Physikalische Eigenschaften",
+"n": "Wärmedehnung",
+"x": "ε_T = α_T · ΔT · Δl = α_T · ΔT · l",
+"e": "Beton und Stahl α_T ≈ 1,0–1,2 · 10⁻⁵ 1/K – deshalb funktioniert Stahlbeton."
+},
+{
+"f": "bsk",
+"t": "Physikalische Eigenschaften",
+"n": "Wärmedurchgang",
+"x": "R = d / λ · U = 1 / (R_si + Σ dᵢ/λᵢ + R_se)",
+"e": "λ = Wärmeleitfähigkeit in W/(m·K). Kleines λ und große Dicke dämmen gut."
+},
+{
+"f": "bsk",
+"t": "Chemische Grundlagen",
+"n": "Bindungsart nach ΔEN",
+"x": "ΔEN > 1,7 ionisch · 0,4–1,7 polar kovalent · < 0,4 unpolar kovalent",
+"e": "Je größer der Unterschied der Elektronegativitäten, desto ionischer die Bindung. Metalle untereinander: metallische Bindung."
+},
+{
+"f": "bsk",
+"t": "Chemische Grundlagen",
+"n": "pH-Wert",
+"x": "pH = −lg c(H₃O⁺)",
+"e": "pH 7 neutral, darunter sauer, darüber basisch. Frischer Beton ist mit pH ≈ 13 stark basisch und schützt so den Stahl."
+},
+{
+"f": "bsk",
+"t": "Gefüge und Kristalle",
+"n": "Packungsdichte",
+"x": "kfz und hdp ≈ 74 % · krz ≈ 68 %",
+"e": "Kubisch flächenzentriert und hexagonal dichteste Packung sind am dichtesten gepackt."
+},
+{
+"f": "bsk",
+"t": "Gefüge und Kristalle",
+"n": "Feinkorn (Hall-Petch)",
+"x": "σ_y = σ₀ + k / √d",
+"e": "Kleinere Körner d → höhere Streckgrenze. Feinkorn macht Stahl fester und zugleich zäher."
+},
+{
+"f": "bauko",
+"t": "Sicherheitskonzept",
+"n": "Grundprinzip",
+"x": "E_d ≤ R_d  ·  η = E_d / R_d ≤ 1",
+"e": "Bemessungswert der Einwirkung höchstens so groß wie der Bemessungswert des Widerstands."
+},
+{
+"f": "bauko",
+"t": "Sicherheitskonzept",
+"n": "Grundkombination (GZT)",
+"x": "E_d = 1,35 · G_k + 1,5 · Q_k,1 + 1,5 · Σ ψ₀,ᵢ · Q_k,ᵢ",
+"e": "Leiteinwirkung voll, weitere veränderliche Einwirkungen mit ψ₀ abgemindert. Günstig wirkendes G mit 1,0, günstiges Q mit 0."
+},
+{
+"f": "bauko",
+"t": "Sicherheitskonzept",
+"n": "Widerstand",
+"x": "R_d = k_mod · R_k / γ_M",
+"e": "Holz: γ_M = 1,3. k_mod hängt von Nutzungsklasse und Lasteinwirkungsdauer (KLED) ab – maßgebend ist die kürzeste Last der Kombination."
+},
+{
+"f": "bauko",
+"t": "Lasten",
+"n": "Flächenlast aus Wichte",
+"x": "g = γ · d",
+"e": "γ in kN/m³, d in m → kN/m². Beispiel Stahlbeton 25 kN/m³ · 0,16 m = 4,0 kN/m²."
+},
+{
+"f": "bauko",
+"t": "Lasten",
+"n": "Flächenlast → Streckenlast",
+"x": "q [kN/m] = q [kN/m²] · e",
+"e": "e = Einzugsbreite bzw. Achsabstand, z. B. Balkenabstand."
+},
+{
+"f": "bauko",
+"t": "Lasten",
+"n": "Last auf geneigtem Dach",
+"x": "g′ = g / cos α",
+"e": "Eigenlast entlang der Dachfläche, umgerechnet auf die Grundrissprojektion. Schnee wird schon auf die Grundfläche bezogen."
+},
+{
+"f": "bauko",
+"t": "Einwirkungen",
+"n": "Schneelast auf dem Dach",
+"x": "s = μ₁ · C_e · C_t · s_k",
+"e": "Meist C_e = C_t = 1,0. μ₁ = 0,8 bis 30°, 0,8 · (60° − α)/30° bis 60°, darüber 0."
+},
+{
+"f": "bauko",
+"t": "Einwirkungen",
+"n": "Schnee am Boden (Zone 2)",
+"x": "s_k = 0,25 + 1,91 · ((A + 140) / 760)²  ≥ 0,85 kN/m²",
+"e": "A = Geländehöhe über NN in m. Zone 1: 0,19 + 0,91 · (…)² ≥ 0,65; Zone 1a und 2a: Zone-Wert · 1,25."
+},
+{
+"f": "bauko",
+"t": "Einwirkungen",
+"n": "Wind",
+"x": "w_e = c_pe · q_p",
+"e": "q_p = Geschwindigkeitsdruck (nach Windzone und Höhe), c_pe aus den Bereichen F, G, H, I, J; Zwischenwerte linear interpolieren. e = min(b; 2h)."
+},
+{
+"f": "bauko",
+"t": "Rechenweg",
+"n": "Einfeldträger mit Streckenlast",
+"x": "max M = q · l² / 8 · A = B = q · l / 2",
+"e": "Moment in Feldmitte, Querkraft am Auflager."
+},
+{
+"f": "bauko",
+"t": "Rechenweg",
+"n": "Einfeldträger mit Einzellast in der Mitte",
+"x": "max M = F · l / 4 · A = B = F / 2",
+"e": ""
+},
+{
+"f": "bauko",
+"t": "Rechenweg",
+"n": "Kragarm",
+"x": "M = q · l² / 2 bzw. M = F · l",
+"e": "Größtes Moment an der Einspannung."
+},
+{
+"f": "bauko",
+"t": "Holzbemessung",
+"n": "Querschnittswerte Rechteck",
+"x": "A = b · h · W = b · h² / 6 · I = b · h³ / 12",
+"e": "Die Höhe geht ins Quadrat bzw. in die dritte Potenz ein – hochkant ist viel tragfähiger."
+},
+{
+"f": "bauko",
+"t": "Holzbemessung",
+"n": "Biegung",
+"x": "σ_m,d = M_d / W ≤ f_m,d = k_mod · f_m,k / γ_M",
+"e": "Erforderliches Widerstandsmoment: erf W = M_d / f_m,d."
+},
+{
+"f": "bauko",
+"t": "Holzbemessung",
+"n": "Schub",
+"x": "τ_d = 1,5 · V_d / (k_cr · b · h) ≤ f_v,d",
+"e": "k_cr berücksichtigt Risse im Holz."
+},
+{
+"f": "bauko",
+"t": "Holzbemessung",
+"n": "Querdruck",
+"x": "σ_c,90,d = F_d / A_ef ≤ k_c,90 · f_c,90,d",
+"e": "A_ef: Aufstandslänge auf jeder Seite um bis zu 30 mm verlängern."
+},
+{
+"f": "bauko",
+"t": "Holzbemessung",
+"n": "Knicken",
+"x": "λ = l_ef / i · i = h / √12 · σ_c,0,d ≤ k_c · f_c,0,d",
+"e": "l_ef = β · l aus dem Eulerfall, k_c aus der Tabelle über λ_rel."
+},
+{
+"f": "bauko",
+"t": "Holzbemessung",
+"n": "Durchbiegung Einfeldträger",
+"x": "w = 5 · q · l⁴ / (384 · E · I)",
+"e": "Grenzen: w_inst ≤ l/300, w_net,fin ≤ l/300, w_fin ≤ l/200. Kriechen: w_fin = w_G · (1 + k_def) + w_Q · (1 + ψ₂ · k_def)."
+},
+{
+"f": "bauko",
+"t": "Stahl und Stahlbeton",
+"n": "Stahl auf Biegung",
+"x": "σ = M_Ed / W ≤ f_y,d = f_y / γ_M0",
+"e": "S235: f_y = 23,5 kN/cm², γ_M0 = 1,0. erf W = M_Ed / f_y,d, dann Profil aus der Tabelle wählen."
+},
+{
+"f": "bauko",
+"t": "Stahl und Stahlbeton",
+"n": "Zugstab",
+"x": "erf A = N_Ed / f_y,d",
+"e": "Rundstab: d = √(4 · A / π)."
+},
+{
+"f": "bauko",
+"t": "Schnittgrößen und Aussteifung",
+"n": "Gleichgewicht",
+"x": "Σ H = 0 · Σ V = 0 · Σ M = 0",
+"e": "Drei Bedingungen in der Ebene – damit lassen sich bei statisch bestimmten Systemen alle Auflagerkräfte bestimmen."
+},
+{
+"f": "bauko",
+"t": "Schnittgrößen und Aussteifung",
+"n": "Diagonale im Verband",
+"x": "Z = H / cos α",
+"e": "α = Winkel zwischen Diagonale und Horizontalkraft-Richtung."
+},
+{
+"f": "binf",
+"t": "Programmrahmen",
+"n": "Grundgerüst",
+"x": "public class Name { public static void main(String[] args) { … } }",
+"e": "Dateiname = Klassenname + .java. Jede Anweisung endet mit ;"
+},
+{
+"f": "binf",
+"t": "Programmrahmen",
+"n": "Ausgabe und Escape-Sequenzen",
+"x": "System.out.println(…) · \\n Zeilenumbruch · \\t Tab · \\\" Anführungszeichen · \\\\ Backslash",
+"e": "print ohne, println mit Zeilenumbruch am Ende."
+},
+{
+"f": "binf",
+"t": "Java und JDK",
+"n": "Übersetzen und Ausführen",
+"x": "javac Name.java  →  java Name",
+"e": "javac erzeugt Bytecode (Name.class), die JVM führt ihn aus."
+},
+{
+"f": "binf",
+"t": "Datentypen",
+"n": "Ganzzahlen",
+"x": "byte 8 · short 16 · int 32 · long 64 Bit",
+"e": "long-Literale mit L, z. B. 12345678910L. Wertebereich int etwa ±2,1 · 10⁹."
+},
+{
+"f": "binf",
+"t": "Datentypen",
+"n": "Kommazahlen, Zeichen, Wahrheitswerte",
+"x": "float 32 (Literal 30.5f) · double 64 · char 16 ('a') · boolean (true/false)",
+"e": "Kommazahlen mit Punkt. String ist kein primitiver Typ und steht in \"…\"."
+},
+{
+"f": "binf",
+"t": "Datentypen",
+"n": "Dualsystem",
+"x": "n Bit → 2ⁿ Werte · Dezimal → dual: fortgesetzt durch 2 teilen, Reste von unten lesen",
+"e": "Stellenwerte 1, 2, 4, 8, 16, 32, … Beispiel: 43 = 32 + 8 + 2 + 1 = 101011."
+},
+{
+"f": "binf",
+"t": "Operatoren",
+"n": "Rechnen mit Ganzzahlen",
+"x": "7 / 2 = 3 · 7 % 2 = 1 · 7.0 / 2 = 3.5",
+"e": "/ bei zwei int schneidet ab, % liefert den Rest."
+},
+{
+"f": "binf",
+"t": "Operatoren",
+"n": "Logik",
+"x": "&& und · ",
+"e": ""
+},
+{
+"f": "binf",
+"t": "Operatoren",
+"n": "Kurzformen",
+"x": "x++ · x-- · x += 5 · x *= 2",
+"e": "x++ liefert erst den alten Wert und erhöht dann, ++x erhöht zuerst."
+},
+{
+"f": "stat",
+"t": "Matrizen",
+"n": "Transponieren",
+"x": "(A′)′ = A · (A + B)′ = A′ + B′ · (A · B)′ = B′ · A′",
+"e": "Beim Produkt dreht sich die Reihenfolge um. A′A ist immer symmetrisch."
+},
+{
+"f": "stat",
+"t": "Matrizen",
+"n": "Matrixprodukt",
+"x": "(A · B)ᵢⱼ = Σₖ aᵢₖ · bₖⱼ",
+"e": "Zeile mal Spalte. Nur möglich, wenn Spaltenzahl von A = Zeilenzahl von B. Im Allgemeinen A · B ≠ B · A."
+},
+{
+"f": "stat",
+"t": "Matrizen",
+"n": "Determinante",
+"x": "2×2: det A = a · d − b · c · 3×3: Regel von Sarrus",
+"e": "det A = 0 heißt: A ist singulär und nicht invertierbar."
+},
+{
+"f": "stat",
+"t": "Matrizen",
+"n": "Inverse 2×2",
+"x": "A⁻¹ = 1/(a·d − b·c) · (d −b / −c a)",
+"e": "Diagonale tauschen, Nebendiagonale mit Minus, durch die Determinante teilen."
+},
+{
+"f": "stat",
+"t": "Matrizen",
+"n": "Norm",
+"x": "‖x‖ = √(x′x)",
+"e": "Länge eines Vektors. x′y = 0 heißt orthogonal."
+},
+{
+"f": "stat",
+"t": "Gleichungssysteme",
+"n": "Lösbarkeit",
+"x": "A · x = b eindeutig lösbar ⇔ det A ≠ 0 ⇔ rg A = n",
+"e": "Dann ist x = A⁻¹ · b. Lösen in der Praxis mit dem Gauß-Verfahren (Stufenform)."
+},
+{
+"f": "dap",
+"t": "Gewichtung und Post-Processing",
+"n": "Gewichtungsfaktor",
+"x": "w = Anteil in der Grundgesamtheit / Anteil in der Stichprobe",
+"e": "w > 1: Gruppe ist in der Stichprobe unterrepräsentiert."
+},
+{
+"f": "dap",
+"t": "Gewichtung und Post-Processing",
+"n": "Gewichteter Mittelwert",
+"x": "x̄_w = Σ wᵢ · xᵢ / Σ wᵢ",
+"e": "Mit den Gewichten werden die Gruppen auf ihren wahren Anteil gebracht."
+},
+{
+"f": "dap",
+"t": "Gewichtung und Post-Processing",
+"n": "Hochrechnungsfaktor",
+"x": "ef = N / n",
+"e": "Wie viele Personen der Grundgesamtheit eine Antwort vertritt."
+},
+{
+"f": "dap",
+"t": "Verteilungen",
+"n": "Standardisieren",
+"x": "z = (x − μ) / σ",
+"e": "Standardnormalverteilung: μ = 0, σ = 1."
+},
+{
+"f": "dap",
+"t": "Verteilungen",
+"n": "68-95-99,7-Regel",
+"x": "μ ± 1σ ≈ 68 % · μ ± 2σ ≈ 95 % · μ ± 3σ ≈ 99,7 %",
+"e": "Gilt für die Normalverteilung."
+},
+{
+"f": "dap",
+"t": "Verteilungen",
+"n": "R-Funktionen",
+"x": "pnorm(x, μ, σ) Anteil unter x · qnorm(p) Quantil · dnorm Dichte · rnorm(n) Zufallszahlen",
+"e": "p- = Verteilungsfunktion, q- = Quantil, d- = Dichte, r- = Zufallszahlen – auch für binom, pois, unif."
+},
+{
+"f": "dap",
+"t": "R-Grundlagen",
+"n": "Grundbefehle",
+"x": "x <- c(1, 2, 3) · mean(x) · sd(x) · summary(x) · df$spalte",
+"e": "<- weist zu, c() baut einen Vektor, $ greift auf eine Spalte eines data.frame zu."
+}
+];
+/* Schneider-Wegweiser (App 1.6): wo steht was in den Schneider Bautabellen. a24 = Fundstelle laut Vorlesungsfolien (24. Auflage), s27 = Fundstelle in Toms 27. Auflage (folgt nach seinen Scans). Keine Inhalte aus dem Buch. */
+const SCHNEIDER = [
+{
+"was": "Wichten von Baustoffen (Eigenlasten)",
+"a24": "S. 3.9–3.11",
+"fol": "bauko-v02-19",
+"kap": "Lastannahmen",
+"tipp": "Beton, Mauerwerk, Holz, Estrich, Putz – Grundlage jeder Eigenlast g = γ · d.",
+"s27": null
+},
+{
+"was": "Nutzlasten im Hochbau (Kategorien A bis E)",
+"a24": "Tafel 3.20",
+"fol": "bauko-v02-23",
+"kap": "Lastannahmen",
+"tipp": "q_k und Q_k je Nutzung, z. B. Wohnraum A2/A3, Büro B1.",
+"s27": null
+},
+{
+"was": "Trennwandzuschlag",
+"a24": "Tafel 3.19b",
+"fol": "bauko-v02-26",
+"kap": "Lastannahmen",
+"tipp": "Leichte Trennwände als Zuschlag auf die Nutzlast statt als Einzellast.",
+"s27": null
+},
+{
+"was": "Schneelastzonen und s_k am Boden",
+"a24": "Tafel 3.53a",
+"fol": "bauko-v02-29",
+"kap": "Lastannahmen",
+"tipp": "Zone 1 bis 3 mit Formel über die Geländehöhe A und Mindestwert.",
+"s27": null
+},
+{
+"was": "Formbeiwerte μ für Schnee auf Dächern",
+"a24": "Tafel 3.55a",
+"fol": "bauko-v02-33",
+"kap": "Lastannahmen",
+"tipp": "μ₁ und μ₂ je Dachneigung, auch gereihte und Sheddächer.",
+"s27": null
+},
+{
+"was": "Geschwindigkeitsdruck q_p vereinfacht (bis 25 m)",
+"a24": "Tafel 3.31",
+"fol": "bauko-v02-41",
+"kap": "Lastannahmen",
+"tipp": "Windzone und Gebäudehöhe → q_p in kN/m².",
+"s27": null
+},
+{
+"was": "Höhenabhängiger Geschwindigkeitsdruck (Regelfall)",
+"a24": "Tafel 3.32a",
+"fol": null,
+"kap": "Lastannahmen",
+"tipp": "Für höhere Gebäude oder genauere Berechnung.",
+"s27": null
+},
+{
+"was": "Außendruckbeiwerte c_pe für Wände und Dächer",
+"a24": "Tafeln 3.34 ff.",
+"fol": "bauko-v02-45",
+"kap": "Lastannahmen",
+"tipp": "Bereiche F bis J, c_pe,1 und c_pe,10 – Zwischenwerte linear interpolieren.",
+"s27": null
+},
+{
+"was": "Modifikationsbeiwert k_mod",
+"a24": "Tafel 9.3",
+"fol": "bauko-v03-36",
+"kap": "Holzbau",
+"tipp": "Nach Nutzungsklasse und KLED – maßgebend ist die kürzeste Lasteinwirkung der Kombination.",
+"s27": null
+},
+{
+"was": "Festigkeiten und Steifigkeiten Vollholz und BSH (C24, GL24h …)",
+"a24": "Tafeln 9.8 und 9.9",
+"fol": "bauko-v03-37",
+"kap": "Holzbau",
+"tipp": "f_m,k, f_t,0,k, f_c,0,k, f_c,90,k, f_v,k, E-Modul.",
+"s27": null
+},
+{
+"was": "Querdruckbeiwert k_c,90",
+"a24": "Tafel 9.24",
+"fol": "bauko-v03-40",
+"kap": "Holzbau",
+"tipp": "Je nach Lagerung (Schwellendruck oder Auflagerdruck) und Holzart.",
+"s27": null
+},
+{
+"was": "Schubnachweis und k_cr",
+"a24": "S. 9.21",
+"fol": "bauko-v03-42",
+"kap": "Holzbau",
+"tipp": "τ_d = 1,5 · V_d / (k_cr · b · h).",
+"s27": null
+},
+{
+"was": "Knickbeiwert k_c",
+"a24": "Tafel 9.29a",
+"fol": "bauko-v03-45",
+"kap": "Holzbau",
+"tipp": "Über die Schlankheit λ bzw. λ_rel ablesen.",
+"s27": null
+},
+{
+"was": "Durchbiegung: k_def und Grenzwerte",
+"a24": "Tafel 9.14 / S. 9.14 f.",
+"fol": "bauko-v03-48",
+"kap": "Holzbau",
+"tipp": "Kriechbeiwert je Nutzungsklasse, Grenzwerte l/300 und l/200.",
+"s27": null
+},
+{
+"was": "Teilsicherheits- und Kombinationsbeiwerte (γ, ψ)",
+"a24": "Kap. Grundlagen der Tragwerksplanung",
+"fol": "bauko-v01-52",
+"kap": "Sicherheitskonzept",
+"tipp": "γ_G = 1,35, γ_Q = 1,5, ψ₀/ψ₁/ψ₂ je Einwirkung.",
+"s27": null
+},
+{
+"was": "Stahlprofile IPE, HEA, HEB (Querschnittswerte)",
+"a24": "Kap. Stahlbau – Profiltafeln",
+"fol": null,
+"kap": "Stahlbau",
+"tipp": "W_y, I_y, A für den Biegenachweis, z. B. IPE 140.",
+"s27": null
+}
+];
