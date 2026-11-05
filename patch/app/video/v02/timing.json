@@ -1,0 +1,162 @@
+[
+ {
+  "title": "Holzbalken bemessen",
+  "caps": [
+   "Ein Holzbalken über vier Meter trägt sein *Eigengewicht* und eine *Nutzlast*.",
+   "Welche Lastkombination ist *maßgebend* – und welcher Querschnitt reicht?",
+   "Der Trick bei Holz: Die größte Last ist *nicht automatisch* die maßgebende."
+  ],
+  "starts": [
+   0.046,
+   6.002,
+   11.134
+  ],
+  "dur": 16.613878
+ },
+ {
+  "title": "Gegeben",
+  "caps": [
+   "Spannweite *4 m*, Vollholz *C24*, Nutzungsklasse *2*.",
+   "Ständige Last *g = 3,0 kN/m*, Nutzlast *q = 1,5 kN/m* mit kurzer Dauer.",
+   "Festigkeiten: Biegung *24*, Schub *4,0 N/mm²*, Teilsicherheit *γ_M = 1,3*."
+  ],
+  "starts": [
+   0.035,
+   7.024,
+   17.357
+  ],
+  "dur": 26.697143
+ },
+ {
+  "title": "Schritt 1: Schnittgrößen getrennt",
+  "caps": [
+   "Erster Schritt: die Schnittgrößen – für jede Lastart *getrennt*.",
+   "Einfeldträger mit Streckenlast: *max M = q · l² / 8*.",
+   "Für g: 3 · 16 / 8 = *6 kNm*. Für q: die Hälfte, *3 kNm*.",
+   "Getrennt, weil gleich jede Kombination ihr *eigenes k_mod* bekommt."
+  ],
+  "starts": [
+   0.035,
+   5.352,
+   12.144,
+   21.142
+  ],
+  "dur": 26.697143
+ },
+ {
+  "title": "Schritt 2: k_mod",
+  "caps": [
+   "k_mod berücksichtigt, *wie lange* eine Last wirkt – und wie feucht das Holz ist.",
+   "Nutzungsklasse 2: ständig *0,6*, kurz *0,9*.",
+   "Je länger die Last, desto *kleiner* k_mod – Holz kriecht unter Dauerlast."
+  ],
+  "starts": [
+   0.07,
+   5.619,
+   14.234
+  ],
+  "dur": 20.897959
+ },
+ {
+  "title": "Schritt 3: die maßgebende Kombination",
+  "caps": [
+   "Jetzt der wichtigste Schritt: die *maßgebende* Kombination.",
+   "Nur ständig: 1,35 · 6 = *8,1 kNm*.",
+   "Ständig + Nutzlast: 8,1 + 1,5 · 3 = *12,6 kNm*.",
+   "Vergleichbar wird es erst *geteilt durch k_mod* – bei g + q zählt die *kürzeste* Last: 0,9.",
+   "8,1 / 0,6 = *13,5* · 12,6 / 0,9 = *14,0*",
+   "14,0 ist größer – maßgebend ist *g + q* mit *M_Ed = 12,6 kNm*."
+  ],
+  "starts": [
+   0.058,
+   4.307,
+   13.026,
+   22.779,
+   34.075,
+   42.806
+  ],
+  "dur": 51.774694
+ },
+ {
+  "title": "Achtung: knapp!",
+  "caps": [
+   "Achtung: Der Unterschied ist *knapp*.",
+   "Mit etwas weniger Nutzlast wird *nur g* maßgebend – obwohl es die *kleinere* Last ist.",
+   "Deshalb bei Holz *immer beide* Kombinationen prüfen."
+  ],
+  "starts": [
+   0.035,
+   3.692,
+   13.932
+  ],
+  "dur": 19.043265
+ },
+ {
+  "title": "Schritt 4: Querschnitt wählen",
+  "caps": [
+   "Bemessungsfestigkeit: f_m,d = 0,9 · 24 / 1,3 = *16,6 N/mm²*.",
+   "erf W = M_Ed / f_m,d ≈ *759 cm³*.",
+   "Gewählt: *8/24 cm* mit W = b · h² / 6 = *768 cm³*.",
+   "Höher als 15 cm – *kein Höhenbonus*: k_h = 1,0."
+  ],
+  "starts": [
+   0.035,
+   11.262,
+   19.528,
+   28.781
+  ],
+  "dur": 35.761633
+ },
+ {
+  "title": "Schritt 5: Biegenachweis",
+  "caps": [
+   "σ_m,d = M_Ed / W = *16,4 N/mm²*.",
+   "Ausnutzung η = 16,4 / 16,6 = *0,99*.",
+   "Kleiner als 1 – *erfüllt*, aber fast voll ausgenutzt."
+  ],
+  "starts": [
+   0.081,
+   9.59,
+   17.45
+  ],
+  "dur": 23.719184
+ },
+ {
+  "title": "Schritt 6: Schubnachweis",
+  "caps": [
+   "Bei Vollholz mindern *Schwindrisse* die Breite: *k_cr = 0,5*.",
+   "Mit dem Faktor *1,5* fürs Rechteck: τ_d = *1,97 N/mm²*.",
+   "f_v,d = 2,77 N/mm² → η = *0,71* – auch erfüllt."
+  ],
+  "starts": [
+   0.046,
+   9.218,
+   17.055
+  ],
+  "dur": 25.730612
+ },
+ {
+  "title": "Merke",
+  "caps": [
+   "Das Schema für *jeden* Holzbalken:",
+   "Schnittgrößen je Lastart → Kombinationen *durch k_mod* teilen → die *größte* ist maßgebend.",
+   "Dann Querschnitt wählen und *Biegung* und *Schub* nachweisen."
+  ],
+  "starts": [
+   0.07,
+   2.38,
+   10.948
+  ],
+  "dur": 15.412245
+ },
+ {
+  "title": "Selbst üben",
+  "caps": [
+   "Jetzt selbst rechnen: Klausurduell → *Holzbalken bemessen* → „Selbst rechnen“."
+  ],
+  "starts": [
+   0.07
+  ],
+  "dur": 7.967347
+ }
+]
