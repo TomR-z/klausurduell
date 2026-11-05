@@ -1,0 +1,166 @@
+[
+ {
+  "title": "Dualzahlen mit Schleifen",
+  "caps": [
+   "Übung 2 will, dass du *43* ins Dualsystem umrechnest.",
+   "Heute machen wir das erst *von Hand* – und dann lassen wir *Java* rechnen.",
+   "Dafür brauchst du die *Schleifen* aus Vorlesung Block 2."
+  ],
+  "starts": [
+   0.035,
+   5.724,
+   11.146
+  ],
+  "dur": 16.613878
+ },
+ {
+  "title": "Wie eine Dualzahl funktioniert",
+  "caps": [
+   "Jede Stelle ist eine *Zweierpotenz*: 1, 2, 4, 8 … bis 128.",
+   "Woher? Jede Stelle nach links ist *doppelt* so viel wert – wie im Zehnersystem *zehnmal*.",
+   "Aufgabe 1a: 0010 1010 → nur die Stellen mit *1* zählen.",
+   "32 + 8 + 2 = *42*"
+  ],
+  "starts": [
+   0.035,
+   10.461,
+   18.135,
+   24.009
+  ],
+  "dur": 29.753469
+ },
+ {
+  "title": "Von Hand: das Restverfahren",
+  "caps": [
+   "Umgekehrt teilst du immer wieder *durch 2* und merkst dir den *Rest*.",
+   "Der Rest ist *0 oder 1* – genau die zwei Ziffern des Dualsystems.",
+   "43 : 2 = 21 Rest *1* · 21 : 2 = 10 Rest *1* · 10 : 2 = 5 Rest *0* …",
+   "… bis die Zahl *0* ist."
+  ],
+  "starts": [
+   0.07,
+   6.757,
+   13.955,
+   22.047
+  ],
+  "dur": 26.357551
+ },
+ {
+  "title": "Achtung: von unten lesen",
+  "caps": [
+   "Die Reste von *unten nach oben* gelesen: *101011*.",
+   "Warum? Der *erste* Rest gehört zur *1er-Stelle* – also ganz nach rechts.",
+   "Probe: 32 + 8 + 2 + 1 = *43* ✓"
+  ],
+  "starts": [
+   0.046,
+   7.07,
+   14.768
+  ],
+  "dur": 22.83102
+ },
+ {
+  "title": "Ab in Java: die Variablen",
+  "caps": [
+   "Zuerst die Variablen – wie in Übung 2, Aufgabe 8.",
+   "*int zahl = 43;* – eine ganze Zahl, die wir gleich halbieren.",
+   "*String dual = \"\";* – das Ergebnis als Text, am Anfang *leer*.",
+   "Warum String? Wir *hängen Ziffern aneinander* – und 101011 wäre als int eine ganz andere Zahl."
+  ],
+  "starts": [
+   0.035,
+   6.002,
+   9.915,
+   15.929
+  ],
+  "dur": 23.719184
+ },
+ {
+  "title": "Welche Schleife?",
+  "caps": [
+   "Wie oft geteilt wird, weißt du *vorher nicht* – das hängt von der Zahl ab.",
+   "Laut Vorlesung: Anzahl unbekannt → *while*-Schleife, keine for-Schleife.",
+   "Bedingung: *while (zahl > 0)* – teilen, *solange* noch etwas übrig ist."
+  ],
+  "starts": [
+   0.058,
+   6.13,
+   12.852
+  ],
+  "dur": 19.722449
+ },
+ {
+  "title": "Der Schleifenrumpf",
+  "caps": [
+   "*rest = zahl % 2;* – Modulo liefert den *Rest* der Division.",
+   "*dual = rest + dual;* – der neue Rest kommt *vorne* dran.",
+   "int + String ergibt Text – wie *2 + \"3\" = \"23\"* aus Übung 2.",
+   "Vorne anhängen ersetzt das *Lesen von unten*.",
+   "*zahl = zahl / 2;* – int geteilt durch int *schneidet ab*: 43 / 2 = 21."
+  ],
+  "starts": [
+   0.035,
+   5.77,
+   10.344,
+   22.21,
+   27.388
+  ],
+  "dur": 36.858776
+ },
+ {
+  "title": "Die Schleife läuft",
+  "caps": [
+   "Durchlauf 1: zahl = 43 → rest 1 → dual \"1\" → zahl 21",
+   "Mit jedem Durchlauf wächst dual *nach links*.",
+   "Nach Durchlauf 6 ist zahl = 0 → Bedingung *false* → Schluss.",
+   "Ergebnis: *101011* – wie von Hand."
+  ],
+  "starts": [
+   0.058,
+   7.372,
+   11.146,
+   17.752
+  ],
+  "dur": 23.719184
+ },
+ {
+  "title": "Sonderfall: die Zahl 0",
+  "caps": [
+   "Und bei *zahl = 0*? while prüft *vorher* – der Rumpf läuft *gar nicht*.",
+   "Ausgabe: ein *leerer* String statt \"0\".",
+   "Lösung: *do‑while* – fußgesteuert, läuft *mindestens einmal*.",
+   "Für 43 ändert sich nichts – für 0 kommt jetzt *\"0\"* heraus."
+  ],
+  "starts": [
+   0.058,
+   7.14,
+   12.307,
+   19.969
+  ],
+  "dur": 25.991837
+ },
+ {
+  "title": "Merke",
+  "caps": [
+   "Dezimal → Dual: *durch 2 teilen*, Reste *von unten* lesen.",
+   "In Java: *% 2* für den Rest, */ 2* zum Halbieren, Rest *vorne* anhängen.",
+   "Anzahl unbekannt → *while*. Mindestens einmal → *do‑while*."
+  ],
+  "starts": [
+   0.035,
+   4.76,
+   11.947
+  ],
+  "dur": 17.789388
+ },
+ {
+  "title": "Selbst üben",
+  "caps": [
+   "Jetzt du: *56* und *112* aus Aufgabe 2 – von Hand, dann mit deinem Programm."
+  ],
+  "starts": [
+   0.07
+  ],
+  "dur": 7.523265
+ }
+]

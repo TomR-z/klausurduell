@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8">
+<style>
+  html,body{margin:0;overflow:hidden;background:#f4f6fa;font-family:Inter,sans-serif;color:#0f172a;width:1920px;height:1080px}
+  #stage{position:absolute;inset:0}
+  .eyebrow{position:absolute;left:96px;top:64px;font-size:22px;font-weight:700;letter-spacing:.12em;color:#64748b;text-transform:uppercase}
+  .title{position:absolute;left:96px;top:100px;font-size:56px;font-weight:800;letter-spacing:-.01em;line-height:1.1}
+  .step{position:absolute;right:96px;top:70px;font-size:22px;font-weight:700;color:#64748b}
+  #box{position:absolute;left:70px;top:200px}
+  #panel{position:absolute;left:1110px;top:230px;width:760px}
+  .ln{font-size:40px;line-height:1.3;margin:0 0 20px;font-weight:600}
+  .ln.small{font-size:31px;font-weight:500;color:#334155}
+  .ln.q{font-size:46px;font-weight:800}
+  .hl{display:inline-block;background:#0a7cff;color:#fff;border-radius:14px;padding:4px 18px}
+  .ok{display:inline-block;background:#16a34a;color:#fff;border-radius:14px;padding:4px 18px}
+  .warn{display:inline-block;background:#f59e0b;color:#fff;border-radius:14px;padding:4px 18px}
+  .src{display:inline-block;font-size:22px;font-weight:700;color:#475569;background:#e2e8f0;border-radius:10px;padding:3px 12px;margin-left:12px;vertical-align:.25em}
+  .mono{font-family:"JetBrains Mono","DejaVu Sans Mono",monospace}
+  .code{background:#0f172a;border-radius:24px;padding:26px 30px;font-family:"JetBrains Mono","DejaVu Sans Mono",monospace;font-size:30px;line-height:1.55;color:#e2e8f0;box-shadow:0 20px 50px rgba(15,23,42,.25)}
+  .code .l{white-space:pre;border-radius:10px;padding:0 10px;margin:0 -10px;transition:none}
+  .code .l.on{background:rgba(125,211,252,.18);box-shadow:inset 6px 0 0 #7dd3fc}
+  .code .kw{color:#c4b5fd;font-weight:700}.code .ty{color:#7dd3fc;font-weight:700}.code .st{color:#86efac}.code .nu{color:#fdba74}.code .cm{color:#64748b}
+  #cap{position:absolute;left:50%;bottom:40px;transform:translateX(-50%);max-width:1400px;font-size:33px;padding:14px 30px;text-align:center;background:rgba(15,23,42,.88);color:#fff;font-weight:600;line-height:1.35;border-radius:20px}
+  #cap em{font-style:normal;color:#7dd3fc;font-weight:800}
+  .center{position:absolute;left:0;right:0;text-align:center}
+  .pill{display:inline-block;margin-top:50px;background:#0a7cff;color:#fff;font-size:40px;font-weight:750;padding:22px 44px;border-radius:999px}
+</style></head><body><div id="stage"></div>
+<script>
+const T = window.TIMING;
+const clamp = (x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const ease = x => x<.5 ? 2*x*x : 1-Math.pow(-2*x+2,2)/2;
+let S, t;
+const ap = (k,d=.5,off=0)=> S.starts[k]===undefined ? 0 : ease(clamp((t - S.starts[k] - off)/d));
+const op = p => `opacity:${p.toFixed(3)}`;
+const MONO = `font-family="DejaVu Sans Mono, monospace"`;
+const DEFS = `<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0L10,5L0,10z" fill="context-stroke"/></marker></defs>`;
+const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+function hlJava(line){
+  let s = esc(line);
+  s = s.replace(/("[^"]*")/g, '\u0001st$1\u0002');
+  s = s.replace(/\b(while|do|for|if|else)\b/g, '\u0001kw$1\u0002').replace(/\b(int|String)\b/g, '\u0001ty$1\u0002').replace(/(\/\/.*)$/,'\u0001cm$1\u0002');
+  s = s.replace(/(^|[^\w\u0001])(\d+)/g, (m,a,b)=> a + '\u0001nu' + b + '\u0002');
+  return s.replace(/\u0001(st|kw|ty|nu|cm)/g,'<span class="$1">').replace(/\u0002/g,'</span>');
+}
+function code(lines, vis, on){ /* vis: Sichtbarkeit je Zeile, on: Index der markierten Zeile */
+  return `<div class="code">${lines.map((l,i)=>`<div class="l${i===on?' on':''}" style="${op(vis[i]===undefined?1:vis[i])}">${hlJava(l)||' '}</div>`).join('')}</div>`;
+}
+const PROG = ["int zahl = 43;", "String dual = \"\";", "while (zahl > 0) {", "    int rest = zahl % 2;", "    dual = rest + dual;", "    zahl = zahl / 2;", "}", "System.out.println(dual);"];
+const STEPS = [[43,1,21],[21,1,10],[10,0,5],[5,1,2],[2,0,1],[1,1,0]];
+
+function bits(y, pattern, pOn, pVal, sumP){
+  const vals=[128,64,32,16,8,4,2,1], x0=60, w=110; let s='';
+  vals.forEach((v,i)=>{ const x=x0+i*w, b=pattern?pattern[i]:null, one=b==='1';
+    const pv=clamp(pVal*1.6 - i*0.08);
+    s+=`<g style="${op(pv)}"><text x="${x+w/2-6}" y="${y-22}" font-size="28" font-weight="800" text-anchor="middle" fill="#64748b">${v}</text>
+      <rect x="${x}" y="${y}" width="${w-12}" height="96" rx="16" fill="${one&&pOn>0?`rgba(10,124,255,${0.15+0.85*pOn})`:'#fff'}" stroke="${one&&pOn>0?'#0a7cff':'#cbd5e1'}" stroke-width="4"/>
+      ${b!==null?`<text x="${x+w/2-6}" y="${y+66}" font-size="52" font-weight="800" text-anchor="middle" ${MONO} fill="${one&&pOn>.5?'#fff':'#0f172a'}">${b}</text>`:''}</g>`;
+    if(i<7) s+=`<text x="${x+w-6}" y="${y-60}" font-size="22" font-weight="700" text-anchor="middle" fill="#94a3b8" style="${op(pv)}">×2 ←</text>`; });
+  return s;
+}
+function ladder(n, rowP, arrowP, pick){ /* Restverfahren als Tabelle */
+  let s=`<text x="120" y="70" font-size="28" font-weight="800" fill="#64748b">ZAHL</text><text x="420" y="70" font-size="28" font-weight="800" fill="#64748b">: 2 =</text><text x="700" y="70" font-size="28" font-weight="800" fill="#ea580c">REST</text>`;
+  STEPS.slice(0,n).forEach(([z,r,q],i)=>{ const y=130+i*88, p=rowP(i);
+    s+=`<g style="${op(p)}"><rect x="90" y="${y-58}" width="760" height="76" rx="14" fill="${pick&&pick(i)?'rgba(234,88,12,.10)':'#fff'}" stroke="#e2e8f0" stroke-width="2"/>
+      <text x="130" y="${y}" font-size="46" font-weight="800" ${MONO}>${z}</text><text x="440" y="${y}" font-size="46" font-weight="700" ${MONO} fill="#334155">${q}</text>
+      <circle cx="730" cy="${y-17}" r="32" fill="#ea580c"/><text x="730" y="${y}" font-size="44" font-weight="800" text-anchor="middle" fill="#fff" ${MONO}>${r}</text></g>`; });
+  if(arrowP>0){ const yb=130+5*88-17, yt=130-17, yc=yb-(yb-yt)*arrowP;
+    s+=`<path d="M810 ${yb}V${yc}" stroke="#0a7cff" stroke-width="9" marker-end="url(#ar)"/><text x="830" y="${(yb+yt)/2}" font-size="30" font-weight="800" fill="#0a7cff" style="${op(arrowP)}">von unten</text><text x="830" y="${(yb+yt)/2+36}" font-size="30" font-weight="800" fill="#0a7cff" style="${op(arrowP)}">lesen</text>`; }
+  return s;
+}
+function varBox(x,y,name,val,type,p=1,hl=false){
+  return `<g style="${op(p)}"><text x="${x}" y="${y-16}" font-size="28" font-weight="800" fill="#64748b" ${MONO}>${type} ${name}</text>
+    <rect x="${x}" y="${y}" width="380" height="100" rx="18" fill="${hl?'#e0f2fe':'#fff'}" stroke="${hl?'#0a7cff':'#cbd5e1'}" stroke-width="4"/>
+    <text x="${x+30}" y="${y+66}" font-size="50" font-weight="800" ${MONO}>${val}</text></g>`;
+}
+
+function frame(){
+  const k=S.i, L=(p,s,cls="ln")=>`<div class="${cls}" style="${op(p)}">${s}</div>`;
+  let box="", panel="", full="";
+  if(k===0){
+    box=`<text x="500" y="300" font-size="200" font-weight="800" text-anchor="middle" ${MONO} style="${op(ap(0,.6))}">43</text>
+      <path d="M500 350V470" stroke="#0a7cff" stroke-width="10" marker-end="url(#ar)" style="${op(ap(0,.6,1))}"/>
+      <text x="500" y="620" font-size="150" font-weight="800" text-anchor="middle" fill="#0a7cff" ${MONO} style="${op(ap(1,.6,2))}">${ap(1,.6,2)>.5?'101011':'??????'}</text>`;
+    panel=L(ap(0),`Dezimal → Dual ${'<span class="src">Übung 2, Aufgabe 2</span>'}`,"ln q")+L(ap(1),"① von Hand: Restverfahren")+L(ap(1,.5,2),"② in Java: Schleife")+L(ap(2),`<span class="hl">Kontrollstrukturen</span> <span class="src">VL Block 2</span>`);
+  }
+  if(k===1){
+    const pat = ap(2,.4)>0 ? "00101010" : null;
+    box=bits(220, pat, ap(3,.6), ap(0,1.6), 0)
+      + `<g style="${op(ap(1))}"><text x="500" y="110" font-size="34" font-weight="800" text-anchor="middle" fill="#334155">jede Stelle nach links: doppelt so viel</text></g>`
+      + `<g style="${op(ap(3,.6,1))}"><text x="500" y="460" font-size="56" font-weight="800" text-anchor="middle" ${MONO}>32 + 8 + 2 = <tspan fill="#0a7cff">42</tspan></text></g>`;
+    panel=L(ap(0),"Stellenwerte = Zweierpotenzen","ln q")+L(ap(0,.5,2),"1, 2, 4, 8, 16, 32, 64, 128")+L(ap(1),"Zehnersystem: ×10 · Dualsystem: ×2","ln small")+L(ap(2),`0010 1010 <span class="src">Aufgabe 1a</span>`)+L(ap(3),`<span class="ok">= 42</span>`);
+  }
+  if(k===2){
+    const rowP=i=> i===0 ? ap(2,.5) : ap(2,.5,1.4+i*1.0);
+    box=ladder(6, rowP, 0);
+    panel=L(ap(0),"Immer wieder ÷ 2","ln q")+L(ap(0,.5,2),"und den Rest merken")+L(ap(1),`Rest ist nur <b>0</b> oder <b>1</b>`)+L(ap(1,.5,2.5),"= die zwei Ziffern im Dualsystem","ln small")+L(ap(3),`<span class="warn">Stopp, wenn die Zahl 0 ist</span>`);
+  }
+  if(k===3){
+    const ar=ap(0,1.4,1.2);
+    box=ladder(6, ()=>1, ar, i=>i===0&&ap(1)>.5) + `<g style="${op(ap(0,.6,2.6))}"><text x="470" y="690" font-size="64" font-weight="800" text-anchor="middle" fill="#0a7cff" ${MONO}>101011</text></g>`;
+    panel=L(ap(0),"Reste von unten lesen","ln q")+L(ap(1),"1. Rest = Einerstelle (gerade/ungerade?)","ln small")+L(ap(1,.5,2.5),"→ steht ganz rechts","ln small")+L(ap(2),"Probe: 32 + 8 + 2 + 1")+L(ap(2,.5,2.2),`<span class="ok">= 43 ✓</span>`);
+  }
+  if(k===4){
+    box=varBox(80,180,"zahl","43","int",ap(1),ap(1)>0&&ap(2)<.5)+varBox(540,180,"dual",'""',"String",ap(2),ap(2)>.5)
+      +`<g style="${op(ap(3))}"><text x="80" y="420" font-size="34" font-weight="800" fill="#dc2626">als int wäre 101011 …</text><text x="80" y="480" font-size="44" font-weight="800" ${MONO}>hunderteintausendelf</text><text x="80" y="540" font-size="34" font-weight="700" fill="#334155">≠ 43 – darum Text (String)</text></g>`;
+    panel=L(ap(0),`Variablen <span class="src">Übung 2, A8</span>`,"ln q")+code(PROG.slice(0,2),[ap(1),ap(2)], ap(2)>.5?1:(ap(1)>.5?0:-1))+'<div style="height:26px"></div>'+L(ap(3),"Ziffern aneinanderhängen → String","ln small");
+  }
+  if(k===5){
+    const card=(x,tt,sub,good,p)=>`<g style="${op(p)}"><rect x="${x}" y="150" width="420" height="300" rx="28" fill="${good?'#e0f2fe':'#fff'}" stroke="${good?'#0a7cff':'#cbd5e1'}" stroke-width="5"/><text x="${x+210}" y="250" font-size="60" font-weight="800" text-anchor="middle" ${MONO} fill="${good?'#0a7cff':'#94a3b8'}">${tt}</text><text x="${x+210}" y="330" font-size="30" font-weight="700" text-anchor="middle" fill="#334155">${sub}</text>${good?`<text x="${x+210}" y="410" font-size="34" font-weight="800" text-anchor="middle" fill="#16a34a">✓ passt hier</text>`:`<path d="M${x+60} 200L${x+360} 400" stroke="#cbd5e1" stroke-width="6" style="${op(ap(1,.4,1))}"/>`}</g>`;
+    box=card(40,"for","Anzahl bekannt",false,ap(1))+card(520,"while","Anzahl unbekannt",ap(1,.4,1)>.5,ap(1,.4,.6))
+      +`<text x="500" y="560" font-size="34" font-weight="800" text-anchor="middle" fill="#334155" style="${op(ap(0))}">43 → 6 Schritte · 1000 → 10 Schritte</text>`;
+    panel=L(ap(0),"Wie oft teilen?","ln q")+L(ap(0,.5,2),"hängt von der Zahl ab","ln small")+L(ap(1),`→ <b>while</b> <span class="src">VL Block 2, Folie 96</span>`)+'<div style="height:10px"></div>'+`<div style="${op(ap(2))}">${code(["while (zahl > 0) {"],[1], ap(2)>.5?0:-1)}</div>`+'<div style="height:20px"></div>'+L(ap(2,.5,2),"solange noch etwas übrig ist","ln small");
+  }
+  if(k===6){
+    const on = ap(4)>.5?5 : ap(1)>.5?4 : ap(0)>.5?3 : -1;
+    panel=code(PROG.slice(0,7),[1,1,1,ap(0),ap(1),ap(4),1], on);
+    if(ap(0)>0 && ap(1)<.5) box=`<g style="${op(ap(0))}"><text x="500" y="220" font-size="90" font-weight="800" text-anchor="middle" ${MONO}>43 % 2</text><text x="500" y="340" font-size="90" font-weight="800" text-anchor="middle" ${MONO} fill="#ea580c">= 1</text><text x="500" y="440" font-size="34" font-weight="700" text-anchor="middle" fill="#334155">% = Rest der Division (Modulo)</text></g>`;
+    else if(ap(1)>0 && ap(4)<.5){ const p2=ap(2,.5), p3=ap(3,.8);
+      box=`<g><text x="500" y="160" font-size="34" font-weight="800" text-anchor="middle" fill="#64748b">neuer Rest kommt VORNE dran</text>
+        <rect x="${240-130*p3}" y="210" width="100" height="110" rx="18" fill="#ea580c"/><text x="${290-130*p3}" y="290" font-size="64" font-weight="800" text-anchor="middle" fill="#fff" ${MONO}>1</text>
+        <text x="310" y="290" font-size="64" font-weight="800" ${MONO} style="${op(1-p3)}">+</text>
+        <rect x="370" y="210" width="${330}" height="110" rx="18" fill="#e0f2fe" stroke="#0a7cff" stroke-width="4"/><text x="535" y="290" font-size="64" font-weight="800" text-anchor="middle" ${MONO} fill="#0a7cff">"01011"</text>
+        <text x="500" y="420" font-size="40" font-weight="800" text-anchor="middle" style="${op(p3)}" ${MONO}>→ "101011"</text>
+        <g style="${op(p2)}"><text x="500" y="540" font-size="34" font-weight="700" text-anchor="middle" fill="#334155">int + String = Text</text><text x="500" y="610" font-size="44" font-weight="800" text-anchor="middle" ${MONO}>2 + "3" → "23"</text><text x="500" y="660" font-size="26" font-weight="700" text-anchor="middle" fill="#64748b">Übung 2, Aufgabe 5 m</text></g></g>`; }
+    else if(ap(4)>0){ box=`<g style="${op(ap(4))}"><text x="500" y="220" font-size="90" font-weight="800" text-anchor="middle" ${MONO}>43 / 2</text><text x="500" y="340" font-size="90" font-weight="800" text-anchor="middle" ${MONO}>= 21<tspan fill="#dc2626" style="${op(1-ap(4,.6,2))}">,5</tspan></text><text x="500" y="440" font-size="34" font-weight="700" text-anchor="middle" fill="#334155">int / int schneidet ab – kein Runden</text></g>`; }
+  }
+  if(k===7){
+    const nrow = i => i===0 ? ap(0,.5,1) : ap(1,.4,(i-1)*0.75);
+    const cur = Math.max(0, ...[0,1,2,3,4,5].filter(i=>nrow(i)>.5));
+    let tb=`<text x="90" y="60" font-size="28" font-weight="800" fill="#64748b">DURCHLAUF</text><text x="330" y="60" font-size="28" font-weight="800" fill="#64748b">zahl</text><text x="500" y="60" font-size="28" font-weight="800" fill="#ea580c">rest</text><text x="660" y="60" font-size="28" font-weight="800" fill="#0a7cff">dual</text>`;
+    let d="";
+    STEPS.forEach(([z,r,q],i)=>{ d=r+d; const y=125+i*80; tb+=`<g style="${op(nrow(i))}"><rect x="70" y="${y-55}" width="880" height="70" rx="12" fill="${i===cur?'#e0f2fe':'#fff'}" stroke="#e2e8f0" stroke-width="2"/><text x="150" y="${y}" font-size="40" font-weight="800" text-anchor="middle">${i+1}</text><text x="330" y="${y}" font-size="40" font-weight="800" ${MONO}>${z} → ${q}</text><text x="520" y="${y}" font-size="40" font-weight="800" ${MONO} fill="#ea580c">${r}</text><text x="660" y="${y}" font-size="40" font-weight="800" ${MONO} fill="#0a7cff">"${d}"</text></g>`; });
+    tb+=`<g style="${op(ap(2))}"><text x="500" y="640" font-size="36" font-weight="800" text-anchor="middle" fill="#dc2626" ${MONO}>zahl = 0 → 0 > 0 ist false → Ende</text></g>`;
+    box=tb;
+    panel=code(PROG,[1,1,1,1,1,1,1,ap(3)], ap(3)>.5?7:(ap(2)>.5?2:[3,4,5][Math.floor((t*1.4)%3)]))+'<div style="height:30px"></div>'+L(ap(3),`<span class="ok">Ausgabe: 101011</span>`);
+  }
+  if(k===8){
+    const dw = ap(2,.6)>.5;
+    const W1=["int zahl = 0;","String dual = \"\";","while (zahl > 0) {","    …","}"], D1=["int zahl = 0;","String dual = \"\";","do {","    …","} while (zahl > 0);"];
+    panel=code(dw?D1:W1,[1,1,1,1,1], dw?(ap(3)>.5?4:2):(ap(0)>.5?2:-1))+'<div style="height:26px"></div>'+(dw?L(ap(2),`do-while: erst laufen, dann prüfen <span class="src">Folie 98</span>`,"ln small"):L(ap(0),`while: erst prüfen <span class="src">Folie 96</span>`,"ln small"));
+    const out = dw ? (ap(3)>.3?'"0"':'') : '""';
+    box=varBox(80,150,"zahl","0","int",ap(0))
+      +`<g style="${op(ap(0,.5,1.5))}"><text x="560" y="210" font-size="44" font-weight="800" ${MONO} fill="${dw?'#16a34a':'#dc2626'}">${dw?'1 Durchlauf':'0 > 0 → false'}</text><text x="560" y="265" font-size="32" font-weight="700" fill="#334155">${dw?'Rest 0 wird angehängt':'Rumpf wird übersprungen'}</text></g>`
+      +`<g style="${op(ap(1))}"><text x="80" y="420" font-size="32" font-weight="800" fill="#64748b">AUSGABE</text><rect x="80" y="440" width="840" height="110" rx="18" fill="#0f172a"/><text x="120" y="512" font-size="52" font-weight="800" ${MONO} fill="${dw&&ap(3)>.3?'#86efac':'#fca5a5'}">${dw&&ap(3)>.3?'0':'(leer)'}</text><text x="900" y="512" font-size="40" text-anchor="end">${dw&&ap(3)>.3?'✓':'✗'}</text></g>`;
+  }
+  if(k===9){
+    const items=[["Dezimal → Dual","÷ 2, Reste von unten lesen",0,0],["% 2","liefert den Rest",1,0],["/ 2","halbiert (int schneidet ab)",1,1.4],["rest + dual","hängt vorne an",1,2.8],["while","Anzahl unbekannt",2,0],["do-while","mindestens einmal",2,1.5]];
+    box=items.map(([a,b,c,o],i)=>`<g style="${op(ap(c,.5,o))}"><rect x="60" y="${30+i*112}" width="880" height="92" rx="22" fill="#fff" stroke="#cbd5e1" stroke-width="3"/><text x="100" y="${88+i*112}" font-size="40" font-weight="800" ${MONO} fill="#0a7cff">${esc(a)}</text><text x="500" y="${88+i*112}" font-size="32" font-weight="700" fill="#334155">${b}</text></g>`).join('');
+    panel=L(ap(0),"Merke","ln q")+L(ap(1),"Java macht genau das, was du von Hand machst – Schritt für Schritt.","ln small");
+  }
+  if(k===10){
+    full=`<div class="center" style="top:300px"><div style="font-size:76px;font-weight:800;${op(ap(0))}">Jetzt du: 56 und 112</div><div style="font-size:38px;color:#334155;margin-top:30px;font-weight:550;${op(ap(0,.5,.6))}">erst von Hand, dann mit deinem Programm in Eclipse</div><div style="${op(ap(0,.5,1.2))}"><span class="pill">Klausurduell → Aufgaben → 43 ins Dualsystem</span></div></div>`;
+  }
+  let ci=-1; S.starts.forEach((s,j)=>{ if(t>=s) ci=j; });
+  const cap = ci>=0 ? S.caps[ci].replace(/\*(.+?)\*/g,"<em>$1</em>") : "";
+  const head = k<10 ? `<div class="eyebrow">Bauinformatik · Übung 2 + Block 2</div><div class="title">${S.title}</div><div class="step">${k+1} / 11</div>` : "";
+  document.getElementById("stage").innerHTML = head + (box?`<svg id="box" width="1000" height="720" viewBox="0 0 1000 720">${DEFS}${box}</svg>`:"") + `<div id="panel">${panel}</div>` + full + (cap?`<div id="cap">${cap}</div>`:"");
+}
+window.show=(i,time)=>{ S=Object.assign({i},T[i]); t=time; frame(); };
+</script></body></html>
