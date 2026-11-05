@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8">
+<style>
+  html,body{margin:0;overflow:hidden;background:#f5f3fb;font-family:Inter,sans-serif;color:#0f172a;width:1920px;height:1080px}
+  #stage{position:absolute;inset:0}
+  .eyebrow{position:absolute;left:96px;top:64px;font-size:22px;font-weight:700;letter-spacing:.12em;color:#6b5fa8;text-transform:uppercase}
+  .title{position:absolute;left:96px;top:100px;font-size:56px;font-weight:800;letter-spacing:-.01em;line-height:1.1}
+  .step{position:absolute;right:96px;top:70px;font-size:22px;font-weight:700;color:#6b5fa8}
+  #box{position:absolute;left:70px;top:200px}
+  #panel{position:absolute;left:1110px;top:230px;width:760px}
+  .ln{font-size:40px;line-height:1.3;margin:0 0 20px;font-weight:600}
+  .ln.small{font-size:31px;font-weight:500;color:#334155}
+  .ln.q{font-size:46px;font-weight:800}
+  .hl{display:inline-block;background:#5b3fb3;color:#fff;border-radius:14px;padding:4px 18px}
+  .ok{display:inline-block;background:#16a34a;color:#fff;border-radius:14px;padding:4px 18px}
+  .warn{display:inline-block;background:#f59e0b;color:#fff;border-radius:14px;padding:4px 18px}
+  .bad{display:inline-block;background:#dc2626;color:#fff;border-radius:14px;padding:4px 18px}
+  #cap{position:absolute;left:50%;bottom:40px;transform:translateX(-50%);max-width:1400px;font-size:33px;padding:14px 30px;text-align:center;background:rgba(30,20,60,.9);color:#fff;font-weight:600;line-height:1.35;border-radius:20px}
+  #cap em{font-style:normal;color:#c4b5fd;font-weight:800}
+  .center{position:absolute;left:0;right:0;text-align:center}
+  .pill{display:inline-block;margin-top:50px;background:#5b3fb3;color:#fff;font-size:40px;font-weight:750;padding:22px 44px;border-radius:999px}
+</style></head><body><div id="stage"></div>
+<script>
+const T = window.TIMING;
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const ease=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;
+const lerp=(a,b,p)=>a+(b-a)*p;
+let S,t;
+const ap=(k,d=.5,off=0)=>S.starts[k]===undefined?0:ease(clamp((t-S.starts[k]-off)/d));
+const op=p=>`opacity:${p.toFixed(3)}`;
+const ACC="#5b3fb3", BLUE="#2563eb", ORA="#ea580c", GRN="#16a34a", RED="#dc2626";
+const DEFS=`<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0L10,5L0,10z" fill="context-stroke"/></marker></defs>`;
+const TX=(x,y,s,o={})=>`<text x="${x}" y="${y}" font-size="${o.fs||34}" font-weight="${o.w||800}" text-anchor="${o.a||'middle'}" fill="${o.c||'#0f172a'}" ${o.st?`style="${o.st}"`:''}>${s}</text>`;
+/* Matrix: M = Zeilen als Arrays von Strings; o.cw/ch Zellmaße, o.fill(i,j), o.color(i,j), o.cell(i,j)->Deckkraft, o.sep Trennstrich nach Spalte, o.cover(i,j) abgedeckt */
+function mat(x,y,M,o={}){
+  const r=M.length,c=M[0].length,cw=o.cw||86,ch=o.ch||70,fs=o.fs||40,W=c*cw,Hh=r*ch,b=12;
+  let s=`<g style="${op(o.op===undefined?1:o.op)}">`;
+  if(o.name) s+=TX(x-20,y+Hh/2+fs*.35,o.name,{a:'end',c:ACC,fs:fs*1.05});
+  s+=`<path d="M${x+b} ${y-6}H${x}V${y+Hh+6}H${x+b}M${x+W-b} ${y-6}H${x+W}V${y+Hh+6}H${x+W-b}" fill="none" stroke="#0f172a" stroke-width="4"/>`;
+  for(let i=0;i<r;i++)for(let j=0;j<c;j++){
+    const cx=x+j*cw+cw/2, cy=y+i*ch+ch/2, f=o.fill?o.fill(i,j):null, cov=o.cover?o.cover(i,j):0, cop=o.cell?o.cell(i,j):1;
+    if(f) s+=`<rect x="${cx-cw/2+5}" y="${cy-ch/2+4}" width="${cw-10}" height="${ch-8}" rx="10" fill="${f}"/>`;
+    s+=`<text x="${cx}" y="${cy+fs*.36}" font-size="${fs}" font-weight="800" text-anchor="middle" fill="${o.color?o.color(i,j):'#0f172a'}" style="${op(cop*(1-0.8*cov))}">${M[i][j]}</text>`;
+    if(cov>0) s+=`<rect x="${cx-cw/2+3}" y="${cy-ch/2+3}" width="${cw-6}" height="${ch-6}" rx="8" fill="#94a3b8" style="${op(.55*cov)}"/>`;
+  }
+  if(o.sep!==undefined) s+=`<path d="M${x+o.sep*cw} ${y}V${y+Hh}" stroke="${ACC}" stroke-width="3" stroke-dasharray="8 6"/>`;
+  return s+`</g>`;
+}
+const signG=(x,y,p=1,cw=58)=>{let s=`<g style="${op(p)}">`;for(let i=0;i<3;i++)for(let j=0;j<3;j++){const pl=(i+j)%2==0;s+=`<rect x="${x+j*cw}" y="${y+i*cw}" width="${cw-6}" height="${cw-6}" rx="10" fill="${pl?'#dcfce7':'#fee2e2'}"/>`+TX(x+j*cw+(cw-6)/2,y+i*cw+cw*.62,pl?'+':'−',{c:pl?GRN:RED,fs:36});}return s+'</g>';};
+function sarrus(x,y,M,pd,pu,o={}){ /* 3x3 + 2 Spalten, Diagonalen */
+  const E=M.map(r=>[...r,r[0],r[1]]), cw=o.cw||104, ch=o.ch||84;
+  let s=mat(x,y,E,{cw,ch,fs:o.fs||44,cell:(i,j)=>j>2?0.45:1,fill:(i,j)=>o.zero&&M[i][j%3]==='0'?'rgba(220,38,38,.12)':null});
+  s+=`<path d="M${x+3*cw} ${y-10}V${y+3*ch+10}" stroke="${ACC}" stroke-width="2" stroke-dasharray="6 6" opacity=".6"/>`;
+  for(let k=0;k<3;k++){ const x0=x+k*cw+cw/2, y0=y+ch/2, L=Math.hypot(2*cw,2*ch);
+    const pp=clamp(pd*1.6-k*.3); if(pp>0) s+=`<path d="M${x0-14} ${y0-14}L${x0-14+(2*cw+28)*pp} ${y0-14+(2*ch+28)*pp}" stroke="${BLUE}" stroke-width="6" stroke-linecap="round" opacity=".75"/>`;
+    const qx=x+(k+2)*cw+cw/2, qq=clamp(pu*1.6-k*.3); if(qq>0) s+=`<path d="M${qx+14} ${y0-14}L${qx+14-(2*cw+28)*qq} ${y0-14+(2*ch+28)*qq}" stroke="${ORA}" stroke-width="6" stroke-linecap="round" opacity=".75"/>`; }
+  return s;
+}
+const L=(p,s,cls="ln")=>`<div class="${cls}" style="${op(p)}">${s}</div>`;
+const A1=[["3","2","1"],["2","4","2"],["1","2","3"]], C1=[["8","−4","0"],["−4","8","−4"],["0","−4","8"]], I1=[["½","−¼","0"],["−¼","½","−¼"],["0","−¼","½"]];
+const A2=[["4","0","2"],["0","1","2"],["8","2","6"]], C2=[["2","16","−8"],["4","8","−8"],["−2","−8","4"]], C2T=[["2","4","−2"],["16","8","−8"],["−8","−8","4"]], I2=[["−¼","−½","¼"],["−2","−1","1"],["1","1","−½"]];
+const A3=[["4","8","2"],["1","3","1"],["6","14","4"]], A3C=[["1","2","5"],["2","3","7"],["3","4","8"]], I3C=[["−4","4","−1"],["5","−7","3"],["−1","2","−1"]];
+
+function frame(){
+  const k=S.i; let box="",panel="",full="";
+  if(k===0){ const card=(x,tt,sub,p,c)=>`<g style="${op(p)}"><rect x="${x}" y="200" width="290" height="230" rx="28" fill="#fff" stroke="${c}" stroke-width="5"/>${TX(x+145,300,tt,{fs:38,c})}${TX(x+145,360,sub,{fs:26,w:600,c:'#475569'})}</g>`;
+    box=card(20,"Kofaktoren","A1 · A2 · Altklausur",ap(1,.5),ACC)+card(355,"Gauß-Jordan","A3 B",ap(1,.5,1.5),BLUE)+card(690,"Det.-Formel","A3 C · A4",ap(1,.5,3),ORA)
+      +`<g style="${op(ap(2))}"><rect x="250" y="500" width="500" height="110" rx="55" fill="${ACC}"/>${TX(500,570,"zuerst: det A",{fs:46,c:'#fff'})}</g>`;
+    panel=L(ap(0),"Matrizenrechnung 2","ln q")+L(ap(0,.5,2),"Inverse bilden · LGS lösen","ln small")+L(ap(1),"6 Aufgaben, 3 Werkzeuge")+L(ap(2),`<span class="hl">det ≠ 0 → los geht's</span>`); }
+  if(k===1){ box=sarrus(70,120,A1,ap(1,1.4),ap(2,1.4),{})+TX(500,470,"rechts unten: + · links unten: −",{fs:30,w:700,c:'#475569',st:op(ap(0,.5,2))});
+    panel=L(ap(0),"Sarrus (nur 2×2 und 3×3)","ln q")+L(ap(1),`<span style="color:${BLUE}">36 + 4 + 4 = 44</span>`)+L(ap(2),`<span style="color:${ORA}">− (4 + 12 + 12) = − 28</span>`)+L(ap(3),`<span class="ok">det A = 16 ≠ 0</span>`)+L(ap(3,.5,1.5),"→ A ist regulär, A⁻¹ existiert","ln small"); }
+  if(k===2){ const covA=ap(0,.5)*(1-ap(3,.3)), covB=ap(3,.4), showC=ap(4,.8);
+    const cover=(i,j)=> covB>0 ? (i===0||j===1?covB:0) : (i===0||j===0?covA:0);
+    box=mat(110,60,A1,{name:"A",cover,fill:(i,j)=> (covB>0? (i>0&&j!==1) : (covA>0&&i>0&&j>0)) ? 'rgba(91,63,179,.10)':null})
+      + `<g style="${op(ap(1)*(1-ap(3,.3)))}">${TX(250,330,"4·3 − 2·2 = 8",{fs:40})}${TX(250,380,"Minor m₁₁",{fs:28,w:700,c:'#64748b'})}</g>`
+      + `<g style="${op(covB)}">${TX(250,330,"2·3 − 2·1 = 4",{fs:40})}${TX(250,380,"Schachbrett −  →  c₁₂ = −4",{fs:28,w:700,c:RED})}</g>`
+      + signG(560,60,ap(2,.6)*(1-showC))
+      + mat(560,60,C1,{name:"",op:showC,cw:100,fill:(i,j)=> i!==j && ap(4,.5,2)>.5 ? 'rgba(91,63,179,.10)':null})
+      + `<g style="${op(ap(4,.5,2))}">${TX(710,330,"symmetrisch",{fs:30,c:ACC})}</g>`;
+    panel=L(ap(0),"Kofaktor c<sub>ij</sub>","ln q")+L(ap(0,.5,1),"Zeile i und Spalte j abdecken","ln small")+L(ap(1),"Rest-Determinante = Minor m<sub>ij</sub>","ln small")+L(ap(2),"c<sub>ij</sub> = (−1)<sup>i+j</sup> · m<sub>ij</sub>")+L(ap(4),`<span class="hl">C = (8 −4 0; −4 8 −4; 0 −4 8)</span>`,"ln small"); }
+  if(k===3){ const p1=ap(1,.8);
+    box=mat(70,70,C1,{name:"C′",cw:92})+TX(390,190,"/ 16",{fs:44,c:ACC,st:op(ap(1))})+TX(470,190,"=",{fs:48,st:op(p1)})+mat(540,70,I1,{op:p1,cw:100,fill:(i,j)=>ap(2)>.5&&(j===0)?'rgba(22,163,74,.15)':null})
+      +`<g style="${op(ap(2))}">${mat(70,380,A1,{cw:92,fill:(i,j)=>i===0?'rgba(22,163,74,.15)':null})}${TX(660,470,"3·½ + 2·(−¼) + 1·0 = 1 ✓",{fs:38,c:GRN})}</g>`;
+    panel=L(ap(0),"A⁻¹ = C′ / det A","ln q")+L(ap(0,.5,2),"C′ = C transponiert","ln small")+L(ap(1),"C symmetrisch → C′ = C")+L(ap(2),`<span class="ok">Probe: A · A⁻¹ = I</span>`); }
+  if(k===4){ box=sarrus(70,120,A2,ap(1,1.4,0),ap(1,1.4,1.4),{zero:true})+`<g style="${op(ap(2))}">${TX(500,480,"(24 + 0 + 0) − (16 + 16 + 0) = −8",{fs:40})}</g>`;
+    panel=L(ap(0),"Nicht symmetrisch!","ln q")+L(ap(1),"Nullen → Produkte fallen weg","ln small")+L(ap(2),`<span class="ok">det A = −8 ≠ 0</span>`); }
+  if(k===5){ const cov=ap(0,.5)*(1-ap(1,.4)), tp=ap(2,1.2);
+    box=mat(110,40,A2,{name:"A",cover:(i,j)=>(i===0||j===1)?cov:0,fill:(i,j)=>cov>0&&i>0&&j!==1?'rgba(91,63,179,.10)':null})
+      +`<g style="${op(cov)}">${TX(250,320,"−(0·6 − 2·8) = +16",{fs:40})}</g>`
+      +mat(110,380,C2,{name:"C",op:ap(1),cw:96,fill:(i,j)=>i===0&&tp>0?'rgba(234,88,12,.15)':null,color:(i,j)=>i===0&&tp>0?ORA:'#0f172a'})
+      +`<g style="${op(tp)}"><path d="M420 480H520" stroke="${ACC}" stroke-width="6" marker-end="url(#ar)"/>${TX(470,460,"transponieren",{fs:24,c:ACC})}</g>`
+      +mat(570,380,C2T,{name:"",op:tp,cw:96,fill:(i,j)=>j===0?'rgba(234,88,12,.15)':null,color:(i,j)=>j===0?ORA:'#0f172a'})+TX(720,360,"C′",{fs:40,c:ACC,st:op(tp)});
+    panel=L(ap(0),"Zwei Minus → Plus","ln q")+L(ap(0,.5,3),"m₁₂ = −16 · Schachbrett − → c₁₂ = +16","ln small")+L(ap(2),"1. Zeile von C → 1. Spalte von C′")+L(ap(3),`<span class="warn">sonst jede Zeile falsch</span>`); }
+  if(k===6){ const fade=ap(2,.6);
+    box=mat(80,60,I2,{name:"A⁻¹",cw:100,cell:(i,j)=>j===0?1-0.7*fade:1,fill:(i,j)=>j===0&&fade>0?'rgba(148,163,184,.25)':null})
+      +TX(420,170,"·",{fs:60,st:op(ap(1))})+mat(450,60,[["0"],["8"],["4"]],{op:ap(1),cw:80,fill:(i,j)=>i===0&&fade>0?'rgba(148,163,184,.35)':null})
+      +TX(580,170,"=",{fs:56,st:op(ap(3,.5))})+mat(620,60,[["−3"],["−4"],["6"]],{op:ap(3,.5),cw:100,color:()=>GRN})
+      +`<g style="${op(ap(3,.5,3))}">${TX(500,420,"Probe: A · x = (−12+12; −4+12; −24−8+36)",{fs:32,w:700})}${TX(500,480,"= (0; 8; 4) = b ✓",{fs:40,c:GRN})}</g>`;
+    panel=L(ap(0),"A⁻¹ = C′ / (−8)","ln q")+L(ap(1),"x = A⁻¹ · b (Zeile · Spalte)")+L(ap(2),"b₁ = 0 → Spalte 1 egal","ln small")+L(ap(3),`<span class="ok">x = (−3; −4; 6)</span>`); }
+  if(k===7){ const rows=ap(2,.6);
+    box=mat(110,60,A3,{name:"A",cw:96,fill:(i,j)=>rows>0?(i===0?'rgba(37,99,235,.15)':i===1?'rgba(234,88,12,.15)':'rgba(91,63,179,.15)'):null})
+      +mat(470,60,[["4"],["3"],["7"]],{name:"b",op:ap(3),cw:80,fill:(i,j)=>i===2?'rgba(220,38,38,.15)':null})
+      +`<g style="${op(ap(1))}">${TX(330,330,"Sarrus: 124 − 124 = 0",{fs:40})}</g>`
+      +`<g style="${op(rows)}">${TX(330,410,"(4 + 2·1; 8 + 2·3; 2 + 2·1) = (6; 14; 4)",{fs:32,c:ACC})}</g>`
+      +`<g style="${op(ap(3,.5,1))}">${TX(330,480,"rechts: 4 + 2·3 = 10 ≠ 7",{fs:36,c:RED})}${TX(330,540,"→ 0 = −3: keine Lösung",{fs:36,c:RED})}</g>`;
+    panel=L(ap(0),"Erst: ob?","ln q")+L(ap(1),`<span class="bad">det A = 0</span>`)+L(ap(2),"III = I + 2 · II → Rang 2","ln small")+L(ap(3),"rg A = 2 < rg (A|b) = 3","ln small"); }
+  if(k===8){ const st=[[["1","4","1","0"],["2","6","0","1"]],[["1","4","1","0"],["0","−2","−2","1"]],[["1","4","1","0"],["0","1","1","−½"]],[["1","0","−3","2"],["0","1","1","−½"]]];
+    const lbl=["(A | I)","II − 2·I","II : (−2)","I − 4·II"]; const at=[1,2,3,4].map(i=>ap(i,.5));
+    st.forEach((M,i)=>{ const x= i%2===0?60:540, y= i<2?60:300; box+=`<g style="${op(at[i])}">${TX(x+170,y-10,lbl[i],{fs:28,c:ACC})}${mat(x,y+10,M,{cw:90,ch:70,fs:36,sep:2,fill:(r,c)=> i===3&&c>1?'rgba(22,163,74,.15)':(i===3&&c<2&&r===c?'rgba(91,63,179,.12)':null)})}</g>`; if(i<3) box+=`<path d="M${i%2===0?440:600} ${i<1?140:(i===1?250:380)}${i===0?'H520':i===1?'L380 280':'H520'}" stroke="#94a3b8" stroke-width="4" marker-end="url(#ar)" style="${op(at[i+1])}"/>`; });
+    box+=`<g style="${op(ap(5))}">${TX(500,560,"x = (−3·6 + 2·4; 6 − ½·4) = (−10; 4)",{fs:38,c:GRN})}</g>`;
+    panel=L(ap(0),"det = 6 − 8 = −2 ≠ 0","ln q")+L(ap(1),"(A | I) → (I | A⁻¹)")+L(ap(2),"0 unter der 1","ln small")+L(ap(3),"1 auf der Diagonale","ln small")+L(ap(4),"0 über der 1 → rechts A⁻¹","ln small")+L(ap(5),`<span class="ok">x = (−10; 4)</span>`); }
+  if(k===9){ box=sarrus(70,40,A3C,ap(0,1.2),ap(0,1.2,1.2),{cw:84,ch:72,fs:36})+`<g style="${op(ap(0,.5,2.4))}">${TX(800,150,"= 106 − 105 = 1",{fs:36})}</g>`
+      +mat(270,360,I3C,{name:"A⁻¹ = C′",op:ap(1),cw:96})+TX(590,470,"·",{fs:60,st:op(ap(3))})+mat(620,360,[["1"],["3"],["13"]],{op:ap(3),cw:80})+TX(740,470,"=",{fs:56,st:op(ap(3,.5,1))})+mat(780,360,[["−5"],["23"],["−8"]],{op:ap(3,.5,1),cw:100,color:()=>GRN});
+    panel=L(ap(0),"det A = 1","ln q")+L(ap(1),"→ A⁻¹ = C′, keine Brüche")+L(ap(2),"c₁₂ = −(2·8 − 7·3) = −(−5) = 5","ln small")+L(ap(3),`<span class="ok">x = (−5; 23; −8)</span>`)+L(ap(3,.5,4),"Probe: −5 + 46 − 40 = 1 ✓","ln small"); }
+  if(k===10){ const tb=`<rect x="60" y="40" width="880" height="230" rx="22" fill="#fff" stroke="#cbd5e1" stroke-width="3"/>${TX(330,100,"Quelle 1",{fs:32,c:BLUE})}${TX(620,100,"Quelle 2",{fs:32,c:ORA})}${TX(800,100,"Ziel",{fs:32,c:ACC})}
+      <rect x="70" y="120" width="860" height="66" rx="12" fill="${ap(1)>.5?'rgba(91,63,179,.10)':'none'}"/>${TX(140,166,"Salz %",{fs:30,a:'start',w:700})}${TX(330,166,"0,02",{fs:36})}${TX(620,166,"2,0",{fs:36})}${TX(800,166,"0,08",{fs:36})}
+      <rect x="70" y="192" width="860" height="66" rx="12" fill="${ap(2)>.5?'rgba(91,63,179,.10)':'none'}"/>${TX(140,238,"pH",{fs:30,a:'start',w:700})}${TX(330,238,"6,5",{fs:36})}${TX(620,238,"8,1",{fs:36})}${TX(800,238,"7,0",{fs:36})}`;
+    box=`<g style="${op(ap(0))}">${tb}</g>`+mat(120,360,[["0,02","2,0"],["6,5","8,1"]],{name:"A",op:ap(3),cw:120,color:(i,j)=>j===0?BLUE:ORA})+TX(410,440,"·",{fs:60,st:op(ap(3))})+mat(440,360,[["x₁"],["x₂"]],{op:ap(3),cw:90})+TX(580,440,"=",{fs:56,st:op(ap(3))})+mat(620,360,[["0,08"],["7,0"]],{name:"",op:ap(3),cw:120,color:()=>ACC});
+    panel=L(ap(0),"Zeile = Eigenschaft","ln q")+L(ap(0,.5,2),"Spalte = Quelle","ln q")+L(ap(1),"0,02 x₁ + 2,0 x₂ = 0,08","ln small")+L(ap(2),"6,5 x₁ + 8,1 x₂ = 7,0","ln small")+L(ap(3),`<span class="hl">A x = b</span>`); }
+  if(k===11){ const sw=ap(1,1);
+    box=`<g style="${op(ap(0))}">${TX(500,80,"0,02 · 8,1 − 2,0 · 6,5 = −12,838",{fs:38})}</g>`
+      +mat(120,150,[["a","b"],["c","d"]],{op:ap(1),cw:90,fill:(i,j)=>i===j?'rgba(37,99,235,.12)':'rgba(234,88,12,.12)'})+`<path d="M330 220H420" stroke="${ACC}" stroke-width="6" marker-end="url(#ar)" style="${op(sw)}"/>`
+      +mat(450,150,[[sw>.5?"d":"a",sw>.5?"−b":"b"],[sw>.5?"−c":"c",sw>.5?"a":"d"]],{op:ap(1),cw:100,color:(i,j)=>i!==j&&sw>.5?RED:'#0f172a'})+TX(760,230,"/ det",{fs:40,c:ACC,st:op(sw)})
+      +`<g style="${op(ap(2))}">${TX(500,400,"x₁ ≈ 1,040    x₂ ≈ 0,030",{fs:46,c:GRN})}</g>`;
+    const r=ap(3,1);
+    box+=`<g style="${op(ap(3,.4))}"><rect x="100" y="470" width="${780*r*35/36}" height="60" rx="12" fill="${BLUE}"/><rect x="${100+780*r*35/36}" y="470" width="${780*r/36}" height="60" rx="6" fill="${ORA}"/>${TX(100,580,"Quelle 1: 35 Teile",{fs:30,a:'start',c:BLUE})}${TX(880,580,"Quelle 2: 1 Teil",{fs:30,a:'end',c:ORA})}</g>`;
+    panel=L(ap(0),"det A = −12,838","ln q")+L(ap(1),"2×2: Diagonale tauschen, Neben­diagonale Minus","ln small")+L(ap(2),"x₁ ≈ 1,040 · x₂ ≈ 0,030")+L(ap(3),`<span class="warn">35 : 1 → lohnt kaum</span>`); }
+  if(k===12){ const K=[["½","½","½","½"],["½","½","−½","−½"],["1/√2","−1/√2","0","0"],["0","0","1/√2","−1/√2"]];
+    box=mat(100,40,K,{name:"A",cw:120,ch:72,fs:32,fill:(i,j)=>ap(1)>.5&&ap(2)<.5?(i%2?'rgba(37,99,235,.10)':'rgba(91,63,179,.10)'):(ap(2)>.5&&i<2?'rgba(234,88,12,.12)':null)})
+      +`<g style="${op(ap(1)*(1-ap(2,.3)))}">${TX(780,90,"|Z| = 1",{fs:30,c:ACC,a:'start'})}${TX(780,162,"|Z| = 1",{fs:30,c:ACC,a:'start'})}${TX(780,234,"|Z| = 1",{fs:30,c:ACC,a:'start'})}${TX(780,306,"|Z| = 1",{fs:30,c:ACC,a:'start'})}</g>`
+      +`<g style="${op(ap(2))}">${TX(500,420,"Z1 · Z2 = ¼ + ¼ − ¼ − ¼ = 0",{fs:36,c:ORA})}</g>`
+      +`<g style="${op(ap(3))}">${TX(500,520,"A · A′ = I  →  A⁻¹ = A′",{fs:50,c:GRN})}</g>`;
+    panel=L(ap(0),"Sarrus geht nicht","ln q")+L(ap(1),"jede Zeile Länge 1")+L(ap(2),"je zwei Zeilen ⟂ (Skalarprodukt 0)","ln small")+L(ap(3),`<span class="ok">orthogonal: A⁻¹ = A′</span>`); }
+  if(k===13){ const AA=[["1","2","1"],["2","2","1"],["3","2","3"]], BB=[["1","2","1"],["2","2","1"],["3","3","2"]], cv=ap(2,.6);
+    box=mat(110,60,AA,{name:"A",cw:80,fill:(i,j)=>i===2&&ap(2)>0?'rgba(234,88,12,.15)':null,cover:(i,j)=>i===2?cv*0:0})+mat(560,60,BB,{name:"B",cw:80,fill:(i,j)=>i===2&&ap(2)>0?'rgba(234,88,12,.15)':null})
+      +`<g style="${op(ap(1))}">${TX(230,320,"det A = −4",{fs:34})}${TX(680,320,"det B = −1",{fs:34})}</g>`
+      +`<g style="${op(cv)}">${TX(500,400,"Zeile 3 gestrichen → c₃₁, c₃₂, c₃₃ gleich",{fs:32,c:ORA})}</g>`
+      +`<g style="${op(ap(3))}">${TX(230,500,"x_A = (3; 0,25; −2,5)",{fs:34,c:GRN})}${TX(680,500,"x_B = (3; 3; −8)",{fs:34,c:GRN})}${TX(500,570,"= Ergebnis aus Übung 1 ✓",{fs:32,w:700,c:'#475569'})}</g>`;
+    panel=L(ap(0),`<span class="warn">nur Kofaktormatrix!</span>`)+L(ap(1),"beide det ≠ 0 → lösbar","ln small")+L(ap(2),"nur Zeile 3 verschieden","ln small")+L(ap(3),`<span class="ok">wie Übung 1</span>`); }
+  if(k===14){ const it=[["1","det A berechnen – 0 → keine Inverse"],["2","verlangtes Verfahren: Kofaktoren / Gauß-Jordan"],["3","C transponieren, durch det teilen"],["4","Probe: A · x = b"]];
+    box=it.map(([n,s],i)=>`<g style="${op(ap(i,.5))}"><rect x="40" y="${50+i*150}" width="920" height="120" rx="26" fill="#fff" stroke="${i===0?ACC:'#cbd5e1'}" stroke-width="4"/><circle cx="110" cy="${110+i*150}" r="38" fill="${ACC}"/>${TX(110,123+i*150,n,{fs:40,c:'#fff'})}${TX(180,122+i*150,s,{fs:34,a:'start',w:700})}</g>`).join('');
+    panel=L(ap(0),"Merke","ln q")+L(ap(3),"Die Probe findet fast jeden Vorzeichenfehler.","ln small"); }
+  if(k===15){ full=`<div class="center" style="top:300px"><div style="font-size:76px;font-weight:800;${op(ap(0))}">Jetzt du</div><div style="font-size:38px;color:#334155;margin-top:30px;font-weight:550;${op(ap(0,.5,.6))}">Angewandte Statistik → 2 Übungen → „Übung 02 ausführlich“</div><div style="${op(ap(0,.5,1.2))}"><span class="pill">Schablonen sind vorgezeichnet</span></div></div>`; }
+  let ci=-1; S.starts.forEach((s,j)=>{ if(t>=s) ci=j; });
+  const cap=ci>=0?S.caps[ci].replace(/\*(.+?)\*/g,"<em>$1</em>"):"";
+  const head=k<15?`<div class="eyebrow">Angewandte Statistik · Übung 2</div><div class="title">${S.title}</div><div class="step">${k+1} / 16</div>`:"";
+  document.getElementById("stage").innerHTML=head+(box?`<svg id="box" width="1000" height="720" viewBox="0 0 1000 720">${DEFS}${box}</svg>`:"")+`<div id="panel">${panel}</div>`+full+(cap?`<div id="cap">${cap}</div>`:"");
+}
+window.show=(i,time)=>{ S=Object.assign({i},T[i]); t=time; frame(); };
+</script></body></html>

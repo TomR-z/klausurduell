@@ -1,0 +1,252 @@
+[
+ {
+  "title": "Übung 2 Schritt für Schritt",
+  "caps": [
+   "Übung 2: *Matrizen invertieren* und *Gleichungssysteme* lösen.",
+   "Drei Werkzeuge: *Kofaktormatrix*, *Gauß-Jordan*, *Determinantenformel*.",
+   "Und immer zuerst: die *Determinante*."
+  ],
+  "starts": [
+   0.035,
+   6.583,
+   15.221
+  ],
+  "dur": 20.192653
+ },
+ {
+  "title": "Aufgabe 1: die Determinante",
+  "caps": [
+   "Sarrus: die ersten *zwei Spalten* noch einmal rechts daneben schreiben.",
+   "Nach *rechts unten*: 3·4·3 + 2·2·1 + 1·2·2 = *44*",
+   "Nach *links unten*: 1·4·1 + 2·2·3 + 3·2·2 = *28* – wird *abgezogen*.",
+   "det A = 44 − 28 = *16 ≠ 0* → A ist *regulär*."
+  ],
+  "starts": [
+   0.07,
+   8.034,
+   15.662,
+   22.245
+  ],
+  "dur": 27.95102
+ },
+ {
+  "title": "Aufgabe 1: die Kofaktormatrix",
+  "caps": [
+   "Für c₁₁: *Zeile 1 und Spalte 1* abdecken.",
+   "Übrig bleibt 2×2: 4·3 − 2·2 = *8* – das ist der *Minor*.",
+   "Das Vorzeichen kommt aus dem *Schachbrett*: plus, minus, plus …",
+   "c₁₂: Minor 2·3 − 2·1 = 4, Schachbrett *minus* → *−4*",
+   "A ist *symmetrisch* – also auch C. Nur *6* von 9 Einträgen rechnen."
+  ],
+  "starts": [
+   0.07,
+   5.306,
+   16.428,
+   24.172,
+   32.136
+  ],
+  "dur": 39.47102
+ },
+ {
+  "title": "Aufgabe 1: die Inverse",
+  "caps": [
+   "Determinantenformel: A⁻¹ = *C′ / det A* – C wird *transponiert*.",
+   "C ist symmetrisch → *C′ = C*. Nur noch *durch 16* teilen.",
+   "Probe: Zeile 1 von A mal Spalte 1 von A⁻¹ = 3·½ − 2·¼ + 0 = *1* ✓"
+  ],
+  "starts": [
+   0.07,
+   7.465,
+   14.652
+  ],
+  "dur": 23.719184
+ },
+ {
+  "title": "Aufgabe 2: Determinante mit Nullen",
+  "caps": [
+   "Jetzt ist A *nicht symmetrisch* – hier zählt das Transponieren.",
+   "Die *Nullen* machen Sarrus kurz: zwei Produkte fallen weg.",
+   "det A = 24 − 32 = *−8*"
+  ],
+  "starts": [
+   0.07,
+   7.221,
+   12.736
+  ],
+  "dur": 20.140408
+ },
+ {
+  "title": "Aufgabe 2: Kofaktoren und Transponieren",
+  "caps": [
+   "c₁₂ = −(0·6 − 2·8) = −(−16) = *+16* – zwei Minus ergeben Plus.",
+   "Alle neun Kofaktoren → *C*.",
+   "Transponieren: *Zeilen werden Spalten*.",
+   "Ohne Transponieren wäre *jede Zeile falsch*."
+  ],
+  "starts": [
+   0.035,
+   11.146,
+   14.524,
+   20.004
+  ],
+  "dur": 24.189388
+ },
+ {
+  "title": "Aufgabe 2: der Lösungsvektor",
+  "caps": [
+   "A⁻¹ = C′ / (−8) – das *Minus* steckt in jedem Eintrag.",
+   "x = A⁻¹ · b: *Zeile mal Spalte*.",
+   "b₁ = 0 → die *erste Spalte* von A⁻¹ fällt weg.",
+   "x = (−3; −4; 6) · Probe A·x = (0; 8; 4) ✓"
+  ],
+  "starts": [
+   0.058,
+   4.957,
+   8.916,
+   14.942
+  ],
+  "dur": 23.719184
+ },
+ {
+  "title": "Aufgabe 3 A: lösbar?",
+  "caps": [
+   "Die Aufgabe fragt zuerst *ob* – also zuerst die Determinante.",
+   "Sarrus: 124 − 124 = *0* → *keine* eindeutige Lösung.",
+   "Warum? Zeile III = Zeile I + *2 · Zeile II*.",
+   "Rechts: 4 + 2·3 = 10, aber da steht *7* → 0 = −3 → *gar keine* Lösung."
+  ],
+  "starts": [
+   0.035,
+   7.976,
+   16.126,
+   21.897
+  ],
+  "dur": 30.354286
+ },
+ {
+  "title": "Aufgabe 3 B: Gauß-Jordan",
+  "caps": [
+   "det = 1·6 − 4·2 = *−2* → eindeutig lösbar.",
+   "Schreib *(A | I)* nebeneinander – Ziel: links die *Einheitsmatrix*.",
+   "*II − 2·I*: unter der 1 entsteht eine *0*.",
+   "*II : (−2)*: auf der Diagonale eine *1*.",
+   "*I − 4·II*: über der 1 eine *0* – rechts steht *A⁻¹*.",
+   "x = A⁻¹ · b = (−3·6 + 2·4; 6 − 2) = *(−10; 4)*"
+  ],
+  "starts": [
+   0.07,
+   5.468,
+   14.501,
+   21.641,
+   27.818,
+   37.222
+  ],
+  "dur": 40.672653
+ },
+ {
+  "title": "Aufgabe 3 C: Determinantenformel",
+  "caps": [
+   "Sarrus: 106 − 105 = *1*.",
+   "det = 1 → *A⁻¹ = C′* – ganz *ohne Brüche*.",
+   "Kofaktoren wie gehabt, z. B. c₁₂ = −(16 − 21) = *5*.",
+   "x = C′ · b = *(−5; 23; −8)* · Probe Zeile 1: −5 + 46 − 40 = 1 ✓"
+  ],
+  "starts": [
+   0.07,
+   3.332,
+   12.318,
+   20.317
+  ],
+  "dur": 28.917551
+ },
+ {
+  "title": "Aufgabe 4: das System aufstellen",
+  "caps": [
+   "Textaufgabe: *Zeile = Eigenschaft*, *Spalte = Quelle*.",
+   "Zeile 1 Salz: 0,02 x₁ + 2,0 x₂ = *0,08*",
+   "Zeile 2 pH: 6,5 x₁ + 8,1 x₂ = *7,0*",
+   "Die Zielwerte kommen nach *rechts* in b."
+  ],
+  "starts": [
+   0.035,
+   10.089,
+   20.352,
+   25.252
+  ],
+  "dur": 28.917551
+ },
+ {
+  "title": "Aufgabe 4: lösen und bewerten",
+  "caps": [
+   "det A = 0,02·8,1 − 2,0·6,5 = *−12,838*",
+   "2×2-Inverse: Diagonale *tauschen*, Nebendiagonale *Minus*, durch det.",
+   "x₁ ≈ *1,040* · x₂ ≈ *0,030*",
+   "Verhältnis ≈ *35 : 1* → Quelle 2 bringt *kaum* etwas."
+  ],
+  "starts": [
+   0.046,
+   8.336,
+   15.778,
+   23.533
+  ],
+  "dur": 33.018776
+ },
+ {
+  "title": "Knobelaufgabe: der Trick",
+  "caps": [
+   "4×4 mit Wurzeln – Sarrus geht *nicht*, Gauß-Jordan dauert *ewig*.",
+   "Jede Zeile hat die *Länge 1*: 4 · 0,25 = 1 bzw. ½ + ½ = 1.",
+   "Je zwei Zeilen sind *senkrecht*: Skalarprodukt 0.",
+   "→ A · A′ = I → *A⁻¹ = A′* (orthogonale Matrix)"
+  ],
+  "starts": [
+   0.081,
+   7.372,
+   14.095,
+   20.48
+  ],
+  "dur": 27.585306
+ },
+ {
+  "title": "Altklausur: nur über Kofaktoren",
+  "caps": [
+   "Achtung: *nur* der Weg über die *Kofaktormatrix* gibt Punkte.",
+   "Lösbar? det A = −4, det B = −1 – *beide* ≠ 0 (aus Übung 1).",
+   "A und B unterscheiden sich nur in *Zeile 3* → c₃₁, c₃₂, c₃₃ sind *gleich*.",
+   "x_A = (3; 0,25; −2,5) · x_B = (3; 3; −8) – *wie in Übung 1* ✓"
+  ],
+  "starts": [
+   0.035,
+   7.198,
+   15.662,
+   26.227
+  ],
+  "dur": 31.843265
+ },
+ {
+  "title": "Merke",
+  "caps": [
+   "1. *det A* – ist sie 0, gibt es *keine* Inverse.",
+   "2. Verlangtes Verfahren: *Kofaktoren* oder *Gauß-Jordan*.",
+   "3. Kofaktormatrix *transponieren*, durch det teilen.",
+   "4. *Probe*: A · x = b."
+  ],
+  "starts": [
+   0.035,
+   6.06,
+   9.776,
+   13.758
+  ],
+  "dur": 18.755918
+ },
+ {
+  "title": "Selbst üben",
+  "caps": [
+   "Rechne alles in deiner GoodNotes-Datei „Übung 02 ausführlich“ nach."
+  ],
+  "starts": [
+   0.058
+  ],
+  "dur": 6.765714
+ }
+]
