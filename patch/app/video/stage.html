@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8">
+<style>
+  html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:#f4f6fa;font-family:Inter,sans-serif;color:#0f172a}
+  #stage{position:absolute;inset:0}
+  svg{position:absolute;left:0;top:0}
+  .eyebrow{position:absolute;left:96px;top:64px;font-size:22px;font-weight:700;letter-spacing:.12em;color:#64748b;text-transform:uppercase}
+  .title{position:absolute;left:96px;top:100px;font-size:56px;font-weight:800;letter-spacing:-.01em}
+  .step{position:absolute;right:96px;top:70px;font-size:22px;font-weight:700;color:#64748b}
+  #panel{position:absolute;left:1090px;top:230px;width:760px}
+  .ln{font-size:44px;line-height:1.3;margin:0 0 26px;font-weight:600}
+  .ln.small{font-size:34px;font-weight:500;color:#334155}
+  .ln.q{font-size:50px;font-weight:800}
+  .card{background:#fff;border-radius:24px;padding:22px 28px;margin-bottom:22px;box-shadow:0 10px 30px rgba(15,23,42,.08);font-size:38px;font-weight:650}
+  .card b{color:#0a7cff}
+  .hl{display:inline-block;background:#0a7cff;color:#fff;border-radius:16px;padding:6px 20px}
+  .ok{display:inline-block;background:#16a34a;color:#fff;border-radius:16px;padding:6px 20px}
+  .bad{color:#dc2626}
+  sub{font-size:.62em;vertical-align:-.25em}
+  .x{text-decoration:line-through;text-decoration-thickness:5px}
+  #cap{position:absolute;left:50%;bottom:44px;transform:translateX(-50%);max-width:1400px;text-align:center;background:rgba(15,23,42,.86);color:#fff;font-size:33px;font-weight:600;line-height:1.35;padding:14px 30px;border-radius:20px}
+  .center{position:absolute;left:0;right:0;top:300px;text-align:center}
+  .big{font-size:78px;font-weight:800;line-height:1.15;max-width:1500px;margin:0 auto}
+  .sub2{font-size:40px;color:#334155;margin-top:36px;font-weight:550}
+  .pill{display:inline-block;margin-top:50px;background:#0a7cff;color:#fff;font-size:40px;font-weight:750;padding:22px 44px;border-radius:999px}
+</style></head><body><div id="stage"></div>
+<script>
+const T = window.TIMING;  // [{title,caps,starts,dur}]
+const clamp = (x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const ease = x => x<.5 ? 2*x*x : 1-Math.pow(-2*x+2,2)/2;
+const lerp = (a,b,p)=>a+(b-a)*p;
+let S, t;
+const ap = (k,d=.5,off=0)=> S.starts[k]===undefined ? 0 : ease(clamp((t - S.starts[k] - off)/d));
+const op = (p)=>`opacity:${p.toFixed(3)}`;
+const BASE_W = 560, CUBE = 300, X0 = 420;
+
+function arrowDefs(){ return `<defs>
+  <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0L10,5L0,10z" fill="context-stroke"/></marker>
+  <pattern id="hatch" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="16" height="16" fill="rgba(10,124,255,.10)"/><path d="M0 0V16" stroke="rgba(10,124,255,.45)" stroke-width="5"/></pattern></defs>`; }
+
+/* Becken mit Wasser, Würfel (Eintauchtiefe in px) und Kugel {x,y,o} */
+function basin({yw=BASE_W, imm=240, ball=null, ghost=0, hatch=0, dimT=0, dimTLabel="t", dim1=0, forces=0, floor=0, sc=1, ox=0, oy=-70, label=""}){
+  const bot = yw + imm, top = bot - CUBE;
+  let g = `<g transform="translate(${ox},${oy}) scale(${sc})">`;
+  g += `<rect x="146" y="${yw}" width="848" height="${930-yw}" fill="#bfe3fb"/>`;
+  g += `<path d="M146 ${yw}H994" stroke="#0a7cff" stroke-width="5"/>`;
+  for (let i=0;i<5;i++) g += `<path d="M${200+i*170} ${yw+14}q20 -10 40 0" stroke="#0a7cff" stroke-width="3" fill="none" opacity=".5"/>`;
+  g += `<path d="M140 300V936H1000V300" stroke="#0f172a" stroke-width="10" fill="none" stroke-linejoin="round"/>`;
+  g += `<rect x="${X0}" y="${top}" width="${CUBE}" height="${CUBE}" rx="6" fill="#dcae74" stroke="#7c4a12" stroke-width="5"/>`;
+  for (let i=1;i<5;i++) g += `<path d="M${X0+12} ${top+i*60}q${CUBE/2} ${i%2?16:-16} ${CUBE-24} 0" stroke="#a8743a" stroke-width="3" fill="none" opacity=".7"/>`;
+  if (ghost) g += `<g style="${op(ghost)}"><rect x="${X0}" y="${yw+150-CUBE}" width="${CUBE}" height="${CUBE}" fill="rgba(220,38,38,.10)" stroke="#dc2626" stroke-width="5" stroke-dasharray="18 12"/><path d="M${X0+50} ${yw-100}l200 200M${X0+250} ${yw-100}l-200 200" stroke="#dc2626" stroke-width="14" stroke-linecap="round" opacity=".85"/><text x="${X0-20}" y="${yw-170}" font-size="34" font-weight="800" fill="#dc2626" text-anchor="end">halb?</text></g>`;
+  if (hatch) g += `<rect x="${X0}" y="${yw}" width="${CUBE}" height="${imm}" fill="url(#hatch)" style="${op(hatch)}"/>`;
+  if (dimT) g += `<g style="${op(dimT)}"><path d="M${X0+CUBE+40} ${yw}V${bot}" stroke="#0a7cff" stroke-width="4" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="${X0+CUBE+60}" y="${(yw+bot)/2+16}" font-size="44" font-weight="800" fill="#0a7cff">${dimTLabel}</text></g>`;
+  if (dim1) g += `<g style="${op(dim1)}"><path d="M${X0} ${top-34}H${X0+CUBE}" stroke="#334155" stroke-width="4" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="${X0+CUBE/2}" y="${top-50}" font-size="38" font-weight="700" fill="#334155" text-anchor="middle">1 m</text></g>`;
+  if (forces) { const cx=X0+CUBE/2, cy=top+CUBE/2;
+    g += `<g style="${op(forces)}"><path d="M${cx-60} ${cy}V${cy+200}" stroke="#dc2626" stroke-width="10" marker-end="url(#ar)"/><text x="${cx-150}" y="${cy+120}" font-size="44" font-weight="800" fill="#dc2626">F<tspan font-size="28" dy="10">G</tspan></text>
+      <path d="M${cx+60} ${bot+150}V${bot+10}" stroke="#0a7cff" stroke-width="10" marker-end="url(#ar)"/><text x="${cx+85}" y="${bot+110}" font-size="44" font-weight="800" fill="#0a7cff">F<tspan font-size="28" dy="10">A</tspan></text></g>`; }
+  if (ball && ball.o>0) {
+    g += `<g style="${op(ball.o)}"><circle cx="${ball.x}" cy="${ball.y}" r="40" fill="#64748b" stroke="#1e293b" stroke-width="5"/><circle cx="${ball.x-13}" cy="${ball.y-13}" r="10" fill="#cbd5e1"/></g>`;
+    if (floor) g += `<g style="${op(floor)}"><path d="M${ball.x-110} ${ball.y+18}H${ball.x-50}" stroke="#16a34a" stroke-width="8" marker-end="url(#ar)"/><text x="${ball.x-122}" y="${ball.y+30}" font-size="34" font-weight="800" fill="#16a34a" text-anchor="end">Boden trägt</text></g>`;
+  }
+  if (label) g += `<text x="570" y="270" font-size="52" font-weight="800" text-anchor="middle" fill="#0f172a">${label}</text>`;
+  return g + `</g>`;
+}
+const onTop = imm => ({x: X0+CUBE/2, y: BASE_W + imm - CUBE - 40});
+
+function frame(){
+  const k = S.i; let svg = arrowDefs(), html = "", panel = "", full = "";
+  const L = (p, s, cls="ln") => `<div class="${cls}" style="${op(p)}">${s}</div>`;
+  if (k===0){
+    const pb = ap(1);
+    svg += basin({ball:{x:860, y:lerp(210,250,pb), o:pb}});
+    panel = L(ap(1),`<div class="card"><b>a)</b> Kugel liegt <b>auf dem Würfel</b></div>`,"") + L(ap(1,.5,.4),`<div class="card"><b>b)</b> Kugel sinkt <b>auf den Grund</b></div>`,"") + L(ap(2),"Wo steht das Wasser höher?","ln q");
+  }
+  if (k===1){
+    svg += basin({dim1:ap(0), ball:{x:860, y:250, o:ap(2)}});
+    panel = L(ap(0),"Würfel: l = b = h = 1 m") + L(ap(1),"ρ<sub>Holz</sub> = 800 kg/m³") + L(ap(1,.5,.5),"ρ<sub>W</sub> = 1000 kg/m³") + L(ap(2),"V<sub>Kugel</sub> = 0,01 m³") + L(ap(3),"ρ<sub>Blei</sub> = 11 400 kg/m³") + L(ap(3,.5,.6),"→ 11,4-mal so dicht wie Wasser","ln small");
+  }
+  if (k===2){
+    svg += basin({forces:ap(1), hatch:ap(2)});
+    panel = L(ap(0),"Wie tief taucht der Würfel ein?","ln q") + L(ap(1),`Schwimmen: <span class="hl">F<sub>A</sub> = F<sub>G</sub></span>`) + L(ap(2),"F<sub>A</sub> = ρ<sub>W</sub> · g · V<sub>verdrängt</sub>") + L(ap(2,.5,.5),"= Gewicht des verdrängten Wassers","ln small");
+  }
+  if (k===3){
+    svg += basin({hatch:1, dimT:ap(0)});
+    const x = ap(2), red = `color:rgb(${Math.round(lerp(15,220,x))},${Math.round(lerp(23,38,x))},${Math.round(lerp(42,38,x))})`, cls = x>.3 ? "x" : "";
+    const gg = `<span class="${cls}" style="${red}">g</span>`, ab = `<span class="${cls}" style="${red}">l · b</span>`;
+    panel = L(ap(0),`ρ<sub>W</sub> · ${gg} · (${ab} · t)`) + L(ap(1),`= ρ<sub>Holz</sub> · ${gg} · (${ab} · h)`) + L(ap(3),"t = ρ<sub>Holz</sub> / ρ<sub>W</sub> · h") + L(ap(3,.5,1.6),"= 800 / 1000 · 1 m") + L(ap(3,.5,3.2),`<span class="hl">t = 0,80 m</span>`) + L(ap(4),"→ 80 % unter Wasser","ln small");
+  }
+  if (k===4){
+    svg += basin({ghost:ap(0), dimT:1, dimTLabel:"0,8 m"});
+    panel = L(ap(0),`<span class="bad">Halb eingetaucht?</span>`,"ln q") + L(ap(1),"nur bei ρ<sub>Holz</sub> = 500 kg/m³") + L(ap(2),`<span class="ok">t / h = ρ<sub>Holz</sub> / ρ<sub>W</sub></span>`) + L(ap(2,.5,.8),"Die Tiefe folgt aus dem Dichteverhältnis.","ln small");
+  }
+  if (k===5){
+    const pa = ap(0,1.2), ps = ap(1,1.4), imm = lerp(240,274,ps), yw = lerp(BASE_W, BASE_W-12, ps), b0 = onTop(240);
+    const by = lerp(140, BASE_W - 12*ps + imm - CUBE - 40 - (BASE_W - 12*ps - yw), pa);
+    svg += basin({yw, imm, ball:{x:b0.x, y: pa<1 ? lerp(210, yw+240-CUBE-40, pa) : yw+imm-CUBE-40, o:1}, dimT:ap(4), dimTLabel:"0,914 m"});
+    panel = L(ap(0),"Fall a: Kugel auf dem Holz","ln q") + L(ap(1),"Holz + Kugel schwimmen zusammen","ln small") + L(ap(2),"V<sub>verdrängt</sub> = Gesamtmasse / ρ<sub>W</sub>") + L(ap(3),"m = 800 + 11 400 · 0,01") + L(ap(3,.5,4.5),"= 800 + 114 = 914 kg") + L(ap(4),`<span class="hl">V<sub>a</sub> = 0,914 m³</span>`) + L(ap(4,.5,3.5),"0,914 m < 1 m → schwimmt noch","ln small");
+  }
+  if (k===6){
+    const pf = ap(0,1.8), pr = ap(0,1.4,.6);
+    const start = {x:X0+CUBE/2, y:BASE_W-12+274-CUBE-40}, end = {x:860, y:890};
+    const bx = pf < .25 ? lerp(start.x, start.x+190, pf/.25) : lerp(start.x+190, end.x, (pf-.25)/.75);
+    const by = pf < .25 ? lerp(start.y, start.y-30, pf/.25) : lerp(start.y-30, end.y, Math.pow((pf-.25)/.75, 1.6));
+    const imm = lerp(274,240,pr), yw = lerp(BASE_W-12, BASE_W-1, pr);
+    svg += basin({yw, imm, ball:{x:bx, y:by, o:1}, floor:ap(1), dimT:ap(3), dimTLabel:"0,8 m"});
+    panel = L(ap(0),"Fall b: Kugel auf dem Grund","ln q") + L(ap(1),"Den größten Teil des Gewichts trägt der Boden.","ln small") + L(ap(2),"Kugel verdrängt nur ihr Volumen: 0,01 m³") + L(ap(3),"V<sub>b</sub> = 0,80 + 0,01") + L(ap(3,.5,2.5),`<span class="hl">V<sub>b</sub> = 0,81 m³</span>`);
+  }
+  if (k===7){
+    const s = .55, p = ap(0), q = ap(1), OY = 260, ya = OY+(BASE_W-40)*s, yb = OY+(BASE_W-4)*s;
+    svg += `<g style="${op(p)}">` + basin({yw:BASE_W-40, imm:274, ball:{x:X0+CUBE/2, y:BASE_W-40+274-CUBE-40, o:1}, sc:s, ox:-40, oy:OY, label:"Fall a"}) + basin({yw:BASE_W-4, imm:240, ball:{x:860, y:890, o:1}, sc:s, ox:470, oy:OY, label:"Fall b"}) + `</g>`;
+    svg += `<g style="${op(q)}"><path d="M30 ${ya}H1060" stroke="#0a7cff" stroke-width="4" stroke-dasharray="14 10"/>
+      <path d="M1045 ${ya+4}V${yb-4}" stroke="#dc2626" stroke-width="8" marker-end="url(#ar)"/><text x="1070" y="${yb+12}" font-size="36" font-weight="800" fill="#dc2626">niedriger</text></g>`;
+    panel = `<div style="margin-left:180px;width:560px">` + L(p,"a: 0,914 m³ verdrängt") + L(ap(0,.5,1.8),"b: 0,81 m³ verdrängt") + L(q,`<span class="hl">In b steht das Wasser niedriger</span>`) + L(ap(2),"Kugel ins Wasser → Spiegel sinkt","ln small") + L(ap(2,.5,1),"(Höhenunterschied überhöht gezeichnet)","ln small") + `</div>`;
+  }
+  if (k===8){
+    full = `<div class="center"><div class="eyebrow" style="position:static;margin-bottom:30px;${op(ap(0))}">Merke</div><div class="big" style="${op(ap(1))}">Schwimmend verdrängt ein Körper sein <span style="color:#0a7cff">Gewicht</span> – untergetaucht nur sein <span style="color:#16a34a">Volumen</span>.</div><div class="sub2" style="${op(ap(2))}">Kugel auf dem Holz: 0,114 m³ · Kugel am Grund: 0,01 m³</div></div>`;
+  }
+  if (k===9){
+    full = `<div class="center" style="top:330px"><div class="big" style="${op(ap(0))}">Jetzt selbst rechnen</div><div class="sub2" style="${op(ap(0,.5,.6))}">Klausurduell → Aufgaben → Holzwürfel mit Bleikugel</div><div style="${op(ap(0,.5,1.2))}"><span class="pill">Selbst rechnen</span></div></div>`;
+  }
+  // Untertitel
+  let ci = -1; S.starts.forEach((s,j)=>{ if (t >= s) ci = j; });
+  const cap = ci >= 0 && t < S.dur + .2 ? S.caps[ci] : "";
+  const head = k<8 ? `<div class="eyebrow">Hydromechanik · Übung 02 · Aufgabe 2.7</div><div class="title">${S.title}</div><div class="step">${k+1} / 10</div>` : "";
+  document.getElementById("stage").innerHTML = head + (svg ? `<svg width="1920" height="1080" viewBox="0 0 1920 1080">${svg}</svg>` : "") + `<div id="panel">${panel}</div>` + full + (cap ? `<div id="cap">${cap}</div>` : "");
+}
+window.show = (i, time) => { S = Object.assign({i}, T[i]); t = time; frame(); };
+</script></body></html>
