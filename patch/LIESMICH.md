@@ -2,7 +2,7 @@
 
 Hier liegen neue Fragen und Aufgaben, bis Tom „Patch durchführen“ sagt.
 
-Letzter Patch: 1.6 am 04.11.2026 (Selbst rechnen, Formelsammlung, Klausurplan, Probeklausur, Schwachstellen, Vorlesungsfolien, Schneider-Wegweiser). Stand: 549 Fragen, 45 Aufgaben, 94 Formeln, 226 Folien. Wartend (05.11.2026): 100 Fragen, 4 Lösungsweg-Aufgaben mit Rechenwerten – Statistik Kapitel 3 + Übung 1/2 (39 Fragen, stat-ue02-inverse, stat-ue02-mischung), Bauinformatik Block 2 (23), Baukonstruktion Übung 3 (18, bauko-ue03-sparren, bauko-ue03-dreifeld), DAP Übung 2 (15). Neue Themen: stat|Deskriptive Statistik, binf|Kontrollstrukturen, bauko|Lastfallkombination.
+Letzter Patch: 1.6 am 04.11.2026 (Selbst rechnen, Formelsammlung, Klausurplan, Probeklausur, Schwachstellen, Vorlesungsfolien, Schneider-Wegweiser). Stand: 549 Fragen, 45 Aufgaben, 94 Formeln, 226 Folien. Wartend (05.11.2026): 100 Fragen, 4 Lösungsweg-Aufgaben mit Rechenwerten – Statistik Kapitel 3 + Übung 1/2 (44 Fragen, stat-ue02-inverse, stat-ue02-mischung), Bauinformatik Block 2 (23), Baukonstruktion Übung 3 (18, bauko-ue03-sparren, bauko-ue03-dreifeld), DAP Übung 2 (15). Neue Themen: stat|Deskriptive Statistik, binf|Kontrollstrukturen, bauko|Lastfallkombination.
 
 - `app/anmerkungen.py`: liest offene Anmerkungs-Issues (gh api)
 - `app/pruefe.js`: Prüfskript (Fragen, Aufgaben, Korrekturen, Skizzen)
