@@ -7,11 +7,12 @@ for i,(title,sents) in enumerate(S):
     spoken=[sp or cap.replace("*","") for cap,sp in sents]
     text=" ".join(spoken); tot+=len(text)
     out=f"audio/s{i:02d}.json"
-    if not os.path.exists(out):
+    old=json.load(open(out)) if os.path.exists(out) else None
+    if not old or old.get("_text", old.get("_text_v1")) != text:
         req=urllib.request.Request(f"https://api.elevenlabs.io/v1/text-to-speech/{VOICE}/with-timestamps?output_format=mp3_44100_128",
             data=json.dumps({"text":text,"model_id":"eleven_multilingual_v2","language_code":"de","voice_settings":{"stability":0.45,"similarity_boost":0.75,"style":0.3,"speed":0.97}}).encode(),
             headers={"xi-api-key":K,"Content-Type":"application/json"})
-        r=json.load(urllib.request.urlopen(req,timeout=180)); json.dump(r,open(out,"w"))
+        r=json.load(urllib.request.urlopen(req,timeout=180)); r["_text"]=text; json.dump(r,open(out,"w")); print("neu erzeugt",i,len(text))
     r=json.load(open(out))
     open(f"audio/s{i:02d}.mp3","wb").write(base64.b64decode(r["audio_base64"]))
     al=r.get("normalized_alignment") or r["alignment"]; chars="".join(al["characters"]); st=al["character_start_times_seconds"]

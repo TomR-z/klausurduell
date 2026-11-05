@@ -20,12 +20,14 @@
   #cap em{font-style:normal;color:#7dd3fc;font-weight:800}
   .center{position:absolute;left:0;right:0;text-align:center}
   .big{font-weight:800;line-height:1.15;margin:0 auto}
+  .src{display:inline-block;font-size:22px;font-weight:700;color:#475569;background:#e2e8f0;border-radius:10px;padding:3px 12px;margin-left:12px;vertical-align:.25em}
+  .port .ln{font-size:38px;margin-bottom:16px}.port .ln.small{font-size:31px}
   .pill{display:inline-block;margin-top:50px;background:#0a7cff;color:#fff;font-size:40px;font-weight:750;padding:22px 44px;border-radius:999px}
 </style></head><body><div id="stage"></div>
 <script>
 const T = window.TIMING, MODE = window.MODE || "land";
 const W = MODE === "land" ? 1920 : 1080, H = MODE === "land" ? 1080 : 1920;
-document.body.style.width = W + "px"; document.body.style.height = H + "px";
+document.body.className = MODE; document.body.style.width = W + "px"; document.body.style.height = H + "px";
 const LAY = MODE === "land"
   ? {eb:[96,64], ti:[96,100,56], st:[96,70], box:[70,200,1000,720], panel:[1110,230,760], cap:{bottom:40, w:1400, fs:33, pad:"14px 30px"}, center:300, big:76}
   : {eb:[70,90], ti:[70,128,54], st:[70,96], box:[40,300,1000,720], panel:[80,1060,920], cap:{bottom:120, w:980, fs:36, pad:"16px 28px"}, center:600, big:72};
@@ -35,13 +37,13 @@ const lerp = (a,b,p)=>a+(b-a)*p;
 let S, t;
 const ap = (k,d=.5,off=0)=> S.starts[k]===undefined ? 0 : ease(clamp((t - S.starts[k] - off)/d));
 const op = p => `opacity:${p.toFixed(3)}`;
-const SUBRE = /_([A-Za-zé]+(?:,[A-Za-z]+)?)/g;
+const SUBRE = /_([A-Za-z0-9]+(?:,[A-Za-z0-9]+)*)/g;
 const sv = s => s.replace(SUBRE, '<tspan font-size="0.65em" dy="8">$1</tspan><tspan dy="-8">\u200b</tspan>');
 const fmt = (v,d=1) => v.toFixed(d).replace(".",",");
 const DEFS = `<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0L10,5L0,10z" fill="context-stroke"/></marker>
   <pattern id="hatch" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="14" height="14" fill="rgba(220,38,38,.08)"/><path d="M0 0V14" stroke="rgba(220,38,38,.45)" stroke-width="4"/></pattern></defs>`;
 const BX0 = 120, BX1 = 880, BY = 330;  /* Balken in Box-Koordinaten (1000×720), 190 px je Meter */
-function beam({g=0, q=0, gScale=1, dim=0, react=0, mom=[0,0], momLab=0, load=1}){
+function beam({g=0, q=0, gScale=1, dim=0, react=0, mom=[0,0], momLab=0, load=1, shear=0, vLab=0}){
   let s = `<rect x="${BX0-10}" y="${BY-18}" width="${BX1-BX0+20}" height="36" rx="5" fill="#dcae74" stroke="#7c4a12" stroke-width="4"/>`;
   s += `<path d="M${BX0} ${BY+18}l-26 46h52z" fill="#fff" stroke="#0f172a" stroke-width="4"/><path d="M${BX0-40} ${BY+64}h80" stroke="#0f172a" stroke-width="4"/>`;
   s += `<path d="M${BX1} ${BY+18}l-26 40h52z" fill="#fff" stroke="#0f172a" stroke-width="4"/><circle cx="${BX1-14}" cy="${BY+64}" r="6" fill="#0f172a"/><circle cx="${BX1+14}" cy="${BY+64}" r="6" fill="#0f172a"/><path d="M${BX1-40} ${BY+74}h80" stroke="#0f172a" stroke-width="4"/>`;
@@ -56,18 +58,22 @@ function beam({g=0, q=0, gScale=1, dim=0, react=0, mom=[0,0], momLab=0, load=1})
   const par = (depth, col, p, dash) => { const base = BY+205; let d = `M${BX0} ${base}`; const N = 40;
     for (let i=0;i<=N*p;i++){ const x = BX0 + i*(BX1-BX0)/N, u = i/N; d += `L${x.toFixed(1)} ${(base + depth*4*u*(1-u)).toFixed(1)}`; }
     return `<path d="${d}" stroke="${col}" stroke-width="5" fill="none" ${dash ? 'stroke-dasharray="14 10"' : ""}/>`; };
+  if (shear) { const b0 = BY+200, A = 80, xe = BX0 + (BX1-BX0)*shear, ye = b0 - A + 2*A*shear;
+    s += `<path d="M${BX0} ${b0}H${BX1}" stroke="#94a3b8" stroke-width="3"/><path d="M${BX0} ${b0}V${b0-A}L${xe} ${ye}${shear>=1 ? `V${b0}` : ""}" fill="rgba(124,58,237,.10)" stroke="#7c3aed" stroke-width="5"/>`; }
+  if (vLab) s += `<g style="${op(vLab)}"><text x="${BX0+30}" y="${BY+200-92}" font-size="32" font-weight="800" fill="#7c3aed">V = 12,6 kN</text><text x="${BX1-20}" y="${BY+200+122}" font-size="32" font-weight="800" fill="#7c3aed" text-anchor="end">−12,6 kN</text><text x="500" y="${BY+200+180}" font-size="28" font-weight="700" fill="#7c3aed" text-anchor="middle">Querkraft: am Auflager am größten</text></g>`;
   if (mom[0]) s += `<path d="M${BX0} ${BY+205}H${BX1}" stroke="#94a3b8" stroke-width="3" style="${op(mom[0])}"/>` + par(100, "#2563eb", mom[0]);
   if (mom[1]) s += par(50, "#ea580c", mom[1], true);
   if (momLab) s += `<g style="${op(momLab)}"><text x="500" y="${BY+205+100+42}" font-size="32" font-weight="800" fill="#2563eb" text-anchor="middle">${sv('max M_g = 6 kNm')}</text><text x="500" y="${BY+205+40}" font-size="26" font-weight="800" fill="#ea580c" text-anchor="middle">${sv('max M_q = 3 kNm')}</text></g>`;
   return s;
 }
 function gauge(x0, y, w, val, p, lab){
+  if (p <= 0) return "";
   const f = clamp(val*p, 0, 1.2), col = val <= 1 ? (val > .9 ? "#f59e0b" : "#16a34a") : "#dc2626";
   return `<rect x="${x0}" y="${y}" width="${w}" height="40" rx="20" fill="#e2e8f0"/><rect x="${x0}" y="${y}" width="${(w*Math.min(f,1)).toFixed(1)}" height="40" rx="20" fill="${col}"/>
     <path d="M${x0+w} ${y-14}V${y+54}" stroke="#0f172a" stroke-width="4"/><text x="${x0+w}" y="${y-22}" font-size="26" font-weight="800" text-anchor="middle">1,0</text>
     <text x="${x0}" y="${y+90}" font-size="34" font-weight="800" fill="${col}">${lab} = ${fmt(val*p,2)}</text>`;
 }
-function section({p=1, dims=0, stress=0, cracks=0, tau=0, cy=360}){
+function section({p=1, dims=0, stress=0, cracks=0, tau=0, cy=360, mean=0}){
   const cx = 360, s = 13, bw = 8*s*ease(clamp(p*1.3)), bh = 24*s*ease(p);
   let g = `<rect x="${cx-bw/2}" y="${cy-bh/2}" width="${bw}" height="${bh}" fill="#dcae74" stroke="#7c4a12" stroke-width="4"/>`;
   for (let i=1;i<6;i++) g += `<path d="M${cx-bw/2+6} ${cy-bh/2+i*bh/6}h${Math.max(0,bw-12)}" stroke="#a8743a" stroke-width="2" opacity=".6"/>`;
@@ -81,6 +87,7 @@ function section({p=1, dims=0, stress=0, cracks=0, tau=0, cy=360}){
       <text x="${ax-L-12}" y="${cy-146}" font-size="28" font-weight="800" fill="#dc2626" text-anchor="end" style="${op(stress)}">Druck</text><text x="${ax+L+12}" y="${cy+166}" font-size="28" font-weight="800" fill="#2563eb" style="${op(stress)}">Zug</text></g>`; }
   if (tau) { const ax = 640; let d = `M${ax} ${cy-156}`; for (let i=0;i<=30;i++){ const u=i/30, y = cy-156+u*312; d += `L${(ax + 150*tau*4*u*(1-u)).toFixed(1)} ${y.toFixed(1)}`; }
     g += `<path d="M${ax} ${cy-156}V${cy+156}" stroke="#0f172a" stroke-width="3"/><path d="${d}" fill="rgba(234,88,12,.12)" stroke="#ea580c" stroke-width="5"/><text x="${ax+160}" y="${cy+10}" font-size="30" font-weight="800" fill="#ea580c" style="${op(tau)}">${sv('τ_max')}</text>`; }
+  if (mean) { const ax = 640, xm = ax + 150*2/3; g += `<g style="${op(mean)}"><path d="M${xm} ${cy-156}V${cy+156}" stroke="#334155" stroke-width="3" stroke-dasharray="10 8"/><text x="${xm+12}" y="${cy+150}" font-size="26" font-weight="700" fill="#334155">${sv('τ_mittel')}</text><text x="${ax+160}" y="${cy+44}" font-size="26" font-weight="800" fill="#ea580c">= 1,5 × Mittel</text></g>`; }
   return g;
 }
 function bars(v1, v2, labTop, win, mOp=1){
@@ -89,36 +96,88 @@ function bars(v1, v2, labTop, win, mOp=1){
   return `<path d="M120 ${base}H820" stroke="#0f172a" stroke-width="4"/>` + bar(x1, v1, "#2563eb", "nur g", win===1 && mOp>.5) + bar(x2, v2, "#ea580c", "g + q", win===2 && mOp>.5) + `<text x="470" y="44" font-size="34" font-weight="800" text-anchor="middle" fill="#334155">${sv(labTop)}</text>` + (win ? `<text x="${win===1?x1:x2}" y="${base-(win===1?v1:v2)*sc-74}" font-size="36" font-weight="800" text-anchor="middle" fill="#16a34a" style="${op(mOp)}">maßgebend ✓</text>` : "");
 }
 
+function card(x, y, w, title, rows, colW, hl, o=1){
+  /* rows: [[label, wert,...]], hl(r,c) -> Farbe oder null */
+  const rh = 62; let s = `<g style="${op(o)}"><rect x="${x}" y="${y}" width="${w}" height="${70 + rows.length*rh + 16}" rx="22" fill="#fff" stroke="#cbd5e1" stroke-width="3"/>
+    <text x="${x+28}" y="${y+48}" font-size="28" font-weight="800" fill="#64748b">${sv(title)}</text>`;
+  rows.forEach((r, i) => { let cx = x + 28; const yy = y + 70 + i*rh;
+    r.forEach((c, j) => { const col = hl(i, j);
+      if (col) s += `<rect x="${cx-12}" y="${yy+4}" width="${colW[j]-8}" height="${rh-8}" rx="12" fill="${col}"/>`;
+      s += `<text x="${cx}" y="${yy+42}" font-size="30" font-weight="${j ? 800 : 600}" fill="${col ? "#fff" : (i < 0 ? "#64748b" : "#0f172a")}">${sv(String(c))}</text>`; cx += colW[j]; }); });
+  return s + `</g>`;
+}
 function frame(){
   const k = S.i, L = (p, s, cls="ln") => `<div class="${cls}" style="${op(p)}">${s}</div>`;
+  const Q = s => `<span class="src">${s}</span>`;
   let box = "", panel = "", full = "";
   if (k===0){ box = beam({g:ap(0,1.2), q:ap(0,1.2,1.2), dim:ap(1)}) + `<text x="500" y="${BY+220}" font-size="120" font-weight="800" text-anchor="middle" fill="#0a7cff" style="${op(ap(1,.6,.4))}">?</text>`;
     panel = L(ap(0),`<span class="g">g</span> Eigengewicht · <span class="q2">q</span> Nutzlast`,"ln small") + L(ap(1),"Welche Kombination ist maßgebend?","ln q") + L(ap(2),`<span class="warn">Größte Last ≠ maßgebend</span>`); }
-  if (k===1){ box = beam({g:1, q:1, dim:ap(0)});
-    panel = L(ap(0),"l = 4 m · C24 · NKL 2") + L(ap(1),`<span class="g">g<sub>k</sub> = 3,0 kN/m</span> (ständig)`) + L(ap(1,.5,2.5),`<span class="q2">q<sub>k</sub> = 1,5 kN/m</span> (kurz)`) + L(ap(2),"f<sub>m,k</sub> = 24 N/mm²") + L(ap(2,.5,2),"f<sub>v,k</sub> = 4,0 N/mm²") + L(ap(2,.5,4.5),"γ<sub>M</sub> = 1,3"); }
-  if (k===2){ box = beam({g:1, q:1, react:ap(0), mom:[ap(1,1.6), ap(2,1.6,3)], momLab:ap(2,.5,1)});
-    panel = L(ap(0),"Je Lastart getrennt","ln q") + L(ap(1),"max M = q · l² / 8") + L(ap(2),`<span class="g">M<sub>g</sub> = 3 · 16 / 8 = 6 kNm</span>`) + L(ap(2,.5,4),`<span class="q2">M<sub>q</sub> = 3 kNm</span>`) + L(ap(3),"→ jede Kombination bekommt ihr k<sub>mod</sub>","ln small"); }
-  if (k===3){ const p1 = ap(1,1.2), p2 = ap(1,1.2,2.5);
-    box = `<text x="80" y="110" font-size="30" font-weight="800" fill="#64748b">LASTEINWIRKUNGSDAUER</text>
-      <text x="80" y="210" font-size="34" font-weight="800" fill="#2563eb">ständig (> 10 Jahre)</text><rect x="80" y="230" width="${640*ap(0,1.4)}" height="56" rx="12" fill="#2563eb"/><text x="${80+640*ap(0,1.4)+24}" y="272" font-size="52" font-weight="800" fill="#2563eb" style="${op(p1)}">0,6</text>
-      <text x="80" y="390" font-size="34" font-weight="800" fill="#ea580c">kurz (< 1 Woche)</text><rect x="80" y="410" width="${90*ap(0,1.4,.6)}" height="56" rx="12" fill="#ea580c"/><text x="${80+90*ap(0,1.4,.6)+24}" y="452" font-size="52" font-weight="800" fill="#ea580c" style="${op(p2)}">0,9</text>
-      <g style="${op(ap(2))}"><path d="M80 560H860" stroke="#334155" stroke-width="4" marker-end="url(#ar)"/><text x="80" y="610" font-size="32" font-weight="700" fill="#334155">${sv('länger wirkend → kleineres k_mod (Kriechen)')}</text></g>`;
-    panel = L(ap(0),"k<sub>mod</sub>: Dauer + Feuchte","ln q") + L(ap(1),"NKL 2, Vollholz:") + L(p1,`<span class="g">ständig → 0,6</span>`) + L(p2,`<span class="q2">kurz → 0,9</span>`) + L(ap(2),"Dauerlast ist für Holz ungünstiger","ln small"); }
+  if (k===1){
+    const c1 = ap(1) * (1 - ap(3)), c3 = ap(3);
+    box = `<g style="${op(1 - ap(1))}">${beam({g:1, q:1, dim:1})}</g>`
+      + card(150, 60, 700, "Festigkeitsklasse C24 (N/mm²)", [["Biegung f_m,k", "24"], ["Zug f_t,0,k", "14,5"], ["Druck f_c,0,k", "21"], ["Schub f_v,k", "4,0"]], [470, 200],
+             (r, c) => (r===0 && ap(1) > .5 && ap(2) < .5) ? "#0a7cff" : (r===3 && ap(2) > .5) ? "#0a7cff" : null, c1)
+      + card(150, 60, 700, "Sicherheitsbeiwert γ_M (Norm)", [["Vollholz", "1,3"], ["Brettschichtholz", "1,25"], ["Furnierschichtholz", "1,2"]], [470, 200],
+             (r, c) => r===0 && ap(3) > .5 ? "#0a7cff" : null, c3);
+    panel = L(ap(0), `l = 4 m · <span class="g">g = 3,0</span> · <span class="q2">q = 1,5 kN/m</span> ${Q("Aufgabe")}`, "ln small")
+      + L(ap(0,.5,3), `<span class="q2">q</span> wirkt <b>kurz</b> ${Q("Aufgabe")}`, "ln small")
+      + L(ap(1), `f<sub>m,k</sub> = 24 N/mm² ${Q("im Namen C24")}`)
+      + L(ap(2), `f<sub>v,k</sub> = 4,0 N/mm² ${Q("Tabelle C24")}`)
+      + L(ap(3), `γ<sub>M</sub> = 1,3 ${Q("Norm: Vollholz")}`); }
+  if (k===2){ box = beam({g:1, q:1, react:ap(0), mom:[ap(2,1.6,1), ap(3,1.6,1)], momLab:ap(3,.5,2.5)});
+    panel = L(ap(0),"Je Lastart getrennt","ln q") + L(ap(1),`max M = q · l² / 8 ${Q("Tafel: Einfeldträger")}`)
+      + L(ap(2),"l² = 4² = 16 m²","ln small") + L(ap(2,.5,2),`<span class="g">M<sub>g</sub> = 3,0 · 16 / 8 = 6 kNm</span>`)
+      + L(ap(3),`<span class="q2">q = g / 2 → M<sub>q</sub> = 6 / 2 = 3 kNm</span>`) + L(ap(4),"eigene Dauer je Lastart → eigenes k<sub>mod</sub>","ln small"); }
+  if (k===3){
+    const tA = 1 - ap(2), tB = ap(2);
+    let creep = `<text x="100" y="80" font-size="30" font-weight="800" fill="#64748b">DURCHBIEGUNG ÜBER DIE ZEIT</text><path d="M120 560V140M120 560H900" stroke="#0f172a" stroke-width="4" marker-end="url(#ar)"/>
+      <text x="900" y="610" font-size="28" font-weight="700" text-anchor="end">Zeit</text>`;
+    const pc = ap(1,2.5); let d = "M120 460"; for (let i=0;i<=40*pc;i++){ const u=i/40; d += `L${120+760*u} ${460 - 60 - 200*(1-Math.exp(-3.5*u))}`; }
+    creep += `<path d="M120 460V400" stroke="#2563eb" stroke-width="6" style="${op(ap(0))}"/>` + (pc > 0 ? `<path d="${d}" stroke="#2563eb" stroke-width="6" fill="none"/>` : "")
+      + `<text x="560" y="200" font-size="34" font-weight="800" fill="#dc2626" style="${op(ap(1,.5,2))}">Holz kriecht ↗</text>`;
+    const R = [["ständig", "0,6", "0,6", "0,5"], ["lang", "0,7", "0,7", "0,55"], ["mittel", "0,8", "0,8", "0,65"], ["kurz", "0,9", "0,9", "0,7"], ["sehr kurz", "1,1", "1,1", "0,9"]];
+    const tab = card(80, 30, 840, "k_mod · Vollholz", [["Dauer", "NKL 1", "NKL 2", "NKL 3"], ...R], [250, 190, 190, 190],
+      (r, c) => { if (c===2 && r>0 && ap(2,.5,4) > .5 && !(ap(3) > .5 && (r===1 || r===4))) return "#94a3b8"; if (c===2 && r===1 && ap(3) > .5) return "#2563eb"; if (c===2 && r===4 && ap(3,.5,2) > .5) return "#ea580c"; return null; }, tB);
+    box = `<g style="${op(tA)}">${creep}</g>` + tab;
+    panel = L(ap(0),"k<sub>mod</sub> mindert die Festigkeit","ln q") + L(ap(1),"Dauerlast → Holz kriecht → kleineres k<sub>mod</sub>","ln small")
+      + L(ap(2),`Zeile Vollholz, Spalte NKL 2 ${Q("Tabelle k_mod")}`.replace("k_mod","k<sub>mod</sub>"),"ln small")
+      + L(ap(3),`<span class="g">Eigengewicht: ständig → 0,6</span>`) + L(ap(3,.5,2),`<span class="q2">Nutzlast: kurz → 0,9</span>`); }
   if (k===4){
-    const m1 = ap(4,1.2), m2 = ap(4,1.2,4.5);
-    const v1 = lerp(8.1*ap(1,1), 13.5, m1), v2 = lerp(12.6*ap(2,1), 14.0, m2);
-    box = bars(v1, v2, m2 > .5 ? "E_d / k_mod" : (m1 > 0 ? "E_d / k_mod" : "M_Ed in kNm"), 2, ap(5)) ;
-    panel = L(ap(0),"Die maßgebende Kombination","ln q") + L(ap(1),`nur g: 1,35 · 6 = <b>8,1</b>`) + L(ap(2),`g + q: 8,1 + 1,5 · 3 = <b>12,6</b>`) + L(ap(3),"÷ k<sub>mod</sub> (bei g + q: kürzeste Last → 0,9)","ln small") + L(m1,"8,1 / 0,6 = 13,5") + L(ap(4,.5,4.5),"12,6 / 0,9 = 14,0") + L(ap(5),`<span class="ok">M<sub>Ed</sub> = 12,6 kNm</span>`); }
+    const m1 = ap(5,1.2,1.5), m2 = ap(5,1.2,5);
+    const v1 = lerp(8.1*ap(2,1), 13.5, m1), v2 = lerp(12.6*ap(2,1,3), 14.0, m2);
+    box = bars(v1, v2, m1 > 0 ? "E_d / k_mod  ≤  f_k / γ_M" : "M_Ed in kNm", 2, ap(6))
+      + `<g style="${op(ap(4) * (1 - m1))}"><text x="280" y="680" font-size="28" font-weight="800" text-anchor="middle" fill="#2563eb">${sv("k_mod = 0,6")}</text><text x="640" y="680" font-size="28" font-weight="800" text-anchor="middle" fill="#ea580c">${sv("k_mod = 0,9")}</text></g>`;
+    panel = L(ap(0),"Lastkombinationen","ln q") + L(ap(1),`γ<sub>G</sub> = 1,35 · γ<sub>Q</sub> = 1,5 ${Q("Norm")}`)
+      + L(ap(2),`nur g: 1,35 · 6 = <b>8,1</b>`,"ln small") + L(ap(2,.5,3),`g + q: 8,1 + 1,5 · 3 = <b>12,6</b>`,"ln small")
+      + L(ap(4),`k<sub>mod</sub> der <b>kürzesten</b> Last ${Q("Regel")}`,"ln small")
+      + L(ap(5),"÷ k<sub>mod</sub>: 13,5 vs. 14,0","ln small") + L(ap(6),`<span class="ok">M<sub>Ed</sub> = 12,6 kNm</span>`); }
   if (k===5){
     const dq = ap(1,1.6,.5) * (1 - ap(2,1.2,1)), qv = lerp(1.5, 1.0, dq), v2 = (8.1 + 1.5*2*qv)/0.9;
-    box = bars(13.5, v2, `q = ${fmt(qv,1)} kN/m`, v2 >= 13.5 ? 2 : 1);
-    panel = L(ap(0),`<span class="warn">Knapp: 13,5 vs. 14,0</span>`) + L(ap(1),"Weniger Nutzlast → <b>nur g</b> wird maßgebend","ln small") + L(ap(2),`<span class="ok">Immer beide prüfen!</span>`); }
-  if (k===6){ box = section({p:ap(1,1.4,.8), dims:ap(2,.6,.6)});
-    panel = L(ap(0),"f<sub>m,d</sub> = 0,9 · 24 / 1,3 = 16,6") + L(ap(1),"erf W = 12,6 · 10⁶ / 16,6 ≈ 759 cm³") + L(ap(2),"W = b · h² / 6 = 8 · 24² / 6") + L(ap(2,.5,4),`<span class="hl">8/24 cm: W = 768 cm³</span>`) + L(ap(3),"h > 15 cm → k<sub>h</sub> = 1,0","ln small"); }
-  if (k===7){ box = section({dims:1, stress:ap(0,1.2,1.5), cy:290}) + gauge(150, 610, 700, .99, ap(1,1.6,1), "η");
-    panel = L(ap(0),"σ<sub>m,d</sub> = M<sub>Ed</sub> / W") + L(ap(0,.5,5),"= 12,6 · 10⁶ / 768 · 10³ = 16,4 N/mm²","ln small") + L(ap(1),"η = 16,4 / 16,6 = 0,99") + L(ap(2),`<span class="ok">≤ 1 → erfüllt</span>`) + L(ap(2,.5,1.5),"fast voll ausgenutzt","ln small"); }
-  if (k===8){ box = section({dims:1, cracks:ap(0,.8,1.5), tau:ap(1,1.2), cy:290}) + gauge(150, 610, 700, .71, ap(2,1.4,1), "η");
-    panel = L(ap(0),"k<sub>cr</sub> = 0,5 (Schwindrisse)") + L(ap(1),"τ<sub>d</sub> = 1,5 · V / (k<sub>cr</sub> · b · h)") + L(ap(1,.5,3),"= 1,5 · 12 600 / (0,5 · 19 200) = 1,97","ln small") + L(ap(2),"f<sub>v,d</sub> = 0,9 · 4,0 / 1,3 = 2,77","ln small") + L(ap(2,.5,4),`<span class="ok">η = 0,71 → erfüllt</span>`); }
+    box = bars(13.5, v2, `q = ${fmt(qv,2)} kN/m`, v2 >= 13.5 ? 2 : 1);
+    panel = L(ap(0),`<span class="warn">Knapp: 13,5 vs. 14,0</span>`) + L(ap(1),"Grenze: q = 1,35 kN/m","ln small") + L(ap(1,.5,1.5),"darunter wird <b>nur g</b> maßgebend","ln small") + L(ap(2),`<span class="ok">Immer beide prüfen!</span>`); }
+  if (k===6){
+    const sw = ap(4,.8);
+    const why = card(100, 40, 800, "Woher kommen die Werte?", [["k_mod = 0,9", "← Schritt 3"], ["f_m,k = 24", "← C24"], ["γ_M = 1,3", "← Vollholz"]], [330, 420], (r,c) => null, ap(0) * (1 - ap(2)))
+      + `<g style="${op(ap(1,.5,.5) * (1 - ap(2)))}"><text x="500" y="470" font-size="40" font-weight="800" text-anchor="middle" fill="#0a7cff">${sv("f_m,d = 16,6 N/mm²")}</text></g>`;
+    const units = card(100, 60, 800, "Einheiten", [["1 kNm", "= 10⁶ Nmm"], ["1 cm³", "= 1000 mm³"]], [330, 420], (r,c) => (r===0 && c===1 && ap(3) < .5) || (r===1 && c===1 && ap(3) > .5) ? "#0a7cff" : null, ap(2) * (1 - sw))
+      + `<g style="${op(ap(3) * (1 - sw))}"><text x="500" y="390" font-size="38" font-weight="800" text-anchor="middle">12,6 · 10⁶ / 16,6</text><text x="500" y="450" font-size="38" font-weight="800" text-anchor="middle">≈ 759 000 mm³ = 759 cm³</text></g>`;
+    box = why + units + `<g style="${op(sw)}">${section({p:ap(4,1.4,.8), dims:ap(4,.6,3)})}</g>`;
+    panel = L(ap(0),"f<sub>m,d</sub> = k<sub>mod</sub> · f<sub>m,k</sub> / γ<sub>M</sub>") + L(ap(1),"= 0,9 · 24 / 1,3 = 16,6 N/mm²","ln small")
+      + L(ap(2),"erf W = M<sub>Ed</sub> / f<sub>m,d</sub>") + L(ap(3),"≈ 759 cm³","ln small")
+      + L(ap(4,.5,4),`<span class="hl">8/24: W = 8 · 24² / 6 = 768 cm³</span>`) + L(ap(5),"h = 24 cm > 15 cm → k<sub>h</sub> = 1,0","ln small"); }
+  if (k===7){ box = section({dims:1, stress:ap(0,1.2,1), cy:290}) + gauge(150, 610, 700, .99, ap(2,1.6,1), "η");
+    panel = L(ap(0),"σ<sub>m,d</sub> = M<sub>Ed</sub> / W") + L(ap(1),"= 12,6 · 10⁶ / 768 000 = 16,4 N/mm²","ln small")
+      + L(ap(2),"η = σ<sub>m,d</sub> / f<sub>m,d</sub> = 16,4 / 16,6 = 0,99","ln small") + L(ap(3),`<span class="ok">≤ 1 → erfüllt</span>`) + L(ap(3,.5,1.5),"fast voll ausgenutzt","ln small"); }
+  if (k===8){
+    const sw = ap(2,.8);
+    box = `<g style="${op(1 - sw)}">${beam({g:1, q:1, shear:ap(1,1.4), vLab:ap(1,.5,1.4)})}</g>`
+      + `<g style="${op(sw)}">${section({dims:1, cracks:ap(2,.8,1), tau:ap(3,1.2), mean:ap(3,.6,3), cy:290})}${gauge(150, 610, 700, .71, ap(4,1.4,4), "η")}</g>`;
+    panel = L(ap(0),"V = q<sub>d</sub> · l / 2","ln small") + L(ap(0,.5,6),"q<sub>d</sub> = 1,35 · 3,0 + 1,5 · 1,5 = 6,3 kN/m","ln small")
+      + L(ap(1),"V<sub>Ed</sub> = 6,3 · 4 / 2 = 12,6 kN","ln small")
+      + L(ap(2),`k<sub>cr</sub> = 2,0 / f<sub>v,k</sub> = 0,5 ${Q("dt. Anhang")}`,"ln small")
+      + L(ap(3),"τ<sub>max</sub> = 1,5 · τ<sub>mittel</sub> (Parabel)","ln small")
+      + L(ap(4),"τ = 1,5 · 12 600 / (0,5 · 80 · 240) = 1,97","ln small")
+      + L(ap(4,.5,4),`<span class="ok">≤ f<sub>v,d</sub> = 2,77 → η = 0,71</span>`); }
   if (k===9){ const steps = ["Schnittgrößen je Lastart", "Kombinationen ÷ k_mod", "Größte = maßgebend", "Querschnitt: erf W", "Biegung + Schub nachweisen"];
     const cue = [1,1,1,2,2], off = [0,1.6,3.2,0,1.8];
     box = steps.map((s,i)=>{ const p = ap(cue[i],.5,off[i]); return `<g style="${op(p)}"><rect x="120" y="${60+i*128}" width="760" height="96" rx="24" fill="${i===2 ? "#16a34a" : "#fff"}" stroke="${i===2 ? "#16a34a" : "#cbd5e1"}" stroke-width="3"/><text x="170" y="${120+i*128}" font-size="36" font-weight="800" fill="${i===2 ? "#fff" : "#0f172a"}">${i+1}. ${sv(s)}</text>${i<4 ? `<path d="M500 ${158+i*128}v26" stroke="#94a3b8" stroke-width="5" marker-end="url(#ar)"/>` : ""}</g>`; }).join("");

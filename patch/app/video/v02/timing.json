@@ -14,74 +14,82 @@
   "dur": 16.613878
  },
  {
-  "title": "Gegeben",
+  "title": "Gegeben – und woher die Werte kommen",
   "caps": [
-   "Spannweite *4 m*, Vollholz *C24*, Nutzungsklasse *2*.",
-   "Ständige Last *g = 3,0 kN/m*, Nutzlast *q = 1,5 kN/m* mit kurzer Dauer.",
-   "Festigkeiten: Biegung *24*, Schub *4,0 N/mm²*, Teilsicherheit *γ_M = 1,3*."
+   "Aus der Aufgabe: *l = 4 m*, *g = 3,0* und *q = 1,5 kN/m*, q wirkt *kurz*.",
+   "*C24* ist die Festigkeitsklasse – die *24* ist direkt die Biegefestigkeit f_m,k.",
+   "Die Schubfestigkeit *4,0* steht in der Tabelle zur Klasse C24.",
+   "*γ_M = 1,3* ist der Sicherheitsbeiwert für *Vollholz* – aus der Norm."
   ],
   "starts": [
    0.035,
-   7.024,
-   17.357
+   8.893,
+   21.502,
+   27.876
   ],
-  "dur": 26.697143
+  "dur": 34.298776
  },
  {
   "title": "Schritt 1: Schnittgrößen getrennt",
   "caps": [
-   "Erster Schritt: die Schnittgrößen – für jede Lastart *getrennt*.",
-   "Einfeldträger mit Streckenlast: *max M = q · l² / 8*.",
-   "Für g: 3 · 16 / 8 = *6 kNm*. Für q: die Hälfte, *3 kNm*.",
-   "Getrennt, weil gleich jede Kombination ihr *eigenes k_mod* bekommt."
+   "Erster Schritt: die Momente – für jede Lastart *getrennt*.",
+   "Einfeldträger mit Streckenlast: *max M = q · l² / 8* – Standardformel aus der Tafel.",
+   "l² = 16 → für g: 3 · 16 / 8 = *6 kNm*.",
+   "q ist *halb so groß* wie g – also auch das Moment: *3 kNm*.",
+   "Getrennt, weil jede Lastart eine *eigene Dauer* hat."
   ],
   "starts": [
    0.035,
-   5.352,
-   12.144,
-   21.142
+   5.666,
+   15.383,
+   24.66,
+   31.742
   ],
-  "dur": 26.697143
+  "dur": 36.440816
  },
  {
-  "title": "Schritt 2: k_mod",
+  "title": "Schritt 2: k_mod aus der Tabelle",
   "caps": [
-   "k_mod berücksichtigt, *wie lange* eine Last wirkt – und wie feucht das Holz ist.",
-   "Nutzungsklasse 2: ständig *0,6*, kurz *0,9*.",
-   "Je länger die Last, desto *kleiner* k_mod – Holz kriecht unter Dauerlast."
+   "k_mod *mindert die Festigkeit* – je nachdem, wie *lange* die Last wirkt.",
+   "Holz *kriecht*: Unter Dauerlast hält es *weniger* aus als bei kurzer Last.",
+   "Ablesen: Tabelle k_mod → Zeile *Vollholz*, Spalte *Nutzungsklasse 2*.",
+   "Eigengewicht = *ständig* → *0,6*. Nutzlast = *kurz* → *0,9*."
   ],
   "starts": [
-   0.07,
-   5.619,
-   14.234
+   0.046,
+   5.689,
+   14.176,
+   25.147
   ],
-  "dur": 20.897959
+  "dur": 34.168163
  },
  {
   "title": "Schritt 3: die maßgebende Kombination",
   "caps": [
-   "Jetzt der wichtigste Schritt: die *maßgebende* Kombination.",
-   "Nur ständig: 1,35 · 6 = *8,1 kNm*.",
-   "Ständig + Nutzlast: 8,1 + 1,5 · 3 = *12,6 kNm*.",
-   "Vergleichbar wird es erst *geteilt durch k_mod* – bei g + q zählt die *kürzeste* Last: 0,9.",
-   "8,1 / 0,6 = *13,5* · 12,6 / 0,9 = *14,0*",
-   "14,0 ist größer – maßgebend ist *g + q* mit *M_Ed = 12,6 kNm*."
+   "Jetzt die *Lastkombinationen* – mit Sicherheitsbeiwerten auf die Lasten.",
+   "*1,35* für ständige, *1,5* für veränderliche Lasten – feste Werte aus der Norm.",
+   "Nur g: 1,35 · 6 = *8,1*. g + q: 8,1 + 1,5 · 3 = *12,6 kNm*.",
+   "Aber: Jede Kombination hat ein *anderes k_mod* – also eine andere Festigkeit.",
+   "g + q bekommt das k_mod der *kürzesten* Last: *0,9* – Regel aus der Norm.",
+   "Fairer Vergleich: *E_d ÷ k_mod*. 8,1 / 0,6 = *13,5* · 12,6 / 0,9 = *14,0*",
+   "14,0 > 13,5 → maßgebend ist *g + q* mit *M_Ed = 12,6 kNm*."
   ],
   "starts": [
-   0.058,
-   4.307,
-   13.026,
-   22.779,
-   34.075,
-   42.806
+   0.035,
+   5.166,
+   15.79,
+   24.683,
+   31.312,
+   39.88,
+   51.629
   ],
-  "dur": 51.774694
+  "dur": 59.898776
  },
  {
   "title": "Achtung: knapp!",
   "caps": [
-   "Achtung: Der Unterschied ist *knapp*.",
-   "Mit etwas weniger Nutzlast wird *nur g* maßgebend – obwohl es die *kleinere* Last ist.",
+   "Der Unterschied ist *knapp*.",
+   "Ab q < 1,35 kN/m wird *nur g* maßgebend – obwohl es die *kleinere* Last ist.",
    "Deshalb bei Holz *immer beide* Kombinationen prüfen."
   ],
   "starts": [
@@ -94,46 +102,56 @@
  {
   "title": "Schritt 4: Querschnitt wählen",
   "caps": [
-   "Bemessungsfestigkeit: f_m,d = 0,9 · 24 / 1,3 = *16,6 N/mm²*.",
-   "erf W = M_Ed / f_m,d ≈ *759 cm³*.",
-   "Gewählt: *8/24 cm* mit W = b · h² / 6 = *768 cm³*.",
-   "Höher als 15 cm – *kein Höhenbonus*: k_h = 1,0."
+   "Bemessungsfestigkeit: f_m,d = *k_mod* · f_m,k / *γ_M*.",
+   "k_mod = *0,9* aus der maßgebenden Kombination → 0,9 · 24 / 1,3 = *16,6 N/mm²*.",
+   "Erforderlich: *W = M_Ed / f_m,d*. kNm in Nmm: *mal 10⁶*.",
+   "12,6 · 10⁶ / 16,6 ≈ 759 000 mm³ = *759 cm³*.",
+   "Rechteck: *W = b · h² / 6*. Probiert: *8/24* → 8 · 576 / 6 = *768 cm³* ✓",
+   "Bonus k_h gibt es nur unter *15 cm* Höhe → hier *k_h = 1,0*."
   ],
   "starts": [
-   0.035,
-   11.262,
-   19.528,
-   28.781
+   0.058,
+   9.787,
+   17.845,
+   30.29,
+   33.947,
+   47.276
   ],
-  "dur": 35.761633
+  "dur": 53.394286
  },
  {
   "title": "Schritt 5: Biegenachweis",
   "caps": [
-   "σ_m,d = M_Ed / W = *16,4 N/mm²*.",
-   "Ausnutzung η = 16,4 / 16,6 = *0,99*.",
-   "Kleiner als 1 – *erfüllt*, aber fast voll ausgenutzt."
+   "Spannung = *Moment ÷ Widerstandsmoment*.",
+   "12,6 · 10⁶ Nmm / 768 000 mm³ = *16,4 N/mm²*.",
+   "Ausnutzung *η = vorhanden ÷ aufnehmbar* = 16,4 / 16,6 = *0,99*.",
+   "*≤ 1* → erfüllt, aber *fast voll* ausgenutzt."
   ],
   "starts": [
-   0.081,
-   9.59,
-   17.45
+   0.058,
+   4.075,
+   10.646,
+   18.112
   ],
-  "dur": 23.719184
+  "dur": 23.013878
  },
  {
   "title": "Schritt 6: Schubnachweis",
   "caps": [
-   "Bei Vollholz mindern *Schwindrisse* die Breite: *k_cr = 0,5*.",
-   "Mit dem Faktor *1,5* fürs Rechteck: τ_d = *1,97 N/mm²*.",
-   "f_v,d = 2,77 N/mm² → η = *0,71* – auch erfüllt."
+   "Querkraft am Auflager: *V = q_d · l / 2*, mit q_d = 1,35 · 3 + 1,5 · 1,5 = *6,3 kN/m*.",
+   "V = 6,3 · 4 / 2 = *12,6 kN* – zufällig dieselbe Zahl wie M.",
+   "*Schwindrisse* verkleinern die wirksame Breite: *k_cr = 2,0 / f_v,k = 0,5*.",
+   "Faktor *1,5*: Schub ist *parabelförmig* verteilt, in der Mitte 1,5 × der Mittelwert.",
+   "τ = 1,5 · 12 600 / (0,5 · 80 · 240) = *1,97* ≤ f_v,d = 0,9 · 4,0 / 1,3 = *2,77* ✓"
   ],
   "starts": [
-   0.046,
-   9.218,
-   17.055
+   0.07,
+   14.396,
+   21.49,
+   32.101,
+   42.527
   ],
-  "dur": 25.730612
+  "dur": 53.577143
  },
  {
   "title": "Merke",
