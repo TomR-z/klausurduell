@@ -188,7 +188,7 @@ R.xvec=(D,tags)=>{ const n=D.b.length, ci=curIdx();
   let panel=L(1,D.div?"x = C′ · b / det":"x = A⁻¹ · b","ln q")+L(1,`${sp('Zeile','B')} mal ${sp('Spalte','O')}`,"ln small");
   if(muls.length) panel+=L(ap(muls[muls.length-1],.5,sd(muls[muls.length-1])*.6),`<span class="${D.div?'hl':'ok'}">(${D.y.join('; ')})</span>`);
   if(D.div) panel+=L(ap(kdv),`<span class="ok">x = (${D.div.x.join('; ')})</span>`);
-  if(probes.length) panel+=L(ap(probes[0]),"Probe: A · x muss b ergeben","ln small")+L(ap(probes[probes.length-1],.5,sd(probes[probes.length-1])*.6),`<span class="ok">A · x = b ✓</span>`);
+  if(probes.length) panel+=L(ap(probes[0]),`Probe: ${D.An||'A'} · x muss b ergeben`,"ln small")+L(ap(probes[probes.length-1],.5,sd(probes[probes.length-1])*.6),`<span class="ok">${D.An||'A'} · x = b ✓</span>`);
   return {box,panel}; };
 R.a3a=(D)=>{ const rc=[BLUE,ORA,ACC], rf=[FB(.16),FO(.16),FP(.16)], p0=ap(0,.6);
   let box=mat(110,30,D.M,{name:"A",cw:130,ch:76,fill:(i,j)=>p0>0?rf[i]:null,color:(i,j)=>p0>.5?rc[i]:'#0f172a'})
