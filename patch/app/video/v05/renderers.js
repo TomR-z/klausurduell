@@ -1,0 +1,281 @@
+/* ---------------- Renderer Bauko Übung 2 ---------------- */
+// Farbregel: orange = aus der Aufgabe · blau = aus einer Schneider-Tafel · lila = gerechnet · grün = Ergebnis
+const R={};
+const SUBX=/_([A-Za-zÄÖÜäöü0-9]+(?:,[A-Za-zÄÖÜäöü0-9]+)?)/g;
+const subT=str=>String(str).split(/(<[^>]*>)/).map(p=>p.startsWith('<')?p:p.replace(SUBX,'<tspan dy="0.28em" font-size="0.66em">$1</tspan><tspan dy="-0.28em">​</tspan>')).join('');
+const subH=str=>String(str).split(/(<[^>]*>)/).map(p=>p.startsWith('<')?p:p.replace(SUBX,'<sub>$1</sub>')).join('');
+const TX0=TX; TX=(x,y,str,o={})=>TX0(x,y,subT(str),o);
+const L0=L; L=(p,str,cls="ln")=>L0(p,subH(str),cls);
+const OR=ORA, BL=BLUE, PU=ACC;
+const tO=v=>tsp(v,OR), tB=v=>tsp(v,BL), tP=v=>tsp(v,PU), tG=v=>tsp(v,GRN), tR=v=>tsp(v,RED);
+const chip=(x,y,s,c=BL,p=1,fs=22)=>{ const w=s.length*fs*.56+26; return `<g style="${op(p)}"><rect x="${x}" y="${y-fs-4}" width="${w}" height="${fs+16}" rx="${(fs+16)/2}" fill="${c}" opacity=".13"/><text x="${x+13}" y="${y+3}" font-size="${fs}" font-weight="700" fill="${c}">${subT(s)}</text></g>`; };
+const ar=(x1,y1,x2,y2,c,w=4,p=1)=>`<path d="M${x1} ${y1}L${x2} ${y2}" stroke="${c}" stroke-width="${w}" marker-end="url(#ar)" style="${op(p)}"/>`;
+const ln=(x1,y1,x2,y2,c='#0f172a',w=3,extra='')=>`<path d="M${x1} ${y1}L${x2} ${y2}" stroke="${c}" stroke-width="${w}" fill="none" ${extra}/>`;
+const rc=(x,y,w,h,f,st='none',sw=0,rx=0,p=1)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}" fill="${f}" stroke="${st}" stroke-width="${sw}" style="${op(p)}"/>`;
+const dim=(x1,x2,y,s,p=1,c='#334155')=>`<g style="${op(p)}">${ln(x1,y,x2,y,c,2)}${ln(x1,y-9,x1,y+9,c,2)}${ln(x2,y-9,x2,y+9,c,2)}${TX((x1+x2)/2,y-10,s,{fs:22,w:700,c})}</g>`;
+const legend=()=>`<div class="ln small" style="font-size:22px;margin:0 0 14px">${sp('■ Aufgabe','O')} · ${sp('■ Tafel','B')} · ${sp('■ gerechnet','P')} · ${sp('■ Ergebnis','G')}</div>`;
+// Tabelle in SVG: cols = [[x, anchor]], rows = [[cells...]], sichtbar je Zeile
+function tab(x,y,W,head,rows,cols,o={}){ const rh=o.rh||52, fs=o.fs||27; let s=`<g>`;
+  s+=rc(x,y,W,rh,'#f1f0fb','#cbd5e1',2,8); head.forEach((h,j)=>{ s+=TX(x+cols[j][0],y+rh*.66,h,{fs:fs-3,a:cols[j][1]||'start',c:PU}); });
+  rows.forEach((r,i)=>{ const yy=y+rh*(i+1), p=o.vis?o.vis(i):1, hl=o.hl?o.hl(i):0;
+    s+=`<g style="${op(p)}">`+rc(x,yy,W,rh,hl?FP(.12*hl):'#fff','#e2e8f0',2,0)+r.map((c,j)=>TX(x+cols[j][0],yy+rh*.66,c,{fs,w:700,a:cols[j][1]||'start'})).join('')+`</g>`; });
+  return s+`</g>`; }
+
+R.intro=()=>{ const p1=ap(1), p2=ap(2);
+  let box=`<g style="${op(p1)}"><rect x="30" y="30" width="440" height="300" rx="26" fill="#fff" stroke="${OR}" stroke-width="4"/>${TX(250,85,"Beispiel 3",{fs:32,c:OR})}${TX(250,120,"Holzbalkendecke",{fs:26,w:700,c:'#475569'})}`
+   +rc(70,170,360,22,'#e2e8f0')+rc(70,196,360,14,'#cbd5e1')+[110,250,390].map(x=>rc(x-20,210,40,80,'#d6a76a','#92400e',2)).join('')+rc(70,290,360,10,'#e5e7eb')+`</g>`;
+  box+=`<g style="${op(ap(1,.5,1.2))}"><rect x="530" y="30" width="440" height="300" rx="26" fill="#fff" stroke="${BL}" stroke-width="4"/>${TX(750,85,"Beispiel 4",{fs:32,c:BL})}${TX(750,120,"Sparren Pfettendach",{fs:26,w:700,c:'#475569'})}`
+   +`<path d="M580 300L750 160L920 300" fill="none" stroke="#92400e" stroke-width="10" stroke-linejoin="round"/>${TX(750,150,"35°",{fs:22,c:'#64748b'})}</g>`;
+  box+=`<g style="${op(p2)}">`+chip(60,420,"Aufgabe",OR,1,30)+chip(320,420,"Schneider-Tafel",BL,1,30)+chip(680,420,"Rechnung",PU,1,30)+TX(500,500,"jede Zahl in der Farbe ihrer Quelle",{fs:30,w:700,c:'#334155'})+`</g>`;
+  box+=`<g style="${op(ap(3))}"><rect x="160" y="545" width="680" height="84" rx="42" fill="${ACC}"/>${TX(500,600,"Aufgabe immer oben sichtbar",{fs:34,c:'#fff'})}</g>`;
+  const panel=L(ap(0),"Lastannahmen II","ln q")+L(ap(0,.5,1),"Schicht → Fläche → Balken","ln small")+L(ap(1),"Beispiel 3 · Beispiel 4")+L(ap(2),`<span class="hl">Quelle jeder Zahl</span>`);
+  return {box,panel}; };
+R.plan=()=>{ const st=[["①","Schicht","γ · d","kN/m²",OR],["②","mal Einzugsbreite","Σ · e","kN/m",PU],["③","plus Balken","γ · b · h","kN/m",GRN]];
+  let box=st.map(([n,a,f,u,c],k)=>{ const kk=k===0?0:k===1?1:3, x=20+k*330; return `<g style="${op(ap(kk))}"><rect x="${x}" y="20" width="300" height="190" rx="24" fill="#fff" stroke="${c}" stroke-width="4"/>${TX(x+40,74,n,{fs:36,c})}${TX(x+72,72,a,{fs:22,w:700,a:'start',c:'#475569'})}${TX(x+150,140,f,{fs:44,c})}${TX(x+150,188,u,{fs:26,w:700,c:'#64748b'})}</g>`; }).join('');
+  // Draufsicht mit Streifen
+  const p=ap(1,.6); box+=`<g style="${op(p)}">${TX(500,270,"Draufsicht: jeder Balken trägt seinen Streifen",{fs:26,w:700,c:'#475569'})}`;
+  [170,380,590,800].forEach((x,i)=>{ if(i===1) box+=rc(x-105,295,210,250,FP(.18*p)); box+=rc(x-12,290,24,260,'#d6a76a','#92400e',2); });
+  box+=dim(275,485,580,"e",p,PU)+`</g>`;
+  box+=`<g style="${op(ap(2))}">${TX(500,628,`${tO('kN/m²')} · ${tO('m')} = ${tP('kN/m')}`,{fs:32})}</g>`;
+  const panel=L(1,"Rechenweg","ln q")+L(ap(0),"Flächenlast der Schichten","ln small")+L(ap(1),"Linienlast pro Balken","ln small")+L(ap(3),`<span class="ok">g pro Balken</span>`);
+  return {box,panel}; };
+R.stmt=(D)=>{ const p=ease(clamp((t-(S.dur-0.4))/1.0));
+  const html=D.html.replace(/\{\{K(\d+)\}\}(.*?)\{\{\/K\}\}/g,(m,n,x)=>`<span style="background:rgba(250,204,21,${(.5*ap(+n,.6)).toFixed(3)});border-radius:8px;padding:0 4px">${x}</span>`);
+  return {full:`<div id="bigwrap" style="opacity:${(1-p).toFixed(3)};transform:translateY(${(-40*p).toFixed(1)}px) scale(${(1-.25*p).toFixed(3)})">${html}</div>`, stripOp:p}; };
+
+/* Beispiel 3 – Querschnitt */
+function b3sec(o={}){ // o.hl: Name der Schicht, o.beam, o.blue, o.green
+  const X0=40, X1=700, b1=170, b2=590, bw=56, sc=7; let y=20, s="";
+  const lay=[["est",4,'#cbd5e1',"Trockenestrich"],["tsd",3,'#fde68a',"Trittschall"],["spa",2.4,'#e7c9a0',"Spanplatte"]];
+  const labs=[]; const LB=(yc,lab,on)=>labs.push([yc,lab,on]);
+  lay.forEach(([n,d,c,lab])=>{ const h=d*sc; s+=rc(X0,y,X1-X0,h,c,o.hl===n?PU:'#94a3b8',o.hl===n?4:1); LB(y+h/2,lab,o.hl===n); y+=h; });
+  const yb=y, hb=16*sc; // Balkenzone
+  s+=rc(X0,yb,X1-X0,hb,'#fff','#e2e8f0',1);
+  [b1,b2].forEach(x=>{ s+=rc(x-bw/2,yb,bw,hb,o.beam?FO(.35):'#e9c48f',o.beam?RED:'#92400e',o.beam?4:2);
+    [-1,1].forEach(sg=>{ const xs=sg<0?x-bw/2-35:x+bw/2; s+=rc(xs,yb,35,11*sc,o.blue?FB(.35):'#f5e6c8',o.blue?BL:'#d6b98a',o.blue?3:1); }); });
+  s+=rc(b1+bw/2,yb+11*sc,b2-b1-bw,5*sc,o.green?FG(.35):'#f5e6c8',o.green?GRN:'#d6b98a',o.green?3:1);
+  s+=rc(X0,yb+11*sc,b1-bw/2-X0,5*sc,'#f5e6c8','#d6b98a',1)+rc(b2+bw/2,yb+11*sc,X1-b2-bw/2,5*sc,'#f5e6c8','#d6b98a',1);
+  LB(yb+hb/2,"Balken + Faserdämmstoff",false);
+  y=yb+hb; [["aus",2.4,'#e7d3b5',"Ausgleichslattung"],["gk",1.5,'#e5e7eb',"Gipskarton"]].forEach(([n,d,c,lab])=>{ const h=Math.max(10,d*sc); s+=rc(X0,y,X1-X0,h,c,o.hl===n?PU:'#94a3b8',o.hl===n?4:1); LB(y+h/2,lab,o.hl===n); y+=h; });
+  let py=-99; labs.forEach(([yc,lab,on])=>{ const yy=Math.max(yc,py+30); py=yy; s+=ln(X1,yc,X1+14,yy,'#94a3b8',1.5)+TX(X1+18,yy+8,lab,{fs:22,a:'start',w:700,c:on?PU:'#64748b'}); });
+  s+=`<path d="M${b1} ${y+8}V${y+30}M${b2} ${y+8}V${y+30}" stroke="${OR}" stroke-width="2"/>`+dim(b1,b2,y+26,"e = 60 cm",1,OR)+dim(b1-bw/2,b1+bw/2,y+56,"8",1,OR);
+  return {s,y:y+60}; }
+R.b3lay=()=>{ const ci=curIdx(), names=["est","tsd","spa","aus","gk"]; const sec=b3sec({hl:ci>=0&&ci<5?names[ci]:null});
+  const rows=[["Trockenestrich",tB("0,22 /cm"),tO("4 cm"),tP("0,88")],["Trittschall-Dämmung",tB("0,01 /cm"),tO("3 cm"),tP("0,03")],["Spanplatte",tB("8 kN/m³"),tO("0,024 m"),tP("0,192")],["Ausgleichslattung",tB("geschätzt"),"–",tP("0,1")],["Gipskarton",tB("0,09 /cm"),tO("1,5 cm"),tP("0,135")]];
+  let box=sec.s.replace(/<g>/,'<g transform="translate(0,0) scale(1)">');
+  box=`<g transform="translate(0,-4) scale(.92)">${sec.s}</g>`;
+  box+=tab(40,272,920,["Schicht","Tafelwert","Dicke","g [kN/m²]"],rows,[[16],[380],[580],[900,'end']],{rh:46,fs:25,vis:i=>ap(i,.4),hl:i=>i===ci?1:0});
+  box+=`<g style="${op(ap(5))}">${TX(900,620,`Σ = ${tG('1,337 kN/m²')}`,{fs:34,a:'end'})}</g>`;
+  const panel=legend()+L(1,"g = γ · d","ln q")+L(1,"Tafel: pro cm Dicke → d in cm","ln small")+L(ap(2),"Tafel: kN/m³ → d in m","ln small")+L(ap(5),`<span class="ok">Σ = 1,337 kN/m²</span>`);
+  return {box,panel}; };
+R.b3bal=()=>{ const ci=curIdx(); const sec=b3sec({beam:ci===0,blue:ci===2,green:ci===3});
+  let box=`<g transform="translate(0,-4) scale(.92)">${sec.s}</g>`;
+  box+=`<g style="${op(ap(0))}">${TX(40,345,`${tR('Balken')}: ${tB('4,2 kN/m³')} · ${tO('0,16 m')} · ${tO('0,08 m')} = ${tP('0,054 kN/m')}`,{fs:31,a:'start'})}</g>`;
+  box+=`<g style="${op(ap(1))}">${TX(40,410,"Faserdämmstoff nur zwischen den Balken → einzeln:",{fs:27,a:'start',w:700,c:'#475569'})}</g>`;
+  box+=`<g style="${op(ap(2))}">${TX(40,470,`${tB('blau')}: 2 · ${tO('0,11 m')} · ${tO('5 cm')} · ${tB('0,01 /cm')} = ${tP('0,011 kN/m')}`,{fs:31,a:'start'})}</g>`;
+  box+=`<g style="${op(ap(3))}">${TX(40,535,`${tG('grün')}: (${tO('0,6')} − ${tO('0,08')}) m · ${tO('5 cm')} · ${tB('0,01 /cm')} = ${tP('0,026 kN/m')}`,{fs:31,a:'start'})}</g>`;
+  const panel=legend()+L(ap(0),`Balken: γ · h · b`,"ln q")+L(ap(0),"schon eine Linienlast (kN/m)","ln small")+L(ap(2),`${sp('2 Seitenstreifen','B')} je 11 cm hoch`,"ln small")+L(ap(3),`${sp('Bodenstreifen','G')} 60 − 8 = 52 cm breit`,"ln small");
+  return {box,panel}; };
+R.b3sum=()=>{ let box=`<g style="${op(ap(0))}">${TX(500,70,`g = ${tP('1,337')} · ${tO('0,6 m')} + ${tP('0,054')} + ${tP('0,011')} + ${tP('0,026')}`,{fs:38})}</g>`;
+  const items=[["Schichten · e = 1,337 · 0,6","0,802",PU],["Balken","0,054",RED],["Dämmung Seite (blau)","0,011",BL],["Dämmung unten (grün)","0,026",GRN]];
+  items.forEach(([n,v,c],k)=>{ const w=parseFloat(v.replace(',','.'))*520, y=125+k*58; box+=`<g style="${op(ap(1,.4,k*.9))}">`+TX(40,y+30,n,{fs:24,a:'start',w:700,c:'#475569'})+rc(400,y+6,w,34,c,'none',0,6,.85)+TX(400+w+12,y+32,v,{fs:28,a:'start',c})+`</g>`; });
+  box+=`<g style="${op(ap(1,.5,2))}">${TX(500,410,`0,802 + 0,054 + 0,011 + 0,026 = ${tP('0,893')}`,{fs:38})}</g>`;
+  box+=`<g style="${op(ap(2))}"><rect x="230" y="470" width="540" height="100" rx="50" fill="${GRN}"/>${TX(500,535,"g_k,Balken = 0,89 kN/m",{fs:42,c:'#fff'})}</g>`;
+  const panel=legend()+L(1,"pro Balken","ln q")+L(ap(0),"Flächenlast · 0,6 m Streifen","ln small")+L(ap(2),`<span class="ok">g = 0,89 kN/m</span>`);
+  return {box,panel}; };
+R.b3nutz=()=>{ const ci=curIdx();
+  const rows=[["A1","Spitzböden",tB("1,0"),tB("1,0")],["A2","Wohnräume, Decke mit ausreichender Querverteilung",tB("1,5"),"–"],["A3","wie A2, aber ohne ausreichende Querverteilung",tB("2,0"),tB("1,0")]];
+  let box=tab(20,20,960,["Kat.","Nutzung","q_k [kN/m²]","Q_k [kN]"],rows,[[14],[90],[790,'middle'],[920,'middle']],{fs:23,rh:52,vis:i=>ap(0,.5,i*.3),hl:i=>(ci===1&&i>0)?.6:(ci>=3&&i===2)?1.4:0});
+  box+=chip(20,272,"SBT 24 S. 3.20 · 27. Aufl. S. 3.19 f.",BL,ap(0),22);
+  const p2=ap(2,.6);
+  box+=`<g style="${op(p2)}">${TX(250,320,"Stahlbetonplatte",{fs:26,c:'#475569'})}<path d="M70 420L250 360L430 420L250 480Z" fill="#e2e8f0" stroke="#64748b" stroke-width="2"/><ellipse cx="250" cy="420" rx="120" ry="40" fill="${FB(.35)}"/>${ar(250,330,250,410,RED,5)}${TX(250,540,"verteilt quer – Nachbarn helfen",{fs:22,w:700,c:BL})}</g>`;
+  box+=`<g style="${op(ap(2,.6,1.2))}">${TX(750,320,"Holzbalkendecke",{fs:26,c:'#475569'})}<path d="M570 420L750 360L930 420L750 480Z" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>${[-60,0,60].map(d=>`<path d="M${630+d} ${450-d*.33+10}L${810+d} ${390-d*.33+10}" stroke="${d===0?RED:'#d6a76a'}" stroke-width="${d===0?14:10}" stroke-linecap="round"/>`).join('')}${ar(720,330,720,405,RED,5)}${TX(750,540,"nur der Balken darunter trägt",{fs:22,w:700,c:RED})}</g>`;
+  box+=`<g style="${op(ap(3))}">${TX(500,610,`→ ${tB('A3')}: q_k = ${tB('2,0 kN/m²')} · Q_k = ${tB('1,0 kN')}`,{fs:34})}</g>`;
+  const panel=legend()+L(ap(0),"Kategorie A: Wohnen","ln q")+L(ap(1),"A2 oder A3? → Querverteilung","ln small")+L(ap(3),`<span class="ok">A3: 2,0 kN/m² + 1,0 kN</span>`);
+  return {box,panel}; };
+R.b3q=()=>{ const rows=[["g ≤ 3 kN/m",tB("0,8")],["3 < g ≤ 5 kN/m",tB("1,2")]];
+  let box=tab(40,20,560,["Wandlast (Trennwand)","Δq [kN/m²]"],rows,[[16],[540,'end']],{fs:26,vis:()=>ap(0),hl:i=>i===1?ap(0,.6,1):0})+chip(640,90,"SBT 24 S. 3.19",BL,ap(0),24);
+  box+=`<g style="${op(ap(1))}">${TX(40,250,`q_k,ges = ${tB('2,0')} + ${tB('1,2')} = ${tP('3,2 kN/m²')}`,{fs:34,a:'start'})}${TX(40,310,`q_k,Balken = ${tP('3,2')} · ${tO('0,60 m')} = ${tG('1,92 kN/m')}`,{fs:34,a:'start'})}</g>`;
+  box+=`<g style="${op(ap(2))}"><rect x="30" y="360" width="940" height="230" rx="20" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>${TX(60,410,"Fußnote 2: für Bauteile darunter darf man 0,5 abziehen",{fs:26,a:'start',w:700,c:'#475569'})}${TX(60,470,`(${tB('2,0')} − ${tB('0,5')} + ${tB('1,2')}) · ${tO('0,6')} = ${tP('1,62 kN/m')}`,{fs:32,a:'start'})}${TX(60,540,"→ nur für Weiterleitung · der Balken selbst: 1,92",{fs:26,a:'start',w:700,c:OR})}</g>`;
+  const panel=legend()+L(ap(0),"Trennwandzuschlag","ln q")+L(ap(1),`<span class="ok">q = 1,92 kN/m</span>`)+L(ap(2),"Weiterleitung: 1,62 kN/m","ln small");
+  return {box,panel}; };
+R.b3res=()=>{ const sec=b3sec({}); let box=`<g transform="translate(0,-4) scale(.92)">${sec.s}</g>`;
+  box+=`<g style="${op(ap(0))}"><rect x="40" y="300" width="440" height="160" rx="24" fill="#fff" stroke="${RED}" stroke-width="4"/>${TX(260,360,"Eigengewicht",{fs:28,c:RED})}${TX(260,420,"g_k = 0,89 kN/m",{fs:38})}</g>`;
+  box+=`<g style="${op(ap(1))}"><rect x="520" y="300" width="440" height="160" rx="24" fill="#fff" stroke="${BL}" stroke-width="4"/>${TX(740,360,"Nutzlast",{fs:28,c:BL})}${TX(740,410,"q_k = 1,92 kN/m",{fs:36})}${TX(740,448,"+ Q_k = 1,0 kN",{fs:28,w:700,c:'#475569'})}</g>`;
+  return {box,panel:L(1,"Beispiel 3","ln q")+L(ap(1),`<span class="ok">pro Balken (60 cm)</span>`)}; };
+
+/* Beispiel 4 – Geometrie */
+function gable(x0,y0,sc,o={}){ // Grundriss 1,2+3,5+3,5+1,2 ; Neigung 35°
+  const T=Math.tan(35*Math.PI/180), X=m=>x0+m*sc, Y=h=>y0-h*sc; const hR=4.7*T;
+  let s=`<path d="M${X(0)} ${Y(0)}L${X(4.7)} ${Y(hR)}L${X(9.4)} ${Y(0)}" fill="none" stroke="#92400e" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/>`;
+  s+=`<path d="M${X(1.2)} ${Y(1.2*T)}V${Y(-1.2)}M${X(8.2)} ${Y(1.2*T)}V${Y(-1.2)}" stroke="#64748b" stroke-width="6"/>`+ln(X(1.2),Y(-1.2),X(8.2),Y(-1.2),'#94a3b8',4);
+  s+=rc(X(1.2)-12,Y(1.2*T)-2,24,22,'#475569')+rc(X(4.7)-12,Y(hR)+6,24,22,'#475569');
+  if(o.lab){ s+=TX(X(1.2)+14,Y(1.2*T)+46,"Fußpfette",{fs:20,a:'start',w:700,c:'#475569'})+TX(X(4.7)+22,Y(hR)+76,"Firstpfette",{fs:20,a:'start',w:700,c:'#475569'}); }
+  return {s,X,Y,T,hR}; }
+R.b4geo=()=>{ const g=gable(80,300,82,{lab:1}); let box=g.s;
+  box+=`<g style="${op(ap(0,.5,1))}">`+ar(g.X(0.6),g.Y(0.6*g.T)-60,g.X(0.6),g.Y(0.6*g.T)-14,OR,4)+TX(g.X(0.6),g.Y(0.6*g.T)-70,"Kragarm",{fs:20,c:OR})+`</g>`;
+  box+=dim(g.X(0),g.X(1.2),345,"1,20",ap(0),OR)+dim(g.X(1.2),g.X(4.7),345,"3,50",ap(0),OR)+dim(g.X(4.7),g.X(8.2),345,"3,50",ap(0),OR)+dim(g.X(8.2),g.X(9.4),345,"1,20",ap(0),OR);
+  box+=`<g style="${op(ap(1))}">${ln(g.X(4.7),g.Y(g.hR),g.X(4.7),g.Y(1.2*g.T),PU,2,'stroke-dasharray="6 5"')}${TX(g.X(4.7)-14,g.Y(1.5),tP('2,45'),{fs:24,a:'end'})}${ln(g.X(1.2)-26,g.Y(0),g.X(1.2)-26,g.Y(1.2*g.T),PU,2,'stroke-dasharray="6 5"')}${TX(g.X(1.2)-34,g.Y(0.2),tP('0,84'),{fs:24,a:'end'})}${TX(g.X(7.2),g.Y(3.0),"35°",{fs:26,c:OR})}</g>`;
+  // Draufsicht
+  const p=ap(2,.6); box+=`<g style="${op(p)}">${TX(420,445,"Draufsicht: Sparren alle 65 cm",{fs:24,w:700,c:'#475569'})}`;
+  for(let i=0;i<7;i++){ const y=470+i*24; if(i===3) box+=rc(80,y-12,770,24,FP(.25*p)); box+=rc(80,y-3,770,6,'#d6a76a'); }
+  box+=TX(870,550,tO("e = 65 cm"),{fs:24,a:'start'})+`</g>`;
+  const panel=legend()+L(ap(0),"System: Kragarm + Feld","ln q")+L(ap(1),"h = l · tan α","ln small")+L(ap(2),`<span class="hl">Einzugsbreite e = 0,65 m</span>`);
+  return {box,panel}; };
+function roofLayers(hl){  const LL=[["bds","Betondachstein",'#c2410c',30],["latt","Dach- + Konterlattung",'#e7c9a0',22],["usb","Unterspannbahn",'#1d4ed8',6],["wd","Wärmedämmung 20 cm + Sparren",'#fde68a',110],["ds","Dampfsperre",'#1d4ed8',6],["aus","Ausgleichslattung",'#e7c9a0',16],["gk","Gipskarton",'#e5e7eb',12]];
+  let y=14, s="", labs=[]; LL.forEach(([n,lab,c,h])=>{ const on=hl&&(hl===n||(Array.isArray(hl)&&hl.includes(n)));
+    s+=rc(40,y,520,h,c,on?PU:'#94a3b8',on?5:1,0,on||!hl?1:.55); if(n==='wd'){ [150,450].forEach(x=>{ s+=rc(x-25,y,50,h,'#e9c48f','#92400e',2); }); }
+    labs.push([y+h/2,lab,on]); y+=h+2; });
+  let py=-99; labs.forEach(([yc,lab,on])=>{ const yy=Math.max(yc,py+27); py=yy; s+=ln(562,yc,578,yy,'#94a3b8',1.5)+TX(584,yy+7,lab,{fs:21,a:'start',w:700,c:on?PU:'#64748b'}); });
+  return s; }
+R.b4lay=()=>{ const ci=curIdx(), names=["bds","usb","wd","ds","gk"];
+  let box=`<g>${roofLayers(ci>=0&&ci<5?names[ci]:null)}</g>`;
+  const rows=[["Betondachstein",tB("0,60"),"–",tP("0,60"),"3.13"],["Unterspannbahn",tB("0,02"),"–",tP("0,02"),"3.14"],["Wärmedämmung",tB("0,01 /cm"),tO("20 cm"),tP("0,20"),"3.12"],["Dampfsperre",tB("0,07"),"–",tP("0,07"),"3.14"],["Gipskarton",tB("0,09 /cm"),tO("1,5 cm"),tP("0,14"),"3.10"]];
+  box+=tab(40,240,920,["Schicht","Tafelwert","Dicke","g [kN/m²]","SBT 24"],rows,[[16],[350],[540],[760,'end'],[900,'end']],{rh:52,fs:25,vis:i=>ap(i,.4),hl:i=>i===ci?1:0});
+  const panel=legend()+L(1,"g = Tafelwert (· d)","ln q")+L(ap(2),"WD durchgängig = sichere Seite","ln small")+L(ap(4),"Lattung fehlt noch →","ln small");
+  return {box,panel}; };
+R.b4latt=()=>{ const ci=curIdx();
+  let box=`<g style="${op(ap(0))}"><path d="M80 200L300 120L380 150L160 230Z" fill="#e7c9a0" stroke="#92400e" stroke-width="3"/><path d="M160 230L160 262L380 182L380 150" fill="#d6a76a" stroke="#92400e" stroke-width="3"/>${TX(130,290,`${tO('b = 4,8')} · ${tO('h = 2,4')} cm`,{fs:24,a:'start'})}</g>`;
+  box+=`<g style="${op(ap(1))}">${TX(450,120,"eine Latte (pro Meter):",{fs:24,a:'start',w:700,c:'#475569'})}${TX(450,170,`${tB('4,2')} · ${tO('0,024')} · ${tO('0,048')} = ${tP('0,00484 kN/m')}`,{fs:30,a:'start'})}</g>`;
+  const p2=ap(2,.6); box+=`<g style="${op(p2)}">`; for(let i=0;i<4;i++){ box+=rc(90+i*200,360,40,22,'#d6a76a','#92400e',2); } box+=dim(110,310,345,"0,65 m",1,OR)+TX(500,440,`${tP('0,00484')} ÷ ${tO('0,65 m')} = ${tP('0,0074 kN/m²')}`,{fs:30})+`</g>`;
+  box+=`<g style="${op(ap(3))}">${TX(500,520,`3 Lagen: ${tP('0,0074')} · 3 = 0,022 ≈ ${tG('0,02 kN/m²')}`,{fs:34})}${TX(500,580,"Dachlattung · Konterlattung · Ausgleichslattung",{fs:24,w:700,c:'#475569'})}</g>`;
+  const panel=legend()+L(ap(0),"Linie → Fläche","ln q")+L(ap(1),"× Querschnitt","ln small")+L(ap(2),"÷ Abstand","ln small")+L(ap(3),`<span class="ok">g_Lattung = 0,02 kN/m²</span>`);
+  return {box,panel}; };
+R.b4sum=()=>{ let box=`<g style="${op(ap(0))}">${TX(500,60,`${tP('0,60')} + ${tP('0,02')} + ${tP('0,20')} + ${tP('0,07')} + ${tP('0,02')} + ${tP('0,14')} = ${tP('1,05 kN/m²')}`,{fs:32})}</g>`;
+  box+=`<g style="${op(ap(1))}"><rect x="90" y="120" width="120" height="200" rx="6" fill="#e9c48f" stroke="#92400e" stroke-width="3"/>${dim(90,210,350,"10",1,OR)}${TX(235,230,tO('20'),{fs:26,a:'start'})}${TX(320,230,`${tB('4,2')} · ${tO('0,10')} · ${tO('0,20')} = ${tP('0,084 kN/m')}`,{fs:32,a:'start'})}</g>`;
+  box+=`<g style="${op(ap(2))}">${TX(500,450,`g = ${tP('1,05')} · ${tO('0,65')} + ${tP('0,084')} = 0,683 + 0,084`,{fs:34})}<rect x="270" y="480" width="460" height="90" rx="45" fill="${GRN}"/>${TX(500,540,"g = 0,77 kN/m",{fs:40,c:'#fff'})}</g>`;
+  box+=`<g style="${op(ap(3))}">${TX(500,620,"pro Meter schräger Dachfläche (DFL)",{fs:26,w:700,c:RED})}</g>`;
+  const panel=legend()+L(1,"pro Sparren","ln q")+L(ap(3),`<span class="warn">Bezug: Dachfläche</span>`);
+  return {box,panel}; };
+R.b4sk=()=>{ const ci=curIdx();
+  const rows=[["1","0,19 + 0,91 · ((A+140)/760)²","≥ 0,65"],["1a","Zone 1 · 1,25","≥ 0,81"],["2","0,25 + 1,91 · ((A+140)/760)²","≥ 0,85"],["2a","Zone 2 · 1,25","≥ 1,06"],["3","0,31 + 2,91 · ((A+140)/760)²","≥ 1,10"]];
+  let box=tab(20,20,960,["Zone","s_k [kN/m²]","Mindestwert"],rows.map(r=>[r[0],tB(r[1]),tB(r[2])]),[[16],[120],[940,'end']],{rh:48,fs:25,vis:()=>ap(0),hl:i=>i===2&&ci>=0?1:0});
+  box+=chip(20,350,"Aachen → Zone 2 (Karte SBT 24 S. 3.53)",BL,ap(0),24);
+  box+=`<g style="${op(ap(2))}">${TX(40,410,`(${tO('200')} + 140) / 760 = 0,447   →   0,447² = 0,200`,{fs:30,a:'start'})}${TX(40,450,`0,25 + 1,91 · 0,200 = ${tP('0,63 kN/m²')}`,{fs:30,a:'start'})}</g>`;
+  box+=`<g style="${op(ap(3))}">${TX(40,520,`${tP('0,63')} < ${tB('0,85')} → Mindestwert gilt`,{fs:32,a:'start',c:RED})}<rect x="520" y="540" width="440" height="80" rx="40" fill="${GRN}"/>${TX(740,593,"s_k = 0,85 kN/m²",{fs:36,c:'#fff'})}</g>`;
+  const panel=legend()+L(1,"Schnee auf dem Boden","ln q")+L(ap(1),"A = Geländehöhe ü. NN","ln small")+L(ap(3),`<span class="warn">Mindestwert nicht vergessen!</span>`);
+  return {box,panel}; };
+R.b4s=()=>{ // μ-Diagramm
+  const x0=90,y0=300,sx=12,sy=280; const X=a=>x0+a*sx, Y=m=>y0-m*sy; let box=`<g style="${op(ap(0))}">`+ln(x0,y0,X(70),y0,'#0f172a',3)+ln(x0,y0,x0,Y(1),'#0f172a',3);
+  box+=`<path d="M${X(0)} ${Y(.8)}L${X(30)} ${Y(.8)}L${X(60)} ${Y(0)}L${X(70)} ${Y(0)}" fill="none" stroke="${BL}" stroke-width="5"/>`;
+  [0,30,60].forEach(a=>{ box+=TX(X(a),y0+30,a+"°",{fs:20,w:700,c:'#64748b'}); }); box+=TX(x0-12,Y(.8)+8,"0,8",{fs:20,a:'end',w:700,c:'#64748b'})+TX(x0-12,Y(0)+8,"0",{fs:20,a:'end',w:700,c:'#64748b'})+TX(X(70),y0-12,"α",{fs:24,c:'#64748b'})+TX(x0+10,Y(1)+10,"μ",{fs:24,a:'start',c:'#64748b'})+`</g>`;
+  const p=ap(1); box+=`<g style="${op(p)}">${ln(X(35),y0,X(35),Y(.667),OR,2,'stroke-dasharray="6 5"')}${ln(x0,Y(.667),X(35),Y(.667),PU,2,'stroke-dasharray="6 5"')}<circle cx="${X(35)}" cy="${Y(.667)}" r="10" fill="${PU}"/>${TX(X(35)+16,Y(.667)-14,tP('μ = 0,67'),{fs:28,a:'start'})}${TX(X(35),y0+30,tO('35°'),{fs:22})}</g>`;
+  box+=`<g style="${op(ap(1))}">${TX(980,110,`μ = 0,8 · (60 − ${tO('35')}) / 30`,{fs:30,a:'end'})}${TX(980,160,`= 0,8 · 25 / 30 = ${tP('0,67')}`,{fs:30,a:'end'})}</g>`;
+  box+=`<g style="${op(ap(2))}">${TX(40,420,`s = ${tP('0,67')} · ${tB('1,0')} · ${tB('1,0')} · ${tP('0,85')} = ${tP('0,57 kN/m²')}`,{fs:34,a:'start'})}</g>`;
+  box+=`<g style="${op(ap(3))}">${TX(40,500,`s₁ = ${tP('0,57')} · ${tO('0,65 m')} = ${tG('0,37 kN/m')}`,{fs:34,a:'start'})}${TX(40,560,"bezogen auf die Grundfläche (GFL)",{fs:26,a:'start',w:700,c:BL})}</g>`;
+  const panel=legend()+L(ap(0),"Formbeiwert μ (Satteldach)","ln q")+L(ap(0),"steiler → weniger Schnee","ln small")+L(ap(3),`<span class="ok">s = 0,37 kN/m (GFL)</span>`);
+  return {box,panel}; };
+R.b4se=()=>{ let box=`<g style="${op(ap(0))}"><path d="M120 120L420 330" stroke="#92400e" stroke-width="16" stroke-linecap="round"/><path d="M110 90L420 300L460 330L440 360L415 320L120 115Z" fill="#e0f2fe" stroke="#7dd3fc" stroke-width="3"/>${ar(445,345,445,400,BL,5)}${TX(470,390,"S_e",{fs:28,a:'start',c:BL})}${TX(130,420,"Traufe: Schnee hängt über",{fs:24,a:'start',w:700,c:'#475569'})}</g>`;
+  box+=`<g style="${op(ap(1))}">${TX(980,140,`S_e = ${tB('k')} · s² / ${tB('γ')}`,{fs:34,a:'end'})}${TX(980,200,`= ${tB('0,4')} · ${tP('0,57')}² / ${tB('3')} = ${tP('0,043 kN/m')}`,{fs:32,a:'end'})}${TX(980,250,"γ = Wichte Schnee 3 kN/m³",{fs:22,a:'end',w:700,c:BL})}</g>`;
+  box+=`<g style="${op(ap(2))}">${TX(500,520,`F_S = ${tP('0,043')} · ${tO('0,65 m')} = ${tG('0,03 kN')}`,{fs:38})}${TX(500,580,"Einzellast am Sparrenende",{fs:26,w:700,c:'#475569'})}</g>`;
+  const panel=legend()+L(ap(0),"Schneeüberhang","ln q")+L(ap(0),"SBT 24 S. 3.57","ln small")+L(ap(2),`<span class="ok">F_S = 0,03 kN</span>`);
+  return {box,panel}; };
+R.b4qp=()=>{ const rows=[["1 Binnenland",tB("0,50"),tB("0,65"),tB("0,75")],["2 Binnenland",tB("0,65"),tB("0,80"),tB("0,90")],["3 Binnenland",tB("0,80"),tB("0,95"),tB("1,10")]];
+  let box=`<g style="${op(ap(0))}">${TX(500,60,`w = ${tB('c_pe')} · ${tB('q_p')}`,{fs:44})}</g>`;
+  box+=tab(20,110,960,["Windzone","h ≤ 10 m","10 < h ≤ 18 m","18 < h ≤ 25 m"],rows,[[16],[460,'middle'],[650,'middle'],[860,'middle']],{rh:52,fs:26,vis:()=>ap(1),hl:i=>i===1?ap(2):0});
+  box+=`<g style="${op(ap(2))}"><rect x="${20+400}" y="${110+52*2+3}" width="120" height="46" rx="10" fill="none" stroke="${PU}" stroke-width="5"/></g>`+chip(20,360,"SBT 24 S. 3.31 · Aachen = Zone 2",BL,ap(1),24)+chip(520,360,"First 8 m ≤ 10 m",OR,ap(1),24);
+  box+=`<g style="${op(ap(2))}"><rect x="260" y="400" width="480" height="84" rx="42" fill="${GRN}"/>${TX(500,456,"q_p = 0,65 kN/m²",{fs:38,c:'#fff'})}</g>`;
+  box+=`<g style="${op(ap(3))}">${TX(500,570,`w = ${tB('c_pe')} · ${tB('0,65')} · ${tO('0,65 m')}`,{fs:38})}</g>`;
+  const panel=legend()+L(1,"Wind","ln q")+L(ap(1),"vereinfachte Werte bis 25 m","ln small")+L(ap(3),"es fehlt nur noch c_pe →","ln small");
+  return {box,panel}; };
+R.b4zon=()=>{ const ci=curIdx(), x0=100,y0=40,sx=80,sy=88; const X=m=>x0+m*sx, Y=m=>y0+m*sy;
+  let box=`<g style="${op(ap(0))}">`+rc(X(0),Y(0),9.4*sx,6*sy,'#fff','#0f172a',3)+ln(X(4.7),Y(0),X(4.7),Y(6),'#92400e',4,'stroke-dasharray="10 6"')+TX(X(4.7),Y(6)+34,"First",{fs:22,w:700,c:'#92400e'})+ar(20,Y(3),X(0)-12,Y(3),'#0f172a',5)+TX(30,Y(3)-16,"Wind",{fs:22,a:'start'})+dim(X(9.4)+40,X(9.4)+40,Y(0),"",0)+TX(X(9.4)+20,Y(3),tO('b = 6 m'),{fs:24,a:'start'})+`</g>`;
+  const zone=(x,y,w,h,lab,c,p)=>`<g style="${op(p)}">`+rc(X(x),Y(y),w*sx,h*sy,c,'#0f172a',2)+TX(X(x+w/2),Y(y+h/2)+12,lab,{fs:34})+`</g>`;
+  box+=zone(0,0,.6,1.5,"F",FB(.3),ap(1))+zone(0,4.5,.6,1.5,"F",FB(.3),ap(1))+zone(0,1.5,.6,3,"G",FB(.18),ap(1))+zone(.6,0,4.1,6,"H",FO(.14),ap(1,.5,1));
+  box+=zone(4.7,0,.6,6,"J",FP(.22),ap(2))+zone(5.3,0,4.1,6,"I",FP(.1),ap(2,.5,1));
+  box+=`<g style="${op(ap(1))}">${dim(X(0),X(.6),Y(6)+70,"0,6",1,PU)}</g><g style="${op(ap(2))}">${dim(X(4.7),X(5.3),Y(6)+70,"0,6",1,PU)}</g>`;
+  box+=`<g style="${op(ap(3))}">${ln(X(.8),Y(0),X(.8),Y(1.5),PU,3)}${TX(X(.9),Y(.75)+8,tP('e/4 = 1,5'),{fs:22,a:'start'})}</g>`;
+  const panel=legend()+L(ap(0),`e = min(${sp('6','O')}; 2·${sp('8','O')}) = ${sp('6 m','P')}`,"ln q")+L(ap(1),`${sp('Luv','B')}: F, G (e/10), H`,"ln small")+L(ap(2),`${sp('Lee','P')}: J (e/10), I`,"ln small")+L(ap(3),"F: e/4 breit an den Ecken","ln small");
+  return {box,panel}; };
+R.b4cpe=()=>{ const ci=curIdx(); const z=["F","G","H","I","J"], c30=["+0,7","+0,7","+0,4","−0,4","−0,5"], c45=["+0,7","+0,7","+0,6","−0,2","−0,3"], c35=["0,7","0,7","0,47","−0,33","−0,43"];
+  const show35=j=>j<2?ap(2):j===2?ap(3):ap(4);
+  let box=`<g style="${op(ap(0))}">`+rc(40,20,920,60,'#f1f0fb','#cbd5e1',2,8)+TX(130,60,"α",{fs:26,c:PU});
+  z.forEach((n,j)=>{ box+=TX(290+j*150,60,n,{fs:30,c:PU}); });
+  [["30°",c30,BL],["45°",c45,BL]].forEach(([a,v,c],i)=>{ const y=80+i*62; box+=rc(40,y,920,62,'#fff','#e2e8f0',2)+TX(130,y+42,a,{fs:28}); v.forEach((x,j)=>{ box+=TX(290+j*150,y+42,x,{fs:30,c}); }); });
+  box+=`</g>`+`<g style="${op(ap(0,.5,1))}">`+rc(40,204,920,66,FP(.12),PU,3)+TX(130,248,tO('35°'),{fs:30})+c35.map((x,j)=>`<g style="${op(show35(j))}">${TX(290+j*150,248,x,{fs:32,c:PU})}</g>`).join('')+`</g>`;
+  box+=chip(40,320,"SBT 24 S. 3.38 · Druckwerte",BL,ap(0),24);
+  box+=`<g style="${op(ap(1))}">${TX(500,390,`c(35°) = ${tB('c(30°)')} + ${tB('Δc')} / 15° · ${tO('5°')}`,{fs:34})}</g>`;
+  const lines=[[2,`F, G: 0,7 → 0,7  →  ${tP('0,7')}`],[3,`H: ${tB('0,4')} + (${tB('0,6')} − ${tB('0,4')}) / 15 · 5 = 0,4 + 0,067 = ${tP('0,47')}`],[4,`I: ${tB('−0,4')} + 0,2/15 · 5 = ${tP('−0,33')}   J: ${tB('−0,5')} + 0,2/15 · 5 = ${tP('−0,43')}`]];
+  const cl=lines.filter(([k])=>ci>=k).pop(); if(cl) box+=TX(500,460,cl[1],{fs:30,st:op(ap(cl[0]))});
+  box+=`<g style="${op(ap(5))}">${TX(250,560,"+ Druck",{fs:36,c:GRN})}${TX(750,560,"− Sog",{fs:36,c:RED})}${ar(250,580,250,628,GRN,5)}${ar(750,628,750,582,RED,5)}</g>`;
+  const panel=legend()+L(1,"c_pe interpolieren","ln q")+L(ap(1),"5 von 15 Grad = ein Drittel","ln small")+L(ap(5),"Übung: Druckfall für F, G, H","ln small");
+  return {box,panel}; };
+R.b4w=()=>{ const ci=curIdx(), g=gable(90,360,88,{}); let box=g.s;
+  const P=(m1,m2,side,v,c,p,lab)=>{ let s=`<g style="${op(p)}">`; const n=Math.max(2,Math.round((m2-m1)/0.5));
+    for(let i=0;i<=n;i++){ const m=m1+(m2-m1)*i/n, x=g.X(m), y=g.Y(side<0?m*g.T:(9.4-m)*g.T); const nx=side<0?-Math.sin(35*Math.PI/180):Math.sin(35*Math.PI/180), ny=-Math.cos(35*Math.PI/180); const L_=Math.abs(v)*230;
+      if(v>0) s+=ar(x+nx*(L_+14),y+ny*(L_+14),x+nx*14,y+ny*14,c,3); else s+=ar(x+nx*14,y+ny*14,x+nx*(L_+14),y+ny*(L_+14),c,3); }
+    const mm=(m1+m2)/2, xx=g.X(mm), yy=g.Y(side<0?mm*g.T:(9.4-mm)*g.T); s+=TX(xx+(side<0?-60:60),yy-Math.abs(v)*230-30,lab,{fs:24,c}); return s+`</g>`; };
+  box+=P(0,0.6,-1,.30,GRN,ap(1),"F/G 0,30")+P(0.6,4.7,-1,.20,GRN,ap(2),"H 0,20")+P(4.7,5.3,1,-.18,RED,ap(3,.5,1),"J −0,18")+P(5.3,9.4,1,-.14,RED,ap(3),"I −0,14");
+  box+=`<g style="${op(ap(0))}">${TX(500,450,`q_p · e = ${tB('0,65')} · ${tO('0,65 m')} = ${tP('0,4225 kN/m')}`,{fs:32})}</g>`;
+  const fl=[[1,`F/G: ${tP('0,7')} · 0,4225 = ${tG('0,30 kN/m')}`],[2,`H: ${tP('0,47')} · 0,4225 = ${tG('0,20 kN/m')}`],[3,`I: ${tP('−0,33')} · 0,4225 = ${tG('−0,14')} · J: ${tP('−0,43')} · 0,4225 = ${tG('−0,18')}`]];
+  const cl=fl.filter(([k])=>ci>=k).pop(); if(cl) box+=TX(500,520,cl[1],{fs:31,st:op(ap(cl[0]))});
+  const panel=legend()+L(1,"w = c_pe · q_p · e","ln q")+L(ap(1),`F/G ${sp('0,30','G')}`,"ln small")+L(ap(2),`H ${sp('0,20','G')}`,"ln small")+L(ap(3),`I ${sp('−0,14','R')} · J ${sp('−0,18','R')}`,"ln small")+L(ap(3),`${sp('grün','G')} Druck · ${sp('rot','R')} Sog`,"ln small");
+  return {box,panel}; };
+R.b4de=()=>{ const ci=curIdx(), g=gable(90,300,88,{}); let box=g.s;
+  box+=`<g style="${op(ap(0))}">`; for(let i=0;i<3;i++){ const m=0.2+i*0.4; box+=ar(g.X(m),g.Y(0)+110,g.X(m),g.Y(m*g.T)+12,GRN,4); const m2=9.2-i*0.4; box+=ar(g.X(m2),g.Y(m2>8.2?(9.4-m2)*g.T:0)+12,g.X(m2),g.Y(0)+110,RED,4); }
+  box+=TX(g.X(.6),g.Y(0)+140,"D von unten",{fs:22,c:GRN})+TX(g.X(8.6),g.Y(0)+128,"E zieht nach unten",{fs:22,a:'end',c:RED})+`</g>`;
+  const rows=[["≥ 5",tB("+0,8"),tB("−0,7")],["1",tB("+0,8"),tB("−0,5")],["≤ 0,25",tB("+0,7"),tB("−0,3")]];
+  box+=tab(560,470,420,["h/d","D","E"],rows,[[16],[240,'middle'],[360,'middle']],{rh:42,fs:25,vis:()=>ap(2),hl:i=>i===1?ap(3):0});
+  box+=`<g style="${op(ap(1))}">${TX(30,470,`${tO('b = 6')} < ${tO('h = 8')} ≤ 2b = 12 → z_e = h`,{fs:27,a:'start'})}</g>`;
+  box+=`<g style="${op(ap(2))}">${TX(30,525,`h/d = ${tO('8')} / ${tO('7')} = 1,14 ≈ ${tP('1')}`,{fs:27,a:'start'})}</g>`;
+  box+=`<g style="${op(ap(4))}">${TX(30,585,`w_D = ${tB('0,8')} · 0,4225 = ${tG('0,34 kN/m')}`,{fs:28,a:'start'})+TX(30,628,`w_E = ${tB('−0,5')} · 0,4225 = ${tG('−0,21 kN/m')}`,{fs:28,a:'start'})}</g>`;
+  const panel=legend()+L(1,"Überstand von unten","ln q")+L(ap(0),"Wert der Wand darunter","ln small")+L(ap(3),"Tafel: SBT 24 S. 3.35","ln small")+L(ap(4),`<span class="ok">w_D = 0,34 · w_E = −0,21</span>`);
+  return {box,panel}; };
+function beamSys(x0,y0,o={}){ // horizontal vereinfachtes System: Kragarm 1,2 + Feld 3,5
+  const sc=150, X=m=>x0+m*sc; let s=ln(X(0),y0,X(4.7),y0,'#92400e',10);
+  s+=`<path d="M${X(1.2)} ${y0+6}l-18 30h36z" fill="#475569"/><path d="M${X(4.7)} ${y0+6}l-18 30h36z" fill="#fff" stroke="#475569" stroke-width="3"/>`; return {s,X}; }
+R.b4Q=()=>{ const a=beamSys(140,170), b=beamSys(140,450); let box=`<g style="${op(ap(1))}">`+a.s+ar(a.X(2.95),60,a.X(2.95),158,RED,6)+TX(a.X(2.95)+20,90,"Q_k = 1 kN",{fs:26,a:'start',c:RED})+TX(a.X(2.95),260,"→ größtes Feldmoment",{fs:26,c:'#475569'})+`</g>`;
+  box+=`<g style="${op(ap(2))}">`+b.s+ar(b.X(0.02),340,b.X(0.02),438,RED,6)+TX(b.X(0)+20,370,"Q_k = 1 kN",{fs:26,a:'start',c:RED})+TX(b.X(2.4),540,"→ größtes Moment über der Fußpfette",{fs:26,c:'#475569'})+`</g>`;
+  box+=chip(20,40,"Kategorie H · SBT 24 S. 3.23",BL,ap(0),24);
+  const panel=legend()+L(ap(0),"Personenlast","ln q")+L(ap(0),"nicht begehbares Dach → H","ln small")+L(ap(0),`<span class="ok">Q_k = 1,0 kN</span>`)+L(ap(1),"immer ungünstigste Stelle","ln small");
+  return {box,panel}; };
+function slopeRafter(x0,y0,sc){ const T=Math.tan(35*Math.PI/180), X=m=>x0+m*sc, Y=m=>y0-m*T*sc; return {X,Y,T,s:ln(X(0),Y(0),X(4.7),Y(4.7),'#92400e',12)+`<path d="M${X(1.2)} ${Y(1.2)+8}l-16 28h32z" fill="#475569"/><path d="M${X(4.7)} ${Y(4.7)+8}l-16 28h32z" fill="#fff" stroke="#475569" stroke-width="3"/>`}; }
+R.b4bild=()=>{ const r=slopeRafter(120,560,160); let box=r.s;
+  const pg=ap(0), ps=ap(0,.5,1.2), pw=ap(0,.5,2.4);
+  let g=`<g style="${op(pg)}">`; for(let i=0;i<=9;i++){ const m=i*4.7/9; g+=ar(r.X(m)-30,r.Y(m)-68,r.X(m)-30,r.Y(m)-22,RED,3); } g+=`<path d="M${r.X(0)-30} ${r.Y(0)-68}L${r.X(4.7)-30} ${r.Y(4.7)-68}" stroke="${RED}" stroke-width="2"/>`+TX(r.X(1.3)-60,r.Y(1.3)-80,"g = 0,77 (DFL)",{fs:24,a:'end',c:RED})+`</g>`;
+  let s=`<g style="${op(ps)}">`+ln(r.X(0),r.Y(4.7)-110,r.X(4.7),r.Y(4.7)-110,BL,2); for(let i=0;i<=9;i++){ const x=r.X(i*4.7/9); s+=ar(x,r.Y(4.7)-110,x,r.Y(4.7)-70,BL,3); } s+=TX(r.X(2.35),r.Y(4.7)-124,"s = 0,37 (GFL)",{fs:24,c:BL})+`</g>`;
+  let w;
+  w=`<g style="${op(pw)}">`; const nX=-Math.sin(35*Math.PI/180), nY=-Math.cos(35*Math.PI/180);
+  for(let i=0;i<=6;i++){ const m=.4+i*.7, x=r.X(m), y=r.Y(m); w+=ar(x+nX*80, y+nY*80, x+nX*16, y+nY*16, GRN, 3); }
+  w+=TX(r.X(3.4)-40,r.Y(3.4)+70,"w ⟂ Dachfläche",{fs:24,c:GRN,a:'start'})+`</g>`;
+  box+=g+s+w+`<g style="${op(ap(0,.5,3))}">${ar(r.X(0),r.Y(0)+10,r.X(0),r.Y(0)+60,BL,4)}${TX(r.X(0)+14,r.Y(0)+60,"F_S = 0,03 kN",{fs:22,a:'start',c:BL})}</g>`;
+  box+=`<g style="${op(ap(3))}"><rect x="560" y="520" width="430" height="80" rx="40" fill="#f59e0b"/>${TX(775,572,"3 Bezugsflächen!",{fs:32,c:'#fff'})}</g>`;
+  const panel=legend()+L(ap(1),`${sp('g','R')}: senkrecht, je m Dachfläche`,"ln small")+L(ap(2),`${sp('s','B')}: senkrecht, je m Grundfläche`,"ln small")+L(ap(2),`${sp('w','G')}: ⟂ zur Dachfläche`,"ln small")+L(ap(3),`<span class="warn">erst umrechnen</span>`);
+  return {box,panel}; };
+function tri(x0,y0,l,o={}){ const T=Math.tan(35*Math.PI/180), h=l*T; let s=`<path d="M${x0} ${y0}L${x0+l} ${y0}L${x0+l} ${y0-h}Z" fill="${FP(.06)}" stroke="#0f172a" stroke-width="3"/>`;
+  s+=TX(x0+l/2,y0+36,o.l||"l",{fs:30,c:BL})+TX(x0+l/2-30,y0-h/2-14,o.lp||"l′",{fs:30,c:RED})+(o.h?TX(x0+l+16,y0-h/2+10,o.h,{fs:30,a:'start',c:GRN}):"")+TX(x0+62,y0-12,"α",{fs:26,c:OR}); return {s,h}; }
+R.b4gfl=()=>{ const tr=tri(80,330,360,{}); let box=`<g style="${op(ap(0))}">${tr.s}</g>`;
+  box+=`<g style="${op(ap(0,.5,1))}">${TX(980,120,`cos α = ${tB('l')} / ${tR('l′')}  →  ${tR('l′')} = ${tB('l')} / cos α`,{fs:32,a:'end'})}</g>`;
+  box+=`<g style="${op(ap(1))}">${TX(980,200,`g · ${tR('l′')} = g_GFL · ${tB('l')}`,{fs:34,a:'end'})}${TX(980,240,"gleiche Gesamtlast",{fs:22,a:'end',w:700,c:'#64748b'})}</g>`;
+  box+=`<g style="${op(ap(2))}">${TX(980,310,`g · ${tB('l')} / cos α = g_GFL · ${tB('l')}`,{fs:32,a:'end'})}${TX(980,370,`→ g_GFL = g / cos α`,{fs:36,a:'end',c:PU})}</g>`;
+  box+=`<g style="${op(ap(3))}">${TX(500,480,`g_GFL = ${tP('0,77')} / cos ${tO('35°')} = 0,77 / 0,819`,{fs:36})}<rect x="290" y="510" width="420" height="86" rx="43" fill="${GRN}"/>${TX(500,568,"g′ = 0,94 kN/m",{fs:38,c:'#fff'})}</g>`;
+  const panel=legend()+L(1,"DFL → GFL","ln q")+L(ap(0),"Dachfläche länger als Grundriss","ln small")+L(ap(3),`<span class="ok">g′ = g / cos α = 0,94</span>`);
+  return {box,panel}; };
+R.b4wfl=()=>{ const tr=tri(80,360,360,{h:"h"}); let box=`<g style="${op(ap(0))}">${tr.s}${ar(220,170,300,284,GRN,6)}${TX(200,160,"R = w · l′",{fs:28,c:GRN})}</g>`;
+  box+=`<g style="${op(ap(1))}">${ar(300,190,300,284,BL,4)}${TX(312,230,"V",{fs:26,a:'start',c:BL})}${TX(980,110,`V = R · cos α = w · ${tR('l′')} · cos α`,{fs:30,a:'end'})}${TX(980,155,`= w · ${tB('l')}  →  ${tP('w_GFL = w')}`,{fs:32,a:'end'})}</g>`;
+  box+=`<g style="${op(ap(2))}">${ar(210,284,296,284,OR,4)}${TX(250,310,"H",{fs:26,c:OR})}${TX(980,240,`H = R · sin α = w · ${tR('l′')} · sin α`,{fs:30,a:'end'})}${TX(980,285,`= w · ${tG('h')}  →  ${tP('w_AFL = w')}`,{fs:32,a:'end'})}</g>`;
+  box+=`<g style="${op(ap(3))}"><rect x="60" y="440" width="880" height="150" rx="24" fill="#fff" stroke="${PU}" stroke-width="3"/>${TX(500,500,"Wind: Zahl bleibt – senkrecht auf GFL + waagerecht auf AFL",{fs:30,c:GRN})}${TX(500,555,"Schnee: schon GFL → bleibt 0,37",{fs:30,c:BL})}</g>`;
+  const panel=legend()+L(1,"Wind zerlegen","ln q")+L(ap(1),"l′ · cos α = l","ln small")+L(ap(2),"l′ · sin α = h","ln small")+L(ap(3),`<span class="ok">w bleibt gleich</span>`);
+  return {box,panel}; };
+R.b4alt=()=>{ const ci=curIdx(), g=gable(40,640,98,{}); let box=g.s; const yb=(k)=>20+k*52;
+  const band=(m1,m2,y,lab,c,p,up)=>`<g style="${op(p)}">`+rc(g.X(m1),y,(m2-m1)*98,34,c,'#0f172a',1.5,4,.9)+TX(g.X((m1+m2)/2),y+25,lab,{fs:(m2-m1)<1?16:20,w:800,c:'#0f172a'})+(up===undefined?"":TX(g.X((m1+m2)/2),y-6,up?"↑":"↓",{fs:22,c:up?GRN:RED}))+`</g>`;
+  box+=band(0,4.7,yb(0),"s = 0,37",'#dbeafe',ap(0))+band(4.7,9.4,yb(0),"s = 0,37",'#dbeafe',ap(0))+band(0,4.7,yb(1),"g′ = 0,94",'#fee2e2',ap(0))+band(4.7,9.4,yb(1),"g′ = 0,94",'#fee2e2',ap(0));
+  const hiF=ci===2, hiH=ci===3, hiL=ci===4;
+  box+=band(0,.6,yb(2)+10,"0,04",hiF?'#bbf7d0':'#dcfce7',ap(2),true)+band(.6,1.2,yb(2)+10,"0,14",hiH?'#bbf7d0':'#dcfce7',ap(3),true)+band(1.2,4.7,yb(2)+10,"H 0,20",'#dcfce7',ap(0,.5,1),false)+band(4.7,5.3,yb(2)+10,"J",'#fecaca',ap(0,.5,1),true)+band(5.3,8.2,yb(2)+10,"I 0,14",'#fecaca',ap(0,.5,1),true)+band(8.2,9.4,yb(2)+10,"0,07",hiL?'#fca5a5':'#fecaca',ap(4),false);
+  box+=`<g style="${op(ap(1))}">${dim(g.X(0),g.X(1.2),230,"Überstand 1,2",1,OR)}${dim(g.X(8.2),g.X(9.4),230,"1,2",1,OR)}</g>`;
+  const fl=[[2,`F: ${tG('w_D 0,34 ↑')} − ${tR('w_F 0,30 ↓')} = ${tP('0,04 ↑')}`],[3,`H: ${tG('0,34 ↑')} − ${tR('0,20 ↓')} = ${tP('0,14 ↑')}`],[4,`Lee: ${tR('w_E 0,21 ↓')} − ${tG('w_I 0,14 ↑')} = ${tP('0,07 ↓')}`]];
+  const cl=fl.filter(([k])=>ci>=k).pop(); if(cl) box+=TX(500,290,cl[1],{fs:32,st:op(ap(cl[0]))});
+  const panel=legend()+L(1,"alles auf die Grundfläche","ln q")+L(ap(1),"Überstand: oben + unten","ln small")+L(ap(2),"Luv F: 0,04 ↑","ln small")+L(ap(3),"Luv H: 0,14 ↑","ln small")+L(ap(4),"Lee: 0,07 ↓","ln small");
+  return {box,panel}; };
+R.sich=()=>{ const bx=(x,y,w,s,c,p)=>`<g style="${op(p)}"><rect x="${x}" y="${y}" width="${w}" height="74" rx="14" fill="#fff" stroke="${c}" stroke-width="3"/>${TX(x+w/2,y+48,s,{fs:26,c})}</g>`;
+  let box=bx(20,20,300,"F_k (Lasten)",OR,ap(0))+ar(170,96,170,140,'#94a3b8',4,ap(0))+bx(20,140,300,"E_k (Schnittgröße)",OR,ap(0,.5,1))+ar(170,216,170,260,'#94a3b8',4,ap(1))+bx(20,260,300,"E_d = γ_F · E_k",PU,ap(1));
+  box+=bx(680,140,300,"R_k (Widerstand)",BL,ap(2))+ar(830,216,830,260,'#94a3b8',4,ap(2))+bx(680,260,300,"R_d = R_k / γ_M",BL,ap(2))+`<g style="${op(ap(2,.5,1))}"><rect x="400" y="260" width="200" height="74" rx="14" fill="${GRN}"/>${TX(500,308,"E_d ≤ R_d",{fs:30,c:'#fff'})}</g>`;
+  box+=`<g style="${op(ap(1,.5,1.5))}">${TX(170,370,"Folie: γ_M – gemeint γ_F",{fs:22,c:RED})}</g>`;
+  box+=`<g style="${op(ap(3))}"><rect x="20" y="410" width="470" height="150" rx="20" fill="#fff" stroke="${RED}" stroke-width="3"/>${TX(255,460,"GZT – Tragfähigkeit",{fs:28,c:RED})}${TX(255,510,"Bruch → Menschen gefährdet",{fs:24,w:700,c:'#475569'})}<rect x="510" y="410" width="470" height="150" rx="20" fill="#fff" stroke="${BL}" stroke-width="3"/>${TX(745,460,"GZG – Gebrauch",{fs:28,c:BL})}${TX(745,510,"Durchbiegung, Schwingung",{fs:24,w:700,c:'#475569'})}</g>`;
+  box+=`<g style="${op(ap(4))}">${TX(500,615,"→ Übung 3: Lastkombination und Bemessung dieses Sparrens",{fs:26,c:PU})}</g>`;
+  return {box,panel:L(1,"Sicherheitskonzept","ln q")+L(ap(2),"Einwirkung größer, Widerstand kleiner","ln small")+L(ap(4),`<span class="hl">weiter in Übung 3</span>`)}; };
+R.merke=()=>{ const it=["Schicht γ·d → Σ → · e → + Balken γ·b·h","Nutzlast: Kategorie · Querverteilung A2/A3","Schnee: s_k (Mindestwert) · μ · e – Grundfläche","Wind: q_p · c_pe (interpolieren) · e – ⟂ Fläche","Umrechnen: g/cos α · Wind und Schnee bleiben"];
+  const box=it.map((s,i)=>`<g style="${op(ap(i,.5))}"><rect x="20" y="${10+i*124}" width="960" height="104" rx="24" fill="#fff" stroke="${i===0?ACC:'#cbd5e1'}" stroke-width="4"/><circle cx="80" cy="${62+i*124}" r="32" fill="${ACC}"/>${TX(80,74+i*124,i+1,{fs:34,c:'#fff'})}${TX(132,73+i*124,s,{fs:29,a:'start',w:700})}</g>`).join('');
+  return {box,panel:L(ap(0),"Merke","ln q")}; };
+R.end=()=>({full:`<div class="center" style="top:300px"><div style="font-size:76px;font-weight:800;${op(ap(0))}">Jetzt du</div><div style="font-size:38px;color:#334155;margin-top:30px;font-weight:550;${op(ap(0,.5,.6))}">Hausübung 1 – Dachtragwerk · Dynexite bis Mo 09.11., 23:59</div><div style="${op(ap(0,.5,1.2))}"><span class="pill">gleicher Rechenweg wie Beispiel 4</span></div></div>`});
+
