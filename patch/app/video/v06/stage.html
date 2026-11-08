@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8">
+<style>
+  html,body{margin:0;overflow:hidden;background:#14112b;font-family:Inter,sans-serif;width:1920px;height:1080px}
+  #stage{position:absolute;inset:0}
+  #view{position:absolute;left:160px;top:12px;width:1600px;height:900px;background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.45)}
+  .side{position:absolute;left:0;width:150px;text-align:center;color:#c4b5fd;font-weight:800}
+  #cap{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);max-width:1560px;font-size:31px;padding:12px 30px;text-align:center;background:rgba(48,32,110,.96);color:#fff;font-weight:600;line-height:1.35;border-radius:18px;box-shadow:0 6px 20px rgba(0,0,0,.35)}
+  #cap em{font-style:normal;color:#fde68a;font-weight:800}
+  .card{position:absolute;background:#fff;border:3px solid #5b3fb3;border-radius:20px;padding:16px 24px;font-size:30px;line-height:1.4;font-weight:600;color:#0f172a;box-shadow:0 12px 34px rgba(30,20,80,.28)}
+  .card b{color:#5b3fb3}
+  .card .k{font-size:22px;font-weight:800;letter-spacing:.08em;color:#5b3fb3;text-transform:uppercase;margin-bottom:6px}
+  .card.warn{border-color:#dc2626}.card.warn .k{color:#dc2626}
+  .card.ok{border-color:#16a34a}.card.ok .k{color:#16a34a}
+  .card .B{color:#2563eb;font-weight:800}.card .R{color:#dc2626;font-weight:800}.card .G{color:#16a34a;font-weight:800}.card .O{color:#ea580c;font-weight:800}.card .P{color:#5b3fb3;font-weight:800}
+  .card table{border-collapse:collapse;font-size:26px}.card td,.card th{border:2px solid #e2e8f0;padding:4px 14px;text-align:center}
+  .card sub{font-size:.65em}.card sup{font-size:.65em}
+</style></head><body><div id="stage"></div>
+<script src="spec.js"></script>
+<script>
+const T0=window.TIMING, SP0=window.SPEC;
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const ease=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;
+const lerp=(a,b,p)=>a+(b-a)*p;
+const COL={y:'rgba(250,204,21,.45)',b:'#2563eb',r:'#dc2626',g:'#16a34a',p:'#5b3fb3',o:'#ea580c',k:'#0f172a'};
+const MK={y:'rgba(250,204,21,.48)',b:'rgba(37,99,235,.22)',r:'rgba(220,38,38,.22)',g:'rgba(22,163,74,.24)',p:'rgba(91,63,179,.22)',o:'rgba(234,88,12,.25)'};
+let S,t,SP;
+function sd(k){ return (k+1<S.starts.length?S.starts[k+1]:S.dur)-S.starts[k]; }
+function curIdx(){ let ci=-1; S.starts.forEach((s,j)=>{ if(t>=s) ci=j; }); return ci; }
+const FN={ x:t=>t*t*t-9*t*t+24*t, v:t=>3*t*t-18*t+24, a:t=>6*t-18,
+  wx:(t,o)=>o.v0*Math.cos(o.phi)*t, wy:(t,o)=>o.v0*Math.sin(o.phi)*t-4.905*t*t };
+// Graph-Kalibrierung: o.g=[x0,sx,y0,sy] : px = x0+sx*t ; py = y0 - sy*f
+const G=(o,tt,f)=>[o.g[0]+o.g[1]*tt, o.g[2]-o.g[3]*f];
+const ANIM={
+  pt(o,p){ const tt=lerp(o.t1,o.t2,ease(p)), f=FN[o.f](tt), [x,y]=G(o,tt,f); const [ax,ay]=G(o,o.ta??0,o.fa??0);
+    let s=`<path d="M${x} ${y}V${o.axisY}M${x} ${y}H${o.axisX}" stroke="${COL[o.c||'r']}" stroke-width="1.2" stroke-dasharray="4 3" fill="none"/>`;
+    s+=`<circle cx="${x}" cy="${y}" r="5" fill="${COL[o.c||'r']}"/>`;
+    if(o.lab!==false) s+=lbl(x>(o.lend||9999)?x-8:x+8,y-10,`t = ${tt.toFixed(1).replace('.',',')} s · ${o.sym||'x'} = ${f.toFixed(o.dec??0).replace('.',',').replace('-','−')} ${o.unit||'m'}`,o.c||'r',13,x>(o.lend||9999)?'end':'start');
+    return s; },
+  sec(o,p){ const h=lerp(o.h1,o.h2,ease(p)); const ta=o.t0, tb=o.t0+h, fa=FN[o.f](ta), fb=FN[o.f](tb), m=(fb-fa)/h;
+    const [x1,y1]=G(o,ta-o.ext,fa-m*o.ext), [x2,y2]=G(o,tb+o.ext,fb+m*o.ext), [pa,qa]=G(o,ta,fa), [pb,qb]=G(o,tb,fb);
+    let s=`<path d="M${x1} ${y1}L${x2} ${y2}" stroke="${COL[o.c||'p']}" stroke-width="2.4"/><circle cx="${pa}" cy="${qa}" r="4.5" fill="${COL.r}"/><circle cx="${pb}" cy="${qb}" r="4.5" fill="${COL[o.c||'p']}"/>`;
+    s+=lbl(o.lx,o.ly,`Δt = ${h.toFixed(2).replace('.',',')} s  →  Steigung ${m.toFixed(1).replace('.',',')} m/s`,o.c||'p',14,'start'); return s; },
+  nline(o,p){ const q=ease(p), x=lerp(o.xa,o.xb,q); return `<path d="M${o.xa} ${o.y}L${x} ${o.y}" stroke="${COL.r}" stroke-width="3.5"/><circle cx="${x}" cy="${o.y}" r="7" fill="${COL.b}"/>`; },
+  ring(o,p){ const r=o.r*(.6+.4*ease(p)); return `<ellipse cx="${o.x}" cy="${o.y}" rx="${r*(o.ex||1)}" ry="${r}" fill="none" stroke="${COL[o.c||'r']}" stroke-width="3" opacity="${p}"/>`; },
+  wurf(o,p){ // Wurfparabel auf Folien-Diagramm
+    const T=2*o.v0*Math.sin(o.phi)/9.81, tt=T*ease(p); let d=""; for(let i=0;i<=40;i++){ const s=tt*i/40, X=o.g[0]+o.g[1]*FN.wx(s,o), Y=o.g[2]-o.g[3]*FN.wy(s,o); d+=(i?"L":"M")+X+" "+Y; }
+    const X=o.g[0]+o.g[1]*FN.wx(tt,o), Y=o.g[2]-o.g[3]*FN.wy(tt,o), vx=o.v0*Math.cos(o.phi), vy=o.v0*Math.sin(o.phi)-9.81*tt, k=o.vk||6;
+    return `<path d="${d}" fill="none" stroke="${COL.o}" stroke-width="2.5"/><circle cx="${X}" cy="${Y}" r="6" fill="${COL.o}"/>`+arrow(X,Y,X+vx*k,Y,'g',1)+arrow(X,Y,X,Y-vy*k,'b',1)+lbl(X+8,Y-14,`v<tspan font-size="9" dy="3">x</tspan><tspan dy="-3"> bleibt · v</tspan><tspan font-size="9" dy="3">y</tspan><tspan dy="-3"> = ${vy.toFixed(1).replace('.',',').replace('-','−')} m/s</tspan>`,'k',12,'start'); },
+  kreis(o,p){ // Teilchen auf Kreis mit Geschwindigkeit (tangential) und Beschleunigung (radial)
+    const ph=o.p0+ (o.p1-o.p0)*p, X=o.x+o.r*Math.cos(ph), Y=o.y-o.r*Math.sin(ph), tx=-Math.sin(ph), ty=-Math.cos(ph);
+    return `<circle cx="${X}" cy="${Y}" r="6" fill="${COL.r}"/>`+arrow(X,Y,X+tx*o.vl,Y+ty*o.vl,'r',1)+arrow(X,Y,X+(o.x-X)*o.al,Y+(o.y-Y)*o.al,'g',1); },
+};
+function lbl(x,y,s,c,fs=14,a='middle'){ return `<g><text x="${x}" y="${y}" font-size="${fs}" font-weight="800" text-anchor="${a}" fill="#fff" stroke="#fff" stroke-width="5" stroke-linejoin="round">${s}</text><text x="${x}" y="${y}" font-size="${fs}" font-weight="800" text-anchor="${a}" fill="${COL[c]||c}">${s}</text></g>`; }
+function arrow(x1,y1,x2,y2,c,p){ const X=lerp(x1,x2,p), Y=lerp(y1,y2,p), a=Math.atan2(Y-y1,X-x1), L=Math.hypot(X-x1,Y-y1), h=Math.min(10,L*.4);
+  return `<path d="M${x1} ${y1}L${X} ${Y}" stroke="${COL[c]}" stroke-width="3" stroke-linecap="round"/><path d="M${X} ${Y}L${X-h*Math.cos(a-.45)} ${Y-h*Math.sin(a-.45)}M${X} ${Y}L${X-h*Math.cos(a+.45)} ${Y-h*Math.sin(a+.45)}" stroke="${COL[c]}" stroke-width="3" stroke-linecap="round"/>`; }
+function drawAct(a,p,fade){ const c=a.c||'y'; let s="";
+  if(a.t==='hl'){ const [x,y,w,h]=a.r; s=`<rect x="${x}" y="${y}" width="${w*ease(p)}" height="${h}" rx="3" fill="${MK[c]}"/>`; }
+  else if(a.t==='box'){ const [x,y,w,h]=a.r, L=2*(w+h); s=`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="6" fill="none" stroke="${COL[c]}" stroke-width="${a.sw||2.6}" stroke-dasharray="${L}" stroke-dashoffset="${L*(1-ease(p))}"/>`; }
+  else if(a.t==='ul'){ const [x,y,w,h]=a.r; s=`<path d="M${x} ${y+h-1}L${x+w*ease(p)} ${y+h-1}" stroke="${COL[c]}" stroke-width="3" stroke-linecap="round"/>`; }
+  else if(a.t==='x'){ const [x,y,w,h]=a.r; s=`<path d="M${x} ${y+h/2}L${x+w*ease(p)} ${y+h/2}" stroke="${COL.r}" stroke-width="2.6"/>`; }
+  else if(a.t==='arr'){ const [x1,y1,x2,y2]=a.p; s=arrow(x1,y1,x2,y2,c,ease(p)); }
+  else if(a.t==='note'){ s=`<g opacity="${ease(p)}">${lbl(a.x,a.y,a.s,c,a.fs||15,a.a||'middle')}</g>`; }
+  else if(a.t==='anim'){ s=ANIM[a.n](a,p); }
+  return fade<1?`<g opacity="${fade}">${s}</g>`:s; }
+function camOf(r){ const s=Math.max(1,Math.min(960/r[2],540/r[3])); const tx=Math.min(0,Math.max(960-960*s,480-s*(r[0]+r[2]/2))); const ty=Math.min(0,Math.max(540-540*s,270-s*(r[1]+r[3]/2))); return [s,tx,ty]; }
+function frame(){ const ci=curIdx(); let acts=[], cards=[], cams=[[0,[0,0,960,540]]];
+  SP.sents.forEach((sn,k)=>{ (sn||[]).forEach(a=>{ const st=S.starts[k]+(a.at||0)*sd(k); if(t<st) return; const p=clamp((t-st)/(a.dur||0.7));
+      if(a.t==='cam') cams.push([st,a.r]); else if(a.t==='clear'){ acts.forEach(x=>{ if(x.end===undefined) x.end=st; }); cards.forEach(x=>{ if(x.end===undefined&&(a.cards!==false)) x.end=st; }); }
+      else if(a.t==='card') cards.push({a,st,p}); else acts.push({a,st,p}); }); });
+  // Kamera
+  let cam; { const L=cams[cams.length-1], P=cams.length>1?cams[cams.length-2]:L; const q=ease(clamp((t-L[0])/0.9)); const A=camOf(P[1]), B=camOf(L[1]); cam=[lerp(A[0],B[0],q),lerp(A[1],B[1],q),lerp(A[2],B[2],q)]; }
+  let svg=`<image href="${SP.img}" x="0" y="0" width="960" height="540" preserveAspectRatio="none"/>`;
+  acts.forEach(x=>{ const f=x.end===undefined?1:1-clamp((t-x.end)/.4); if(f<=0) return; svg+=drawAct(x.a,x.p,f); });
+  const capT=ci>=0?S.caps[ci].replace(/\*(.+?)\*/g,"<em>$1</em>").replace(/_\{([^}]*)\}/g,"<sub>$1</sub>").replace(/_([A-Za-z0-9]+)/g,"<sub>$1</sub>").replace(/\^\{([^}]*)\}/g,"<sup>$1</sup>"):"";
+  let cardH=""; cards.forEach(x=>{ const f=x.end===undefined?1:1-clamp((t-x.end)/.4); if(f<=0) return; const a=x.a, q=ease(x.p)*f;
+    cardH+=`<div class="card ${a.cls||''}" style="left:${a.x}px;top:${a.y}px;width:${a.w}px;opacity:${q.toFixed(3)};transform:translateY(${(12*(1-ease(x.p))).toFixed(1)}px)">${a.html}</div>`; });
+  document.getElementById("stage").innerHTML=`<div class="side" style="top:28px;font-size:20px;line-height:1.3">${SP.label}</div><div class="side" style="top:120px;font-size:30px;color:#fff">${S.i+1-SP.first}<span style="font-size:18px;color:#a78bfa"> / ${SP.count}</span></div>`
+   +`<div id="view"><svg width="1600" height="900" viewBox="0 0 960 540"><g transform="translate(${cam[1].toFixed(2)},${cam[2].toFixed(2)}) scale(${cam[0].toFixed(4)})">${svg}</g></svg></div>${cardH}`+(capT?`<div id="cap">${capT}</div>`:"");
+}
+window.show=(i,time)=>{ S=Object.assign({i},T0[i]); SP=SP0[i]; t=time; frame(); };
+</script></body></html>

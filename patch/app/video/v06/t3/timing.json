@@ -1,0 +1,344 @@
+[
+ {
+  "title": "Inhalt",
+  "caps": [
+   "Teil 3: *Vorlesung 3* – Bewegung in *zwei und drei Dimensionen*",
+   "Fahrplan: 3D-Grundlagen → *Wurf* → *Kreisbewegung* → *Bezugssysteme*"
+  ],
+  "starts": [
+   0.046,
+   10.879
+  ],
+  "dur": 23.719184
+ },
+ {
+  "title": "Verschiebung in drei Dimensionen",
+  "caps": [
+   "Im Raum: *drei Koordinaten* x, y, z → Ortsvektor *r*",
+   "Spitze von r über die Zeit = *Bahnkurve*",
+   "Später: neuer Ortsvektor r_2 → Verschiebung *Δr = r_2 − r_1*",
+   "Komponentenweise: *Δx, Δy, Δz* – jede Achse für sich",
+   "Beispiel: r_1 = (1; 2; 0) m, r_2 = (4; 6; 0) m → *Δr = (3; 4; 0) m*, Betrag *5 m*"
+  ],
+  "starts": [
+   0.023,
+   13.003,
+   20.898,
+   33.123,
+   45.0
+  ],
+  "dur": 59.611429
+ },
+ {
+  "title": "3D = drei 1D-Bewegungen",
+  "caps": [
+   "3D-Bewegung = *drei unabhängige 1D-Bewegungen*",
+   "Alles aus Vorlesung 1 gilt weiter – *pro Achse*"
+  ],
+  "starts": [
+   0.07,
+   13.7
+  ],
+  "dur": 23.719184
+ },
+ {
+  "title": "Geschwindigkeit in 3D",
+  "caps": [
+   "1D: *v_x = ẋ* – Ableitung von x nach t",
+   "3D: *v = ṙ = ẋ e_x + ẏ e_y + ż e_z*",
+   "Beispiel r(t) = (2t; 3t²; 0) m → v(t) = (2; *6t*; 0) m/s"
+  ],
+  "starts": [
+   0.035,
+   11.053,
+   21.455
+  ],
+  "dur": 41.795918
+ },
+ {
+  "title": "Beschleunigung in 3D",
+  "caps": [
+   "*a = dv/dt = d²r/dt²* – Ableitung der Geschwindigkeit",
+   "Beispiel: v(t) = (2; 6t; 0) m/s → *a = (0; 6; 0) m/s²*"
+  ],
+  "starts": [
+   0.07,
+   11.97
+  ],
+  "dur": 29.387755
+ },
+ {
+  "title": "Der schiefe Wurf: Ausgangslage",
+  "caps": [
+   "Wurf: Start im *Ursprung*, r_0 = 0",
+   "Beschleunigung: nur *a = −g e_y* – nach unten",
+   "Abwurf: *v_0* unter dem Winkel *φ*",
+   "Zerlegen: *v_{0x} = v_0 cos φ* · *v_{0y} = v_0 sin φ*",
+   "Folienbild: v_0 ≈ 10 m/s, φ ≈ 86° → Gipfel *5,1 m*, Landung bei *1,4 m*"
+  ],
+  "starts": [
+   0.046,
+   12.446,
+   22.21,
+   28.386,
+   38.638
+  ],
+  "dur": 54.177959
+ },
+ {
+  "title": "Was passiert beim Wurf?",
+  "caps": [
+   "x-Richtung: *keine Beschleunigung* → v_x bleibt konstant",
+   "y-Richtung: v_y nach oben, a nach unten → *erst bremsen, dann fallen*",
+   "Animation: v_x bleibt, *v_y* nimmt um 9,81 m/s pro Sekunde ab",
+   "Im Gipfel: *v_y = 0* – nur v_x ist übrig"
+  ],
+  "starts": [
+   0.058,
+   10.797,
+   24.16,
+   45.778
+  ],
+  "dur": 55.823673
+ },
+ {
+  "title": "Wurf: Bewegungsgleichungen",
+  "caps": [
+   "Kein neues Prinzip: *zweimal integrieren* – je Achse",
+   "x: a_x = 0 → *ẋ = v_0 cos φ* (konstant)",
+   "→ *x = (v_0 cos φ) · t* – linear in t",
+   "y: a_y = −g → *ẏ = v_0 sin φ − g t*",
+   "→ *y = (v_0 sin φ) t − ½ g t²* – quadratisch in t",
+   "Zusammen: *r = x e_x + y e_y*"
+  ],
+  "starts": [
+   0.046,
+   14.512,
+   25.066,
+   33.739,
+   44.675,
+   57.353
+  ],
+  "dur": 64.444082
+ },
+ {
+  "title": "Die Bahnkurve ist eine Parabel",
+  "caps": [
+   "Bahnkurve: *t eliminieren* – x-Gleichung nach t auflösen",
+   "t = x / (v_0 cos φ) → in y einsetzen",
+   "*y = tan φ · x − g x² / (2 v_0² cos² φ)* → Parabel",
+   "Gipfel: ẏ = 0 → *t_H = v_0 sin φ / g* · *H = v_0² sin² φ / (2g)*",
+   "Landung: y = 0 → *T = 2 t_H* · Weite *W = v_0² sin(2φ) / g*",
+   "Beispiel v_0 = 20 m/s, φ = 45°: H = *10,2 m*, W = *40,8 m*"
+  ],
+  "starts": [
+   0.058,
+   7.001,
+   15.279,
+   29.606,
+   46.335,
+   60.999
+  ],
+  "dur": 92.395102
+ },
+ {
+  "title": "Kreisbewegung: Winkelposition",
+  "caps": [
+   "Kreisbewegung: Spitze von r läuft auf einem *Kreis* mit Radius r",
+   "r konstant → nur der *Winkel φ(t)* ändert sich",
+   "x = r cos φ · y = r sin φ",
+   "Bogenmaß: *φ = s / r* – Einheit *rad*",
+   "Beispiel: s = r → φ = *1 rad ≈ 57,3°* · Vollkreis 2π rad = 360°"
+  ],
+  "starts": [
+   0.058,
+   13.595,
+   23.975,
+   31.208,
+   38.859
+  ],
+  "dur": 54.151837
+ },
+ {
+  "title": "Winkelgeschwindigkeit und -beschleunigung",
+  "caps": [
+   "Verdrehung *Δφ = φ_2 − φ_1*",
+   "*ω = dφ/dt* – Winkelgeschwindigkeit in rad/s",
+   "*α = dω/dt = d²φ/dt²* – Winkelbeschleunigung in rad/s²",
+   "Merke: φ, ω, α ↔ *x, v, a* aus Vorlesung 1"
+  ],
+  "starts": [
+   0.058,
+   9.509,
+   20.596,
+   28.224
+  ],
+  "dur": 42.057143
+ },
+ {
+  "title": "Der radiale Einheitsvektor",
+  "caps": [
+   "*e_r = r / r* – zeigt vom Mittelpunkt nach außen",
+   "Damit: *r = r · e_r* – ganz einfach",
+   "Aber: e_r *dreht sich mit* – seine Richtung ändert sich ständig"
+  ],
+  "starts": [
+   0.035,
+   12.725,
+   17.984
+  ],
+  "dur": 29.805714
+ },
+ {
+  "title": "Wie ändert sich e_r?",
+  "caps": [
+   "Spitzen von e_r liegen auf einem Kreis mit *Radius 1*",
+   "Bogen auf dem Einheitskreis = *Δφ*",
+   "Δe_r / Δφ → Richtung der *Tangente* = *e_{φ}*"
+  ],
+  "starts": [
+   0.046,
+   9.857,
+   17.415
+  ],
+  "dur": 30.955102
+ },
+ {
+  "title": "Wie ändert sich e_φ?",
+  "caps": [
+   "Genauso für e_{φ}: Änderung zeigt *nach innen*",
+   "Merke: *de_r/dφ = e_{φ}* · *de_{φ}/dφ = −e_r*"
+  ],
+  "starts": [
+   0.058,
+   11.018
+  ],
+  "dur": 23.719184
+ },
+ {
+  "title": "Zeitableitung der Einheitsvektoren",
+  "caps": [
+   "Kettenregel: *de_r/dt = (dφ/dt) · e_{φ} = ω e_{φ}*",
+   "Genauso: *de_{φ}/dt = −ω e_r*"
+  ],
+  "starts": [
+   0.058,
+   13.955
+  ],
+  "dur": 20.192653
+ },
+ {
+  "title": "Geschwindigkeit auf dem Kreis",
+  "caps": [
+   "v = ṙ = r · ė_r = *r ω e_{φ}* (r konstant)",
+   "Richtung: *tangential* · Betrag: *v = r ω*",
+   "Beispiel: Rad r = 0,3 m, ω = 10 rad/s → v = *3 m/s*"
+  ],
+  "starts": [
+   0.058,
+   11.749,
+   17.903
+  ],
+  "dur": 30.171429
+ },
+ {
+  "title": "Beschleunigung auf dem Kreis",
+  "caps": [
+   "a = dv/dt: *Produktregel*, weil ω und e_{φ} sich ändern",
+   "*a = r α e_{φ} − r ω² e_r*",
+   "Tangential *a_{φ} = r α* · radial *a_r = r ω² = v²/r*"
+  ],
+  "starts": [
+   0.046,
+   8.824,
+   18.611
+  ],
+  "dur": 39.366531
+ },
+ {
+  "title": "Zentripetalbeschleunigung",
+  "caps": [
+   "Radialer Anteil = *Zentripetalbeschleunigung* – nach innen",
+   "Ohne Zentripetalbeschleunigung *keine Kurve*"
+  ],
+  "starts": [
+   0.058,
+   13.177
+  ],
+  "dur": 24.790204
+ },
+ {
+  "title": "Gleichförmige Kreisbewegung",
+  "caps": [
+   "Gleichförmig: *ω konstant* → α = 0",
+   "Ein Umlauf in T: *ω = 2π / T* · *v = 2π r / T*",
+   "*a_r = v² / r* – konstant, immer *nach innen*",
+   "Beispiel Kurve r = 50 m, v = 72 km/h = 20 m/s → a_r = *8 m/s²*"
+  ],
+  "starts": [
+   0.035,
+   15.209,
+   28.224,
+   37.175
+  ],
+  "dur": 60.421224
+ },
+ {
+  "title": "Beschleunigt trotz gleichem Tempo",
+  "caps": [
+   "Tempo konstant – trotzdem *beschleunigt*",
+   "Grund: Die *Richtung* von v ändert sich ständig"
+  ],
+  "starts": [
+   0.046,
+   11.877
+  ],
+  "dur": 20.845714
+ },
+ {
+  "title": "Bezugssysteme: Zug und Bahnsteig",
+  "caps": [
+   "Ball im Zug: *Bahnsteig sieht etwas anderes*",
+   "Beobachter *A* (Bahnsteig), Beobachterin *B* (Zug), Teilchen *P*",
+   "Doppelindex: *r_{PA}* = Ort von P *aus Sicht von A*"
+  ],
+  "starts": [
+   0.058,
+   13.514,
+   22.465
+  ],
+  "dur": 30.458776
+ },
+ {
+  "title": "Galilei-Transformation herleiten",
+  "caps": [
+   "B fährt mit *v_{BA}* konstant → r_{BA} = v_{BA} t",
+   "Vektoraddition: *r_{PA} = v_{BA} t + r_{PB}*",
+   "Ableiten: *v_{PA} = v_{BA} + v_{PB}*",
+   "Nochmal: *a_{PA} = a_{PB}* – weil v_{BA} konstant"
+  ],
+  "starts": [
+   0.046,
+   12.318,
+   22.477,
+   27.759
+  ],
+  "dur": 36.493061
+ },
+ {
+  "title": "Galilei-Transformation",
+  "caps": [
+   "Beide messen *dieselbe Beschleunigung*",
+   "Diese Umrechnung heißt *Galilei-Transformation*",
+   "Gilt nur für v ≪ *Lichtgeschwindigkeit*",
+   "Beispiel: Zug 30 m/s, Ball 5 m/s hoch → vom Bahnsteig *(30; 5) m/s*"
+  ],
+  "starts": [
+   0.058,
+   10.379,
+   20.538,
+   29.988
+  ],
+  "dur": 58.827755
+ }
+]

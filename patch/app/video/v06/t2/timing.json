@@ -1,0 +1,324 @@
+[
+ {
+  "title": "Skalare und Vektoren",
+  "caps": [
+   "Teil 2: *Vorlesung 2 – Vektoren*",
+   "Skalar: *nur eine Zahl* – Masse, Temperatur, Zeit, Arbeit …",
+   "Vektor: Zahl *und Richtung* – Weg, Geschwindigkeit, Kraft …"
+  ],
+  "starts": [
+   0.046,
+   8.847,
+   19.168
+  ],
+  "dur": 31.190204
+ },
+ {
+  "title": "Wann sind Vektoren gleich?",
+  "caps": [
+   "Pfeil von *Anfangspunkt A* zu *Endpunkt E*",
+   "Gleich, wenn *Betrag und Richtung* übereinstimmen",
+   "−a: *gleich lang*, aber *entgegengesetzt*",
+   "Verschieben erlaubt → *freie Vektoren*"
+  ],
+  "starts": [
+   0.035,
+   11.285,
+   22.976,
+   30.72
+  ],
+  "dur": 37.22449
+ },
+ {
+  "title": "Parallel und antiparallel",
+  "caps": [
+   "*Parallel* ↑↑: gleiche Richtung (Länge egal)",
+   "*Antiparallel* ↑↓: entgegengesetzte Richtung"
+  ],
+  "starts": [
+   0.07,
+   6.571
+  ],
+  "dur": 13.97551
+ },
+ {
+  "title": "Vektoren addieren",
+  "caps": [
+   "A + B: *Anfang von B an die Spitze von A* setzen",
+   "Summe C: vom *Anfang von A* zur *Spitze von B*",
+   "Genauso: *Parallelogramm* aus A und B",
+   "Im Bauwesen: zwei Kräfte → *eine Resultierende*"
+  ],
+  "starts": [
+   0.058,
+   5.817,
+   12.516,
+   22.895
+  ],
+  "dur": 28.917551
+ },
+ {
+  "title": "Summe und Differenz",
+  "caps": [
+   "Links: c = a + b – Spitze an Anfang",
+   "Rechts: d = a − b = a + (*−b*)",
+   "Merke: Subtrahieren = *Gegenvektor addieren*"
+  ],
+  "starts": [
+   0.035,
+   9.009,
+   19.377
+  ],
+  "dur": 23.719184
+ },
+ {
+  "title": "Differenz und Vielfache",
+  "caps": [
+   "A − B = A + (−B) · A − A = *Nullvektor*",
+   "p · A: Länge *mal p* · p < 0 → Richtung *umgedreht*",
+   "Beispiel: 2a doppelt so lang · −½a halb so lang, entgegengesetzt"
+  ],
+  "starts": [
+   0.046,
+   10.739,
+   19.063
+  ],
+  "dur": 26.566531
+ },
+ {
+  "title": "Rechengesetze",
+  "caps": [
+   "Reihenfolge egal: *A + B = B + A*",
+   "Klammern verschieben · *ausmultiplizieren* wie gewohnt"
+  ],
+  "starts": [
+   0.07,
+   8.87
+  ],
+  "dur": 18.834286
+ },
+ {
+  "title": "Einheitsvektoren",
+  "caps": [
+   "Einheitsvektor: *Betrag 1* – zeigt nur die Richtung",
+   "Aus jedem Vektor: *a = A / |A|*",
+   "*i, j, k*: Einheitsvektoren in *x, y, z*"
+  ],
+  "starts": [
+   0.035,
+   5.457,
+   13.142
+  ],
+  "dur": 23.719184
+ },
+ {
+  "title": "Komponenten und Betrag",
+  "caps": [
+   "A = A₁ i + A₂ j + A₃ k – *Komponenten*",
+   "Betrag: *|A| = √(A₁² + A₂² + A₃²)* – Pythagoras",
+   "Beispiel A = (2; 3; 6): √(4 + 9 + 36) = √49 = *7*"
+  ],
+  "starts": [
+   0.046,
+   16.405,
+   22.57
+  ],
+  "dur": 34.873469
+ },
+ {
+  "title": "Komponenten in der Ebene",
+  "caps": [
+   "Lot von der Spitze auf die Achsen → *a_x* und *a_y*",
+   "a = a_x e_x + a_y e_y – *Summe der roten Pfeile*",
+   "Hier beide *positiv* → erster Quadrant"
+  ],
+  "starts": [
+   0.023,
+   7.303,
+   19.412
+  ],
+  "dur": 23.954286
+ },
+ {
+  "title": "Der Betrag",
+  "caps": [
+   "Betrag = *Länge* – egal in welchem Quadranten",
+   "*a = √(a_x² + a_y²)* – Quadrate machen alles positiv",
+   "Beispiel a = (−3; 4): √(9 + 16) = *5*"
+  ],
+  "starts": [
+   0.058,
+   8.882,
+   15.906
+  ],
+  "dur": 29.387755
+ },
+ {
+  "title": "Der Richtungswinkel",
+  "caps": [
+   "Winkel φ: von der *positiven x-Achse*, *gegen* den Uhrzeigersinn",
+   "1. Quadrant: *φ = arctan(a_y / a_x)*",
+   "Taschenrechner liefert nur −90° … +90° → *Quadrant prüfen*",
+   "2. und 3. Quadrant: *+ π (180°)* · 4. Quadrant: *+ 2π (360°)*",
+   "a = (−3; 4): arctan(4/−3) = −53,1° → +180° = *126,9°*"
+  ],
+  "starts": [
+   0.07,
+   9.067,
+   17.38,
+   26.61,
+   37.628
+  ],
+  "dur": 54.987755
+ },
+ {
+  "title": "Sonderfall a_x = 0",
+  "caps": [
+   "a_x = 0: Division durch null → *Sonderfall*",
+   "a_y > 0 → *φ = π/2 = 90°* · a_y < 0 → *φ = 3π/2 = 270°*"
+  ],
+  "starts": [
+   0.035,
+   5.317
+  ],
+  "dur": 17.397551
+ },
+ {
+  "title": "Einheitsvektor mit cos und sin",
+  "caps": [
+   "Einheitsvektor: *e_a = a / a*",
+   "Oder über den Winkel: *e_a = cos φ e_x + sin φ e_y*",
+   "Komponenten: *a_x = a cos φ* · *a_y = a sin φ*",
+   "Probe: 5 · cos 126,9° = *−3* · 5 · sin 126,9° = *4* ✓"
+  ],
+  "starts": [
+   0.081,
+   6.896,
+   21.699,
+   30.673
+  ],
+  "dur": 41.639184
+ },
+ {
+  "title": "Vektoren komponentenweise addieren",
+  "caps": [
+   "Summe: *x mit x, y mit y* addieren",
+   "c = (a_x + b_x) e_x + (a_y + b_y) e_y",
+   "Beispiel: (3; 1) + (−1; 2) = *(2; 3)* · (3; 1) − (−1; 2) = *(4; −1)*"
+  ],
+  "starts": [
+   0.046,
+   7.767,
+   18.576
+  ],
+  "dur": 33.332245
+ },
+ {
+  "title": "Vektoren im Raum",
+  "caps": [
+   "3D: dazu kommt die *z-Komponente*",
+   "Betrag: *a = √(a_x² + a_y² + a_z²)*",
+   "Zweiter Winkel: *θ = arccos(a_z / a)* gegen die z-Achse",
+   "Beispiel A = (2; 3; 6): θ = arccos(6/7) ≈ *31°*"
+  ],
+  "starts": [
+   0.035,
+   6.118,
+   12.318,
+   28.224
+  ],
+  "dur": 39.47102
+ },
+ {
+  "title": "Das Skalarprodukt",
+  "caps": [
+   "Skalarprodukt: zwei Vektoren → *eine Zahl*",
+   "*A · B = A B cos θ* – Beträge mal Kosinus des Winkels",
+   "Folie: „Vektorprodukt“ – gemeint ist das *Skalarprodukt*"
+  ],
+  "starts": [
+   0.058,
+   7.906,
+   15.848
+  ],
+  "dur": 26.357551
+ },
+ {
+  "title": "Skalarprodukt: die Kiste auf der Rampe",
+  "caps": [
+   "Kiste mit Seil (F) die Rampe hinauf (d)",
+   "Nur der Anteil *F cos φ* in Richtung d zählt",
+   "F · d = (F cos φ) · d",
+   "Mit Komponenten: *F_x d_x + F_y d_y + F_z d_z*",
+   "Beispiel F = (3; 4) N, d = (2; 0) m: 3·2 + 4·0 = *6 N·m*"
+  ],
+  "starts": [
+   0.07,
+   10.577,
+   21.687,
+   26.993,
+   33.204
+  ],
+  "dur": 54.413061
+ },
+ {
+  "title": "Wann ist das Skalarprodukt null?",
+  "caps": [
+   "*Senkrecht*: cos 90° = 0 → Skalarprodukt *null*",
+   "*Parallel*: maximal · *antiparallel*: minimal (negativ)",
+   "Test: (1; 2) · (2; −1) = 2 − 2 = *0* → senkrecht"
+  ],
+  "starts": [
+   0.07,
+   10.82,
+   25.251
+  ],
+  "dur": 37.511837
+ },
+ {
+  "title": "Das Vektorprodukt",
+  "caps": [
+   "Tür: r vom *Scharnier* zur Klinke, F = Seilkraft",
+   "Drehen kann nur der *senkrechte* Anteil: *r sin φ*",
+   "Betrag: *M = r F sin φ* (Drehmoment)",
+   "Winkel: Folie 0 … π/2 – allgemein 0 … π, Betrag gleich wegen sin φ = sin(π − φ)"
+  ],
+  "starts": [
+   0.058,
+   11.691,
+   18.298,
+   26.332
+  ],
+  "dur": 40.907755
+ },
+ {
+  "title": "Richtung des Vektorprodukts",
+  "caps": [
+   "M = r × F steht *senkrecht* auf r und F",
+   "Richtung: *Rechtsschraube* – r auf kürzestem Weg zu F drehen",
+   "Reihenfolge zählt: *F × r = −r × F*"
+  ],
+  "starts": [
+   0.058,
+   4.807,
+   17.253
+  ],
+  "dur": 25.913469
+ },
+ {
+  "title": "Vektorprodukt mit Komponenten",
+  "caps": [
+   "Hier: Drehung gegen den Uhrzeigersinn → M zeigt *aus der Ebene* (+z)",
+   "In der Ebene: *M_z = r_x F_y − r_y F_x*",
+   "Beispiel r = (1; 0) m, F = (0; 10) N: M_z = 1·10 − 0·0 = *10 N·m*",
+   "*Parallel* oder antiparallel → sin 0 = 0 → M = 0"
+  ],
+  "starts": [
+   0.035,
+   8.858,
+   19.064,
+   32.949
+  ],
+  "dur": 41.795918
+ }
+]

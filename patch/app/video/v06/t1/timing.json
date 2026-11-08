@@ -1,0 +1,424 @@
+[
+ {
+  "title": "Inhalt",
+  "caps": [
+   "Teil 1: *Vorlesung 1* – erst *Einheiten*, dann die *geradlinige Bewegung*.",
+   "Vier Fragen: Maßeinheiten · Definition · *Vorsatzsilben* · *signifikante Stellen*"
+  ],
+  "starts": [
+   0.093,
+   12.841
+  ],
+  "dur": 23.719184
+ },
+ {
+  "title": "Wie lang ist eine Elle?",
+  "caps": [
+   "Früher: jede Stadt ihre *eigene Elle*.",
+   "Freiburg *0,54 m* · Bayern *0,833 m*",
+   "Die bayerische Elle war *über 50 %* länger."
+  ],
+  "starts": [
+   0.058,
+   8.51,
+   16.916
+  ],
+  "dur": 26.827755
+ },
+ {
+  "title": "Was ist eine Maßeinheit?",
+  "caps": [
+   "Maßeinheit = vereinbarte *Vergleichsgröße*",
+   "mit *festem, jederzeit reproduzierbarem* Betrag",
+   "Heute weltweit: das *SI*, eingeführt *1960*"
+  ],
+  "starts": [
+   0.07,
+   7.558,
+   19.389
+  ],
+  "dur": 29.570612
+ },
+ {
+  "title": "Absturz wegen falscher Einheit",
+  "caps": [
+   "1999: Marssonde *Mars Climate Orbiter* verglüht",
+   "Daten in *Pounds of Force* statt in *Newton*",
+   "1 lbf ≈ *4,45 N* → Kräfte um Faktor 4,45 falsch"
+  ],
+  "starts": [
+   0.058,
+   11.784,
+   21.13
+  ],
+  "dur": 32.731429
+ },
+ {
+  "title": "Das SI",
+  "caps": [
+   "Seit *2019*: alle SI-Einheiten über *sieben Konstanten* definiert",
+   "1) *eindeutig* – jede Größe hat genau eine Einheit",
+   "2) *dezimal* – Vorsätze sind Zehnerpotenzen",
+   "3) *effiziente Nomenklatur* · 4) *kohärent*"
+  ],
+  "starts": [
+   0.058,
+   10.426,
+   19.318,
+   29.558
+  ],
+  "dur": 43.363265
+ },
+ {
+  "title": "Die sieben definierenden Konstanten",
+  "caps": [
+   "Jede Basisgröße hängt an einer *Naturkonstante*",
+   "Sekunde: *9 192 631 770* Schwingungen der Cäsium-Strahlung",
+   "Meter: Licht legt in 1/299 792 458 s *1 m* zurück",
+   "Seit 2019 auch kg, A, K, mol über *h, e, k_B, N_A*"
+  ],
+  "starts": [
+   0.035,
+   6.13,
+   20.689,
+   33.959
+  ],
+  "dur": 50.573061
+ },
+ {
+  "title": "Basisgrößen und Basiseinheiten",
+  "caps": [
+   "Sieben *Basisgrößen* mit Symbol und Einheit",
+   "Achtung: *m* ist Masse – und *m* ist Meter!",
+   "Formelzeichen *kursiv* (Variable), Einheit *aufrecht*"
+  ],
+  "starts": [
+   0.07,
+   5.271,
+   18.239
+  ],
+  "dur": 26.174694
+ },
+ {
+  "title": "Ergänzende Informationen",
+  "caps": [
+   "Kelvin: Nullpunkt = *absoluter Nullpunkt*",
+   "Hier steht 1 K = −273,15 °C – richtig ist *0 K = −273,15 °C*",
+   "Ein *Temperaturunterschied* von 1 K ist gleich groß wie 1 °C."
+  ],
+  "starts": [
+   0.058,
+   11.796,
+   30.627
+  ],
+  "dur": 41.508571
+ },
+ {
+  "title": "Vorsätze für große Zahlen",
+  "caps": [
+   "Vorsatz = *Zehnerpotenz* vor der Einheit",
+   "Kilo = 10³ · Mega = 10⁶ · Giga = 10⁹",
+   "Im Bauwesen: *5 kN* = 5 · 10³ N = 5000 N"
+  ],
+  "starts": [
+   0.058,
+   4.946,
+   13.317
+  ],
+  "dur": 23.719184
+ },
+ {
+  "title": "Vorsätze für kleine Zahlen",
+  "caps": [
+   "Milli = 10⁻³ · Mikro = 10⁻⁶ · Nano = 10⁻⁹",
+   "Groß-/Kleinschreibung zählt: *m* = Milli, *M* = Mega"
+  ],
+  "starts": [
+   0.046,
+   10.031
+  ],
+  "dur": 20.192653
+ },
+ {
+  "title": "Das SI ist kohärent",
+  "caps": [
+   "Kohärent: Umrechnen *ohne extra Zahlenfaktoren*",
+   "F = m · g: 0,1 kg · 9,81 m/s² = *0,981 N*",
+   "1 N/mm² = 10⁶ N/m² = *1 MPa*"
+  ],
+  "starts": [
+   0.058,
+   6.269,
+   27.852
+  ],
+  "dur": 37.01551
+ },
+ {
+  "title": "Signifikante Stellen",
+  "caps": [
+   "Signifikante Stellen = Ziffern, die zur *Genauigkeit* beitragen",
+   "Nicht-Null-Ziffern zählen · *eingeschlossene* Nullen zählen",
+   "*Führende* Nullen zählen nicht · *Endnullen* nach dem Komma zählen"
+  ],
+  "starts": [
+   0.046,
+   6.931,
+   20.073
+  ],
+  "dur": 37.32898
+ },
+ {
+  "title": "Beispiele zu signifikanten Stellen",
+  "caps": [
+   "Addition: so viele *Nachkommastellen* wie der ungenaueste Wert",
+   "Bsp. 2: oben *6,817*, in der Rechnung *6,871* – Tippfehler",
+   "Mal und geteilt: so viele *signifikante Stellen* wie der ungenaueste Faktor",
+   "Plausibel? 0,37 kg/cm³ wäre *schwerer als Blei* – gemeint ist wohl dm³"
+  ],
+  "starts": [
+   0.058,
+   14.849,
+   36.525,
+   54.358
+  ],
+  "dur": 66.35102
+ },
+ {
+  "title": "Regeln zur Notation",
+  "caps": [
+   "Variablen *kursiv*, Konstanten *aufrecht*",
+   "x-Achse = *Abszisse* · y-Achse = *Ordinate*",
+   "Achsen ohne Beschriftung → *keine Punkte*"
+  ],
+  "starts": [
+   0.035,
+   11.796,
+   23.104
+  ],
+  "dur": 36.127347
+ },
+ {
+  "title": "Skalare und Vektoren",
+  "caps": [
+   "Skalar: *eine Zahl* genügt (Länge, Masse, Zeit)",
+   "Vektor: Betrag *und Richtung* (z. B. Verschiebung)",
+   "Schreibweise: *fett* oder mit *Pfeil* über dem Buchstaben"
+  ],
+  "starts": [
+   0.035,
+   7.674,
+   18.274
+  ],
+  "dur": 25.913469
+ },
+ {
+  "title": "Bezugssystem, Ortsvektor, Bahnkurve",
+  "caps": [
+   "*Bezugssystem* = Koordinatensystem",
+   "*Ortsvektor r(t)* – wo ist der Massepunkt zur Zeit t?",
+   "*Bahnkurve* = alle Orte nacheinander",
+   "Mittlere Geschwindigkeit: *v_m = Δr / Δt*"
+  ],
+  "starts": [
+   0.035,
+   8.092,
+   17.949,
+   23.685
+  ],
+  "dur": 35.526531
+ },
+ {
+  "title": "Der Massepunkt",
+  "caps": [
+   "Modell *Massepunkt*: alle Teile bewegen sich gleich",
+   "Rollende Kugel: außen *schneller* als innen → kein Massepunkt"
+  ],
+  "starts": [
+   0.046,
+   13.119
+  ],
+  "dur": 24.241633
+ },
+ {
+  "title": "Ort und Verschiebung",
+  "caps": [
+   "Zur Zeit t₁ ist der Punkt bei *x₁ = +3 m*",
+   "Später, zur Zeit t₂: *x₂ = −3 m*",
+   "Δx = x₂ − x₁ = −3 − 3 = *−6 m*",
+   "Zeitintervall *Δt = t₂ − t₁*"
+  ],
+  "starts": [
+   0.058,
+   10.101,
+   15.72,
+   24.624
+  ],
+  "dur": 29.936327
+ },
+ {
+  "title": "Vorzeichen der Verschiebung",
+  "caps": [
+   "Minus = nach *links* (kleinere x) · Plus = nach *rechts*",
+   "Verschiebung = *Betrag* + *Richtung* → Vektor"
+  ],
+  "starts": [
+   0.07,
+   11.981
+  ],
+  "dur": 20.924082
+ },
+ {
+  "title": "Die Orts-Zeit-Kurve",
+  "caps": [
+   "Orts-Zeit-Diagramm: *Zeit t* waagerecht, *Ort x* senkrecht",
+   "Der Punkt läuft vor, *zurück* und wieder vor.",
+   "Δx = *16 m* (0 → 1 s) · *−4 m* (2 → 4 s) · *16 m* (5 → 6 s)"
+  ],
+  "starts": [
+   0.058,
+   11.378,
+   25.089
+  ],
+  "dur": 38.687347
+ },
+ {
+  "title": "Durchschnittsgeschwindigkeit",
+  "caps": [
+   "v_m = Δx / Δt – Steigung der *Sekante*",
+   "1 → 2 s: (20 − 16) m / 1 s = *4 m/s*",
+   "2 → 4 s: (16 − 20) m / 2 s = *−2 m/s*"
+  ],
+  "starts": [
+   0.058,
+   10.17,
+   22.094
+  ],
+  "dur": 38.034286
+ },
+ {
+  "title": "Von der Sekante zur Tangente",
+  "caps": [
+   "Intervall immer kleiner → Sekante wird zur *Tangente*",
+   "Steigung: 6 → … → *9 m/s* = Geschwindigkeit genau bei t = 1 s",
+   "Tangentensteigung = *1. Ableitung* x′(t)"
+  ],
+  "starts": [
+   0.093,
+   7.895,
+   20.294
+  ],
+  "dur": 28.551837
+ },
+ {
+  "title": "Die Geschwindigkeit",
+  "caps": [
+   "Durchschnitt: *v_m = Δx/Δt = (x₂ − x₁)/(t₂ − t₁)*",
+   "Momentan: *v = lim Δx/Δt = dx/dt = ẋ*",
+   "Einheit: *m/s*"
+  ],
+  "starts": [
+   0.058,
+   9.903,
+   25.345
+  ],
+  "dur": 29.387755
+ },
+ {
+  "title": "Geschwindigkeits-Zeit-Kurve",
+  "caps": [
+   "v(t) aus der Steigung der x-t-Kurve",
+   "v = 0 bei *2 s* und *4 s* – genau da kehrt der Punkt um",
+   "v < 0 zwischen 2 s und 4 s: er läuft *zurück*"
+  ],
+  "starts": [
+   0.07,
+   10.31,
+   25.078
+  ],
+  "dur": 36.362449
+ },
+ {
+  "title": "Die Beschleunigung",
+  "caps": [
+   "Beschleunigung = *Änderungsrate der Geschwindigkeit*",
+   "1 → 2 s: v fällt von *9* auf *0 m/s*",
+   "a_m = Δv/Δt = (0 − 9) m/s / 1 s = *−9 m/s²*"
+  ],
+  "starts": [
+   0.07,
+   10.6,
+   17.764
+  ],
+  "dur": 28.316735
+ },
+ {
+  "title": "Definition der Beschleunigung",
+  "caps": [
+   "Durchschnitt: *a_m = Δv/Δt* · Einheit *m/s²*",
+   "Momentan: *a = dv/dt = v̇ = ẍ* – zweite Ableitung von x"
+  ],
+  "starts": [
+   0.07,
+   12.063
+  ],
+  "dur": 25.756735
+ },
+ {
+  "title": "Wann wird eine Bewegung langsamer?",
+  "caps": [
+   "Rot: v(t) · Blau: *a(t)* – eine Gerade",
+   "*Verzögert*, wenn v und a *verschiedene Vorzeichen* haben",
+   "0–2 s: v > 0, a < 0 → langsamer · 3–4 s: v < 0, a > 0 → langsamer",
+   "2–3 s: *beide negativ* → er wird *schneller* (rückwärts)"
+  ],
+  "starts": [
+   0.058,
+   15.337,
+   25.252,
+   36.816
+  ],
+  "dur": 50.520816
+ },
+ {
+  "title": "x, v und a im Überblick",
+  "caps": [
+   "Steigung von x(t) → *v(t)*",
+   "Steigung von v(t) → *a(t)*"
+  ],
+  "starts": [
+   0.058,
+   6.502
+  ],
+  "dur": 19.670204
+ },
+ {
+  "title": "Rechenbeispiel: v und a bei t = 6 s",
+  "caps": [
+   "Gegeben: *x = t³ − 9 t² + 24 t* – genau unsere Kurve",
+   "v = ẋ = *3 t² − 18 t + 24* (1. Ableitung)",
+   "t = 6 s: 3 · 36 − 18 · 6 + 24 = 108 − 108 + 24 = *24 m/s*",
+   "a = v̇ = *6 t − 18* → t = 6 s: 36 − 18 = *18 m/s²*"
+  ],
+  "starts": [
+   0.046,
+   13.665,
+   27.876,
+   40.681
+  ],
+  "dur": 54.465306
+ },
+ {
+  "title": "Blitz und Donner",
+  "caps": [
+   "Schall: *c_S ≈ 343 m/s* · Licht: praktisch sofort",
+   "1 km braucht 1000 m / 343 m/s ≈ *3 s*",
+   "Regel: *Sekunden ÷ 3 = Kilometer*"
+  ],
+  "starts": [
+   0.058,
+   13.444,
+   20.468
+  ],
+  "dur": 34.168163
+ }
+]
