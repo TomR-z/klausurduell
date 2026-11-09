@@ -8086,3 +8086,438 @@ const SCHNEIDER = [
 "s27": null
 }
 ];
+/* Patch-Warteschlange · Angewandte Statistik · Kapitel 3 Deskriptive Statistik, Übung 1 (Folien + offizielle Lösung), Übung 2 Matrizenrechnung 2 · erstellt 05.11.2026 */
+const STAT_DS = "Deskriptive Statistik";
+THEMEN["stat|Deskriptive Statistik"] = "Die deskriptive Statistik beschreibt vorhandene Daten, ohne über sie hinaus zu schließen: mit Tabellen, Grafiken und Kennzahlen. Zuerst klärst du, welches Merkmal vorliegt (quantitativ diskret oder stetig, Rangmerkmal, qualitativ) und auf welcher Skala es gemessen wird, denn davon hängt ab, welche Rechnung überhaupt sinnvoll ist. Dann zählst du Häufigkeiten aus, bei vielen Werten in Klassen, und fasst die Daten über Lageparameter (Mittelwert, Median) und Streuungsparameter (Spannweite, Quartile, Varianz) zusammen. Bei zwei Merkmalen gleichzeitig kommen Kovarianz und Korrelationskoeffizient dazu.";
+
+/* ── Kapitel 3: Grundbegriffe ── */
+mc("stat", STAT_DS, "Was ist eine Stichprobe?", ["Ein repräsentativer Teil der Beobachtungen aus der Grundgesamtheit", "Die Gesamtheit aller möglichen Daten eines Objekts", "Eine einzelne Messung", "Der größte Wert einer Messreihe"], "Die Stichprobe soll die Grundgesamtheit beschreiben, deshalb muss sie repräsentativ sein. Die Gesamtheit aller möglichen Daten ist die Grundgesamtheit selbst, nicht die Stichprobe.", "Angewandte Statistik Kapitel 3, Folie 2");
+mc("stat", STAT_DS, "Du misst die Länge eines Betonfertigteils immer wieder. Welche Grundgesamtheit liegt vor?", ["Eine unendliche – man könnte beliebig viele Messwerte erzeugen", "Eine endliche – es gibt ja nur ein Bauteil", "Gar keine, weil es nur ein Objekt ist", "Eine endliche mit genau 10 Werten"], "Die Folie nennt genau dieses Beispiel als unendliche Grundgesamtheit: Gezählt werden die möglichen Messwerte, nicht die Bauteile. Endlich wäre z. B. die Artikelanzahl eines Warenlagers.", "Angewandte Statistik Kapitel 3, Folie 2");
+pair("stat", STAT_DS, "Ordne jedem Merkmal seine Art zu.", [["Körpergröße", "stetig quantitativ"], ["Studierendenanzahl der RWTH", "diskret quantitativ"], ["1. Halbzeit, 2. Halbzeit, Verlängerung", "Rangmerkmal"], ["Geschlecht", "qualitativ"]], "Stetig: jede Zahl im Intervall möglich. Diskret: abzählbar. Rangmerkmale haben eine Reihenfolge, aber keine Zahlenwerte. Qualitativ: Beschreibung in Worten.", "Angewandte Statistik Kapitel 3, Folie 3");
+pair("stat", STAT_DS, "Ordne jeder Skala ein passendes Beispiel zu.", [["Verhältnisskala", "Länge in m (absoluter Nullpunkt)"], ["Intervallskala", "Temperatur in °C"], ["Ordinalskala", "Einkommen: gering < mittel < hoch"], ["Nominalskala", "Geschlecht"]], "Verhältnisskala hat einen absoluten Nullpunkt, Intervallskala nicht. Ordinal = Rangfolge ohne sinnvolle Rechnung, nominal = Kategorien ohne Reihenfolge.", "Angewandte Statistik Kapitel 3, Folie 4");
+wf("stat", STAT_DS, "Auf einer Intervallskala wie der Temperatur in °C darf man sagen: 20 °C ist doppelt so warm wie 10 °C.", false, "Falsch – ohne absoluten Nullpunkt ist Multiplikation nicht sinnvoll. Erlaubt sind Differenzen und Verhältnisse von Differenzen. Verhältnisse wie „doppelt so viel“ gehen nur auf der Verhältnisskala (z. B. Länge).", "Angewandte Statistik Kapitel 3, Folie 4");
+mc("stat", STAT_DS, "Wie hängen absolute Häufigkeit h(x_j) und relative Häufigkeit f(x_j) zusammen?", ["f(x_j) = h(x_j) / n, und alle f summieren sich zu 1", "f(x_j) = h(x_j) · n", "f(x_j) = n / h(x_j)", "f(x_j) = h(x_j) − n"], "Die relative Häufigkeit ist der Anteil an allen n Werten, liegt also zwischen 0 und 1. Die absoluten Häufigkeiten summieren sich zu n, die relativen zu 1.", "Angewandte Statistik Kapitel 3, Folie 5");
+wf("stat", STAT_DS, "Summenhäufigkeiten kann man für jedes Merkmal bilden, auch für qualitative wie das Geschlecht.", false, "Falsch – dafür müssen die Ausprägungen der Größe nach geordnet werden. Das geht nur bei quantitativen Merkmalen und Rangmerkmalen. „männlich ≤ weiblich“ ergibt keinen Sinn.", "Angewandte Statistik Kapitel 3, Folie 6");
+mc("stat", STAT_DS, "Was gibt der Wert F(x) der empirischen Verteilungsfunktion an?", ["Den Anteil der Beobachtungen, deren Wert nicht größer als x ist", "Den Anteil der Beobachtungen, die genau x sind", "Die Anzahl der Werte größer als x", "Den Mittelwert aller Werte bis x"], "F(x) ist die relative Summenhäufigkeit bis einschließlich x. „Genau x“ wäre die relative Häufigkeit f(x), nicht die Summe.", "Angewandte Statistik Kapitel 3, Folie 9");
+pair("stat", STAT_DS, "Welche Form hat die empirische Verteilungsfunktion?", [["diskretes Merkmal (Würfel)", "Treppenfunktion"], ["stetiges Merkmal (Benzinverbrauch)", "Polygonzug"], ["jede Verteilungsfunktion", "monoton wachsend bis 1"]], "Bei diskreten Werten springt F an jeder Ausprägung, bei stetigen (klassierten) Daten verbindet man die Punkte. In jedem Fall fällt F nie, weil nur Anteile dazukommen.", "Angewandte Statistik Kapitel 3, Folie 9–11");
+mc("stat", STAT_DS, "Faustregel aus Beispiel 3.4: Wie viele Klassen bildest du bei n Messwerten?", ["m ≈ 5 · log n", "m ≈ n / 2", "m ≈ √n · 10", "immer genau 10"], "Bei 90 Würfeln ergibt 5 · log 90 ≈ 9,8, also 10 Klassen. Mit n / 2 wären es 45 Klassen mit kaum zwei Werten pro Klasse – viel zu fein, um eine Verteilung zu erkennen.", "Angewandte Statistik Kapitel 3, Folie 15");
+ord("stat", STAT_DS, "Klassenbildung wie in Beispiel 3.4 (90 Betonwürfel): Reihenfolge?", ["Klassenanzahl m ≈ 5 · log n", "Spannweite R = x_max − x_min", "Klassenbreite Δx ≈ R / m, sinnvoll runden", "Mitte des Wertebereichs bestimmen und die Klassen symmetrisch darum legen"], "So kam man auf 10 Klassen der Breite 1,5 N/mm² zwischen 30,25 und 45,25. Die Ränder liegen auf einer halben Nachkommastelle, damit kein Messwert genau auf einen Rand fällt.", "Angewandte Statistik Kapitel 3, Folie 12/15");
+mc("stat", STAT_DS, "Warum legt man die Klassenränder z. B. auf 30,25 statt auf 30,3, wenn die Werte eine Nachkommastelle haben?", ["Damit kein Messwert genau auf einem Rand liegt", "Weil Klassenränder immer auf ,25 enden müssen", "Damit die Klassen unterschiedlich breit werden", "Damit die Spannweite kleiner wird"], "Liegt ein Wert auf dem Rand, ist unklar, zu welcher Klasse er gehört. Mit Rändern eine halbe Stelle feiner kann das nicht passieren. Üblich sind außerdem rechtsoffene Intervalle „von … bis unter …“.", "Angewandte Statistik Kapitel 3, Folie 12");
+pair("stat", STAT_DS, "Welches Diagramm passt?", [["Zusammenhang zweier Merkmale", "Streudiagramm"], ["Anteile eines Ganzen", "Kreisdiagramm"], ["Häufigkeiten klassierter Daten", "Histogramm"], ["Werte geordnet nach Zehnerstellen", "Stamm-Blatt-Diagramm"]], "Im Histogramm stoßen die Säulen aneinander, weil die Klassen lückenlos aneinandergrenzen. Beim Stamm-Blatt-Diagramm bleiben die Einzelwerte sichtbar.", "Angewandte Statistik Kapitel 3, Folie 17–21");
+wf("stat", STAT_DS, "Dieselben Daten können je nach Klasseneinteilung ganz unterschiedlich aussehende Histogramme ergeben.", true, "Richtig – die Folie zeigt die Tore der EM 2012 einmal in sechs und einmal in zwei Klassen. Deshalb die Klasseneinteilung immer mit angeben.", "Angewandte Statistik Kapitel 3, Folie 20");
+
+/* ── Lageparameter ── */
+mc("stat", STAT_DS, "Welche Eigenschaft hat das arithmetische Mittel immer?", ["Die Summe der Abweichungen Σ(x_i − x̄) ist null", "Die Summe der Abweichungen ist minimal, aber nicht null", "Es liegt immer genau auf einem Messwert", "Es ist immer gleich dem Median"], "Positive und negative Abweichungen heben sich genau auf. Minimal ist dagegen die Summe der QUADRATISCHEN Abweichungen – das ist die zweite Eigenschaft.", "Angewandte Statistik Kapitel 3, Folie 23");
+mc("stat", STAT_DS, "Für welchen Wert M wird Σ(x_i − M)² am kleinsten?", ["Für M = arithmetisches Mittel", "Für M = Median", "Für M = größter Wert", "Für M = 0"], "Das ist die Minimum-Eigenschaft des Mittelwerts und der Grund, warum er bei der Ausgleichsrechnung eine so große Rolle spielt. Der Median minimiert stattdessen die Summe der Beträge |x_i − M|.", "Angewandte Statistik Kapitel 3, Folie 23");
+mc("stat", STAT_DS, "Wie berechnest du den Mittelwert, wenn jede Ausprägung x_j mit der Häufigkeit h(x_j) vorkommt?", ["x̄ = (1/n) · Σ h(x_j) · x_j – die Häufigkeiten sind Gewichte", "x̄ = Σ x_j / m, ohne die Häufigkeiten", "x̄ = Σ h(x_j) / m", "x̄ = größte Häufigkeit mal x_j"], "Jede Ausprägung zählt so oft, wie sie vorkommt. Ohne Gewichte würde ein seltener Wert genauso stark zählen wie ein häufiger. Mit relativen Häufigkeiten: x̄ = Σ f(x_j) · x_j.", "Angewandte Statistik Kapitel 3, Folie 24");
+mc("stat", STAT_DS, "Wie bestimmst du den Median bei einer geraden Anzahl n von Werten?", ["Mittelwert der beiden mittleren Werte x(n/2) und x(n/2+1)", "Den Wert x(n/2)", "Den Wert x((n+1)/2)", "Den Mittelwert aller Werte"], "Bei geradem n gibt es keinen einzelnen mittleren Wert, also mittelt man die beiden in der Mitte. x((n+1)/2) ist die Formel für ungerades n.", "Angewandte Statistik Kapitel 3, Folie 26");
+mc("stat", STAT_DS, "Warum nennt man den Median „robust“?", ["Ausreißer verschieben ihn kaum – theoretisch dürfen bis zu 50 % der Daten Ausreißer sein", "Er ist immer größer als der Mittelwert", "Er lässt sich ohne Sortieren berechnen", "Er berücksichtigt jeden Wert mit seiner genauen Größe"], "Der Median hängt nur von der Reihenfolge ab. Gerade weil er die genaue Größe extremer Werte NICHT berücksichtigt, ist er robust. Der Bruchpunkt liegt bei 50 %.", "Angewandte Statistik Kapitel 3, Folie 26");
+wf("stat", STAT_DS, "Liegen Mittelwert und Median weit auseinander, ist das ein Hinweis auf Ausreißer.", true, "Richtig – ohne Ausreißer sind beide etwa gleich groß, deshalb nutzt man den Median zur Fehlersuche. Beim Betonfertigteil zieht der Ausreißer 12,189 m den Mittelwert auf 12,759 m, der Median bleibt bei 12,822 m.", "Angewandte Statistik Kapitel 3, Folie 26/38");
+mc("stat", STAT_DS, "Einkommen in Klassen: F = 0,4698 bis 2000 €, F = 0,6048 bis 2500 €. In welcher Klasse liegt der Median?", ["2000–2500 €", "1500–2000 €", "2500–3500 €", "Das lässt sich aus F nicht sagen"], "Der Median liegt dort, wo F die 0,5 überschreitet. Bis 2000 € sind es erst 47 %, bis 2500 € schon 60 %. Innerhalb dieser Klasse wird dann linear interpoliert.", "Angewandte Statistik Kapitel 3, Folie 27–30");
+ord("stat", STAT_DS, "Median klassierter Daten: Reihenfolge?", ["Relative Summenhäufigkeiten F der Klassen bilden", "Medianklasse suchen (dort, wo F die 0,5 überschreitet)", "Fehlenden Anteil 0,5 − F(untere Grenze) bestimmen", "Durch f der Medianklasse teilen, mal Klassenbreite, zur unteren Grenze addieren"], "x_M = untere Grenze + Δx · (0,5 − F_unten) / f(x_k). Man nimmt an, dass sich die Werte in der Klasse gleichmäßig verteilen.", "Angewandte Statistik Kapitel 3, Folie 27");
+
+/* ── Streuung ── */
+mc("stat", STAT_DS, "Was ist die Schwäche der Spannweite R = x_max − x_min?", ["Sie hängt nur von den zwei Extremwerten ab – wie die übrigen Werte streuen, bleibt unberücksichtigt", "Sie ist schwer zu berechnen", "Sie kann negativ werden", "Sie berücksichtigt nur die mittleren Werte"], "Ein einziger Ausreißer macht R groß. Beim Betonfertigteil ist R = 0,640 m, der Interquartilsabstand nur 0,007 m.", "Angewandte Statistik Kapitel 3, Folie 31/38");
+pair("stat", STAT_DS, "Ordne die Quartile zu.", [["Q1 = Q0,25", "unteres Quartil: 25 % der Werte liegen darunter"], ["Q2 = Q0,5", "Median"], ["Q3 = Q0,75", "oberes Quartil: 75 % der Werte liegen darunter"], ["Q3 − Q1", "Interquartilsabstand"]], "Quartile teilen die sortierten Daten in vier gleich große Teile. Der Interquartilsabstand umfasst die mittleren 50 % und reagiert kaum auf Ausreißer.", "Angewandte Statistik Kapitel 3, Folie 31/32");
+mc("stat", STAT_DS, "Was zeigt die Box im Boxplot?", ["Den Bereich von Q1 bis Q3 mit dem Median als Strich", "Den Bereich vom kleinsten bis zum größten Wert", "Mittelwert ± Standardabweichung", "Die 95 %-Grenzen"], "Die Box ist der Interquartilsabstand, die Linien außen reichen bis zu den Grenzen. Liegt der Median mittig in der Box, ist die Verteilung eher symmetrisch.", "Angewandte Statistik Kapitel 3, Folie 32");
+mc("stat", STAT_DS, "Eine Verteilung steigt links steil an und läuft nach rechts flach aus. Was gilt?", ["Rechtsschief – der Mittelwert ist größer als der Median", "Linksschief – der Mittelwert ist kleiner als der Median", "Symmetrisch – Mittelwert gleich Median", "Rechtsschief – der Median ist größer als der Mittelwert"], "Der lange Ausläufer nach rechts zieht den Mittelwert nach oben, der Median bleibt bei der Masse der Werte. Der Name richtet sich nach der flachen Seite, nicht nach dem steilen Anstieg.", "Angewandte Statistik Kapitel 3, Folie 33");
+mc("stat", STAT_DS, "Wann teilst du bei der Varianz durch n − 1 statt durch n?", ["Wenn der Mittelwert aus denselben Daten geschätzt wurde (korrigierte empirische Varianz)", "Immer, wenn n größer als 30 ist", "Nur bei klassierten Daten", "Wenn der Mittelwert μ bekannt ist"], "Wird x̄ aus der Stichprobe selbst berechnet, ist ein Freiheitsgrad verbraucht. Nur bei bekanntem μ teilt man durch n. R rechnet in var() und sd() immer mit n − 1.", "Angewandte Statistik Kapitel 3, Folie 39/40");
+mc("stat", STAT_DS, "Wovon misst die mittlere absolute Abweichung d laut Folie den Abstand?", ["Vom Median", "Vom arithmetischen Mittel", "Vom größten Wert", "Vom Nullpunkt"], "d = Σ|x_i − x_M| / n. Die Folie nimmt ausdrücklich den Median als Bezug. Die Varianz misst dagegen quadratisch vom Mittelwert.", "Angewandte Statistik Kapitel 3, Folie 39");
+wf("stat", STAT_DS, "Eine Messreihe mit kleiner Standardabweichung ist automatisch nah am Sollwert.", false, "Falsch – s misst nur, wie eng die Werte untereinander liegen (Präzision). Die Folie zeigt eine präzisere Reihe, die trotzdem weiter vom Sollwert entfernt ist.", "Angewandte Statistik Kapitel 3, Folie 40");
+
+/* ── Zwei Merkmale ── */
+mc("stat", STAT_DS, "Was ist eine Randverteilung in einer zweidimensionalen Häufigkeitstabelle?", ["Die Verteilung nur eines Merkmals – die Zeilen- bzw. Spaltensummen", "Die Werte in der ersten und letzten Zeile", "Die Häufigkeiten der Extremwerte", "Die Diagonale der Tabelle"], "Summiert man über das andere Merkmal, bleibt die Verteilung eines Merkmals übrig. Im Noten-Beispiel ergeben die Spaltensummen die Mathenoten aller 100 Schüler.", "Angewandte Statistik Kapitel 3, Folie 41/47");
+pair("stat", STAT_DS, "Was bedeutet das Vorzeichen der Kovarianz s_XY?", [["s_XY > 0", "gleichsinniger Zusammenhang"], ["s_XY < 0", "gegensinniger Zusammenhang"], ["s_XY = 0", "kein linearer Zusammenhang"]], "Laut Folie gilt s_XY = 0 bei unabhängigen Merkmalen. Wie stark der Zusammenhang ist, verrät die Kovarianz nicht, weil sie von den Einheiten abhängt.", "Angewandte Statistik Kapitel 3, Folie 42");
+mc("stat", STAT_DS, "Warum normiert man die Kovarianz zum Korrelationskoeffizienten r = s_XY / (s_X · s_Y)?", ["Die Kovarianz ist skalenabhängig – r liegt immer zwischen −1 und +1 und ist vergleichbar", "Damit r immer positiv wird", "Weil die Kovarianz nur bei gleichen Einheiten definiert ist", "Um aus r die Steigung einer Geraden zu machen"], "Rechnet man z. B. Meter in Millimeter um, ändert sich die Kovarianz, r aber nicht. Das Vorzeichen bleibt dabei erhalten, r kann also negativ sein.", "Angewandte Statistik Kapitel 3, Folie 44");
+pair("stat", STAT_DS, "Ordne |r| der Interpretation zu.", [["|r| = 0", "keine Korrelation"], ["0 < |r| < 0,5", "schwache Korrelation"], ["0,5 ≤ |r| < 0,8", "mittlere Korrelation"], ["0,8 ≤ |r| < 1", "starke Korrelation"]], "|r| = 1 heißt perfekte Korrelation, alle Punkte liegen auf einer Geraden. Bei r = −0,876 ist die Korrelation also stark, nur gegensinnig.", "Angewandte Statistik Kapitel 3, Folie 44");
+wf("stat", STAT_DS, "r ≈ 0 bedeutet, dass zwischen den Merkmalen überhaupt kein Zusammenhang besteht.", false, "Falsch – r misst nur den LINEAREN Zusammenhang. Beim Blutzuckerspiegel über der Zeit nach dem Essen ist r = −0,03, obwohl die Punkte deutlich einer Kurve folgen. Darum immer auch das Streudiagramm ansehen.", "Angewandte Statistik Kapitel 3, Folie 46");
+
+/* ── Übung 1 (Folien und offizielle Lösung) ── */
+wf("stat", "Matrizen", "Elementare Zeilenumformungen ändern den Rang einer Matrix nicht – Determinante und Inverse können sich dabei aber ändern.", true, "Richtig – so steht es auf den Übungsfolien. Deshalb die Determinante in Übung 1, A3 mit Sarrus an der URSPRÜNGLICHEN Matrix berechnen, nicht an der umgeformten.", "Angewandte Statistik Übung 1, Folien 7/8 und Lösung A3");
+mc("stat", "Matrizen", "Laplace-Entwicklung einer 3×3-Matrix: Welches Vorzeichen bekommt der Minor zum Element a₁₂?", ["Minus, wegen (−1)^(1+2)", "Plus, weil es in der ersten Zeile steht", "Immer das Vorzeichen von a₁₂", "Plus, wie alle Minoren"], "Die Vorzeichen wechseln schachbrettartig: + − + in der ersten Zeile. Im Übungsbeispiel ergibt sich so det A = 3·(−2) − 2·(−5) + 1·1 = 5.", "Angewandte Statistik Übung 1, Folien 11–13");
+mc("stat", "Matrizen", "Knobelaufgabe Übung 1: Wie berechnest du die 4×4-Determinante der Tridiagonalmatrix am geschicktesten?", ["Laplace nach der ersten Zeile – zwei Einträge sind 0, es bleiben zwei 3×3-Determinanten", "Sarrus auf die 4×4-Matrix anwenden", "Alle 24 Produkte ausschreiben", "Die Diagonale multiplizieren"], "Sarrus gilt nur bis 3×3. Mit Laplace: 2 · 4 − 1 · 3 = 5. Die Diagonale allein reicht nur bei Dreiecksmatrizen – diese hat aber Einträge über und unter der Diagonale.", "Angewandte Statistik Übung 1, Lösung Knobelaufgabe");
+
+/* ── Übung 2: Inverse und LGS ── */
+pair("stat", "Gleichungssysteme", "Alles dieselbe Aussage über eine quadratische Matrix A – ordne zu.", [["det A ≠ 0", "A ist regulär (nicht-singulär)"], ["voller Rang", "keine linear abhängigen Zeilen"], ["A⁻¹ existiert", "Ax = b eindeutig lösbar"]], "Die Übungsfolie verbindet alle fünf Aussagen mit ⇔: Gilt eine, gelten alle. Ist det A = 0, fällt alles gemeinsam weg.", "Angewandte Statistik Übung 2, Folie 3");
+mc("stat", "Gleichungssysteme", "Determinantenformel: Wie lautet die Inverse?", ["A⁻¹ = adj(A) / det A, mit adj(A) = C′ (transponierte Kofaktormatrix)", "A⁻¹ = C / det A, ohne Transponieren", "A⁻¹ = det A · C′", "A⁻¹ = A′ / det A"], "Die Kofaktormatrix muss transponiert werden. Bei symmetrischen Matrizen wie in Übung 2, A1 fällt der Fehler nicht auf, bei allen anderen schon.", "Angewandte Statistik Übung 2, Folie 9");
+mc("stat", "Gleichungssysteme", "Wie berechnest du den Kofaktor c_ij?", ["c_ij = (−1)^(i+j) · m_ij, wobei m_ij die Determinante ohne Zeile i und Spalte j ist", "c_ij = a_ij · (−1)^(i+j)", "c_ij = m_ij, ohne Vorzeichen", "c_ij = a_ji"], "Erst Zeile i und Spalte j streichen, die verbleibende Determinante (Minor) berechnen, dann das Schachbrett-Vorzeichen anbringen. Der Eintrag a_ij selbst kommt im Kofaktor gar nicht vor.", "Angewandte Statistik Übung 2, Folie 10");
+ord("stat", "Gleichungssysteme", "Inverse über die Determinantenformel: Reihenfolge?", ["det A berechnen und prüfen, ob sie ≠ 0 ist", "Alle Minoren m_ij bestimmen", "Vorzeichen (−1)^(i+j) anbringen → Kofaktormatrix C", "C transponieren → adj(A)", "Durch det A teilen und mit A · A⁻¹ = I prüfen"], "Ist det A = 0, kannst du dir alles Weitere sparen: Dann gibt es keine Inverse.", "Angewandte Statistik Übung 2, Folie 9–15");
+mc("stat", "Gleichungssysteme", "Gauß-Jordan: Woran erkennst du, dass du fertig bist?", ["Links steht die Einheitsmatrix – rechts steht dann A⁻¹", "Links steht eine Dreiecksmatrix", "Rechts steht die Einheitsmatrix", "Alle Einträge sind positiv"], "Man schreibt (A | I) und formt so lange um, bis (I | A⁻¹) dasteht. Bei einer Dreiecksmatrix links bist du erst beim normalen Gauß-Verfahren fertig, nicht bei Gauß-Jordan.", "Angewandte Statistik Übung 2, Folie 17–19");
+wf("stat", "Gleichungssysteme", "In Übung 2, A3 a) hat A die Zeilen (4 8 2), (1 3 1), (6 14 4). Das System hat eine eindeutige Lösung.", false, "Falsch – det A = 0 (Rang 2): Zeile III = Zeile I + 2 · Zeile II. Deshalb fragt die Aufgabe zuerst, OB es eine eindeutige Lösung gibt. Eigene Rechnung, Lösung kommt 1–2 Tage nach der Übung.", "Angewandte Statistik Übung 2, A3 a)");
+mc("stat", "Gleichungssysteme", "Knobelaufgabe Übung 2: Die Zeilen von A sind Einheitsvektoren und stehen paarweise senkrecht aufeinander. Was folgt für A⁻¹?", ["A⁻¹ = A′ – A ist orthogonal", "A⁻¹ = A", "A⁻¹ existiert nicht", "A⁻¹ = −A"], "Bei orthogonalen Matrizen ist A · A′ = I, die Inverse ist also einfach die Transponierte. Das spart die ganze Rechnung, wie der Hinweis auf dem Blatt andeutet. Eigene Rechnung: det A = 1.", "Angewandte Statistik Übung 2, Knobelaufgabe");
+
+aufgabe({
+ "id": "stat-ue02-inverse", "f": "stat", "t": "Gleichungssysteme", "titel": "Inverse über die Kofaktormatrix", "s": "Angewandte Statistik Übung 2, Aufgabe 1 (eigene Rechnung)",
+ "angabe": "Gegeben ist die Matrix A mit den Zeilen (3 2 1), (2 4 2), (1 2 3). a) Berechne det A. Ist A regulär? b) Bestimme die Kofaktormatrix C. c) Bilde A⁻¹ über Determinante und Kofaktormatrix.",
+ "ges": "det A, Kofaktormatrix C, Inverse A⁻¹",
+ "schritte": [
+  { "f": "Wie berechnest du det A?", "o": [
+    ["Sarrus: Produkte nach rechts unten minus Produkte nach links unten", "Für 3×3 ist Sarrus der schnellste Weg."],
+    ["3 · 4 · 3, das Produkt der Diagonale", "Das gilt nur bei Dreiecksmatrizen."],
+    ["ad − bc mit den Ecken", "Das ist die 2×2-Formel."],
+    ["Summe aller Einträge", "Hat mit der Determinante nichts zu tun."]],
+   "r": "rechts unten: 36 + 4 + 4 = 44 · links unten: 4 + 12 + 12 = 28\ndet A = 44 − 28 = 16 ≠ 0 → A ist regulär" },
+  { "f": "Wie bekommst du c₁₁?", "o": [
+    ["Zeile 1 und Spalte 1 streichen, Determinante der Rest-Matrix mit Vorzeichen +", "c₁₁ = (+1) · det((4 2),(2 3)) = 12 − 4 = 8."],
+    ["c₁₁ = a₁₁ = 3", "Der Kofaktor ist eine Unterdeterminante, nicht der Eintrag selbst."],
+    ["Zeile 1 und Spalte 1 streichen, Vorzeichen −", "(−1)^(1+1) = +1, nicht −1."],
+    ["c₁₁ = det A / a₁₁", "So ist der Kofaktor nicht definiert."]],
+   "r": "c₁₁ = +(4·3 − 2·2) = 8" },
+  { "f": "Wie lautet die vollständige Kofaktormatrix?", "o": [
+    ["Alle neun Minoren mit Schachbrett-Vorzeichen: C = (8 −4 0; −4 8 −4; 0 −4 8)", "z. B. c₁₂ = −(2·3 − 2·1) = −4, c₁₃ = +(2·2 − 4·1) = 0."],
+    ["C = (8 4 0; 4 8 4; 0 4 8), alle positiv", "Das Schachbrett-Vorzeichen fehlt."],
+    ["C = A′", "Die Kofaktormatrix ist etwas anderes als die Transponierte."],
+    ["Nur die Diagonale berechnen, der Rest ist 0", "Die Nebeneinträge sind hier nicht null."]],
+   "r": "C = (8 −4 0; −4 8 −4; 0 −4 8)\nC ist symmetrisch, weil A symmetrisch ist → C′ = C" },
+  { "f": "Wie lautet A⁻¹?", "o": [
+    ["A⁻¹ = C′ / det A = C / 16", "Weil C symmetrisch ist, ändert das Transponieren hier nichts."],
+    ["A⁻¹ = 16 · C′", "Man teilt durch die Determinante, man multipliziert nicht."],
+    ["A⁻¹ = C′", "Die Division durch det A fehlt."],
+    ["A⁻¹ = A′ / 16", "Es muss die Kofaktormatrix sein, nicht A."]],
+   "r": "A⁻¹ = (1/2 −1/4 0; −1/4 1/2 −1/4; 0 −1/4 1/2)\nProbe: Zeile 1 von A mal Spalte 1 von A⁻¹ = 3·0,5 + 2·(−0,25) + 1·0 = 1 ✓" }],
+ "fazit": "Bei symmetrischen Matrizen ist auch die Inverse symmetrisch. Rechne trotzdem immer die Probe A · A⁻¹ = I, denn ein vergessenes Vorzeichen fällt sonst nicht auf."
+});
+
+aufgabe({
+ "id": "stat-ue02-mischung", "f": "stat", "t": "Gleichungssysteme", "titel": "Mischwasser für Beton", "s": "Angewandte Statistik Übung 2, Aufgabe 4 (eigene Rechnung)",
+ "angabe": "Wasserquelle 1: Salzgehalt 0,02 %, pH 6,5. Wasserquelle 2: Salzgehalt 2,0 %, pH 8,1. Gesucht ist ein Mischverhältnis x = (x₁, x₂)′, das einen Salzgehalt von 0,08 % und einen pH-Wert von 7,0 ergibt. Zeile 1 = Salzgehalt, Zeile 2 = pH. Lösen mit der Determinantenformel.",
+ "ges": "Gleichungssystem, x₁ und x₂, Bewertung",
+ "schritte": [
+  { "f": "Wie lauten die beiden Gleichungen?", "o": [
+    ["0,02 x₁ + 2,0 x₂ = 0,08 und 6,5 x₁ + 8,1 x₂ = 7,0", "Jede Zeile gehört zu einem Parameter, jede Spalte zu einer Quelle."],
+    ["0,02 x₁ + 6,5 x₂ = 0,08 und 2,0 x₁ + 8,1 x₂ = 7,0", "Hier sind Quelle 2 und pH vertauscht: In Zeile 1 stehen beide Salzgehalte."],
+    ["x₁ + x₂ = 1 und 0,02 x₁ + 2,0 x₂ = 0,08", "Die Aufgabe verlangt die Zeilen Salz und pH, nicht die Summenbedingung."],
+    ["0,08 x₁ + 7,0 x₂ = 0,02", "Die Zielwerte gehören auf die rechte Seite b."]],
+   "r": "A = (0,02 2,0; 6,5 8,1), b = (0,08; 7,0)" },
+  { "f": "Wie berechnest du det A?", "o": [
+    ["ad − bc = 0,02 · 8,1 − 2,0 · 6,5", "2×2-Formel: Hauptdiagonale minus Nebendiagonale."],
+    ["0,02 · 8,1 + 2,0 · 6,5", "Das Produkt der Nebendiagonale wird abgezogen."],
+    ["0,02 · 2,0 − 6,5 · 8,1", "Das multipliziert die Zeilen statt der Diagonalen."],
+    ["Sarrus", "Für 2×2 reicht ad − bc."]],
+   "r": "det A = 0,162 − 13 = −12,838 ≠ 0 → eindeutig lösbar" },
+  { "f": "Wie lautet die Inverse einer 2×2-Matrix (a b; c d)?", "o": [
+    ["(d −b; −c a) / det A", "Diagonale tauschen, Nebendiagonale mit Minus, durch die Determinante."],
+    ["(a −b; −c d) / det A", "Die Hauptdiagonale muss getauscht werden."],
+    ["(d b; c a) / det A", "Die Nebendiagonale bekommt ein Minus."],
+    ["(−d b; c −a) · det A", "Man teilt durch det A."]],
+   "r": "A⁻¹ = (8,1 −2,0; −6,5 0,02) / (−12,838)" },
+  { "f": "Wie bekommst du x?", "o": [
+    ["x = A⁻¹ · b ausmultiplizieren", "Zeile mal Spalte, dann durch −12,838."],
+    ["x = b · A⁻¹ mit b als Zeile", "b ist ein Spaltenvektor und steht rechts."],
+    ["x = A · b", "Das wäre die Mischung, die x = b ergeben würde."],
+    ["x = b / det A", "Ohne die Inverse fehlt die Kopplung der Gleichungen."]],
+   "r": "x₁ = (8,1 · 0,08 − 2,0 · 7,0) / (−12,838) = −13,352 / −12,838 ≈ 1,040\nx₂ = (−6,5 · 0,08 + 0,02 · 7,0) / (−12,838) = −0,38 / −12,838 ≈ 0,030" },
+  { "f": "Lohnt sich Quelle 2?", "o": [
+    ["Kaum – auf etwa 35 Teile Quelle 1 kommt nur 1 Teil Quelle 2", "x₂ ist so klein, dass fast nichts vom billigen Wasser genutzt wird."],
+    ["Ja, sie liefert den Großteil des Wassers", "x₂ ≈ 0,03 ist viel kleiner als x₁ ≈ 1,04."],
+    ["Nein, weil x₂ negativ ist", "x₂ ist positiv, nur sehr klein."],
+    ["Ja, weil der pH-Wert sonst nicht erreicht wird", "Ohne Quelle 2 ginge es zwar nicht exakt, aber der Anteil bleibt winzig."]],
+   "r": "x₁ : x₂ ≈ 1,040 : 0,030 ≈ 35 : 1 → der Salzgehalt begrenzt Quelle 2 auf rund 3 %" }],
+ "fazit": "Bei Mischungsaufgaben steht jede Quelle für eine Spalte und jeder Parameter für eine Zeile. Prüfe das Ergebnis immer auf Plausibilität."
+});
+
+Object.assign(RECHNEN, {
+ "stat-ue02-inverse": {
+  "0": [{ "l": "det A", "w": 16, "u": "", "h": "(36 + 4 + 4) − (4 + 12 + 12)", "t": 0 }],
+  "1": [{ "l": "c₁₁", "w": 8, "u": "", "h": "4 · 3 − 2 · 2", "t": 0 }],
+  "3": [{ "l": "a⁻¹₁₁", "w": 0.5, "u": "", "h": "8 / 16", "t": 0 }, { "l": "a⁻¹₁₂", "w": -0.25, "u": "", "h": "−4 / 16", "t": 0 }]
+ },
+ "stat-ue02-mischung": {
+  "1": [{ "l": "det A", "w": -12.838, "u": "", "h": "0,02 · 8,1 − 2,0 · 6,5" }],
+  "3": [{ "l": "x₁", "w": 1.040, "u": "", "h": "(8,1 · 0,08 − 2,0 · 7,0) / (−12,838)" }, { "l": "x₂", "w": 0.0296, "u": "", "h": "(−6,5 · 0,08 + 0,02 · 7,0) / (−12,838)", "t": 0.03 }]
+ }
+});
+/* Patch-Warteschlange · Bauinformatik · Vorlesung Block 2 Kontrollstrukturen (Folien 71–102) · erstellt 05.11.2026 · alle Codeausgaben mit Java 21 geprüft */
+const BINF_KS = "Kontrollstrukturen";
+THEMEN["binf|Kontrollstrukturen"] = "Ein lineares Programm arbeitet Anweisung für Anweisung ab, nach dem EVA-Prinzip: Eingabe, Verarbeitung, Ausgabe. Kontrollstrukturen machen daraus mehr. Bedingungsanweisungen (if, if-else, else if, switch) verzweigen je nach einem Boolean-Ausdruck, Schleifen (for, while, do-while) wiederholen einen Block. Ob vor dem ersten Durchlauf geprüft wird (kopfgesteuert) oder erst danach (fußgesteuert), entscheidet, ob der Block mindestens einmal läuft. break beendet eine Schleife ganz, continue nur den aktuellen Durchlauf. Darstellen lässt sich der Ablauf als Struktogramm oder Aktivitätsdiagramm.";
+
+pair("binf", BINF_KS, "Ordne das EVA-Prinzip zu.", [["E", "Eingabe"], ["V", "Verarbeitung"], ["A", "Ausgabe"]], "Jedes Programm besteht aus diesen drei Teilen. Bei großen Programmen ist das Prinzip schwerer einzuhalten, gilt aber trotzdem.", "Bauinformatik Block 2, Folie 71");
+mc("binf", BINF_KS, "Wie heißt das Struktogramm noch, und nach welcher Norm ist es geregelt?", ["Nassi-Shneiderman-Diagramm, DIN 66261", "Flussdiagramm, DIN 1045", "Aktivitätsdiagramm, UML", "Klassendiagramm, DIN 66261"], "Struktogramme zeichnen den Ablauf als ineinander geschachtelte Blöcke. Aktivitätsdiagramme gehören zur UML und arbeiten mit Knoten und Pfeilen.", "Bauinformatik Block 2, Folie 71");
+pair("binf", BINF_KS, "Struktogramm und Aktivitätsdiagramm: Was entspricht sich?", [["Anweisung (Struktogramm)", "Aktion (Aktivitätsdiagramm)"], ["Verzweigungsblock mit ja/nein", "Raute mit [true]/[false]"], ["Schleifenblock „while Bedingung“", "Pfeil zurück zur Bedingung"]], "Beide Diagramme zeigen denselben Ablauf. Im Struktogramm sind Schleifen geschachtelte Blöcke, im Aktivitätsdiagramm Rückführungen.", "Bauinformatik Block 2, Folie 76–78/97");
+pair("binf", BINF_KS, "Welche Anweisung gehört zu welcher Auswahl?", [["einseitige Auswahl", "if ohne else"], ["zweiseitige Auswahl", "if … else"], ["kaskadierende Auswahl", "if … else if … else"], ["mehrseitige Auswahl über einen Wert", "switch"]], "Einseitig heißt: Im false-Fall passiert gar nichts. Bei else if wird nur der erste Zweig ausgeführt, dessen Bedingung stimmt.", "Bauinformatik Block 2, Folie 77–85");
+mc("binf", BINF_KS, "Was steht in den runden Klammern von if( … )?", ["Ein Boolean-Ausdruck, der true oder false ergibt", "Eine beliebige Zahl", "Eine Zuweisung wie x = 5", "Ein String"], "if prüft nur true/false. x = 5 ist eine Zuweisung und liefert in Java einen int, das lässt der Compiler bei if nicht durch – gemeint ist meist x == 5.", "Bauinformatik Block 2, Folie 78");
+mc("binf", BINF_KS, "int x = 15; if (x > 10) A; else if (x > 5) B; else C; – was wird ausgeführt?", ["Nur A", "A und B", "Nur B", "A, B und C"], "15 > 10 ist true, also A. Danach wird die ganze Kaskade verlassen – B wird gar nicht mehr geprüft, obwohl 15 > 5 auch stimmt.", "Bauinformatik Block 2, Folie 83");
+mc("binf", BINF_KS, "Beispiel „gerade/ungerade“: Welche Bedingung prüft, ob die Zahl z gerade ist?", ["z % 2 == 0", "z / 2 == 0", "z % 2 == 1", "z = 2"], "% liefert den Rest der Division. Gerade Zahlen haben bei 2 den Rest 0. z / 2 == 0 gilt nur für 0 und 1, und z = 2 ist eine Zuweisung, kein Vergleich.", "Bauinformatik Block 2, Folie 80");
+mc("binf", BINF_KS, "Welche Werte darf man laut Folie in switch prüfen?", ["Ganzzahlen und Zeichenketten (Strings)", "Nur Kommazahlen", "Nur boolean", "Beliebige Bedingungen wie x > 5"], "switch vergleicht einen Wert mit festen case-Werten. Bereiche wie x > 5 gehen damit nicht – dafür braucht man if/else if.", "Bauinformatik Block 2, Folie 85");
+mc("binf", BINF_KS, "int n = 2; switch (n) { case 1: print(\"eins\"); case 2: print(\"zwei\"); case 3: print(\"drei\"); break; default: print(\"sonst\"); } – Ausgabe?", ["zwei drei", "zwei", "eins zwei drei", "sonst"], "Ohne break nach case 2 läuft das Programm einfach in case 3 weiter (Durchfallen), bis ein break kommt. Deshalb schließt jedes case auf der Folie mit break.", "Bauinformatik Block 2, Folie 85 (eigenes Beispiel, geprüft)");
+mc("binf", BINF_KS, "Wann wird der default-Zweig von switch ausgeführt?", ["Wenn der Wert keinem der case-Werte entspricht", "Immer zuerst", "Immer zusätzlich am Ende", "Nur wenn der Wert 0 ist"], "default ist das „sonst“ der switch-Anweisung. Mit break in jedem case wird er nicht zusätzlich durchlaufen.", "Bauinformatik Block 2, Folie 85");
+pair("binf", BINF_KS, "Ordne die Schleifenart zu.", [["for", "Zählschleife: Anzahl der Durchläufe bekannt"], ["while", "kopfgesteuert: evtl. gar kein Durchlauf"], ["do-while", "fußgesteuert: mindestens ein Durchlauf"]], "Der Unterschied zwischen while und do-while ist nur der Zeitpunkt der Prüfung: vor oder nach dem Schleifenrumpf.", "Bauinformatik Block 2, Folie 88/96/98");
+ord("binf", BINF_KS, "Bring die drei Teile im Kopf der for-Schleife in die richtige Reihenfolge.", ["Initialisierung der Laufvariable (int i = 1)", "Abbruchbedingung (i <= 10)", "Veränderung der Laufvariable (i++)"], "Die Bedingung wird VOR jedem Durchlauf geprüft, die Veränderung nach jedem Durchlauf. Solange die Bedingung true ist, läuft die Schleife weiter.", "Bauinformatik Block 2, Folie 89");
+wf("binf", BINF_KS, "In der for-Schleife bedeutet die Abbruchbedingung: Die Schleife bricht ab, sobald die Bedingung erfüllt ist.", false, "Falsch – genau umgekehrt: Die Schleife läuft, SOLANGE die Bedingung true ist. Bei i <= 10 endet sie also, wenn i = 11 erreicht ist.", "Bauinformatik Block 2, Folie 89");
+mc("binf", BINF_KS, "int i; for (i = 1; i <= 10; i++) { } – welchen Wert hat i nach der Schleife?", ["11", "10", "1", "0"], "Die Schleife endet erst, wenn i <= 10 false wird, also bei i = 11. Den Wert sieht man nur, weil i außerhalb der Schleife deklariert ist.", "Bauinformatik Block 2, Folie 89 (eigenes Beispiel, geprüft)");
+mc("binf", BINF_KS, "Kleiner Gauß: Was gibt die for-Schleife aus, die alle Zahlen von 1 bis 100 aufaddiert?", ["5050", "5000", "10100", "100"], "1 + 2 + … + 100 = 100 · 101 / 2 = 5050. 10100 wäre 100 · 101 ohne die Halbierung.", "Bauinformatik Block 2, Folie 92 (geprüft)");
+mc("binf", BINF_KS, "Was bewirkt for( ; ; )?", ["Eine Endlosschleife – der Block wird ohne Ende wiederholt", "Die Schleife läuft genau einmal", "Einen Compilerfehler", "Die Schleife wird übersprungen"], "Ohne Abbruchbedingung gilt die Bedingung als immer erfüllt. Die Folie warnt: selten sinnvoll, im schlimmsten Fall hängt der Rechner.", "Bauinformatik Block 2, Folie 95");
+mc("binf", BINF_KS, "int i = 10; while (i < 10) { c++; i++; } – wie oft läuft der Block?", ["Gar nicht", "Einmal", "Zehnmal", "Endlos"], "while prüft VOR dem ersten Durchlauf. 10 < 10 ist false, also wird der Rumpf übersprungen. Mit do-while liefe er genau einmal.", "Bauinformatik Block 2, Folie 96 (geprüft)");
+mc("binf", BINF_KS, "Gleiche Werte, aber als do { c++; i++; } while (i < 10); mit i = 10 – wie oft läuft der Block?", ["Einmal", "Gar nicht", "Zehnmal", "Endlos"], "do-while prüft erst NACH dem Rumpf. Der Block läuft also einmal, danach ist 11 < 10 false. Achte auf das Semikolon nach while( … ).", "Bauinformatik Block 2, Folie 98 (geprüft)");
+pair("binf", BINF_KS, "break oder continue?", [["break", "beendet die ganze Schleife"], ["continue", "bricht nur den aktuellen Durchlauf ab, die Schleife geht weiter"]], "Im Folienbeispiel beendet die Zahl 5 die Schleife (break), die Zahl 0 wird nur nicht ausgegeben (continue).", "Bauinformatik Block 2, Folie 100");
+mc("binf", BINF_KS, "for (int k = 0; k < 5; k++) { if (k == 2) continue; if (k == 4) break; print(k + \" \"); } – Ausgabe?", ["0 1 3", "0 1 2 3", "0 1", "0 1 3 4"], "Bei k = 2 springt continue zum nächsten Durchlauf, ohne zu drucken. Bei k = 4 beendet break die Schleife, bevor gedruckt wird.", "Bauinformatik Block 2, Folie 100 (eigenes Beispiel, geprüft)");
+mc("binf", BINF_KS, "Welche Werte liefert Math.random()?", ["double-Zahlen von 0 bis kleiner als 1", "Ganzzahlen von 0 bis 10", "double-Zahlen von 0 bis einschließlich 1", "Ganzzahlen von 1 bis 6"], "Die 1 selbst wird nie erreicht. Deshalb ergibt Math.random() · 10 Werte von 0,0 bis unter 10.", "Bauinformatik Block 2, Folie 101");
+mc("binf", BINF_KS, "Warum steht in int zahl = (int)(Math.random() * 10); der Cast (int)?", ["double passt nicht automatisch in int – die Umwandlung muss explizit sein und schneidet die Nachkommastellen ab", "Damit die Zahl gerundet wird", "Weil Math.random() einen String liefert", "Ohne Cast wäre die Zahl negativ"], "(int) schneidet ab, es rundet nicht: Aus 9,9 wird 9. Deshalb entstehen nur die Zahlen 0 bis 9.", "Bauinformatik Block 2, Folie 101");
+wf("binf", BINF_KS, "(int)(Math.random() * 10) kann auch die Zahl 10 liefern.", false, "Falsch – Math.random() bleibt unter 1, mal 10 also unter 10. Der Cast schneidet ab, also kommt höchstens 9 heraus (z. B. 9,99 → 9).", "Bauinformatik Block 2, Folie 101 (geprüft)");
+/* Patch-Warteschlange · Baukonstruktion · Übung 3 Bemessung (04.11.2026, Geßler/Kimpeler) · Beispiel 5 Sparren, Beispiel 6 Dreifeldträger · erstellt 05.11.2026 · alle Zahlen nachgerechnet */
+const BK_KOMBI = "Lastfallkombination";
+THEMEN["bauko|Lastfallkombination"] = "Nach den Lastannahmen rechnest du die Schnittgrößen zuerst für jeden Lastfall getrennt und charakteristisch: Eigengewicht, Schnee, Wind, Nutzlast. Erst danach kombinierst du nach der Grundkombination: ständige Lasten mal 1,35, eine veränderliche Einwirkung als „führende“ voll mit 1,5, alle weiteren zusätzlich mit ψ₀ abgemindert. Weil vorher nicht klar ist, welche veränderliche Last führend den größten Wert liefert, probierst du jede einmal als führende aus. Bei Durchlaufträgern kommt die ungünstige Laststellung dazu: Veränderliche Lasten stellst du nur auf die Felder, die das gesuchte Moment vergrößern.";
+
+/* ── Wiederholung Sicherheitskonzept ── */
+ord("bauko", BK_KOMBI, "Vorgehen bei der Bemessung laut Übung 3: Reihenfolge?", ["Charakteristische Einwirkungen F_k bestimmen (Lastannahmen)", "Charakteristische Schnittgrößen E_k je Lastfall berechnen", "Mit Teilsicherheits- und Kombinationsbeiwerten zu E_d kombinieren", "Bemessungswiderstand R_d = R_k / γ_M bestimmen", "Nachweis E_d ≤ R_d führen"], "Die Teilsicherheitsbeiwerte kommen erst nach der Schnittgrößenberechnung ins Spiel. So kann man dieselben charakteristischen Schnittgrößen in mehreren Kombinationen verwenden.", "Baukonstruktion Übung 3, Folie 4");
+mc("bauko", BK_KOMBI, "Was bedeutet „führende veränderliche Einwirkung“ in der Grundkombination?", ["Die eine veränderliche Last, die voll mit γ_Q = 1,5 angesetzt wird – alle anderen bekommen zusätzlich ψ₀", "Die größte ständige Last", "Die Last, die zuerst auftritt", "Die Last mit dem größten ψ₀"], "Dass Schnee und Wind gleichzeitig mit ihrem Höchstwert auftreten, ist unwahrscheinlich. Deshalb zählt nur eine voll, die anderen abgemindert. Welche führend ist, legt man nicht fest – man probiert jede aus.", "Baukonstruktion Übung 3, Folie 33/34");
+mc("bauko", BK_KOMBI, "Beispiel 5 hat Schnee und Wind. Wie viele Kombinationen mit beiden Lasten rechnest du?", ["Zwei – einmal Wind führend, einmal Schnee führend", "Eine – Schnee ist immer führend", "Eine – die größere Last ist führend", "Vier – jede Last mit jedem ψ"], "Welche Kombination maßgebend wird, sieht man erst am Ergebnis. In Beispiel 5 liegt Schnee führend nur knapp vorn: −2,09 gegen −2,0 kNm.", "Baukonstruktion Übung 3, Folie 34");
+pair("bauko", BK_KOMBI, "Welche Beiwerte nutzt Übung 3?", [["γ_G", "1,35"], ["γ_Q", "1,50"], ["ψ₀ Schnee", "0,5"], ["ψ₀ Wind", "0,6"], ["ψ₀ sonstige Last (Bsp. 6)", "0,8"]], "γ_G und γ_Q gelten für alle Materialien. Die ψ₀-Werte stehen im SBT (24. Aufl. S. 3.5). Die sonstige Last in Beispiel 6 hat der Bauherr mit ψ₀ = 0,8 vorgegeben.", "Baukonstruktion Übung 3, Folie 33/50");
+mc("bauko", BK_KOMBI, "Beispiel 6 ist ein Versammlungsraum. Mit welchem ψ₀ wird die Nutzlast im Ergebnis tatsächlich abgemindert?", ["0,7 – Kategorie C (Versammlungsräume)", "0,5 – wie auf der Folie notiert", "0,6 – wie Wind", "1,0 – Nutzlast wird nie abgemindert"], "Auf der Folie steht ψ₀,q = 0,5, gerechnet wird aber mit 0,7: Nur damit kommen −6,76 und 5,1 kNm heraus. 0,7 passt zur Kategorie C. Im Zweifel selbst im SBT nachschlagen.", "Baukonstruktion Übung 3, Folie 50–52 (nachgerechnet)");
+
+/* ── Beispiel 5: Sparren ── */
+mc("bauko", BK_KOMBI, "Beispiel 5: Wie kommt die ständige Last g = 0,7 kN/m (auf der Dachfläche) auf die Grundfläche?", ["g′ = g / cos α = 0,7 / cos 35,7° = 0,86 kN/m", "g′ = g · cos α = 0,57 kN/m", "g′ = g · sin α", "g′ = g, die Bezugsfläche spielt keine Rolle"], "Die schräge Dachfläche ist länger als ihre Grundfläche. Damit die Gesamtlast gleich bleibt, wird die Last je Meter Grundfläche größer, also geteilt durch cos α, nicht multipliziert.", "Baukonstruktion Übung 3, Folie 11");
+mc("bauko", BK_KOMBI, "Beispiel 5: Die Formel liefert in Aachen s_k = 0,63 kN/m². Mit welchem Wert rechnest du?", ["0,85 kN/m² – der Mindestwert für Zone 2", "0,63 kN/m²", "0,63 · 1,25 = 0,79 kN/m²", "0,85 · 0,63 = 0,54 kN/m²"], "Bei 200 m Höhe ergibt die Formel weniger als den Mindestwert. In Zone 2 gilt dann 0,85 kN/m². Der Faktor 1,25 gilt nur für Zone 1a.", "Baukonstruktion Übung 3, Folie 12");
+mc("bauko", BK_KOMBI, "Wie wird aus der Flächenlast eine Linienlast pro Sparren?", ["Mit der Lasteinzugsbreite (Sparrenabstand) multiplizieren: s₁ = 0,55 · 0,62 = 0,34 kN/m", "Durch den Sparrenabstand teilen", "Mit der Sparrenlänge multiplizieren", "Mit der Dachbreite 7,44 m multiplizieren"], "Jeder Sparren trägt den Streifen zwischen den Mitten zu seinen Nachbarn – das ist die Lasteinzugsbreite, hier 0,62 m. Die Dachbreite brauchst du nur für das Windmaß e.", "Baukonstruktion Übung 3, Folie 13");
+mc("bauko", BK_KOMBI, "Der Sparren kragt links 0,885 m und rechts 1,47 m über die Auflager. Wo liegt das größere Stützmoment?", ["Am Auflager B mit dem längeren Kragarm (1,47 m)", "Am Auflager A", "In Feldmitte", "Beide sind gleich groß"], "Das Kragmoment wächst mit dem Quadrat der Kraglänge: −q · l²/2. Bei g: M_B = −0,93 kNm gegen M_A = −0,34 kNm. Deshalb wird an B bemessen.", "Baukonstruktion Übung 3, Folie 22/31");
+mc("bauko", BK_KOMBI, "Wie groß ist das Moment am Einspannpunkt eines Kragarms unter Gleichlast q?", ["M = −q · l² / 2", "M = −q · l² / 8", "M = −q · l", "M = q · l² / 8"], "Die Resultierende q · l greift in der Mitte des Kragarms an, also mit Hebelarm l/2. q · l²/8 ist das Feldmoment eines Einfeldträgers.", "Baukonstruktion Übung 3, Folie 20");
+mc("bauko", BK_KOMBI, "Wo liegt das größte Feldmoment eines Trägers unter Gleichlast?", ["Am Querkraftnullpunkt", "Immer genau in Feldmitte", "Am Auflager", "Dort, wo die Last am größten ist"], "Die Querkraft ist die Ableitung des Moments, wo sie null ist, hat M ein Extremum. Mit Kragarmen liegt der Punkt nicht in Feldmitte – in Beispiel 5 bei x = 1,98 m.", "Baukonstruktion Übung 3, Folie 20/22");
+wf("bauko", BK_KOMBI, "In Beispiel 5 liegen die maximalen Feldmomente von g, s und w genau an derselben Stelle.", false, "Falsch – die Tabelle vermerkt ausdrücklich, dass M_Feld,max nicht jeweils an der gleichen Stelle liegt (Wind: x = 2,59 m statt 1,98 m). Sie trotzdem zu addieren, liegt auf der sicheren Seite.", "Baukonstruktion Übung 3, Folie 31");
+
+/* ── Durchlaufträger ── */
+mc("bauko", BK_KOMBI, "Zweifeldträger mit Gleichlast q: Wie groß ist die Auflagerkraft der Mittelstütze?", ["B = 1,25 · q · l – je Feld 5/8 · q · l", "B = q · l", "B = 0,5 · q · l", "B = 2 · q · l"], "Die Mittelstütze bekommt mehr als bei zwei Einfeldträgern (das wären 2 · q · l/2 = q · l), weil die Durchlaufwirkung Last zur Mitte zieht.", "Baukonstruktion Übung 3, Folie 36");
+mc("bauko", BK_KOMBI, "Wie rechnest du in Beispiel 6 Momente am Dreifeldträger mit gleichen Stützweiten?", ["M = Tafelwert · q · l², z. B. M₁ = 0,080 · 5 · 2² = 1,6 kNm", "M = q · l² / 8 in jedem Feld", "M = Tafelwert · q · l", "M = Tafelwert / (q · l²)"], "Die Tafelwerte stehen im SBT (24. Aufl. S. 4.14), einer je Laststellung und Stelle. q · l²/8 gilt nur für einen Einfeldträger, beim Durchlaufträger sind die Feldmomente kleiner.", "Baukonstruktion Übung 3, Folie 39");
+mc("bauko", BK_KOMBI, "Dreifeldträger: Wo stellst du die Nutzlast hin, um das größte Feldmoment im Außenfeld zu bekommen?", ["In beide Außenfelder, das Mittelfeld bleibt frei", "In alle drei Felder", "Nur ins Mittelfeld", "Ins Außenfeld und das benachbarte Mittelfeld"], "Last im Mittelfeld hebt die Außenfelder an und verkleinert deren Feldmoment. Volllast ergibt nur 1,28 kNm, „links/rechts“ 1,62 kNm.", "Baukonstruktion Übung 3, Folie 46/49");
+mc("bauko", BK_KOMBI, "Und für das größte Stützmoment über Stütze C?", ["In die beiden Felder neben C (Mitte und rechts)", "In alle drei Felder", "Nur ins linke Außenfeld", "In beide Außenfelder"], "Die zwei an C angrenzenden Felder biegen den Träger über C am stärksten. Mitte/rechts ergibt M_c = −1,87 kNm, Volllast nur −1,6 kNm.", "Baukonstruktion Übung 3, Folie 44/52");
+wf("bauko", BK_KOMBI, "Das Eigengewicht stellt man bei der ungünstigen Laststellung ebenfalls nur feldweise auf.", false, "Falsch – ständige Lasten wirken immer auf allen Feldern. Nur veränderliche Lasten wie Nutzlast dürfen feldweise fehlen.", "Baukonstruktion Übung 3, Folie 39/49");
+mc("bauko", BK_KOMBI, "Wie bekommst du in Beispiel 6 das Feldmoment, wenn die Tafel nur die Stützmomente liefert?", ["q · l²/8 plus die gemittelten Stützmomente in Feldmitte einhängen", "Die Stützmomente addieren", "q · l²/8 allein", "Das Feldmoment ist dann null"], "Man hängt die Einfeldträger-Parabel zwischen die Stützmomente: M₂ = 4 · 2²/8 + (−0,53 − 1,87)/2 = 0,80 kNm. Ohne Stützmomente wäre das Feldmoment viel zu groß.", "Baukonstruktion Übung 3, Folie 44");
+
+aufgabe({
+ "id": "bauko-ue03-sparren", "f": "bauko", "t": BK_KOMBI, "titel": "Bemessungsmoment am Sparren", "s": "Baukonstruktion Übung 3, Beispiel 5",
+ "angabe": "Sparren Pos. 1 eines Pfettendachs (C24) mit Kragarmen 0,885 m links und 1,47 m rechts, Feld 3,58 m. Charakteristische Momente aus den Lastfällen: Eigengewicht M_B = −0,93, M_Feld = 0,76; Schnee M_B = −0,37, M_Feld = 0,29; Wind M_B = −0,31, M_Feld = 0,33 kNm. Am Auflager A: M_A,g = −0,34 kNm. γ_G = 1,35, γ_Q = 1,5, ψ₀,s = 0,5, ψ₀,w = 0,6.",
+ "geg": ["M_B,g = −0,93", "M_B,s = −0,37", "M_B,w = −0,31", "M_F,g = 0,76", "M_F,s = 0,29", "M_F,w = 0,33"],
+ "ges": "Maßgebendes Bemessungsmoment an der Stütze und im Feld",
+ "schritte": [
+  { "f": "An welcher Stütze bemisst du?", "o": [
+    ["An B – das Kragmoment ist dort betragsmäßig größer", "Der Kragarm an B ist länger (1,47 m), M_B,g = −0,93 kNm gegen M_A,g = −0,34 kNm."],
+    ["An A, weil A das Festlager ist", "Die Lagerart entscheidet nicht über die Größe des Moments."],
+    ["An beiden gleichzeitig mit dem Mittelwert", "Bemessen wird an der ungünstigsten Stelle, nicht im Mittel."],
+    ["Nur im Feld, Stützen sind unkritisch", "Hier ist das Stützmoment sogar größer als das Feldmoment."]],
+   "r": "|M_B| > |M_A| in allen Lastfällen → Stütze B" },
+  { "f": "Wie lautet die Kombination nur mit Eigengewicht?", "o": [
+    ["M_B,d = 1,35 · (−0,93)", "Ständige Last mit γ_G = 1,35."],
+    ["M_B,d = 1,5 · (−0,93)", "1,5 ist der Beiwert für veränderliche Lasten."],
+    ["M_B,d = −0,93", "Ohne Teilsicherheitsbeiwert ist es kein Bemessungswert."],
+    ["M_B,d = 1,35 · (−0,93) · 0,5", "ψ₀ gilt nur für begleitende veränderliche Lasten."]],
+   "r": "M_B,d = −1,26 kNm · M_F,d = 1,35 · 0,76 = 1,03 kNm" },
+  { "f": "Wind führend, Schnee begleitend: Wie sieht M_B,d aus?", "o": [
+    ["1,35 · (−0,93) + 1,5 · (−0,31) + 1,5 · 0,5 · (−0,37)", "Wind voll mit 1,5, Schnee zusätzlich mit ψ₀,s = 0,5."],
+    ["1,35 · (−0,93) + 1,5 · (−0,31) + 1,5 · (−0,37)", "Dann wären beide veränderlichen Lasten führend – ψ₀ fehlt."],
+    ["1,35 · (−0,93) + 1,5 · 0,6 · (−0,31) + 1,5 · (−0,37)", "Das ist die Kombination mit Schnee führend."],
+    ["1,35 · (−0,93 − 0,31 − 0,37)", "Veränderliche Lasten bekommen 1,5, nicht 1,35."]],
+   "r": "M_B,d = −1,26 − 0,47 − 0,28 = −2,0 kNm" },
+  { "f": "Schnee führend, Wind begleitend: Wie groß ist M_B,d?", "o": [
+    ["1,35 · (−0,93) + 1,5 · (−0,37) + 1,5 · 0,6 · (−0,31)", "Schnee voll, Wind mit ψ₀,w = 0,6."],
+    ["1,35 · (−0,93) + 1,5 · (−0,37) + 1,5 · 0,5 · (−0,31)", "Für den begleitenden Wind gilt ψ₀,w = 0,6, nicht der Schneewert 0,5."],
+    ["1,35 · (−0,93) + 1,5 · (−0,37)", "Der Wind darf als Begleiter nicht weggelassen werden, er vergrößert hier das Moment."],
+    ["1,5 · (−0,93 − 0,37 − 0,31)", "Das Eigengewicht bekommt γ_G = 1,35."]],
+   "r": "M_B,d = −1,26 − 0,56 − 0,28 = −2,09 kNm → betraglich maßgebend" },
+  { "f": "Welches Feldmoment ist maßgebend?", "o": [
+    ["Auch mit Schnee führend: 1,35 · 0,76 + 1,5 · 0,29 + 1,5 · 0,6 · 0,33", "Im Feld liegt Schnee führend ebenfalls knapp vorn (1,76 gegen 1,74)."],
+    ["Nur Eigengewicht: 1,35 · 0,76", "Die veränderlichen Lasten vergrößern das Feldmoment, sie gehören dazu."],
+    ["1,35 · 0,76 + 1,5 · 0,29 + 1,5 · 0,33", "Hier fehlt ψ₀ für die begleitende Last."],
+    ["Das Feldmoment aus dem Wind allein", "Bemessen wird mit der Kombination, nicht mit einem Lastfall."]],
+   "r": "M_F,d = 1,026 + 0,435 + 0,297 = 1,76 kNm (Wind führend: 1,74 kNm)" }],
+ "fazit": "Jede veränderliche Last einmal führend ansetzen und vergleichen. Die Unterschiede sind oft klein, deshalb nicht raten."
+});
+
+aufgabe({
+ "id": "bauko-ue03-dreifeld", "f": "bauko", "t": BK_KOMBI, "titel": "Dreifeldträger im Versammlungsraum", "s": "Baukonstruktion Übung 3, Beispiel 6",
+ "angabe": "Dreifeldträger mit l = 2 m je Feld. Eigengewicht g = 5 kN/m, Nutzlast q = 4 kN/m (Versammlungsraum), sonstige veränderliche Last 3 kN/m, die nur auf zwei Feldern gleichzeitig wirkt (ψ₀ = 0,8). Tafelwerte aus der Übung: g voll M₁ = 1,6, M_b = M_c = −2,0 · q links/rechts M₁ = M₃ = 1,62 · q mitte/rechts M_c = −1,87 · sonstige (mitte/rechts) M_c = −1,40, M₃ = 0,80 kNm. γ_G = 1,35, γ_Q = 1,5, ψ₀,q = 0,7.",
+ "ges": "Maximale Bemessungsmomente an der Stütze und im Feld",
+ "schritte": [
+  { "f": "Welche Laststellung der Nutzlast liefert das größte Stützmoment über C?", "o": [
+    ["Mittelfeld und rechtes Feld belastet", "Die beiden an C angrenzenden Felder: M_c = −1,87 kNm."],
+    ["Alle drei Felder", "Volllast ergibt nur −1,6 kNm."],
+    ["Beide Außenfelder", "Diese Stellung liefert das größte Feldmoment, über der Stütze nur −0,8 kNm."],
+    ["Nur das linke Feld", "Das entfernte Feld trägt über C sogar positiv bei (+0,27)."]],
+   "r": "M_c,q = −1,87 kNm · M_c,sonst = −1,40 kNm (ebenfalls auf Mitte und rechts) · M_c,g = −2,0 kNm" },
+  { "f": "Nutzlast führend: Wie groß ist M_Ed über C?", "o": [
+    ["1,35 · (−2,0) + 1,5 · (−1,87) + 1,5 · 0,8 · (−1,4)", "q voll, die sonstige Last mit ihrem ψ₀ = 0,8."],
+    ["1,35 · (−2,0) + 1,5 · (−1,87) + 1,5 · (−1,4)", "Die sonstige Last ist hier nur Begleiter und bekommt ψ₀."],
+    ["1,35 · (−2,0 − 1,87 − 1,4)", "Veränderliche Lasten bekommen γ_Q = 1,5."],
+    ["1,35 · (−2,0) + 1,5 · 0,7 · (−1,87) + 1,5 · (−1,4)", "Das ist die Kombination mit der sonstigen Last führend."]],
+   "r": "M_Ed = −2,70 − 2,81 − 1,68 = −7,19 kNm" },
+  { "f": "Und mit der sonstigen Last führend?", "o": [
+    ["1,35 · (−2,0) + 1,5 · 0,7 · (−1,87) + 1,5 · (−1,4) = −6,76 kNm", "Jetzt wird die Nutzlast mit ψ₀ = 0,7 abgemindert. Die Kombination mit q führend bleibt maßgebend."],
+    ["1,35 · (−2,0) + 1,5 · 0,5 · (−1,87) + 1,5 · (−1,4) = −6,20 kNm", "So steht ψ₀,q auf der Folie, gerechnet wird aber mit 0,7 (Kategorie C)."],
+    ["Dieselbe Rechnung wie eben", "Die Rollen von führend und begleitend tauschen."],
+    ["Nicht nötig, die Nutzlast ist größer", "Ob das reicht, zeigt erst die Rechnung."]],
+   "r": "−6,76 kNm < 7,19 kNm (Betrag) → q führend maßgebend: M_Ed,Stütze = −7,19 kNm" },
+  { "f": "Wo und mit welcher Nutzlaststellung wird das Feldmoment maximal?", "o": [
+    ["In den Außenfeldern, Nutzlast auf beiden Außenfeldern", "Dann ist M₁ = M₃ = 1,62 kNm, das Mittelfeld bleibt frei."],
+    ["Im Mittelfeld bei Volllast", "Bei Volllast ist M₂ = 0,4 kNm, viel kleiner."],
+    ["In den Außenfeldern bei Volllast", "Volllast liefert nur 1,28 kNm, weil das Mittelfeld die Außenfelder entlastet."],
+    ["Über den Stützen", "Dort entstehen Stützmomente, keine Feldmomente."]],
+   "r": "maßgebend Feld 3: M_g = 1,6 · M_q = 1,62 · M_sonst = 0,80 kNm" },
+  { "f": "Wie groß ist das Bemessungs-Feldmoment?", "o": [
+    ["1,35 · 1,6 + 1,5 · 1,62 + 1,5 · 0,8 · 0,8", "q führend, die sonstige Last als Begleiter mit ψ₀ = 0,8."],
+    ["1,35 · 1,6 + 1,5 · 1,62", "Die sonstige Last vergrößert das Moment in Feld 3 und gehört dazu."],
+    ["1,5 · (1,6 + 1,62 + 0,8)", "Das Eigengewicht bekommt 1,35."],
+    ["1,35 · 1,6 + 1,5 · 0,7 · 1,62 + 1,5 · 0,8", "Das ist die Variante mit der sonstigen Last führend (5,1 kNm)."]],
+   "r": "M_Ed,Feld = 2,16 + 2,43 + 0,96 = 5,55 ≈ 5,5 kNm" }],
+ "fazit": "Ungünstige Laststellung zuerst für jede Stelle getrennt suchen, dann jede veränderliche Last einmal führend kombinieren."
+});
+
+Object.assign(RECHNEN, {
+ "bauko-ue03-sparren": {
+  "1": [{ "l": "M_B,d", "w": -1.26, "u": "kNm", "h": "1,35 · (−0,93)" }],
+  "2": [{ "l": "M_B,d", "w": -2.0, "u": "kNm", "h": "1,35 · (−0,93) + 1,5 · (−0,31) + 1,5 · 0,5 · (−0,37)" }],
+  "3": [{ "l": "M_B,d", "w": -2.09, "u": "kNm", "h": "1,35 · (−0,93) + 1,5 · (−0,37) + 1,5 · 0,6 · (−0,31)" }],
+  "4": [{ "l": "M_F,d", "w": 1.76, "u": "kNm", "h": "1,35 · 0,76 + 1,5 · 0,29 + 1,5 · 0,6 · 0,33" }]
+ },
+ "bauko-ue03-dreifeld": {
+  "1": [{ "l": "M_Ed", "w": -7.19, "u": "kNm", "h": "1,35 · (−2,0) + 1,5 · (−1,87) + 1,5 · 0,8 · (−1,4)" }],
+  "2": [{ "l": "M_Ed", "w": -6.76, "u": "kNm", "h": "1,35 · (−2,0) + 1,5 · 0,7 · (−1,87) + 1,5 · (−1,4)" }],
+  "4": [{ "l": "M_Ed", "w": 5.55, "u": "kNm", "h": "1,35 · 1,6 + 1,5 · 1,62 + 1,5 · 0,8 · 0,8" }]
+ }
+});
+/* Patch-Warteschlange · Data Analysis for Planning · Exercise 2 Descriptive Statistics with R (27.10.2026) + Skript Week 2 · erstellt 05.11.2026 */
+const DAP_R2 = "R-Grundlagen";
+
+mc("dap", DAP_R2, "Deine CSV-Datei trennt die Spalten mit Semikolon. Wie liest du sie mit Base-R ein?", ["read.csv('datei.csv', sep = ';')", "read.csv('datei.csv') – das Semikolon erkennt R automatisch", "read_excel('datei.csv')", "read.csv('datei.csv', header = ';')"], "read.csv erwartet standardmäßig ein Komma. Bei deutschen CSV-Dateien mit Semikolon zerfällt sonst jede Zeile in eine einzige Spalte. header steuert nur, ob die erste Zeile Spaltennamen enthält (Standard TRUE).", "DAP Exercise 2, Folie 5");
+wf("dap", DAP_R2, "Eine .xlsx-Datei kannst du mit Base-R direkt öffnen.", false, "Falsch – dafür braucht man ein Paket wie readxl. Base-R liest nur Textformate wie .csv. Darum liegt der MiD-Datensatz als CSV vor.", "DAP Exercise 2, Folie 4");
+pair("dap", DAP_R2, "Welche Funktion zeigt dir was über einen eingelesenen Datensatz?", [["head(x)", "die ersten Zeilen"], ["str(x)", "Struktur: Spalten mit Datentyp"], ["summary(x)", "Min, Q1, Median, Mittelwert, Q3, Max"], ["length(x)", "Anzahl der Elemente"]], "Mit head und str prüfst du direkt nach dem Einlesen, ob die Spalten richtig getrennt wurden. summary liefert die Kennzahlen gleich mit.", "DAP Exercise 2, Folie 5/7/15");
+pair("dap", DAP_R2, "Ordne den Mittelwert seiner R-Zeile zu.", [["arithmetisch", "sum(x) / length(x)"], ["geometrisch", "prod(x)^(1 / length(x))"], ["harmonisch", "length(x) / sum(1 / x)"]], "Das harmonische Mittel nutzt man bei Raten wie Geschwindigkeiten über gleiche Strecken. Das geometrische bei Wachstumsfaktoren.", "DAP Exercise 2, Folie 8");
+mc("dap", DAP_R2, "Wie bestimmst du in Base-R den Modalwert (häufigsten Wert)?", ["Gar nicht direkt – Base-R hat keine eingebaute Funktion dafür", "mode(x)", "mean(x, type = 'mode')", "median(x)"], "Laut Folie kommt das in einer späteren Übung. Vorsicht: mode(x) gibt es zwar, sie liefert aber den Speichertyp wie „numeric“, nicht den häufigsten Wert.", "DAP Exercise 2, Folie 10");
+mc("dap", DAP_R2, "Was liefert range(x)?", ["Minimum und Maximum als zwei Zahlen", "Die Spannweite max − min als eine Zahl", "Den Interquartilsabstand", "Die Anzahl der Werte"], "Die Spannweite musst du daraus noch selbst bilden: max(x) − min(x) oder diff(range(x)).", "DAP Exercise 2, Folie 13");
+mc("dap", DAP_R2, "Wie berechnest du in der Übung den Interquartilsabstand?", ["quantile(x, probs = 0.75) − quantile(x, probs = 0.25)", "max(x) − min(x)", "quantile(x, probs = 0.5)", "sd(x) / 2"], "probs gibt den Anteil an: 0,25 ist Q1, 0,75 ist Q3. quantile mit 0,5 wäre der Median, max − min die Spannweite.", "DAP Exercise 2, Folie 14");
+mc("dap", DAP_R2, "Was macht x[order(-x), ]?", ["Sortiert die Zeilen absteigend", "Sortiert aufsteigend", "Entfernt negative Werte", "Kehrt die Vorzeichen um"], "order liefert die Reihenfolge der Indizes, das Minus dreht sie um. Das Komma danach heißt: alle Spalten behalten.", "DAP Exercise 2, Folie 16");
+mc("dap", DAP_R2, "Welche Zeile wählt alle Wege unter 15 Minuten von Frauen (HP_SEX == 2) aus?", ["x[x$wegmin < 15 & x$HP_SEX == 2, ]", "x[x$wegmin < 15 | x$HP_SEX == 2, ]", "x[x$wegmin < 15 & x$HP_SEX = 2, ]", "x[, x$wegmin < 15 & x$HP_SEX == 2]"], "& verlangt beide Bedingungen, | nur eine. = ist eine Zuweisung statt eines Vergleichs, und die Bedingung muss VOR dem Komma stehen, weil Zeilen gefiltert werden.", "DAP Exercise 2, Folie 16");
+mc("dap", DAP_R2, "Wie schließt du alle Personen ohne Führerschein (P_FS_PKW == 2) aus?", ["x[x$P_FS_PKW != 2, ]", "x[x$P_FS_PKW == 2, ]", "x[-2, ]", "subset(x, P_FS_PKW = 2)"], "!= heißt „ungleich“. x[-2, ] würde nur die zweite Zeile entfernen, und == 2 behielte gerade die Personen ohne Führerschein.", "DAP Exercise 2, Folie 17");
+wf("dap", DAP_R2, "na.omit(x) entfernt aus einem Data Frame jede Zeile, in der mindestens ein Wert fehlt.", true, "Richtig – deshalb kann na.omit viele Zeilen kosten, auch wenn das NA in einer Spalte steht, die du gar nicht brauchst. Für einzelne Rechnungen reicht oft na.rm = TRUE.", "DAP Exercise 2, Folie 17");
+mc("dap", DAP_R2, "Wozu dient factor(x, levels = c(1, 2, 3), labels = c('walk', 'bicycle', 'car'))?", ["Aus den Codes 1–3 wird eine kategoriale Variable mit lesbaren Namen", "Es multipliziert x mit 1, 2 und 3", "Es sortiert x", "Es berechnet die Häufigkeiten"], "Codes wie 1, 2, 3 sind keine Messwerte. Als factor rechnet R keinen sinnlosen Mittelwert mehr daraus, und table() zeigt die Namen.", "DAP Exercise 2, Folie 17");
+pair("dap", DAP_R2, "Was liefert welche Tabelle?", [["table(x)", "Anzahlen je Ausprägung"], ["table(x, y)", "Kreuztabelle mit Anzahlen"], ["prop.table(table(x, y), margin = 1)", "Anteile je Zeile (jede Zeile ergibt 1)"], ["prop.table(table(x, y), margin = 2)", "Anteile je Spalte (jede Spalte ergibt 1)"]], "Für „Fahren Männer häufiger Auto als Frauen?“ brauchst du margin = 1 mit Geschlecht als Zeile: Dann vergleichst du Anteile innerhalb jedes Geschlechts, nicht am Gesamtdatensatz.", "DAP Exercise 2, Folie 18/19");
+mc("dap", DAP_R2, "Was berechnet aggregate(wegmin ~ P_FS_PKW, data = x, FUN = mean)?", ["Die mittlere Wegedauer getrennt nach Führerscheinbesitz", "Die Wegedauer der ersten Person", "Die Korrelation von Wegedauer und Führerschein", "Den Führerscheinanteil je Wegedauer"], "Die Formel „Wert ~ Gruppe“ teilt die Daten nach der Gruppe auf und wendet FUN auf jede Gruppe an. by(x$wegmin, x$P_FS_PKW, summary) liefert dasselbe mit allen Kennzahlen.", "DAP Exercise 2, Folie 20");
+wf("dap", DAP_R2, "mean(x$zweck) ergibt einen sinnvollen Wert, solange zweck als Zahl kodiert ist.", false, "Falsch – zweck ist ein Code (1 = Arbeit …). Ein Mittelwert von Codes wie 3,7 hat keine Bedeutung. Im Skript wird zweck deshalb mit as.factor umgewandelt, danach verweigert mean() die Rechnung mit NA.", "DAP Skript Week 2");
+/* Patch-Warteschlange · Schneider-Wegweiser: Fundstellen in Toms 27. Auflage (aus seinem Scan der Inhaltsverzeichnisse, 05.11.2026) · Seitenzahl = Anfang des Abschnitts laut Inhaltsverzeichnis, die Tafel steht dort oder wenige Seiten danach · erstellt 05.11.2026 */
+const SBT27_FUND = {
+ "Wichten von Baustoffen (Eigenlasten)": "S. 3.9–3.11 (Abschn. 3 B 2, Holz S. 3.11)",
+ "Nutzlasten im Hochbau (Kategorien A bis E)": "S. 3.19–3.20 (3 C 3 Nutzungskategorien, 3 C 4.1 Decken, Treppen, Balkone)",
+ "Trennwandzuschlag": "S. 3.19 (3 C 2.2 Lasten aus leichten Trennwänden)",
+ "Schneelastzonen und s_k am Boden": "S. 3.53 (3 F 3 Schneelast auf dem Boden)",
+ "Formbeiwerte μ für Schnee auf Dächern": "S. 3.54 (3 F 4 Schneelast auf dem Dach)",
+ "Geschwindigkeitsdruck q_p vereinfacht (bis 25 m)": "ab S. 3.29 (3 E 5 Windzonen, Geschwindigkeitsdrücke)",
+ "Höhenabhängiger Geschwindigkeitsdruck (Regelfall)": "ab S. 3.29 (3 E 5 Windzonen, Geschwindigkeitsdrücke)",
+ "Außendruckbeiwerte c_pe für Wände und Dächer": "ab S. 3.33 (3 E 7 Winddruck auf Oberflächen)",
+ "Modifikationsbeiwert k_mod": "S. 9.3 (9 1.5 Widerstände)",
+ "Festigkeiten und Steifigkeiten Vollholz und BSH (C24, GL24h …)": "ab S. 9.6 (9 2.2 Vollholzprodukte)",
+ "Querdruckbeiwert k_c,90": "S. 9.23 (9 6.1 Auflager- und Schwellendruck)",
+ "Schubnachweis und k_cr": "S. 9.21 (9 5.4 Schub infolge Querkraft)",
+ "Knickbeiwert k_c": "S. 9.27 (9 7.1 Knicken)",
+ "Durchbiegung: k_def und Grenzwerte": "S. 9.14 (9 3.2 Steifigkeitskennwerte) und S. 9.15 (9 4.2 Durchbiegungen)",
+ "Teilsicherheits- und Kombinationsbeiwerte (γ, ψ)": "S. 3.3–3.6 (3 A 3–5, Grenzzustand der Tragfähigkeit ab S. 3.4)",
+ "Stahlprofile IPE, HEA, HEB (Querschnittswerte)": "ab S. 8.187 (8 G Stahlbauprofile)"
+};
+SCHNEIDER.forEach(e => { if (SBT27_FUND[e.was]) e.s27 = SBT27_FUND[e.was]; });
+SCHNEIDER.push({
+ "was": "Durchlaufträger: Tafelwerte und ungünstige Laststellung",
+ "a24": "S. 4.14 und 4.20 (laut Übung 3)",
+ "fol": null,
+ "kap": "Baustatik",
+ "tipp": "M = Tafelwert · q · l². Veränderliche Lasten feldweise stellen: Außenfelder für das größte Feldmoment, die zwei Felder neben der Stütze für das größte Stützmoment (Übung 3, Beispiel 6).",
+ "s27": "ab S. 4.7 (4 A 1.4 Durchlaufträger)"
+});
+/* Patch-Warteschlange · Physik · Vorlesung 5 Kraftgesetze + Übungsblatt 5 (Arbeit, Energie, Leistung) · erstellt 09.11.2026 · Formeln an den Folien geprüft, Zahlen mit Python nachgerechnet */
+const PHYS_KG = "Kraftgesetze", PHYS_AE = "Arbeit und Energie";
+THEMEN["phys|Kraftgesetze"] = "Vorlesung 5 sammelt die Kräfte, die in der Mechanik immer wieder auftauchen. Gravitation zieht alle Massen an (F = G·m₁m₂/r²), nahe der Erde wird daraus die Gewichtskraft F_g = mg. Die Normalkraft steht senkrecht auf der Kontaktfläche und ergibt sich aus der Kräftebilanz. Haftreibung passt sich der Zugkraft an, bis zur Grenze μ_S·F_N; Gleitreibung ist F_k = μ_k·F_N. Der Luftwiderstand wächst mit v², deshalb erreicht ein fallender Körper eine Endgeschwindigkeit. Für eine Kreisbahn braucht es die Zentripetalkraft mv²/r nach innen. Ein ideales Seil überträgt überall dieselbe Zugkraft, eine feste Rolle lenkt sie nur um.";
+THEMEN["phys|Arbeit und Energie"] = "Übungsblatt 5: Eine Kraft verrichtet Arbeit, wenn sie einen Körper entlang eines Weges verschiebt. Bei konstanter Kraft ist die Arbeit das Skalarprodukt aus Kraft und Verschiebung, bei veränderlicher Kraft die Fläche unter F(x). Die gesamte Arbeit an einem Körper ändert seine kinetische Energie. Leistung ist Arbeit pro Zeit, momentan P = F·v.";
+
+/* --- Vorlesung 5: Kraftgesetze --- */
+mc("phys", PHYS_KG, "Zwei Kugeln ziehen sich an. Wie ändert sich die Kraft, wenn du den Abstand der Mittelpunkte verdoppelst?", ["Sie sinkt auf ein Viertel", "Sie halbiert sich", "Sie verdoppelt sich", "Sie bleibt gleich"], "F = G·m₁m₂/r²: Die Kraft ist umgekehrt proportional zum QUADRAT des Abstands. Doppelter Abstand → F/4. Verdoppelst du dagegen eine Masse, verdoppelt sich die Kraft.", "Physik V05, Folie 4–5");
+mc("phys", PHYS_KG, "Wie groß ist die Gravitationskonstante G?", ["≈ 6,674 · 10⁻¹¹ N·m²/kg²", "≈ 9,81 m/s²", "≈ 6,674 · 10¹¹ N·m²/kg²", "≈ 1,602 · 10⁻¹⁹ N·m²/kg²"], "G ist winzig. Deshalb merkt man die Anziehung zwischen Alltagsgegenständen nicht. 9,81 m/s² ist die Fallbeschleunigung g, 1,602·10⁻¹⁹ die Elementarladung (in C).", "Physik V05, Folie 4");
+mc("phys", PHYS_KG, "Zwei Körper mit je 1 kg im Abstand 1 m: Wie stark ziehen sie sich an?", ["Mit etwa 6,7 · 10⁻¹¹ N – rund 10¹¹-mal weniger als die Gewichtskraft von 1 kg", "Mit etwa 9,81 N", "Mit etwa 1 N", "Gar nicht, Gravitation wirkt nur zwischen Himmelskörpern"], "F = G · 1 kg · 1 kg / (1 m)² = 6,7·10⁻¹¹ N. Die Gewichtskraft von 1 kg ist 9,81 N. Gravitation wirkt zwischen allen Massen, ist bei kleinen Körpern aber verschwindend klein.", "Physik V05, Folie 7");
+wf("phys", PHYS_KG, "Gewichtskraft und Normalkraft auf eine ruhende Kiste sind ein Kraft-Gegenkraft-Paar (actio = reactio).", false, "Falsch. Beide greifen an DERSELBEN Kiste an und heben sich nur auf, weil sie in Ruhe ist. Ein Kraft-Gegenkraft-Paar wirkt immer auf zwei verschiedene Körper: Gegenkraft zur Normalkraft ist die Kraft der Kiste auf den Boden.", "Physik V05, Folie 10 und Verständnisfrage 1");
+mc("phys", PHYS_KG, "Was misst eine Waage eigentlich?", ["Die Normalkraft F_N – angezeigt wird F_N / g", "Direkt die Masse, unabhängig von Kräften", "Die Gravitationskonstante", "Die Haftreibung zwischen Körper und Waage"], "Die Waage stützt den Körper mit F_N und rechnet m_Anzeige = F_N / g. In Ruhe ist F_N = mg, also stimmt die Anzeige. Im beschleunigten Aufzug zeigt sie deshalb mehr oder weniger an.", "Physik V05, Folie 9");
+mc("phys", PHYS_KG, "Eine Kiste bleibt bei 100 N waagerechter Zugkraft stehen. Wie groß ist die Haftreibung?", ["100 N", "μ_S · F_N", "0 N", "Mehr als 100 N"], "Die Haftreibung passt sich der Zugkraft an, solange ihre Grenze μ_S·F_N nicht erreicht ist. μ_S·F_N ist nur der HÖCHSTwert, nicht der gerade wirkende Betrag.", "Physik V05, Folie 12 und Verständnisfrage 2");
+pair("phys", PHYS_KG, "Ordne jeder Kraft ihr Gesetz zu.", [["Gravitation", "F = G·m₁m₂/r²"], ["Gleitreibung", "F_k = μ_k·F_N"], ["Haftreibung (Grenze)", "F_S ≤ μ_S·F_N"], ["Luftwiderstand", "F_W = k_W·v²"], ["Zentripetalkraft", "F_Z = m·v²/r"]], "Normalkraft und Seilkraft haben kein eigenes Gesetz: Sie folgen jeweils aus der Kräftebilanz am Körper.", "Physik V05, Folie 32");
+mc("phys", PHYS_KG, "Welche Richtwerte gelten für Gummi auf trockenem Beton?", ["μ_S ≈ 1,0 und μ_k ≈ 0,7", "μ_S ≈ 0,5 und μ_k ≈ 0,3", "μ_S ≈ 0,7 und μ_k ≈ 1,0", "μ_S ≈ 0,3 und μ_k ≈ 0,5"], "Gleitreibung ist kleiner als Haftreibung. Nass sinken die Werte auf 0,5–0,7 bzw. 0,3–0,5. Holz auf Holz: 0,5 und 0,3.", "Physik V05, Folie 14");
+mc("phys", PHYS_KG, "Welche Kraft schiebt dich beim Gehen nach vorn?", ["Die Haftreibung des Bodens am Fuß", "Die Gleitreibung des Bodens am Fuß", "Die Normalkraft", "Der Luftwiderstand"], "Der Fuß drückt den Boden nach hinten, der Boden drückt den Fuß nach vorn. Weil der Fuß an der Kontaktstelle nicht rutscht, ist das Haftreibung. Auf Glatteis fehlt sie.", "Physik V05, Folie 15");
+mc("phys", PHYS_KG, "Ein Klotz auf einer schiefen Ebene beginnt beim Winkel α_S gerade zu rutschen. Wie groß ist μ_S?", ["μ_S = tan α_S", "μ_S = sin α_S", "μ_S = cos α_S", "μ_S = α_S im Bogenmaß"], "Reibungskraft mg·sin α und Normalkraft mg·cos α: Ihr Verhältnis ist tan α. Die Masse kürzt sich heraus, deshalb genügt der Winkel. Bei gleichförmigem Gleiten gilt entsprechend μ_k = tan α_k.", "Physik V05, Folie 18");
+mc("phys", PHYS_KG, "Ein Körper wird aus der Ruhe fallen gelassen. Wie groß ist seine Beschleunigung im ersten Moment – mit Luftwiderstand?", ["a = g, weil bei v = 0 noch kein Luftwiderstand wirkt", "a = 0", "a = g/2", "a > g"], "F_W = k_W·v² ist bei v = 0 null. Erst mit wachsender Geschwindigkeit bremst die Luft, a wird kleiner und geht gegen null.", "Physik V05, Folie 19–20");
+mc("phys", PHYS_KG, "Wie groß ist die Endgeschwindigkeit beim Fall mit Luftwiderstand?", ["v∞ = √(m·g / k_W)", "v∞ = m·g / k_W", "v∞ = √(k_W / (m·g))", "v∞ = g·t"], "Im Grenzfall gleicht der Luftwiderstand die Gewichtskraft aus: k_W·v² = mg. Folienbeispiel: 100 kg, k_W = 0,6 kg/m → v∞ ≈ 40,4 m/s.", "Physik V05, Folie 22–23");
+wf("phys", PHYS_KG, "Hat ein fallender Körper seine Endgeschwindigkeit erreicht, bleibt er in der Luft stehen.", false, "Falsch. Er wird nur nicht mehr schneller: Er fällt mit annähernd konstanter Geschwindigkeit weiter.", "Physik V05, Verständnisfrage 3");
+mc("phys", PHYS_KG, "Du fährst doppelt so schnell. Wie ändert sich der Luftwiderstand?", ["Er vervierfacht sich", "Er verdoppelt sich", "Er bleibt gleich", "Er verachtfacht sich"], "F_W = k_W·v² mit k_W = ½·c_W·ρ·A: doppelte Geschwindigkeit → vierfache Kraft. Genauso braucht eine Kreisbahn bei doppelter Geschwindigkeit die vierfache Zentripetalkraft.", "Physik V05, Folie 21");
+mc("phys", PHYS_KG, "Eine Kugel kreist an einem Seil auf einer reibungsfreien, waagerechten Ebene. Das Seil reißt. Wohin bewegt sie sich?", ["Geradeaus, tangential zur bisherigen Kreisbahn", "Radial nach außen", "Zum Mittelpunkt hin", "Auf einer Spirale nach außen"], "Ohne Seil wirkt keine Kraft mehr nach innen. Nach dem Trägheitsprinzip fliegt die Kugel geradlinig in die Richtung weiter, die sie gerade hatte – tangential.", "Physik V05, Verständnisfrage 4");
+mc("phys", PHYS_KG, "Was bewirkt eine ideale feste Rolle?", ["Sie lenkt die Zugrichtung um; die Seilkraft bleibt auf beiden Seiten gleich", "Sie halbiert die nötige Zugkraft", "Sie verdoppelt die Seilkraft", "Sie verkürzt den Seilweg auf die Hälfte"], "Eine feste Rolle allein spart keine Kraft. Kraft sparen erst lose Rollen (Flaschenzug), dafür muss man mehr Seil ziehen.", "Physik V05, Folie 30");
+
+/* --- Übungsblatt 5: Arbeit, Energie, Leistung --- */
+mc("phys", PHYS_AE, "Blatt 5, A1: Drei konstante Kräfte verschieben eine Truhe um d. Wie bekommst du die Gesamtarbeit?", ["Skalarprodukt aus resultierender Kraft und Verschiebungsvektor", "Beträge der drei Kräfte addieren und mit d multiplizieren", "Kreuzprodukt aus Kraft und Verschiebung", "F·d·sin α für jede Kraft"], "Nur die Kraftkomponente in Bewegungsrichtung verrichtet Arbeit: W = F·d·cos α. Senkrechte Kräfte (z. B. Normalkraft) verrichten keine Arbeit.", "Physik Übungsblatt 5, Aufgabe 1 + Hinweise");
+mc("phys", PHYS_AE, "Blatt 5, A1b: Die Gesamtarbeit an der Truhe ist negativ. Was folgt daraus?", ["E_kin nimmt ab – die Truhe kann am Anfang nicht in Ruhe gewesen sein", "E_kin nimmt zu", "E_kin bleibt gleich, nur die Richtung ändert sich", "Die Truhe muss am Anfang in Ruhe gewesen sein"], "Arbeit = Änderung der kinetischen Energie. Eine konstante Kraft beschleunigt einen ruhenden Körper in ihre Richtung, dann wäre die Arbeit positiv. Negative Arbeit heißt: Die Truhe bewegte sich schon und wird gebremst.", "Physik Übungsblatt 5, Aufgabe 1b");
+pair("phys", PHYS_AE, "Blatt 5, A2: Behälter (Masse m) an einer losen Rolle, gleichmäßig um d hochgezogen. Ordne zu.", [["Nötige Zugkraft", "m·g / 2"], ["Seil, das du ziehen musst", "2d"], ["Arbeit deiner Kraft", "+m·g·d"], ["Arbeit der Gravitation", "−m·g·d"]], "Auf die lose Rolle wirken zwei Seilstücke, also die doppelte Seilkraft. Dafür musst du doppelt so viel Seil ziehen – die Arbeit bleibt mg·d. Die Gravitation zeigt gegen die Bewegung, ihre Arbeit ist negativ.", "Physik Übungsblatt 5, Aufgabe 2 + Hinweise");
+mc("phys", PHYS_AE, "Blatt 5, A3: Wie liest du die Arbeit aus einem F(x)-Diagramm ab?", ["Fläche unter der Kurve – oberhalb der x-Achse positiv, unterhalb negativ", "Steigung der Kurve", "Höchster Kraftwert mal Gesamtweg", "Fläche über der Kurve"], "W = ∫F dx ist die Fläche unter F(x). Mit E_kin(0) = 80 J und dieser Fläche bekommst du E_kin an jeder Stelle.", "Physik Übungsblatt 5, Aufgabe 3 + Hinweise");
+mc("phys", PHYS_AE, "Blatt 5, A4: Ein Objekt wird aus der Ruhe gleichmäßig beschleunigt. Wie groß ist die Leistung nach der halben Zeit t₁/2 im Vergleich zu t₁?", ["Halb so groß", "Gleich groß", "Ein Viertel", "Doppelt so groß"], "P = F·v. Die Kraft ist konstant, v wächst linear mit t: Nach der halben Zeit ist v halb so groß, also auch P.", "Physik Übungsblatt 5, Aufgabe 4 + Hinweise");
+pair("phys", PHYS_AE, "Blatt 5, A5: Ein PKW fährt mit konstantem v, Luftwiderstand ist der einzige Widerstand. Wie hängen die Größen von v ab?", [["Antriebsleistung", "~ v³"], ["Fahrzeit für 100 km", "~ 1/v"], ["Spritverbrauch je 100 km", "~ v²"]], "Antriebskraft = Luftwiderstand k_W·v². Leistung P = F·v ~ v³. Verbrauch V = const·P·t mit t = s/v → V ~ v². 140 statt 120 km/h kostet so rund 36 % mehr Sprit.", "Physik Übungsblatt 5, Aufgabe 5 + Hinweise");
+ord("phys", PHYS_AE, "Blatt 5, A6: Allradwagen soll so schnell wie möglich auf v_max beschleunigen. Bring das Vorgehen in die richtige Reihenfolge.", ["Größte Beschleunigung aus der Haftreibungsgrenze: a = μ_S·g", "Zeit t₁, bis F_S,max·v₁ = P_max erreicht ist", "Ab v₁ mit konstanter Leistung: ½m(v_max² − v₁²) = P_max·t₂", "Mindestdauer t_min = t₁ + t₂"], "Am Anfang begrenzen die Reifen (Haftreibung), nicht der Motor. Erst ab v₁ reicht die Motorleistung nicht mehr für die volle Beschleunigung.", "Physik Übungsblatt 5, Aufgabe 6 + Hinweise");
+
+/* --- Lösungsweg-Aufgabe --- */
+aufgabe({
+ "id": "phys-b5-a5",
+ "f": "phys",
+ "t": "Arbeit und Energie",
+ "titel": "Spritverbrauch bei 140 statt 120 km/h",
+ "s": "Physik Übungsblatt 5, Aufgabe 5",
+ "angabe": "Zwei gleiche PKW fahren auf ebener Autobahn mit konstantem v₁ = 120 km/h bzw. v₂ = 140 km/h. Der Luftwiderstand ist der einzige Fahrwiderstand.",
+ "geg": ["v₁ = 120 km/h", "v₂ = 140 km/h", "F_W = k_W·v²", "V = const·P·t"],
+ "ges": "Verhältnis der Antriebsleistungen und Mehrverbrauch je 100 km in Prozent",
+ "schritte": [
+  { "f": "Welche Antriebskraft braucht ein PKW bei konstanter Geschwindigkeit?", "o": [
+    ["F_A = F_W = k_W·v², weil die resultierende Kraft null ist", "Konstantes v heißt a = 0: Antrieb und Luftwiderstand heben sich auf."],
+    ["F_A = m·a", "a ist null – dann bräuchte das Auto gar keinen Antrieb, der Luftwiderstand würde es aber bremsen."],
+    ["F_A = m·g", "Die Gewichtskraft wirkt senkrecht und trägt auf ebener Straße nichts zum Antrieb bei."],
+    ["F_A = k_W·v", "Der Luftwiderstand wächst mit v², nicht linear."]],
+   "r": "F_A = k_W·v²" },
+  { "f": "Wie groß ist die Antriebsleistung?", "o": [
+    ["P = F_A·v = k_W·v³", "Momentanleistung ist Kraft mal Geschwindigkeit."],
+    ["P = F_A / v", "Leistung ist F·v, nicht F/v."],
+    ["P = ½·m·v²", "Das ist die kinetische Energie, keine Leistung."],
+    ["P = F_A·s", "F·s ist eine Arbeit."]],
+   "r": "P₂/P₁ = (v₂/v₁)³ = (140/120)³ ≈ 1,59" },
+  { "f": "Wie lange fährt jeder Wagen für 100 km?", "o": [
+    ["t = s / v", "Konstante Geschwindigkeit: Zeit = Weg durch Geschwindigkeit."],
+    ["t = v / s", "Die Einheit wäre 1/h, keine Zeit."],
+    ["t = s·v", "Die Einheit passt nicht."],
+    ["Bei beiden gleich lang", "Der schnellere Wagen ist früher am Ziel."]],
+   "r": "t = 100 km / v" },
+  { "f": "Wie hängt der Verbrauch je 100 km von v ab?", "o": [
+    ["V = const·k_W·v³·s/v ~ v²", "Leistung ~ v³, Fahrzeit ~ 1/v: Übrig bleibt v²."],
+    ["V ~ v³", "Die kürzere Fahrzeit des schnelleren Wagens fehlt."],
+    ["V ~ v", "Die Leistung wächst mit v³, nicht mit v²."],
+    ["V hängt nicht von v ab", "Nur ohne Luftwiderstand wäre das so."]],
+   "r": "V₂/V₁ = (140/120)² = 1,361" },
+  { "f": "Um wie viel Prozent steigt der Verbrauch?", "o": [
+    ["Um etwa 36 %", "1,361 − 1 = 0,361 → 36,1 % mehr."],
+    ["Um etwa 17 %", "Das ist nur der Geschwindigkeitsunterschied (140/120 = 1,167)."],
+    ["Um etwa 59 %", "Das wäre der Leistungsanstieg (v³), nicht der Verbrauch je Strecke."],
+    ["Um etwa 136 %", "1,361 ist das Verhältnis; der Zuwachs ist 0,361."]],
+   "r": "≈ +36 % Sprit je 100 km" }],
+ "fazit": "Luftwiderstand: Leistung wächst mit v³, Verbrauch je Strecke mit v²."
+});
+/* Patch-Warteschlange · Baukonstruktion · Vorlesung 04 Dächer (Rauber, 10.11.2026, 35 Folien) · erstellt 09.11.2026 · alle Aussagen an den Folien geprüft */
+const BAUKO_DA = "Dächer";
+THEMEN["bauko|Dächer"] = "Dächer teilt man nach der Neigung ein: Flachdach (2°–5°), flach geneigtes Dach (5°–20°) und Steildach (über 20°). Geneigte Holzdächer werden als Pfettendach oder als Sparrendach gebaut. Beim Pfettendach liegen die Sparren auf Pfetten und werden vor allem auf Biegung beansprucht, unter vertikaler Last entstehen nur vertikale Auflagerkräfte. Beim Sparrendach stützen sich die Sparren gegenseitig ab: Sie tragen Biegung mit Längskraft, und am Sparrenfuß entstehen Horizontalkräfte, die die Decke aufnehmen muss. Flachdächer unterscheidet man nach der Konstruktion (Warmdach oder Kaltdach) und nach der Nutzung.";
+
+pair("bauko", BAUKO_DA, "Ordne die Dachneigung α der Dachart zu.", [["2° ≤ α ≤ 5°", "Flachdach"], ["5° < α ≤ 20°", "flach geneigtes Dach"], ["α > 20°", "Steildach"]], "Die Grenzen 5° und 20° solltest du kennen.", "Baukonstruktion V04, Folie 12");
+mc("bauko", BAUKO_DA, "Wie wird ein Sparren im Pfettendach hauptsächlich beansprucht?", ["Auf Biegung", "Auf Biegung mit Längskraft", "Nur auf Zug", "Auf Torsion"], "Der Sparren liegt als Balken auf den Pfetten. Biegung mit Längskraft ist typisch für das Sparrendach.", "Baukonstruktion V04, Folie 16");
+mc("bauko", BAUKO_DA, "Was entsteht beim Sparrendach unter vertikaler Last am Sparrenfuß?", ["Horizontale Kräfte, die die Decke darunter aufnehmen muss", "Nur vertikale Auflagerkräfte", "Gar keine Auflagerkräfte", "Nur ein Einspannmoment"], "Die beiden Sparren stützen sich am First gegeneinander ab wie ein Dreigelenkbogen – unten drücken sie nach außen. Beim Pfettendach gibt es unter vertikaler Last dagegen nur vertikale Auflagerkräfte.", "Baukonstruktion V04, Folie 16");
+mc("bauko", BAUKO_DA, "Warum darf unter einem Sparrendach keine Holzbalkendecke liegen?", ["Die Decke muss die Horizontalkräfte der Sparrenfüße aufnehmen können", "Holz und Holz dürfen nicht verbunden werden", "Die Vertikallasten wären zu groß für Holz", "Wegen des Brandschutzes"], "Am Sparrenfuß wirken Horizontalkräfte. Eine Massivdecke kann sie als Zugband aufnehmen, eine Holzbalkendecke nicht.", "Baukonstruktion V04, Folie 28");
+pair("bauko", BAUKO_DA, "Pfettendach: Ordne die gleichbedeutenden Begriffe zu.", [["Fußpfette", "Schwelle"], ["Drempel", "Kniestock"], ["Pfosten", "Stiel"]], "Der Drempel (Kniestock) ist die niedrige Wand zwischen oberster Decke und Dachfuß. Darauf liegt die Fußpfette.", "Baukonstruktion V04, Folie 17 und 20");
+mc("bauko", BAUKO_DA, "Welches Bauteil verbindet beim Pfettendach den Sparren mit der Fußpfette?", ["Der Sparrenpfettenanker", "Die Firstlasche", "Die Windrispe", "Der Wechsel"], "Der Sparrenpfettenanker ist ein Stahlblechformteil, das den Sparren gegen Abheben (Windsog) sichert. Firstlaschen, Windrispen und Wechsel gehören zum Sparrendach.", "Baukonstruktion V04, Folie 20");
+mc("bauko", BAUKO_DA, "Welche zwei Arten von Kehlbalkendächern unterscheidet die Vorlesung?", ["Mit verschieblichem und mit unverschieblichem Kehlbalken", "Mit und ohne Firstpfette", "Mit Holz- und mit Stahlkehlbalken", "Einfeld- und Zweifeld-Kehlbalken"], "Ob der Kehlbalken horizontal gehalten ist, ändert das statische System. Daneben gibt es das reine Sparrendach ohne Kehlbalken.", "Baukonstruktion V04, Folie 24");
+mc("bauko", BAUKO_DA, "Welcher Vorteil gehört zum Sparrendach (nicht zum Pfettendach)?", ["Stützenfreie Räume im Dach", "Anspruchsloser in der Herstellung", "Geeignet für flache Dachneigungen", "Geeignet für komplizierte Grundrisse"], "Die drei anderen sind Vorteile des Pfettendachs. Weitere Vorteile des Sparrendachs: Vertikalkräfte belasten nicht die Decken darunter, gut geeignet bei steiler Dachneigung.", "Baukonstruktion V04, Folie 28");
+mc("bauko", BAUKO_DA, "Welcher Nachteil gehört zum Pfettendach?", ["Stützen im Dachraum", "Dachüberstände am Ortgang schwierig", "Decke muss Horizontalkräfte aufnehmen", "Große Öffnungen schwer zu realisieren"], "Die drei anderen sind Nachteile des Sparrendachs. Weitere Nachteile des Pfettendachs: aufwendige Planung und Vertikallasten auf Innenwände und ggf. die Decke.", "Baukonstruktion V04, Folie 28");
+mc("bauko", BAUKO_DA, "Wo sind beim Sparrendach Dachüberstände besonders schwierig?", ["Vor allem am Ortgang (und an der Traufe)", "Nur am First", "Nirgends, sie sind beim Sparrendach einfach", "Nur an Gauben"], "Ortgang = seitlicher Dachrand am Giebel, Traufe = untere Dachkante. Beim Sparrendach gehen Überstände dort nicht ohne Weiteres.", "Baukonstruktion V04, Folie 28");
+pair("bauko", BAUKO_DA, "Flachdächer: Ordne zu.", [["Nicht belüftetes Flachdach", "Warmdach"], ["Belüftetes Flachdach", "Kaltdach"], ["Genutzte Dachfläche", "Dachbegrünung, Aufenthalt von Personen"]], "Konstruktion und Nutzung sind zwei getrennte Einteilungen. Beim Kaltdach liegt ein belüfteter Zwischenraum über der Dämmung.", "Baukonstruktion V04, Folie 32");
+mc("bauko", BAUKO_DA, "Woraus werden Flachdächer laut Vorlesung tragend hergestellt?", ["Massiv, aus Holzbalken oder aus Stahltrapezblechen", "Nur aus Stahlbeton", "Nur aus Holzbalken", "Aus Mauerwerk und Glas"], "Die drei Bauarten stehen auf der Folie „Einteilung“. Dazu kommen Anforderungen an Brand-, Wärme-, Schall-, Witterungs- und Tauwasserschutz.", "Baukonstruktion V04, Folie 31 und 33");
+mc("bauko", BAUKO_DA, "Welche Lasten setzt man auf geneigten Dächern an?", ["Eigenlast, Schnee, Wind und „Personen“-Last", "Nur Eigenlast und Schnee", "Eigenlast, Verkehrslast nach Kategorie A und Erdbeben", "Nur Wind"], "Die Personenlast (Mannlast für Begehen bei Wartung) steht in DIN EN 1991-1-1/NA, Tab. 6.20DE.", "Baukonstruktion V04, Folie 30");
+/* Patch-Warteschlange · Bauinformatik · Übung 03 Variablen, Typumwandlung, Operatoren (09.–13.11.2026) · erstellt 09.11.2026 · Ausgaben mit IEEE-754-double nachgerechnet (wie Java) */
+mc("binf", "Datentypen", "int a = 5; int b = a; a = 6; – was gibt println(\"a = \" + a + \" und b = \" + b) aus?", ["a = 6 und b = 5", "a = 6 und b = 6", "a = 5 und b = 5", "a = 5 und b = 6"], "b = a kopiert nur den WERT 5. Ändert man danach a, bleibt b bei 5 – bei primitiven Datentypen gibt es keine Verknüpfung.", "Bauinformatik Übung 03, Aufgabe 1");
+mc("binf", "Datentypen", "{ int var2 = 56; } System.out.println(var2); – was passiert?", ["Compilerfehler: var2 ist außerhalb des Blocks unbekannt", "Ausgabe 56", "Ausgabe 0", "Laufzeitfehler, aber das Programm startet"], "Eine Variable gilt nur in dem Block { }, in dem sie deklariert ist. Wird sie vor dem Block deklariert und darin nur belegt (wie var1), funktioniert die Ausgabe.", "Bauinformatik Übung 03, Aufgabe 2");
+mc("binf", "Datentypen", "int i; long l; float f; double d; – welche Zuweisung braucht einen Cast?", ["f = d;", "l = i;", "f = i;", "d = f;"], "Implizit geht es nur in einen größeren Typ: byte → short → int → long → float → double. f = d geht von double auf float, ebenso brauchen i = l und i = f einen Cast, z. B. f = (float) d.", "Bauinformatik Übung 03, Aufgabe 3 + Übungshilfen");
+mc("binf", "Operatoren", "Welchen Wert hat long l1 = 20 / 6; ?", ["3", "3.333…", "4", "2"], "20 und 6 sind int-Literale, also ganzzahlige Division: der Rest wird abgeschnitten, nicht gerundet.", "Bauinformatik Übung 03, Aufgabe 5a");
+mc("binf", "Operatoren", "Welchen Wert hat int i1 = -20 % 6; ?", ["-2", "2", "4", "-4"], "In Java hat der Rest immer das Vorzeichen des Dividenden: −20 = −3 · 6 − 2. 20 % 6 ist dagegen 2.", "Bauinformatik Übung 03, Aufgabe 5c");
+mc("binf", "Operatoren", "int i2 = 5; i2 += 10; – welchen Wert hat i2?", ["15", "10", "510", "5"], "i2 += 10 ist die Kurzform von i2 = i2 + 10.", "Bauinformatik Übung 03, Aufgabe 5d");
+pair("binf", "Operatoren", "Welche Ausgabe erzeugt die Anweisung?", [["println(2 + 3 * 6)", "20"], ["println((2 + 3) * 6)", "30"], ["println(\"3 + 4 = \" + 3 + 4)", "3 + 4 = 34"], ["println(\"3 + 4 = \" + (3 + 4))", "3 + 4 = 7"]], "Punkt vor Strich. „+“ wird von links nach rechts ausgewertet: Steht links schon ein String, hängt Java die Zahlen nur an. Klammern erzwingen zuerst die Addition.", "Bauinformatik Übung 03, Aufgabe 6");
+mc("binf", "Operatoren", "Was gibt System.out.println(5.0 / 2.0 + 5 / 2); aus?", ["4.5", "5.0", "4", "5"], "5.0 / 2.0 = 2.5 (double), aber 5 / 2 = 2 (int-Division). 2.5 + 2 = 4.5. Mit 5 / 2. käme 5.0 heraus.", "Bauinformatik Übung 03, Aufgabe 10a/b");
+mc("binf", "Operatoren", "Warum ergibt 2.3 + 7 / 2 * 4.1 nicht 16.65?", ["7 / 2 ist int-Division und ergibt 3, nicht 3.5", "Weil * vor + nicht beachtet wird", "Weil 4.1 als int gespeichert wird", "Weil 2.3 abgerundet wird"], "7 / 2 = 3, dann 3 · 4.1 ≈ 12.3 und + 2.3. Java gibt 14.599999999999998 aus – die winzige Abweichung kommt daher, dass 4.1 im Dualsystem nicht exakt darstellbar ist.", "Bauinformatik Übung 03, Aufgabe 10c");
+mc("binf", "Operatoren", "Dein Rechner-Programm arbeitet mit int-Variablen 5 und 2. Was liefert die Division?", ["2", "2.5", "3", "Einen Fehler"], "Bei zwei int-Werten rechnet Java ganzzahlig. Für 2.5 muss mindestens ein Operand double sein, z. B. (double) a / b.", "Bauinformatik Übung 03, Aufgabe 9");

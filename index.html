@@ -678,7 +678,7 @@ if (typeof KORREKTUR !== "undefined") AUFG.forEach(a => { const x = KORREKTUR[a.
 const ALLQ = FRAGEN.filter(q => !q.weg), ALLA = AUFG.filter(a => !a.weg);
 
 /* storage */
-const APP_VERSION = "1.6";
+const APP_VERSION = "1.7";
 const KEY = "klausurduell.v1";
 let S = {cards:{}, days:{}, aufg:{}};
 try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch(e) {}
