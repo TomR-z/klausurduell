@@ -1,0 +1,430 @@
+[
+ {
+  "title": "Übersicht",
+  "caps": [
+   "Vorlesung 5: *welche Kräfte* gibt es konkret?",
+   "Gravitation · Normalkraft · *Reibung* · Luftwiderstand · Kreis · *Seil*"
+  ],
+  "starts": [
+   0.046,
+   15.604
+  ],
+  "dur": 29.33551
+ },
+ {
+  "title": "Gravitation",
+  "caps": [
+   "*Gravitation*: alle Massen ziehen sich an – ohne Berührung",
+   "Apfel und Mond: *dieselbe Kraft* – der Mond fliegt *seitlich* weiter",
+   "Gravitation ist *immer anziehend* und reicht *beliebig weit*"
+  ],
+  "starts": [
+   0.093,
+   8.835,
+   27.388
+  ],
+  "dur": 36.493061
+ },
+ {
+  "title": "Gravitationsgesetz",
+  "caps": [
+   "*F = G · m_1 · m_2 / r²*",
+   "*G ≈ 6,674 · 10⁻¹¹ N·m²/kg²* – winzig"
+  ],
+  "starts": [
+   0.058,
+   11.413
+  ],
+  "dur": 25.208163
+ },
+ {
+  "title": "Masse und Abstand",
+  "caps": [
+   "Eine Masse *verdoppeln* → *2 F*",
+   "Abstand *verdoppeln* → *F / 4*",
+   "Newtons Test: Mond in *60 Erdradien* → *g / 3600 ≈ 0,0027 m/s²*"
+  ],
+  "starts": [
+   0.058,
+   9.555,
+   19.679
+  ],
+  "dur": 49.554286
+ },
+ {
+  "title": "Gewichtskraft",
+  "caps": [
+   "Nahe der Erde: *F_g = m · g* – senkrecht nach unten",
+   "Doppelte Masse → *doppelte* Gewichtskraft · *g ≈ 9,81 m/s²*"
+  ],
+  "starts": [
+   0.035,
+   15.348
+  ],
+  "dur": 26.514286
+ },
+ {
+  "title": "Zwei Kilogramm-Kugeln",
+  "caps": [
+   "Je *1 kg*, *1 m* Abstand: F = 6,7 · 10⁻¹¹ N",
+   "Gewichtskraft von 1 kg: *9,81 N* – rund *10¹¹-mal* größer"
+  ],
+  "starts": [
+   0.046,
+   15.975
+  ],
+  "dur": 29.675102
+ },
+ {
+  "title": "Normalkraft",
+  "caps": [
+   "Unterlage drückt *nach oben*: die *Normalkraft F_N*",
+   "„Normal“ = *senkrecht zur Kontaktfläche*"
+  ],
+  "starts": [
+   0.07,
+   13.688
+  ],
+  "dur": 23.640816
+ },
+ {
+  "title": "Normalkraft und Waage",
+  "caps": [
+   "In Ruhe: *F_N − mg = 0 → F_N = mg*",
+   "Anzeige: *m_Anzeige = F_N / g*",
+   "Zusatz Aufzug: 70 kg, a = 1 m/s² nach oben → Anzeige *77,2 kg*"
+  ],
+  "starts": [
+   0.023,
+   11.831,
+   20.933
+  ],
+  "dur": 49.397551
+ },
+ {
+  "title": "Normalkraft auf der schiefen Fläche",
+  "caps": [
+   "F_N steht *senkrecht zur Fläche* – F_g zeigt *nach unten*",
+   "F_g und F_N: *kein* Kraft-Gegenkraft-Paar – *selber Körper*"
+  ],
+  "starts": [
+   0.035,
+   11.053
+  ],
+  "dur": 30.693878
+ },
+ {
+  "title": "Reibung beobachten",
+  "caps": [
+   "Langsam stärker ziehen: Kiste *bleibt erst stehen*",
+   "*Haftreibung* gleicht die Zugkraft aus – bis zu einer *Grenze*",
+   "Animation: Holz auf Holz, F_N = 60 N → Grenze *30 N*, dann Gleiten mit *18 N*"
+  ],
+  "starts": [
+   0.035,
+   7.848,
+   18.275
+  ],
+  "dur": 44.146939
+ },
+ {
+  "title": "Haftreibung",
+  "caps": [
+   "Haftreibung *passt sich an* – höchstens *F_S,max = μ_S · F_N*",
+   "*μ_S*: Haftreibungszahl, hängt vom *Oberflächenpaar* ab",
+   "Beispiel F_N = 60 N, μ_S = 0,5 → *F_S,max = 30 N*"
+  ],
+  "starts": [
+   0.058,
+   10.983,
+   16.521
+  ],
+  "dur": 33.880816
+ },
+ {
+  "title": "Gleitreibung",
+  "caps": [
+   "Gleitet die Kiste: *F_k = μ_k · F_N*",
+   "Zugkraft größer als F_k → Kiste wird *beschleunigt*",
+   "Coulomb-Modell: F_k *unabhängig von v*"
+  ],
+  "starts": [
+   0.035,
+   8.87,
+   20.643
+  ],
+  "dur": 26.88
+ },
+ {
+  "title": "Reibungszahlen",
+  "caps": [
+   "Gummi/Beton trocken: *μ_S = 1,0*, *μ_k = 0,7*",
+   "Nass: *0,5–0,7* bzw. *0,3–0,5* · Holz/Holz: *0,5* / *0,3*",
+   "μ_S beschreibt die *Grenze*, nicht den gerade wirkenden Betrag"
+  ],
+  "starts": [
+   0.035,
+   11.099,
+   23.359
+  ],
+  "dur": 31.477551
+ },
+ {
+  "title": "Reibung beim Gehen",
+  "caps": [
+   "Fuß drückt Boden *nach hinten* → Boden drückt Fuß *nach vorn*",
+   "Diese Kraft ist *Haftreibung* – der Fuß rutscht nicht"
+  ],
+  "starts": [
+   0.035,
+   12.469
+  ],
+  "dur": 23.719184
+ },
+ {
+  "title": "Gewichtskraft am Hang",
+  "caps": [
+   "Zerlegen: *Hangabtrieb F_H = mg sin α*",
+   "Senkrecht zur Ebene: *F_⊥ = mg cos α* (= F_N)",
+   "Beispiel 10 kg, α = 30°: *F_H = 49,1 N*, *F_⊥ = 85,0 N*"
+  ],
+  "starts": [
+   0.023,
+   9.88,
+   18.367
+  ],
+  "dur": 47.490612
+ },
+ {
+  "title": "Reibung auf der schiefen Ebene",
+  "caps": [
+   "*Haftgrenze*: Winkel langsam erhöhen → Klotz steht *gerade noch* → α_S",
+   "*Gleichförmiges Gleiten*: v konstant → α_k"
+  ],
+  "starts": [
+   0.07,
+   14.245
+  ],
+  "dur": 24.659592
+ },
+ {
+  "title": "Reibungszahl aus dem Winkel",
+  "caps": [
+   "Krafteck: *F_R / F_N = mg sin α / mg cos α = tan α*",
+   "*μ_S = tan α_S* · *μ_k = tan α_k*",
+   "Beispiel: α_S = 26,6° → μ_S = *0,50* · α_k = 16,7° → μ_k = *0,30*"
+  ],
+  "starts": [
+   0.058,
+   19.133,
+   26.203
+  ],
+  "dur": 46.210612
+ },
+ {
+  "title": "Fall mit Luftwiderstand: Start",
+  "caps": [
+   "Start aus Ruhe: *F_W = 0* → *a = g*",
+   "Nach unten positiv · *Auftrieb vernachlässigt*"
+  ],
+  "starts": [
+   0.07,
+   15.615
+  ],
+  "dur": 22.177959
+ },
+ {
+  "title": "Beschleunigung nimmt ab",
+  "caps": [
+   "Schneller → *mehr Luftwiderstand* → *F_res = mg − F_W* wird kleiner",
+   "Aber: Er wird *trotzdem noch schneller* (0 < a < g)"
+  ],
+  "starts": [
+   0.058,
+   13.224
+  ],
+  "dur": 22.386939
+ },
+ {
+  "title": "Luftwiderstand",
+  "caps": [
+   "*F_W = k_W · v²* mit *k_W = ½ c_W ρ A*",
+   "c_W Form · ρ Luftdichte *1,2 kg/m³* · A Stirnfläche",
+   "*Doppelte v → vierfacher* Widerstand"
+  ],
+  "starts": [
+   0.058,
+   13.839,
+   26.587
+  ],
+  "dur": 38.478367
+ },
+ {
+  "title": "Endgeschwindigkeit",
+  "caps": [
+   "Grenzfall: *F_W = F_g* → *a = 0*",
+   "v wächst nicht weiter – der Körper *fällt aber weiter*"
+  ],
+  "starts": [
+   0.035,
+   9.857
+  ],
+  "dur": 19.069388
+ },
+ {
+  "title": "Endgeschwindigkeit berechnen",
+  "caps": [
+   "*k_W v∞² = mg → v∞ = √(mg / k_W)*",
+   "100 kg, k_W = 0,6 kg/m → *v∞ = √1635 ≈ 40,4 m/s*",
+   "Tabelle: nach 15 s *147,2* ohne – *40,4 m/s* mit Luftwiderstand"
+  ],
+  "starts": [
+   0.023,
+   11.088,
+   29.953
+  ],
+  "dur": 50.233469
+ },
+ {
+  "title": "v, a und s beim Fall",
+  "caps": [
+   "v(t): steigt schnell, nähert sich *40,4 m/s*",
+   "a(t): startet bei *g = 9,81* und geht gegen *0*",
+   "s(t): später fast eine *Gerade* – v ist konstant",
+   "Merke: *v → 40,4 m/s*, *a → 0*, s wächst *gleichmäßig*"
+  ],
+  "starts": [
+   0.093,
+   17.032,
+   27.551,
+   45.605
+  ],
+  "dur": 56.920816
+ },
+ {
+  "title": "Kreisbewegung braucht eine Kraft",
+  "caps": [
+   "Betrag von v gleich, *Richtung ändert sich* → Kraft nötig",
+   "Kraft *nach innen*: Zentripetalkraft · hier liefert sie das *Seil*"
+  ],
+  "starts": [
+   0.046,
+   15.697
+  ],
+  "dur": 32.835918
+ },
+ {
+  "title": "Zentripetalkraft",
+  "caps": [
+   "*F_Z = m v² / r*",
+   "~ m · *doppelte v → vierfache Kraft* · ~ 1/r"
+  ],
+  "starts": [
+   0.046,
+   14.292
+  ],
+  "dur": 32.548571
+ },
+ {
+  "title": "Beispiel: Seilkraft",
+  "caps": [
+   "m = 0,20 kg, v = 2,0 m/s, r = 0,50 m",
+   "F_Z = 0,20 · 2,0² / 0,50 = *1,6 N*",
+   "Seil reißt → Kugel fliegt *tangential geradeaus* weiter"
+  ],
+  "starts": [
+   0.035,
+   7.407,
+   18.761
+  ],
+  "dur": 35.94449
+ },
+ {
+  "title": "Seilkraft",
+  "caps": [
+   "Seil überträgt *nur Zug* – entlang des Seils",
+   "Hand zieht am Seil, Seil zieht *gleich stark* an der Hand"
+  ],
+  "starts": [
+   0.035,
+   7.906
+  ],
+  "dur": 20.506122
+ },
+ {
+  "title": "Ideales Seil",
+  "caps": [
+   "Seilmasse vernachlässigt → *F_1 = F_2* überall gleich",
+   "Warum? Masseloses Stück: *m·a = F_2 − F_1 = 0*"
+  ],
+  "starts": [
+   0.058,
+   9.636
+  ],
+  "dur": 23.719184
+ },
+ {
+  "title": "Feste Rolle",
+  "caps": [
+   "Feste Rolle *lenkt nur um* – Seilkraft bleibt gleich",
+   "*Spart keine Kraft*: Last m·g → Zug m·g"
+  ],
+  "starts": [
+   0.035,
+   10.495
+  ],
+  "dur": 30.92898
+ },
+ {
+  "title": "Bewegung an der festen Rolle",
+  "caps": [
+   "Seillänge konstant: *Δl_1 = −Δl_2*",
+   "Auch *v* und *a* an beiden Enden gleich groß"
+  ],
+  "starts": [
+   0.046,
+   11.157
+  ],
+  "dur": 24.372245
+ },
+ {
+  "title": "Kraftgesetze im Überblick",
+  "caps": [
+   "*Gesetze*: Gravitation, Gewicht, Reibung, Luft, Zentripetal",
+   "Normalkraft und Seilkraft: *aus der Kräftebilanz*",
+   "Zentripetalkraft ist *keine eigene Kraftart*: m v²/r ist, was *nötig* ist"
+  ],
+  "starts": [
+   0.058,
+   12.016,
+   22.233
+  ],
+  "dur": 40.724898
+ },
+ {
+  "title": "Verständnisfragen",
+  "caps": [
+   "Vier Fragen – *überleg kurz selbst*"
+  ],
+  "starts": [
+   0.07
+  ],
+  "dur": 8.254694
+ },
+ {
+  "title": "Auflösung",
+  "caps": [
+   "1. *Nein* – beide greifen am *selben Körper* an",
+   "2. *100 N* – nicht μ_S · F_N",
+   "3. *Nein* – er fällt mit *konstanter v* weiter",
+   "4. *Tangential* geradeaus – *nicht* nach außen"
+  ],
+  "starts": [
+   0.035,
+   11.436,
+   19.041,
+   27.202
+  ],
+  "dur": 38.269388
+ }
+]

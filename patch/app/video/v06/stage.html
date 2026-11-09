@@ -28,7 +28,8 @@ let S,t,SP;
 function sd(k){ return (k+1<S.starts.length?S.starts[k+1]:S.dur)-S.starts[k]; }
 function curIdx(){ let ci=-1; S.starts.forEach((s,j)=>{ if(t>=s) ci=j; }); return ci; }
 const FN={ x:t=>t*t*t-9*t*t+24*t, v:t=>3*t*t-18*t+24, a:t=>6*t-18,
-  wx:(t,o)=>o.v0*Math.cos(o.phi)*t, wy:(t,o)=>o.v0*Math.sin(o.phi)*t-4.905*t*t };
+  wx:(t,o)=>o.v0*Math.cos(o.phi)*t, wy:(t,o)=>o.v0*Math.sin(o.phi)*t-4.905*t*t,
+  vf:t=>40.44*Math.tanh(9.81*t/40.44), af:t=>9.81*(1-Math.tanh(9.81*t/40.44)**2), sf:t=>40.44*40.44/9.81*Math.log(Math.cosh(9.81*t/40.44)), vfree:t=>9.81*t };
 // Graph-Kalibrierung: o.g=[x0,sx,y0,sy] : px = x0+sx*t ; py = y0 - sy*f
 const G=(o,tt,f)=>[o.g[0]+o.g[1]*tt, o.g[2]-o.g[3]*f];
 const ANIM={
@@ -47,9 +48,39 @@ const ANIM={
     const T=2*o.v0*Math.sin(o.phi)/9.81, tt=T*ease(p); let d=""; for(let i=0;i<=40;i++){ const s=tt*i/40, X=o.g[0]+o.g[1]*FN.wx(s,o), Y=o.g[2]-o.g[3]*FN.wy(s,o); d+=(i?"L":"M")+X+" "+Y; }
     const X=o.g[0]+o.g[1]*FN.wx(tt,o), Y=o.g[2]-o.g[3]*FN.wy(tt,o), vx=o.v0*Math.cos(o.phi), vy=o.v0*Math.sin(o.phi)-9.81*tt, k=o.vk||6;
     return `<path d="${d}" fill="none" stroke="${COL.o}" stroke-width="2.5"/><circle cx="${X}" cy="${Y}" r="6" fill="${COL.o}"/>`+arrow(X,Y,X+vx*k,Y,'g',1)+arrow(X,Y,X,Y-vy*k,'b',1)+lbl(X+8,Y-14,`v<tspan font-size="9" dy="3">x</tspan><tspan dy="-3"> bleibt · v</tspan><tspan font-size="9" dy="3">y</tspan><tspan dy="-3"> = ${vy.toFixed(1).replace('.',',').replace('-','−')} m/s</tspan>`,'k',12,'start'); },
-  kreis(o,p){ // Teilchen auf Kreis mit Geschwindigkeit (tangential) und Beschleunigung (radial)
-    const ph=o.p0+ (o.p1-o.p0)*p, X=o.x+o.r*Math.cos(ph), Y=o.y-o.r*Math.sin(ph), tx=-Math.sin(ph), ty=-Math.cos(ph);
-    return `<circle cx="${X}" cy="${Y}" r="6" fill="${COL.r}"/>`+arrow(X,Y,X+tx*o.vl,Y+ty*o.vl,'r',1)+arrow(X,Y,X+(o.x-X)*o.al,Y+(o.y-Y)*o.al,'g',1); },
+  kreis(o,p){ // Teilchen auf Kreis; o.cv/o.ca Farben; o.cut: Anteil, ab dem das Seil reißt (geradeaus weiter)
+    const cv=o.cv||'r', ca=o.ca||'g', cut=o.cut||2, q=Math.min(p,cut), ph=o.p0+(o.p1-o.p0)*q;
+    let X=o.x+o.r*Math.cos(ph), Y=o.y-o.r*Math.sin(ph); const tx=-Math.sin(ph), ty=-Math.cos(ph);
+    let s='';
+    if(p>cut){ const w=(o.p1-o.p0)*o.r*(p-cut); s+=`<path d="M${X} ${Y}L${X+tx*w} ${Y+ty*w}" stroke="${COL[cv]}" stroke-width="2" stroke-dasharray="6 4"/>`; X+=tx*w; Y+=ty*w;
+      return s+`<circle cx="${X}" cy="${Y}" r="7" fill="${COL[cv]}"/>`+arrow(X,Y,X+tx*o.vl,Y+ty*o.vl,cv,1)+lbl(X+12,Y-12,'Seil gerissen → geradeaus','k',13,'start'); }
+    if(o.rope) s+=`<path d="M${o.x} ${o.y}L${X} ${Y}" stroke="#334155" stroke-width="2"/>`;
+    s+=`<circle cx="${X}" cy="${Y}" r="6" fill="${COL[cv]}"/>`+arrow(X,Y,X+tx*o.vl,Y+ty*o.vl,cv,1);
+    if(o.al>0.002) s+=arrow(X,Y,X+(o.x-X)*o.al,Y+(o.y-Y)*o.al,ca,1);
+    return s; },
+  move(o,p){ // Punkt von (x1,y1) nach (x2,y2), beschleunigt (q = p²) oder gleichmäßig
+    const q=o.acc?p*p:ease(p), X=lerp(o.x1,o.x2,q), Y=lerp(o.y1,o.y2,q);
+    return (o.trail?`<path d="M${o.x1} ${o.y1}L${X} ${Y}" stroke="${COL[o.c||'r']}" stroke-width="2" stroke-dasharray="5 4"/>`:'')+`<circle cx="${X}" cy="${Y}" r="${o.r||7}" fill="${COL[o.c||'r']}"/>`; },
+  reib(o,p){ // Zugversuch an einer Kiste: Haftreibung passt sich an, dann Gleiten
+    const {x,y,w,h}=o, FS=o.FS, Fk=o.Fk, Fe=o.Fe, k=o.k||1.6, pe=o.pe||.8;
+    const F=Fe*Math.min(1,p/pe), slip=F>=FS, ps=pe*FS/Fe;
+    const FR=slip?Fk:F, dx=slip?Math.pow((p-ps)/(1-ps),2)*w*0.28:0;
+    const gy=y+h*0.42, bx=x+w*0.18+dx, bw=w*0.2, bh=h*0.16, by=gy-bh;
+    let s=`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="#fff" stroke="#cbd5e1" stroke-width="1.5"/>`;
+    s+=`<path d="M${x+12} ${gy}H${x+w-12}" stroke="#334155" stroke-width="2"/>`;
+    s+=`<rect x="${bx}" y="${by}" width="${bw}" height="${bh}" fill="#9acd32" stroke="#65a30d"/><text x="${bx+bw/2}" y="${by+bh/2+5}" font-size="14" font-weight="800" text-anchor="middle" fill="#fff">m</text>`;
+    const cy=by+bh/2;
+    if(F>0.5) s+=arrow(bx+bw,cy,bx+bw+F*k,cy,'b',1)+lbl(bx+bw+F*k+6,cy-8,`F = ${F.toFixed(0)} N`,'b',13,'start');
+    if(FR>0.5) s+=arrow(bx,gy-3,bx-FR*k,gy-3,'r',1)+lbl(bx-FR*k-4,gy-12,`${slip?'F<tspan font-size="9" dy="3">k</tspan><tspan dy="-3">':'F<tspan font-size="9" dy="3">S</tspan><tspan dy="-3">'} = ${FR.toFixed(0)} N</tspan>`,'r',13,'end');
+    s+=lbl(x+w/2,y+20,slip?'Kiste gleitet – Gleitreibung bleibt konstant':'Kiste haftet – Haftreibung = Zugkraft',slip?'r':'g',14);
+    // Diagramm F_R über F
+    const ox=x+w*0.18, oy=y+h-26, sx=(w*0.7)/Fe, sy=(h*0.36)/(FS*1.15);
+    s+=`<path d="M${ox} ${oy}H${ox+Fe*sx+10}M${ox} ${oy}V${oy-FS*1.15*sy-8}" stroke="#334155" stroke-width="1.4"/>`;
+    s+=`<text x="${ox+Fe*sx+12}" y="${oy+4}" font-size="11" fill="#334155">F</text><text x="${ox-4}" y="${oy-FS*1.15*sy-10}" font-size="11" fill="#334155" text-anchor="end">F_R</text>`;
+    let d=`M${ox} ${oy}L${ox+Math.min(F,FS)*sx} ${oy-Math.min(F,FS)*sy}`; if(slip) d+=`L${ox+FS*sx} ${oy-Fk*sy}L${ox+F*sx} ${oy-Fk*sy}`;
+    s+=`<path d="${d}" fill="none" stroke="${COL.r}" stroke-width="2.4"/><circle cx="${ox+F*sx}" cy="${oy-FR*sy}" r="4.5" fill="${COL.r}"/>`;
+    s+=`<path d="M${ox} ${oy-FS*sy}H${ox+FS*sx}" stroke="${COL.p}" stroke-dasharray="4 3"/>`+lbl(ox+4,oy-FS*sy-5,`μ<tspan font-size="9" dy="3">S</tspan><tspan dy="-3">·F</tspan><tspan font-size="9" dy="3">N</tspan><tspan dy="-3"> = ${FS} N</tspan>`,'p',11,'start');
+    return s; },
 };
 function lbl(x,y,s,c,fs=14,a='middle'){ return `<g><text x="${x}" y="${y}" font-size="${fs}" font-weight="800" text-anchor="${a}" fill="#fff" stroke="#fff" stroke-width="5" stroke-linejoin="round">${s}</text><text x="${x}" y="${y}" font-size="${fs}" font-weight="800" text-anchor="${a}" fill="${COL[c]||c}">${s}</text></g>`; }
 function arrow(x1,y1,x2,y2,c,p){ const X=lerp(x1,x2,p), Y=lerp(y1,y2,p), a=Math.atan2(Y-y1,X-x1), L=Math.hypot(X-x1,Y-y1), h=Math.min(10,L*.4);

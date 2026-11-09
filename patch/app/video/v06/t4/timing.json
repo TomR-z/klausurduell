@@ -1,0 +1,266 @@
+[
+ {
+  "title": "Inhalt",
+  "caps": [
+   "Vorlesung 4: *Warum* bewegt sich etwas? → *Dynamik*",
+   "Kraft und Impuls · die *drei Newtonschen Axiome*"
+  ],
+  "starts": [
+   0.058,
+   13.468
+  ],
+  "dur": 22.282449
+ },
+ {
+  "title": "Bewegung hat eine Ursache",
+  "caps": [
+   "Bewegungsänderungen haben eine *Ursache*: die *Kraft F*",
+   "Galilei: *ohne Kraft* → Ruhe oder *geradlinig gleichförmig*",
+   "Alltag: alles bleibt stehen → verborgene Kraft *Reibung*"
+  ],
+  "starts": [
+   0.07,
+   12.051,
+   26.215
+  ],
+  "dur": 41.273469
+ },
+ {
+  "title": "Kraft, Masse, Beschleunigung",
+  "caps": [
+   "Kräfte verursachen *Beschleunigung*",
+   "Gleiche Kraft, *verschiedene Körper* → verschiedene Beschleunigung",
+   "Folie: „entgegenwirkenden“ – gemeint ist die *einwirkende* Kraft",
+   "Widerstand gegen Bewegungsänderung = *Trägheit* → *Masse m*",
+   "*a = F / m* · Einheit: *1 N = 1 kg·m/s²*"
+  ],
+  "starts": [
+   0.07,
+   6.165,
+   16.73,
+   29.083,
+   41.564
+  ],
+  "dur": 56.685714
+ },
+ {
+  "title": "Der Impuls",
+  "caps": [
+   "Kraft über eine Zeit → *Geschwindigkeit ändert sich*",
+   "*Impuls p = m · v* – Masse mal Geschwindigkeit",
+   "Beispiel: Tischtennisball vs. Bowlingkugel bei *5 m/s*"
+  ],
+  "starts": [
+   0.035,
+   11.656,
+   21.165
+  ],
+  "dur": 45.453061
+ },
+ {
+  "title": "Impuls als Vektor",
+  "caps": [
+   "p hat die *Richtung von v* · Einheit *kg·m/s*",
+   "Zeitableitung bei m konstant: *ṗ = m · a* · Einheit *kg·m/s²*"
+  ],
+  "starts": [
+   0.07,
+   13.816
+  ],
+  "dur": 31.79102
+ },
+ {
+  "title": "Die drei Newtonschen Axiome",
+  "caps": [
+   "1. *Trägheitsprinzip*: ohne Kraft keine Bewegungsänderung",
+   "2. *Aktionsprinzip*: *F = ṗ* – Kraft = Impulsänderung pro Zeit",
+   "3. *Reaktionsprinzip*: A auf B mit F → B auf A mit *−F*"
+  ],
+  "starts": [
+   0.035,
+   13.259,
+   20.794
+  ],
+  "dur": 37.616327
+ },
+ {
+  "title": "1. Axiom: Trägheitsprinzip",
+  "caps": [
+   "*F = 0 → v = const* · Ruhe ist der Sonderfall v = 0",
+   "Nicht direkt prüfbar: *Reibung* lässt sich nie ganz ausschalten",
+   "Merke: *jede* Änderung von v hat eine *Kraft* als Ursache"
+  ],
+  "starts": [
+   0.081,
+   16.335,
+   24.787
+  ],
+  "dur": 38.948571
+ },
+ {
+  "title": "2. Axiom: Kraft und Beschleunigung",
+  "caps": [
+   "Konstante Kraft → *gleichmäßig beschleunigte* Bewegung",
+   "Doppelte Kraft → *doppelte Beschleunigung*: F ~ a",
+   "Bild: Wagen m_1 auf dem Tisch, Gewicht m_2 zieht über die Rolle",
+   "Beispiel m_1 = 2 kg, m_2 = 1 kg → *a = 3,27 m/s²*"
+  ],
+  "starts": [
+   0.058,
+   10.519,
+   24.718,
+   38.104
+  ],
+  "dur": 67.526531
+ },
+ {
+  "title": "Grundgesetz der Dynamik",
+  "caps": [
+   "Masse = Maß für die *Trägheit* eines Körpers",
+   "*F = m · a* – Grundgesetz der Dynamik",
+   "Folgerungen: *Gewichtskraft* · träge/schwere Masse · *Zentripetalkraft*"
+  ],
+  "starts": [
+   0.058,
+   9.253,
+   19.366
+  ],
+  "dur": 30.746122
+ },
+ {
+  "title": "Masse oder Gewicht?",
+  "caps": [
+   "*Masse* in kg – überall gleich · *Gewicht(skraft)* in N – ortsabhängig",
+   "Genauer: Masse = *Menge Materie* und *Trägheit* – „schwer“ ist das Gewicht",
+   "Beispiel 70 kg: Erde *687 N*, Mond *113 N* – Masse bleibt *70 kg*"
+  ],
+  "starts": [
+   0.035,
+   14.524,
+   28.271
+  ],
+  "dur": 54.595918
+ },
+ {
+  "title": "Gewichtskraft",
+  "caps": [
+   "Masse bestimmt *Trägheit* und *Schwere*",
+   "Faden spannen → *Gewichtskraft F_G* · Faden durch → *g = 9,81 m/s²*",
+   "*F_G = m · g* – 1 kg wiegt *9,81 N ≈ 10 N*"
+  ],
+  "starts": [
+   0.07,
+   8.789,
+   25.252
+  ],
+  "dur": 39.235918
+ },
+ {
+  "title": "Zentripetalkraft",
+  "caps": [
+   "Kreisbahn braucht *a_r = ω² r* zum Mittelpunkt",
+   "Mit F = m a: *F_r = m ω² r* – die *Zentripetalkraft*",
+   "Beispiel 0,2 kg, r = 0,5 m, ω = 4 1/s → *F_r = 1,6 N*"
+  ],
+  "starts": [
+   0.035,
+   13.758,
+   25.565
+  ],
+  "dur": 53.524898
+ },
+ {
+  "title": "3. Axiom: actio = reactio",
+  "caps": [
+   "*F_12 = −F_21* – Kraft und Gegenkraft",
+   "Achtung: Kraft und Gegenkraft wirken auf *verschiedene Körper* – sie heben sich *nicht* auf",
+   "Welche „Kraft“ und welche „Gegenkraft“ ist: *egal*"
+  ],
+  "starts": [
+   0.046,
+   14.036,
+   35.864
+  ],
+  "dur": 44.016327
+ },
+ {
+  "title": "Wechselwirkung",
+  "caps": [
+   "Immer *zwei Körper*: Kräfte sind *Wechselwirkungen*",
+   "Beispiel: Buch auf Tisch · Rakete stößt Gas aus"
+  ],
+  "starts": [
+   0.035,
+   9.114
+  ],
+  "dur": 25.573878
+ },
+ {
+  "title": "Inertialsysteme",
+  "caps": [
+   "*Inertialsystem*: kräftefreier Körper ruht oder bewegt sich gleichförmig",
+   "System B fährt mit *v_BA = const* → auch ein Inertialsystem",
+   "In Inertialsystemen *keine Scheinkräfte* (z. B. Fliehkraft)"
+  ],
+  "starts": [
+   0.093,
+   13.351,
+   30.464
+  ],
+  "dur": 46.001633
+ },
+ {
+  "title": "Impuls eines Teilchens",
+  "caps": [
+   "*p = m · v* · Einheit *kg·m/s*",
+   "m konstant: *ṗ = m · a* – Einheit kg·m/s² (Folie: [p] statt [ṗ])",
+   "Ohne äußere Kräfte: *Gesamtimpuls bleibt erhalten*"
+  ],
+  "starts": [
+   0.046,
+   7.964,
+   19.946
+  ],
+  "dur": 35.94449
+ },
+ {
+  "title": "2. Axiom mit mehreren Kräften",
+  "caps": [
+   "Mehrere Kräfte → *Vektorsumme* F_res",
+   "*ṗ = m a = F_res* · [F] = kg·m/s² = *N*"
+  ],
+  "starts": [
+   0.058,
+   12.121
+  ],
+  "dur": 23.719184
+ },
+ {
+  "title": "Masse vergleichen",
+  "caps": [
+   "a ~ F und *a ~ 1/m*",
+   "Gleiche Kraft: *m_1 / m_2 = a_2 / a_1*",
+   "Beispiel F = 10 N: 2 kg → *5 m/s²*, 5 kg → *2 m/s²*"
+  ],
+  "starts": [
+   0.093,
+   11.958,
+   23.057
+  ],
+  "dur": 39.105306
+ },
+ {
+  "title": "actio = reactio im Bild",
+  "caps": [
+   "*F_AB = −F_BA* – gleich groß, entgegengesetzt",
+   "Gleiche Kraft, *verschiedene Beschleunigung*: 100 N auf 50 kg und 80 kg",
+   "Vorlesung 4 geschafft – weiter mit den *Kraftgesetzen*"
+  ],
+  "starts": [
+   0.058,
+   11.064,
+   27.91
+  ],
+  "dur": 41.691429
+ }
+]
