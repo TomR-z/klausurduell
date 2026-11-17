@@ -2,7 +2,15 @@
 
 Hier liegen neue Fragen und Aufgaben, bis Tom „Patch durchführen“ sagt.
 
-Letzter Patch: 1.6 am 04.11.2026 (Selbst rechnen, Formelsammlung, Klausurplan, Probeklausur, Schwachstellen, Vorlesungsfolien, Schneider-Wegweiser). Stand: 549 Fragen, 45 Aufgaben, 94 Formeln, 226 Folien. Wartend (05.11.2026): 100 Fragen, 4 Lösungsweg-Aufgaben mit Rechenwerten – Statistik Kapitel 3 + Übung 1/2 (44 Fragen, stat-ue02-inverse, stat-ue02-mischung), Bauinformatik Block 2 (23), Baukonstruktion Übung 3 (18, bauko-ue03-sparren, bauko-ue03-dreifeld), DAP Übung 2 (15). Neue Themen: stat|Deskriptive Statistik, binf|Kontrollstrukturen, bauko|Lastfallkombination. **Dazu (09.11.2026): 46 Fragen + 1 Lösungsweg-Aufgabe** – Physik V05 Kraftgesetze + Blatt 5 (23, phys-b5-a5), Baukonstruktion V04 Dächer (13), Bauinformatik Übung 03 (10); neue Themen phys|Kraftgesetze, phys|Arbeit und Energie, bauko|Dächer. Gesamt wartend: 146 Fragen, 5 Aufgaben. Dazu `2026-11-05 Schneider 27 Fundstellen.js`: s27 für alle 16 Wegweiser-Einträge + neuer Eintrag Durchlaufträger (Issue #10, Schritt 1).
+Letzter Patch: 1.7 am 09.11.2026 (lokal und Artifact; auf GitHub main seit 17.11.2026 nach Entsperrung des Kontos). Stand: 695 Fragen, 50 Aufgaben, 76 Korrekturen.
+Wartend (Stand 17.11.2026, mit pruefe.js gegen 1.7 geprüft: 876 Fragen, 60 Aufgaben, 85 Korrekturen):
+- `2026-11-09 Baustoffkunde V05 Gefüge und Verbundwerkstoffe.js` – 16 Fragen, Aufgabe bsk-v05-gfk
+- `2026-11-11 Baukonstruktion Übung 04 Dächer.js` – Fragen + 3 Aufgaben (Durchbiegung, Gerberpfette, Deckenbalken)
+- `2026-11-16 Physik Vorlesung 6 und Blatt 5 neu.js` – 29 Fragen, 3 Aufgaben, Korrektur „Blatt 5“ → „Blatt 6“
+- `2026-11-17 Baustoffkunde V06 Phasendiagramme.js` – 27 Fragen
+- `2026-11-17 DAP L04 L05 und Übung 03.js` – 37 Fragen, Aufgabe dap-l05-ki-mittel
+- `2026-11-17 Bauinformatik Block 3 und Übung 04.js` – 31 Fragen
+- `2026-11-17 Baukonstruktion V05 Stützen und Tragelemente.js` – 25 Fragen, 2 Aufgaben, Korrektur E_0,05 = 7333 N/mm² (Schneider) in bauko-knick-stuetze
 
 - `app/anmerkungen.py`: liest offene Anmerkungs-Issues (gh api)
 - `app/pruefe.js`: Prüfskript (Fragen, Aufgaben, Korrekturen, Skizzen)
