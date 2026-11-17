@@ -8521,3 +8521,813 @@ pair("binf", "Operatoren", "Welche Ausgabe erzeugt die Anweisung?", [["println(2
 mc("binf", "Operatoren", "Was gibt System.out.println(5.0 / 2.0 + 5 / 2); aus?", ["4.5", "5.0", "4", "5"], "5.0 / 2.0 = 2.5 (double), aber 5 / 2 = 2 (int-Division). 2.5 + 2 = 4.5. Mit 5 / 2. käme 5.0 heraus.", "Bauinformatik Übung 03, Aufgabe 10a/b");
 mc("binf", "Operatoren", "Warum ergibt 2.3 + 7 / 2 * 4.1 nicht 16.65?", ["7 / 2 ist int-Division und ergibt 3, nicht 3.5", "Weil * vor + nicht beachtet wird", "Weil 4.1 als int gespeichert wird", "Weil 2.3 abgerundet wird"], "7 / 2 = 3, dann 3 · 4.1 ≈ 12.3 und + 2.3. Java gibt 14.599999999999998 aus – die winzige Abweichung kommt daher, dass 4.1 im Dualsystem nicht exakt darstellbar ist.", "Bauinformatik Übung 03, Aufgabe 10c");
 mc("binf", "Operatoren", "Dein Rechner-Programm arbeitet mit int-Variablen 5 und 2. Was liefert die Division?", ["2", "2.5", "3", "Einen Fehler"], "Bei zwei int-Werten rechnet Java ganzzahlig. Für 2.5 muss mindestens ein Operand double sein, z. B. (double) a / b.", "Bauinformatik Übung 03, Aufgabe 9");
+/* Patch-Warteschlange · Baustoffkunde · V05 Gefügeaufbau, Verbundwerkstoffe (Vollpracht, 9.11.2026, 29 Folien) · erstellt 09.11.2026 · Zahlen mit Python nachgerechnet */
+const B6 = "Ermüdung und Verbundwerkstoffe";
+THEMEN["bsk|Ermüdung und Verbundwerkstoffe"] = "Bauteile versagen nicht nur unter einer einmaligen großen Last. Kerben erhöhen die Spannung örtlich, und wiederholte Lastwechsel können einen Werkstoff weit unter seiner statischen Festigkeit ermüden lassen. Das beschreiben Wöhlerlinie, Dauer- und Zeitfestigkeit und die Palmgren-Miner-Regel. Verbundwerkstoffe kombinieren mehrere Werkstoffe, zum Beispiel Stahlbeton oder GFK. Ihre Kennwerte schätzt man mit zwei Grundmodellen ab: Parallelanordnung (hartes Modell, gleiche Dehnung) als obere Grenze und Serienanordnung (weiches Modell, gleiche Spannung) als untere Grenze.";
+
+pair("bsk", B5, "Welche Struktur steuert welche Eigenschaft? Ordne zu.", [["Festigkeit", "Bindungsart (Mikrostruktur)"], ["Wärmeausdehnung und E-Modul", "Bindungsenergie (Mikrostruktur)"], ["Wasseraufnahme von Ziegel", "Porosität (Grobstruktur)"], ["Fließgrenze von Stahl", "Korngröße (Grobstruktur)"]], "Mikrostruktur = Anordnung der Atome und Moleküle, Grobstruktur = Anordnung von Komponenten und Phasen. Beim Beton steuert die Gesteinskörnung die Steifigkeit.", "Baustoffkunde V05, Folie 3");
+mc("bsk", B5, "Was gilt für einen amorphen Stoff im Vergleich zum kristallinen Stoff gleicher Zusammensetzung?", ["Er ist metastabil und reaktiver", "Er ist thermodynamisch stabiler", "Er leitet Wärme besser", "Er hat einen scharfen Schmelzpunkt statt eines Übergangsbereichs"], "Amorphe Stoffe streben nach Kristallisation und reagieren deshalb leichter. Typisch sind außerdem ein Glasübergangsbereich (T_g bis T_s), stärkere Temperaturabhängigkeit, Lichtdurchlässigkeit und geringere Wärmeleitfähigkeit.", "Baustoffkunde V05, Folie 7");
+mc("bsk", B5, "Wie ist die Porosität p eines Werkstoffs definiert?", ["p = V_P / V – Porenvolumen durch Gesamtvolumen", "p = V / V_P", "p = Masse der Poren / Gesamtmasse", "p = Rohdichte / Reindichte"], "Die Porosität beeinflusst Rohdichte, Festigkeit, E-Modul, Dichtigkeit, Frost- und Korrosionswiderstand, Wärmeleitfähigkeit und Volumenstabilität.", "Baustoffkunde V05, Folie 11");
+mc("bsk", B5, "Bei welchem Werkstoff ist die Porosität bewusst eingestellt?", ["Porenbeton", "Bims", "Holz", "Zementstein"], "Bewusst eingestellt: Porenbeton, Leichtziegel, geschäumte Kunststoffe. Natürlich porös: Gesteine wie Tuff oder Bims, Holz, Zementstein und Beton.", "Baustoffkunde V05, Folie 12");
+mc("bsk", B6, "Wie stark erhöht eine Kerbe die Spannung typischerweise gegenüber der Nennspannung σ_m?", ["Etwa auf das 1,2- bis 2,5-Fache", "Gar nicht, nur die Fläche wird kleiner", "Etwa auf das 10-Fache", "Sie senkt die Spannung"], "Die Formziffer k = σ_max / σ_m hängt von der Kerbgeometrie ab: je schärfer die Kerbe (kleines r/d), desto größer k. Bei spröden Werkstoffen senken Kerben die Festigkeit erheblich, weil sie die Spitze nicht durch Fließen abbauen können.", "Baustoffkunde V05, Folie 15");
+pair("bsk", B6, "Bruchbild – ordne zu.", [["Transkristalliner Spaltbruch", "ebene Spaltflächen quer durch die Körner"], ["Interkristalliner Spaltbruch", "Bruch entlang der Korngrenzen"], ["Duktiler Bruch", "Porenbildung und Einschnürung"]], "Spaltbrüche sind spröde. Beim transkristallinen Bruch sieht man „Zungen und Flüsse“, beim interkristallinen winklig zueinander liegende Korngrenzflächen.", "Baustoffkunde V05, Folie 16");
+pair("bsk", B6, "Ermüdung: Ordne die Größe ihrer Formel zu.", [["Mittelspannung σ_m", "(σ_o + σ_u) / 2"], ["Spannungsamplitude σ_a", "(σ_o − σ_u) / 2"], ["Reine Wechselbeanspruchung", "σ_m = 0"]], "σ_o ist die Oberspannung, σ_u die Unterspannung. Bei Schwellbeanspruchung bleibt die Spannung immer auf einer Seite (nur Zug oder nur Druck).", "Baustoffkunde V05, Folie 18");
+pair("bsk", B6, "Welche Festigkeit ist gemeint?", [["Zeitfestigkeit", "für eine bestimmte Zahl von Lastwechseln"], ["Wechselfestigkeit", "unendlich oft ertragbar bei σ_m = 0"], ["Dauerfestigkeit", "unendlich oft ertragbare Amplitude"], ["Betriebsfestigkeit", "bei veränderlicher Schwingbreite"]], "Wechsel- und Dauerfestigkeit gelten für unendlich viele Lastwechsel, die Wechselfestigkeit ist der Sonderfall ohne Mittelspannung.", "Baustoffkunde V05, Folie 19");
+mc("bsk", B6, "Was zeigt ein Smith-Diagramm?", ["Die ertragbare obere und untere Grenzspannung abhängig von der Mittelspannung", "Die Spannung über der Lastspielzahl", "Die Kerbformzahl über r/d", "Den E-Modul über dem Volumenanteil"], "Die Spannung über der Lastspielzahl (logarithmisch) ist die Wöhlerlinie. Das Smith-Diagramm fasst die Dauerfestigkeit für verschiedene Mittelspannungen zusammen.", "Baustoffkunde V05, Folie 20");
+ord("bsk", B6, "Wie läuft ein Ermüdungsbruch ab? Bring in die richtige Reihenfolge.", ["Riss beginnt an einer lokalen Fehlstelle", "Riss wächst langsam, Querschnitt nimmt ab (Rastlinien)", "Restquerschnitt bricht plötzlich"], "Auf der Bruchfläche sieht man daher eine glatte Zone mit Furchen oder Schwingungsstreifen und eine raue Restbruchfläche.", "Baustoffkunde V05, Folie 21");
+mc("bsk", B6, "Was besagt die Palmgren-Miner-Regel?", ["Σ n_i / N_i ≤ 1 – die Teilschädigungen aller Laststufen addieren sich", "Die größte Laststufe allein entscheidet", "n_i muss größer als N_i sein", "Die Lastspiele werden multipliziert"], "n_i: Lastspiele im Bauwerk bei einer Kombination aus σ_m und σ_a, N_i: Lastspiele bis zum Bruch im Versuch. Ist die Summe 1 erreicht, ist das Bauteil rechnerisch ermüdet.", "Baustoffkunde V05, Folie 22");
+mc("bsk", B6, "Wie ordnet die Vorlesung Beton und Stahlbeton als Verbundwerkstoffe ein?", ["Beton isotrop und heterogen, Stahlbeton anisotrop und heterogen", "Beide isotrop und homogen", "Beton anisotrop, Stahlbeton isotrop", "Beide homogen, aber anisotrop"], "Beton = Zementstein + Gesteinskörnung, in alle Richtungen etwa gleich. Der Stahl im Stahlbeton liegt in bestimmten Richtungen, daher anisotrop. Ebenso anisotrop: Mauerwerk, GFK, Sandwichplatten.", "Baustoffkunde V05, Folie 23");
+pair("bsk", B6, "Grundmodelle der Verbundwerkstoffe – ordne zu.", [["Serienanordnung (weiches Modell)", "gleiche Spannung in beiden Komponenten"], ["Parallelanordnung (hartes Modell)", "gleiche Dehnung in beiden Komponenten"], ["Unterer Grenzwert des E-Moduls", "1/E = V₁/E₁ + V₂/E₂"], ["Oberer Grenzwert des E-Moduls", "E = V₁·E₁ + V₂·E₂"]], "Bei Serienanordnung addieren sich die Verformungen, bei Parallelanordnung die Kräfte. Der echte Wert liegt zwischen beiden Grenzen.", "Baustoffkunde V05, Folie 24–27");
+mc("bsk", B6, "Wovon hängt die Rohdichte eines Verbundwerkstoffs ab?", ["Nur von den Volumenanteilen und Rohdichten: ρ = V₁ρ₁ + V₂ρ₂", "Von der Anordnung (Serie oder parallel)", "Vom E-Modul der Komponenten", "Nur von der dichteren Komponente"], "Masse addiert sich unabhängig davon, wie die Komponenten angeordnet sind. Beim E-Modul ist die Anordnung dagegen entscheidend.", "Baustoffkunde V05, Folie 25");
+mc("bsk", B6, "Warum ist GFK in Faserrichtung steifer als quer dazu?", ["Längs wirken Fasern und Harz parallel (hartes Modell), quer in Serie (weiches Modell)", "Weil das Harz längs steifer ist", "Weil quer mehr Fasern liegen", "GFK ist in beiden Richtungen gleich steif"], "Längs müssen Glas und Harz gleich weit gedehnt werden, das steife Glas trägt den Großteil. Quer hintereinander bestimmt die weiche Komponente stark mit. Folienbeispiel: 64 500 längs, 51 220 N/mm² quer.", "Baustoffkunde V05, Folie 30");
+mc("bsk", B6, "Beton: hartes Modell 48 750, weiches Modell 34 286 N/mm². Was misst man real?", ["Etwa 20 000 bis 50 000 N/mm² – die Modelle sind nur Grenzabschätzungen", "Immer genau 48 750 N/mm²", "Immer genau 34 286 N/mm²", "Deutlich über 60 000 N/mm²"], "Reale Gefüge sind weder rein parallel noch rein in Serie. Genauere Modelle sind z. B. das geschichtete Modell oder das Kugelmodell.", "Baustoffkunde V05, Folie 31");
+
+aufgabe({
+ "id": "bsk-v05-gfk",
+ "f": "bsk",
+ "t": "Ermüdung und Verbundwerkstoffe",
+ "titel": "E-Modul von GFK längs und quer",
+ "s": "Baustoffkunde V05, Folie 30",
+ "angabe": "Ein glasfaserverstärkter Kunststoff besteht zu 90 % aus Glasfasern und zu 10 % aus Kunststoff (Volumenanteile). Die Fasern liegen alle in einer Richtung.",
+ "geg": ["E_Glas = 70 000 N/mm²", "V_Glas = 0,9", "E_KS = 15 000 N/mm²", "V_KS = 0,1"],
+ "ges": "E-Modul in Faserrichtung und quer zur Faserrichtung",
+ "schritte": [
+  { "f": "Welches Modell gilt in Faserrichtung?", "o": [
+    ["Parallelanordnung (hartes Modell): gleiche Dehnung", "Fasern und Harz liegen nebeneinander und werden gemeinsam gleich weit gedehnt."],
+    ["Serienanordnung (weiches Modell): gleiche Spannung", "Das gilt quer zur Faser, wo Glas und Harz hintereinanderliegen."],
+    ["Nur der E-Modul des Glases zählt", "Das Harz trägt auch mit, wenn auch wenig."],
+    ["Mittelwert (70 000 + 15 000) / 2", "Die Volumenanteile müssen gewichtet werden."]],
+   "r": "E = V_Glas·E_Glas + V_KS·E_KS" },
+  { "f": "Wie groß ist der E-Modul in Faserrichtung?", "o": [
+    ["0,9 · 70 000 + 0,1 · 15 000 = 64 500 N/mm²", "63 000 + 1 500 = 64 500 N/mm²."],
+    ["0,1 · 70 000 + 0,9 · 15 000 = 20 500 N/mm²", "Die Volumenanteile sind vertauscht."],
+    ["70 000 + 15 000 = 85 000 N/mm²", "Ohne Volumenanteile wäre der Verbund steifer als reines Glas."],
+    ["1 / (0,9/70 000 + 0,1/15 000) = 51 220 N/mm²", "Das ist das weiche Modell für quer zur Faser."]],
+   "r": "E_längs = 64 500 N/mm²" },
+  { "f": "Welches Modell gilt quer zur Faser?", "o": [
+    ["Serienanordnung: 1/E = V_Glas/E_Glas + V_KS/E_KS", "Quer liegen Glas und Harz hintereinander, beide tragen dieselbe Spannung, die Dehnungen addieren sich."],
+    ["Parallelanordnung wie längs", "Dann wären beide Richtungen gleich steif."],
+    ["E = E_Glas · E_KS", "Diese Einheit wäre (N/mm²)²."],
+    ["Nur der E-Modul des Harzes zählt", "Das Glas verformt sich quer auch, nur weniger."]],
+   "r": "1/E = 0,9/70 000 + 0,1/15 000" },
+  { "f": "Wie groß ist der E-Modul quer zur Faser?", "o": [
+    ["1/E = 1,95·10⁻⁵ mm²/N → E ≈ 51 220 N/mm²", "1,286·10⁻⁵ + 0,667·10⁻⁵ = 1,952·10⁻⁵, der Kehrwert ist 51 220."],
+    ["E = 1,95·10⁻⁵ N/mm²", "Das ist erst 1/E, der Kehrwert fehlt."],
+    ["E ≈ 64 500 N/mm²", "Das ist der Wert längs."],
+    ["E ≈ 15 000 N/mm²", "Das wäre reines Harz; die Fasern versteifen auch quer."]],
+   "r": "E_quer ≈ 51 220 N/mm² (≈ 79 % von längs)" }],
+ "fazit": "Längs parallel (E-Moduln gewichtet addieren), quer in Serie (Kehrwerte gewichtet addieren)."
+});
+Object.assign(RECHNEN, {
+ "bsk-v05-gfk": {
+  "1": [{ "l": "E_längs", "w": 64500, "u": "N/mm²", "h": "0,9 · 70000 + 0,1 · 15000" }],
+  "3": [{ "l": "E_quer", "w": 51220, "u": "N/mm²", "h": "1 / (0,9/70000 + 0,1/15000)" }]
+ }
+});
+/* Patch-Warteschlange · Baukonstruktion · Übung 4 Dächer (11.11.2026, Geßler/Kimpeler, 51 Folien) · Beispiel 5 Sparren GZT + GZG, Beispiel 7b Gerberpfette, Beispiel 8 Deckenbalken · erstellt 11.11.2026 · alle Zahlen mit Python nachgerechnet */
+
+/* ── Biegenachweis Sparren (GZT) ── */
+mc("bauko", K4, "Der Sparren 8/16 hat am Auflager eine Kerve von 3 cm. Mit welchem Widerstandsmoment rechnest du dort?", ["W = 8 · 13² / 6 = 225 cm³", "W = 8 · 16² / 6 = 341 cm³", "W = 8 · 3² / 6 = 12 cm³", "W = 13 · 8² / 6 = 139 cm³"], "An der Kerve bleibt nur die Nettohöhe 16 − 3 = 13 cm. Im Feld ohne Kerve gilt der volle Querschnitt mit 341 cm³.", "Baukonstruktion Übung 4, Folie 13");
+mc("bauko", K4, "Wie groß ist der Höhenfaktor k_h für die Nettohöhe h = 130 mm (C24)?", ["k_h = (150/130)^0,2 ≈ 1,03", "k_h = 1,0, weil h unter 150 mm liegt", "k_h = 150/130 ≈ 1,15", "k_h = 1,3"], "Unter 150 mm darf f_m,k mit k_h = (150/h)^0,2 ≤ 1,3 erhöht werden. Mit k_h = 1,0 zu rechnen ist erlaubt und liegt auf der sicheren Seite.", "Baukonstruktion Übung 4, Folien 13 und 15 (SBT 24 S. 9.8)");
+mc("bauko", K4, "Du suchst die Sparrenhöhe und hast aus dem Biegenachweis h = 12 cm erhalten. Am Auflager kommt eine Kerve von 3 cm dazu. Was wählst du?", ["Mindestens h = 12 + 3 = 15 cm, gewählt 6/16", "6/12, die Kerve spielt keine Rolle", "6/9, weil die Kerve abgezogen wird", "Eine größere Breite statt einer größeren Höhe"], "Die Kerve schwächt den Querschnitt genau am Auflager, wo das große Stützmoment wirkt. Deshalb wird die gewählte Höhe um die Kerventiefe erhöht.", "Baukonstruktion Übung 4, Folien 16–17");
+mc("bauko", K4, "Warum wurde der Spannungsnachweis im Feld in Beispiel 5 eigentlich nicht gebraucht?", ["Das Stützmoment an B ist maßgebend und dort ist der Querschnitt durch die Kerve zusätzlich geschwächt", "Im Feld gibt es kein Moment", "Im Feld gilt der GZG statt des GZT", "Weil der Wind im Feld nach oben wirkt"], "M_B,d = 1,26 kNm am geschwächten Querschnitt (W = 225 cm³) gegen M_F,d = 1,76 kNm am vollen Querschnitt (W = 341 cm³) mit größerem kmod: Ausnutzung 0,49 gegen 0,28.", "Baukonstruktion Übung 4, Folien 19–21");
+
+/* ── Durchbiegung (GZG) ── */
+mc("bauko", K4, "Für den Durchbiegungsnachweis des Sparrens brauchst du die Last senkrecht zur Dachfläche. Wie rechnest du das Eigengewicht g′ (je m Grundfläche) um?", ["g⊥ = g′ · cos²α", "g⊥ = g′ · cos α", "g⊥ = g′ / cos α", "g⊥ = g′ · sin α"], "Ein cos α macht aus der Grundfläche die Dachfläche, der zweite zerlegt die lotrechte Last in den Anteil senkrecht zum Sparren. Mit α = 35,7°: 0,86 · cos²35,7° = 0,57 kN/m. Wind wirkt ohnehin senkrecht zur Dachfläche.", "Baukonstruktion Übung 4, Folie 27");
+mc("bauko", K4, "Welche Spannweite setzt du für die Durchbiegung des Sparrens an?", ["Die schräge Länge auf der Dachfläche: l = √(2,572² + 3,58²) = 4,41 m", "Die waagerechte Stützweite 3,58 m", "Die ganze Sparrenlänge mit Kragarmen", "Die Dachbreite 7,44 m"], "Weil die Lasten senkrecht zum Sparren angesetzt werden, gehört dazu auch die Länge entlang des Sparrens. Die Kragarme werden in diesem Beispiel vernachlässigt.", "Baukonstruktion Übung 4, Folien 26–27");
+mc("bauko", K4, "Woher kommt der Faktor 76,8 in w = q · l⁴ / (76,8 · E · I)?", ["384 / 5 = 76,8 – das ist die Formel 5ql⁴/(384EI) des Einfeldträgers", "Aus γ_M = 1,3 und k_def", "Aus der Umrechnung kN in N", "Er ist ein Erfahrungswert für Holz"], "SBT 24 S. 4.2 schreibt die Biegelinie des Einfeldträgers unter Gleichlast als w_Mitte = ql⁴/(76,8 EI).", "Baukonstruktion Übung 4, Folie 28");
+mc("bauko", K4, "Du rechnest w = q · l⁴ / (76,8 · E · I) mit q in kN/m, l in m, E in N/mm² und I in cm⁴. Mit welchem Faktor kommst du auf cm?", ["· 10⁷", "· 10³", "· 10⁻⁷", "Gar keinem, die Einheiten passen schon"], "kN/m · m⁴ = 10⁶ kN·cm³, N/mm² · cm⁴ = 10⁻¹ kN·cm². Der Quotient ist 10⁷ cm. Die Übung schreibt dazu: „Auf Einheiten achten!!!“", "Baukonstruktion Übung 4, Folie 28");
+pair("bauko", K4, "Welcher Beiwert kommt aus welcher Tafel?", [["ψ₀, ψ₂", "Tafel 3.5b Kombinationsbeiwerte"], ["Nutzungsklasse", "Tafel 9.4a"], ["k_def", "Tafel 9.14"], ["E₀,mean = 11 000 N/mm² (C24)", "Tafel 9.8"]], "Für den Sparren in Beispiel 5: NKL 2, Vollholz → k_def = 0,8; Schnee und Wind haben ψ₂ = 0.", "Baukonstruktion Übung 4, Folien 25 und 28 (SBT 24)");
+mc("bauko", K4, "Der Durchbiegungsnachweis ist nicht erfüllt (w_inst = 1,48 cm > l/300 = 1,47 cm). Welche Maßnahme nennt die Übung NICHT?", ["k_def verkleinern", "Querschnittshöhe steigern", "Holzklasse mit höherem E-Modul wählen", "Überhöhung vorsehen"], "k_def ist ein Materialbeiwert aus der Tafel und kein Stellrad. Weitere Maßnahme laut Übung: anderer Querschnitt mit größerem I. Achtung: Ein größerer Querschnitt erhöht auch das Eigengewicht.", "Baukonstruktion Übung 4, Folie 31");
+
+/* ── Gerberträger ── */
+mc("bauko", K9, "Warum setzt man bei Pfetten Gerbergelenke ein?", ["Vollholz ist nur bis etwa 14 m lieferbar, Biegemomente und Durchbiegung werden kleiner, und es ist billiger als ein biegesteifer Stoß", "Weil Gelenke die Pfette steifer machen", "Damit keine Auflagerkräfte entstehen", "Damit der Träger statisch unbestimmt wird"], "Das Gelenk ist ein planmäßiger Momentennullpunkt. Richtig platziert, sind Feld- und Stützmoment gleich groß und der Querschnitt wird gut ausgenutzt.", "Baukonstruktion Übung 4, Folie 33");
+mc("bauko", K9, "Wo liegt das Gerbergelenk im Zweifeldträger mit gleichen Stützweiten l, wenn Feld- und Stützmoment gleich groß sein sollen?", ["Im Abstand e = 0,1716 · l von der Mittelstütze", "Genau über der Mittelstütze", "In Feldmitte", "Bei l/4 vom Endauflager"], "Aus |M_Feld| = |M_Stütz| folgt eine quadratische Gleichung. Für l = 4,06 m: e = 0,70 m. Dann gilt A = 0,414 · q · l (SBT 24 S. 4.13).", "Baukonstruktion Übung 4, Folien 37–38");
+mc("bauko", K9, "Die Pfette hat ungleiche Felder (4,06 m und 3,38 m). Darf man die Tafel für gleiche Stützweiten trotzdem nutzen?", ["Ja, mit der größeren Stützweite – das liegt auf der sicheren Seite", "Nein, nie", "Ja, mit dem Mittelwert der beiden Felder", "Ja, mit der kleineren Stützweite"], "Die kleinere Stützweite fließt dann nicht in die Gelenklage und in A ein. B und C rechnest du anschließend von Hand über das Gleichgewicht am rechten Teilsystem.", "Baukonstruktion Übung 4, Folien 38–39");
+mc("bauko", K3, "Wie wird aus den Sparren-Auflagerkräften die Last auf der Mittelpfette?", ["q = B / e + Eigengewicht der Pfette, mit e = Sparrenabstand", "q = B · e", "q = B / Pfettenlänge", "Jeder Sparren bleibt eine Einzellast, Pfetteneigengewicht entfällt"], "Beispiel 7b: g = 2,97 / 0,62 + 0,14 · 0,22 · 4,2 = 4,92 kN/m (Pfette 14/22, C24 mit 4,2 kN/m³).", "Baukonstruktion Übung 4, Folie 35");
+
+/* ── Deckenbalken ── */
+mc("bauko", K3, "Ein Deckenbalken hat die lichte Weite 4,50 m und liegt auf 10 cm breiten Auflagern. Welche Stützweite setzt du an?", ["l = 4,50 + 2 · 0,10/2 = 4,60 m", "l = 4,50 m", "l = 4,50 + 2 · 0,10 = 4,70 m", "l = 4,50 − 0,10 = 4,40 m"], "Gerechnet wird von Auflagermitte zu Auflagermitte: lichte Weite plus je eine halbe Auflagerbreite.", "Baukonstruktion Übung 4, Folie 41");
+mc("bauko", K4, "Holzbalkendecke im beheizten Wohnraum mit Eigengewicht und Nutzlast: Welches kmod gilt für die Kombination g + p?", ["0,8 – NKL 1, die Nutzlast (mittel) bestimmt das größte kmod der Kombination", "0,6 – ständig, wegen des Eigengewichts", "0,9 – kurz", "1,0 – sehr kurz"], "Bei mehreren Lasten zählt das kmod der kürzesten Einwirkung. Prüfen: 20,22 / 0,8 = 25,3 kNm schlägt 13,68 / 0,6 = 22,8 kNm (nur ständig).", "Baukonstruktion Übung 4, Folie 44");
+
+/* ── Lösungsweg-Aufgaben ── */
+aufgabe({
+ "id": "bauko-ue04-durchbiegung", "f": "bauko", "t": K4, "titel": "Durchbiegungsnachweis Sparren", "s": "Baukonstruktion Übung 4, Beispiel 5",
+ "angabe": "Sparren 8/16, C24 (E₀,mean = 11 000 N/mm²), NKL 2, Spannweite entlang der Dachfläche l = 4,41 m, Einfeldträger ohne Kragarme. Lasten senkrecht zur Dachfläche: g⊥ = 0,57 kN/m, Wind w⊥ = 0,19 kN/m, Schnee s⊥ = 0,22 kN/m. ψ₀,s = 0,5, ψ₀,w = 0,6, ψ₂ = 0 für Schnee und Wind, k_def = 0,8, keine Überhöhung.",
+ "geg": ["l = 4,41 m", "I = 8 · 16³ / 12 = 2731 cm⁴", "g⊥ = 0,57 kN/m", "w⊥ = 0,19 kN/m", "s⊥ = 0,22 kN/m", "k_def = 0,8"],
+ "ges": "w_inst, w_fin und w_net,fin mit Nachweis",
+ "schritte": [
+  { "f": "Wie groß ist die Anfangsdurchbiegung aus Eigengewicht?", "o": [
+    ["w_G,inst = 0,57 · 4,41⁴ / (76,8 · 11 000 · 2731) · 10⁷ = 0,93 cm", "Einfeldträger unter Gleichlast: 5ql⁴/(384EI) = ql⁴/(76,8EI), Faktor 10⁷ für die Einheiten."],
+    ["w_G,inst = 0,57 · 4,41² / 8 = 1,39 cm", "Das ist die Momentenformel ql²/8, keine Durchbiegung."],
+    ["w_G,inst = 0,57 · 4,41⁴ / (76,8 · 11 000 · 2731) = 9,3·10⁻⁸ cm", "Der Einheitenfaktor 10⁷ fehlt."],
+    ["w_G,inst = 0,86 · 4,41⁴ / (76,8 · 11 000 · 2731) · 10⁷ = 1,41 cm", "0,86 kN/m ist die lotrechte Last je m Grundfläche. Für die Durchbiegung brauchst du den Anteil senkrecht zum Sparren."]],
+   "r": "w_G = 0,93 cm · genauso w_w = 0,31 cm, w_s = 0,36 cm" },
+  { "f": "Welche Kombination ist für w_inst maßgebend und erfüllt sie l/300?", "o": [
+    ["Schnee führend: 0,93 + 0,36 + 0,6 · 0,31 = 1,48 cm > 441/300 = 1,47 cm → nicht erfüllt", "Schnee führend liefert den größeren Wert als Wind führend (1,42 cm)."],
+    ["Wind führend: 0,93 + 0,31 + 0,5 · 0,36 = 1,42 cm < 1,47 cm → erfüllt", "Das ist nicht die ungünstigste Kombination."],
+    ["Alles voll: 0,93 + 0,36 + 0,31 = 1,60 cm", "Die begleitende Einwirkung wird mit ψ₀ abgemindert."],
+    ["Nur 0,93 cm, veränderliche Lasten zählen im GZG nicht", "Für w_inst zählen alle Lasten der charakteristischen Kombination."]],
+   "r": "w_inst = 1,48 cm > 1,47 cm → nicht erbracht (knapp)" },
+  { "f": "Wie groß ist die Enddurchbiegung w_fin (Grenze l/200)?", "o": [
+    ["0,93 · (1 + 0,8) + 0,36 + 0,6 · 0,31 = 2,22 cm > 2,21 cm → nicht erfüllt", "Kriechen nur auf den quasi-ständigen Anteil; bei Schnee und Wind ist ψ₂ = 0, also bleiben sie ohne k_def."],
+    ["(0,93 + 0,36 + 0,6 · 0,31) · 1,8 = 2,66 cm", "Schnee und Wind kriechen hier nicht, weil ψ₂ = 0."],
+    ["0,93 + 0,36 + 0,6 · 0,31 = 1,48 cm", "Das ist w_inst ohne Kriechen."],
+    ["0,93 · 0,8 = 0,74 cm", "Das ist nur der Kriechanteil des Eigengewichts."]],
+   "r": "w_fin = 2,22 cm > 441/200 = 2,21 cm → nicht erbracht" },
+  { "f": "Wie groß ist die Netto-Enddurchbiegung w_net,fin (Grenze l/300)?", "o": [
+    ["0,93 · 1,8 = 1,67 cm > 1,47 cm → nicht erfüllt", "Quasi-ständig bleibt nur das Eigengewicht, mit Kriechen, ohne Überhöhung."],
+    ["0,93 cm < 1,47 cm → erfüllt", "Das Kriechen mit (1 + k_def) fehlt."],
+    ["2,22 cm", "Das ist w_fin; bei w_net,fin entfallen Lasten mit ψ₂ = 0."],
+    ["1,67 − 1,47 = 0,20 cm", "Das ist nur die Überschreitung."]],
+   "r": "w_net,fin = 1,67 cm > 1,47 cm → Querschnitt vergrößern oder überhöhen" }],
+ "fazit": "Last senkrecht zum Sparren (cos²α), Länge entlang des Sparrens, Einheitenfaktor 10⁷. Kriechen nur mit ψ₂-Anteilen."
+});
+
+aufgabe({
+ "id": "bauko-ue04-gerber", "f": "bauko", "t": K9, "titel": "Gerbergelenk in der Mittelpfette", "s": "Baukonstruktion Übung 4, Beispiel 7b",
+ "angabe": "Mittelpfette Pos. 2 als Zweifeldträger mit Gerbergelenk im längeren Feld: Feld 1 (A–B) l = 4,06 m, Feld 2 (B–C) 3,38 m, Gesamtlänge 7,44 m. Maßgebend ist die Kombination nur Eigengewicht: q_d = 1,35 · 4,92 = 6,64 kN/m (größter Wert q_d / kmod = 11,07).",
+ "geg": ["l₁ = 4,06 m", "l₂ = 3,38 m", "q_d = 6,64 kN/m"],
+ "ges": "Lage x des Gelenks und Auflagerkräfte A, B, C",
+ "schritte": [
+  { "f": "Welche Bedingung legt die Gelenklage fest?", "o": [
+    ["|M_Feld| = |M_Stütz|: q(4,06 − x)²/8 = q · 4,06 · x / 2", "So wird der Querschnitt im Feld und über der Stütze gleich ausgenutzt."],
+    ["M_Stütz = 0", "Ein Gelenk über der Stütze ergibt zwei Einfeldträger mit großem Feldmoment."],
+    ["x = l / 2", "Das Gelenk in Feldmitte würde das Feldmoment kaum verkleinern."],
+    ["A = B", "Die Auflagerkräfte sind nicht das Kriterium."]],
+   "r": "x² − 24,36 · x + 16,48 = 0" },
+  { "f": "Wo liegt das Gelenk?", "o": [
+    ["x = 12,18 − 11,48 = 0,70 m von B (= 0,1716 · 4,06)", "Die zweite Lösung 23,7 m liegt außerhalb des Trägers."],
+    ["x = 12,18 + 11,48 = 23,66 m", "Länger als der ganze Träger."],
+    ["x = 4,06 / 2 = 2,03 m", "Feldmitte, nicht die Gleichgewichtsbedingung."],
+    ["x = 0,1716 · 7,44 = 1,28 m", "Der Tafelwert gilt mit der Feldlänge, nicht der Gesamtlänge."]],
+   "r": "x = 0,70 m" },
+  { "f": "Wie groß sind A und die Gelenkkraft G?", "o": [
+    ["A = G = q(4,06 − x)/2 = 6,64 · 3,36 / 2 = 11,16 kN", "Der Einhängeträger zwischen A und Gelenk ist ein Einfeldträger."],
+    ["A = 6,64 · 4,06 / 2 = 13,48 kN", "Ohne Gelenk gerechnet."],
+    ["A = 0,414 · 6,64 · 7,44 = 20,45 kN", "Tafelwert mit falscher Länge."],
+    ["A = 6,64 · 0,70 = 4,65 kN", "Das ist nur die Last auf dem Kragstück."]],
+   "r": "A = G = 11,16 kN" },
+  { "f": "Wie groß ist B (ΣM um C am rechten Teilsystem)?", "o": [
+    ["B = [11,16 · 4,08 + 6,64 · 4,08² / 2] / 3,38 = 29,82 kN", "Hebelarme zu C: Gelenk 0,70 + 3,38 = 4,08 m, Streckenlast über 4,08 m mit Schwerpunkt bei 2,04 m."],
+    ["B = 1,25 · 6,64 · 4,06 = 33,70 kN", "Das ist die Formel für den Zweifeldträger ohne Gelenk mit gleichen Feldern."],
+    ["B = 6,64 · 7,44 / 2 = 24,70 kN", "Halbe Gesamtlast – kein Gleichgewicht."],
+    ["B = 11,16 · 4,08 / 3,38 = 13,47 kN", "Die Streckenlast auf dem rechten Teilsystem fehlt."]],
+   "r": "B = 29,82 kN · C = 6,64 · 7,44 − 11,16 − 29,82 = 8,42 kN" }],
+ "fazit": "Gelenk aus |M_Feld| = |M_Stütz| oder Tafel e = 0,1716 l; danach Einhängeträger, dann Gleichgewicht am Kragträger."
+});
+
+aufgabe({
+ "id": "bauko-ue04-deckenbalken", "f": "bauko", "t": K4, "titel": "Deckenbalken mit Stützenlasten", "s": "Baukonstruktion Übung 4, Beispiel 8",
+ "angabe": "Holzbalkendecke im beheizten Wohnraum (NKL 1), C24, Balkenabstand e = 0,60 m, lichte Weite 4,50 m, Auflagerbreite je 10 cm. g_k = 1,50 kN/m², p_k = 2,75 kN/m². Zusätzlich je 5,0 kN ständige Last aus zwei Holzstützen im Abstand 1,55 m von den Auflagern.",
+ "geg": ["l_w = 4,50 m", "t = 0,10 m", "e = 0,60 m", "g_k = 1,50 kN/m²", "p_k = 2,75 kN/m²", "G_k = 2 × 5,0 kN bei 1,55 m"],
+ "ges": "erforderliches W und gewählter Querschnitt",
+ "schritte": [
+  { "f": "Stützweite und Linienlasten?", "o": [
+    ["l = 4,60 m · g = 0,6 · 1,5 = 0,90 kN/m · p = 0,6 · 2,75 = 1,65 kN/m", "Stützweite von Auflagermitte zu Auflagermitte, Flächenlast mal Balkenabstand."],
+    ["l = 4,50 m · g = 1,50 kN/m · p = 2,75 kN/m", "Lichte Weite statt Stützweite, und die Einzugsbreite fehlt."],
+    ["l = 4,70 m · g = 0,90 · p = 1,65 kN/m", "Es kommt nur je eine halbe Auflagerbreite dazu."],
+    ["l = 4,60 m · g = 2,50 · p = 4,58 kN/m", "Durch e geteilt statt mal e."]],
+   "r": "l = 4,60 m, g = 0,90 kN/m, p = 1,65 kN/m" },
+  { "f": "Charakteristische Momente in Feldmitte?", "o": [
+    ["M_g = 0,9 · 4,6²/8 = 2,38 · M_p = 1,65 · 4,6²/8 = 4,36 · M_G = 5,0 · 1,55 = 7,75 kNm", "Zwei symmetrische Einzellasten: zwischen ihnen ist M konstant = G · a."],
+    ["M_G = 5,0 · 4,6 / 4 = 5,75 kNm", "Das wäre eine Einzellast in Feldmitte."],
+    ["M_G = 2 · 5,0 · 1,55 = 15,5 kNm", "Jede Auflagerkraft ist nur 5 kN, nicht 10 kN."],
+    ["M_g = 0,9 · 4,6² / 2 = 9,52 kNm", "ql²/2 gilt für den Kragarm."]],
+   "r": "M_g = 2,38 · M_p = 4,36 · M_G = 7,75 kNm" },
+  { "f": "Maßgebende Kombination mit kmod?", "o": [
+    ["1,35 · (2,38 + 7,75) + 1,5 · 4,36 = 20,22 kNm, durch kmod = 0,8 → 25,28 kNm (maßgebend)", "Nur ständig: 1,35 · 10,13 = 13,68 / 0,6 = 22,79 kNm – kleiner."],
+    ["Nur ständig 13,68 kNm, weil kmod dort am kleinsten ist", "Verglichen wird E_d / kmod: 22,79 < 25,28."],
+    ["1,5 · (2,38 + 7,75 + 4,36) = 21,74 kNm", "Ständige Lasten mit γ_G = 1,35."],
+    ["20,22 / 0,6 = 33,70 kNm", "Für die Kombination gilt das kmod der kürzesten Einwirkung (Nutzlast, mittel)."]],
+   "r": "M_Ed = 20,22 kNm mit kmod = 0,8" },
+  { "f": "Erforderliches W und Querschnittswahl?", "o": [
+    ["W_erf = 2022 / (1,0 · 2,4 · 0,8 / 1,3) = 1369 ≈ 1400 cm³ → 12/28 mit W = 1568 cm³", "Kontrolle: 2022 / 1568 = 1,29 ≤ 1,48 kN/cm², h = 280 mm > 150 mm → k_h = 1,0 passt."],
+    ["W_erf = 2022 / 2,4 = 843 cm³ → 10/24", "f_m,k ohne kmod und γ_M ist kein Bemessungswert."],
+    ["W_erf = 2528 / 1,48 = 1708 cm³ → 14/28", "M_Ed / kmod war nur zum Vergleich der Kombinationen; im Nachweis steht M_Ed mit f_m,d."],
+    ["W_erf = 1369 cm³ → 12/26 mit 1352 cm³", "1352 < 1369 cm³ reicht nicht."]],
+   "r": "gewählt 12/28 NH C24, η = 1,29 / 1,48 = 0,87" }],
+ "fazit": "Stützweite bis Auflagermitte, Lasten getrennt, E_d / kmod vergleichen, dann mit M_Ed und f_m,d bemessen."
+});
+
+Object.assign(RECHNEN, {
+ "bauko-ue04-durchbiegung": {
+  "1": [{ "l": "w_G,inst", "w": 0.93, "u": "cm", "h": "0,57 · 4,41⁴ / (76,8 · 11000 · 2731) · 10⁷" }],
+  "2": [{ "l": "w_inst", "w": 1.48, "u": "cm", "h": "0,93 + 0,36 + 0,6 · 0,31" }],
+  "3": [{ "l": "w_fin", "w": 2.22, "u": "cm", "h": "0,93 · 1,8 + 0,36 + 0,6 · 0,31" }],
+  "4": [{ "l": "w_net,fin", "w": 1.67, "u": "cm", "h": "0,93 · 1,8" }]
+ },
+ "bauko-ue04-gerber": {
+  "2": [{ "l": "x", "w": 0.70, "u": "m", "h": "12,18 − √(12,18² − 4,06²)" }],
+  "3": [{ "l": "A", "w": 11.16, "u": "kN", "h": "6,64 · (4,06 − 0,70) / 2" }],
+  "4": [{ "l": "B", "w": 29.82, "u": "kN", "h": "(11,16 · 4,08 + 6,64 · 4,08² / 2) / 3,38" }]
+ },
+ "bauko-ue04-deckenbalken": {
+  "2": [{ "l": "M_G", "w": 7.75, "u": "kNm", "h": "5,0 · 1,55" }],
+  "3": [{ "l": "M_Ed", "w": 20.22, "u": "kNm", "h": "1,35 · (2,38 + 7,75) + 1,5 · 4,36" }],
+  "4": [{ "l": "W_erf", "w": 1369, "u": "cm³", "h": "2022 / (2,4 · 0,8 / 1,3)" }]
+ }
+});
+/* Patch-Warteschlange · Physik · Vorlesung 6 Arbeit, Leistung und kinetische Energie + Übungsblatt 5 (neue, richtige Fassung: Reibung und Kreisbewegung) · erstellt 16.11.2026
+   Formeln und Zahlen an den Folien bzw. mit Python geprüft. Korrektur: Die am 9.11. eingespielten Fragen „Blatt 5“ (Arbeit, Energie) gehören zu Übungsblatt 6 – nur Text/Quelle angepasst, Lernstand bleibt. */
+THEMEN["phys|Arbeit und Energie"] = "Vorlesung 6 und Übungsblatt 6: Arbeit ist Kraft mal Weg, genauer W = F·s·cos φ – nur der Kraftanteil in Wegrichtung zählt, ohne Weg keine Arbeit. Hubarbeit W = m·g·h; eine Rampe spart Kraft, aber keine Arbeit (goldene Regel). Bei veränderlicher Kraft ist die Arbeit die Fläche unter F(x). Leistung ist Arbeit pro Zeit, P = W/t = F·v, 1 kWh = 3,6 MJ. Die kinetische Energie E_kin = ½·m·v² ändert sich genau um die Arbeit der resultierenden Kraft (Arbeitssatz); doppelte Geschwindigkeit heißt vierfache Energie und vierfacher Bremsweg.";
+Object.assign(KORREKTUR, {
+ "phys-7d8n53": {
+  "q": "Blatt 6, A1: Drei konstante Kräfte verschieben eine Truhe um d. Wie bekommst du die Gesamtarbeit?",
+  "s": "Physik Übungsblatt 6, Aufgabe 1 + Hinweise"
+ },
+ "phys-1soiqb": {
+  "q": "Blatt 6, A1b: Die Gesamtarbeit an der Truhe ist negativ. Was folgt daraus?",
+  "s": "Physik Übungsblatt 6, Aufgabe 1b"
+ },
+ "phys-c6xfa1": {
+  "q": "Blatt 6, A2: Behälter (Masse m) an einer losen Rolle, gleichmäßig um d hochgezogen. Ordne zu.",
+  "s": "Physik Übungsblatt 6, Aufgabe 2 + Hinweise"
+ },
+ "phys-8lhei1": {
+  "q": "Blatt 6, A3: Wie liest du die Arbeit aus einem F(x)-Diagramm ab?",
+  "s": "Physik Übungsblatt 6, Aufgabe 3 + Hinweise"
+ },
+ "phys-1t2htns": {
+  "q": "Blatt 6, A4: Ein Objekt wird aus der Ruhe gleichmäßig beschleunigt. Wie groß ist die Leistung nach der halben Zeit t₁/2 im Vergleich zu t₁?",
+  "s": "Physik Übungsblatt 6, Aufgabe 4 + Hinweise"
+ },
+ "phys-i2s12e": {
+  "q": "Blatt 6, A5: Ein PKW fährt mit konstantem v, Luftwiderstand ist der einzige Widerstand. Wie hängen die Größen von v ab?",
+  "s": "Physik Übungsblatt 6, Aufgabe 5 + Hinweise"
+ },
+ "phys-17bbz7u": {
+  "q": "Blatt 6, A6: Allradwagen soll so schnell wie möglich auf v_max beschleunigen. Bring das Vorgehen in die richtige Reihenfolge.",
+  "s": "Physik Übungsblatt 6, Aufgabe 6 + Hinweise"
+ },
+ "phys-b5-a5": {
+  "s": "Physik Übungsblatt 6, Aufgabe 5"
+ }
+});
+mc("phys", "Arbeit und Energie", "Wann verrichtet eine Kraft im physikalischen Sinn Arbeit?", ["Wenn sie einen Körper entlang eines Weges bewegt", "Immer, wenn man sich dabei anstrengt", "Nur wenn der Körper schneller wird", "Nur bei Kräften nach oben"], "W = F·s: Ohne Weg keine Arbeit. Wer gegen eine Wand drückt oder eine Tasche nur festhält, verrichtet an Wand bzw. Tasche keine Arbeit – auch wenn die Muskeln müde werden.", "Physik V06, Folie 2–3 und 13");
+mc("phys", "Arbeit und Energie", "Was ist 1 Joule?", ["1 N · 1 m – eine Kraft von 1 N bewegt einen Körper um 1 m", "1 N / 1 m", "1 kg · 1 m/s", "1 W · 1 h"], "1 J = 1 N·m. Anschaulich: eine Tafel Schokolade (100 g, Gewicht ≈ 1 N) 1 m hochheben. 1 W·h wären 3600 J.", "Physik V06, Folie 4");
+mc("phys", "Arbeit und Energie", "Eine Person (70 kg) steigt ein Stockwerk (3 m) hoch. Welche Größenordnung hat die Hubarbeit?", ["≈ 2 kJ", "≈ 2 J", "≈ 200 kJ", "≈ 21 J"], "W = m·g·h = 70 kg · 9,81 m/s² · 3 m ≈ 2060 J ≈ 2 kJ.", "Physik V06, Folie 4 und 16");
+mc("phys", "Arbeit und Energie", "Mit welcher Kraft muss ein Seil eine Last (m) gleichmäßig eine Rampe mit Neigung α hochziehen (ohne Reibung)?", ["F = m·g·sin α", "F = m·g·cos α", "F = m·g", "F = m·g / sin α"], "Die Rampe trägt den Anteil senkrecht zu ihr (m·g·cos α). Das Seil hält nur den Hangabtrieb entlang der Rampe: m·g·sin α. Bei 30° ist das die Hälfte der Gewichtskraft.", "Physik V06, Folie 7 und 10");
+wf("phys", "Arbeit und Energie", "Über eine Rampe braucht man weniger Kraft – deshalb ist auch die Arbeit kleiner als beim senkrechten Heben.", false, "Falsch. Der Weg wird um genau den Faktor 1/sin α länger: W = m·g·sin α · h/sin α = m·g·h. Goldene Regel der Mechanik: Was man an Kraft spart, muss man an Weg zulegen. Beispiel 50 kg, 2 m: beide Male 981 J.", "Physik V06, Folie 8–12");
+mc("phys", "Arbeit und Energie", "Ein Schlitten wird mit 100 N an einer Leine unter 60° gegen den Boden 10 m weit gezogen. Wie groß ist die Arbeit?", ["500 J", "1000 J", "866 J", "0 J"], "W = F·s·cos φ = 100 N · 10 m · cos 60° = 100 · 10 · 0,5 = 500 J. Nur der Anteil in Wegrichtung (F·cos φ) zählt.", "Physik V06, Folie 19 und Selbsttest 8");
+pair("phys", "Arbeit und Energie", "Ordne das Vorzeichen der Arbeit zu (W = F·s·cos φ).", [["Wagen schieben, φ = 0°", "W > 0"], ["Tasche waagerecht tragen, φ = 90°", "W = 0"], ["Bremsen, φ = 180°", "W < 0"]], "cos 0° = 1, cos 90° = 0, cos 180° = −1. Die Haltekraft beim Tragen steht senkrecht zum Weg und verrichtet keine Arbeit.", "Physik V06, Folie 20");
+mc("phys", "Arbeit und Energie", "Wie bestimmst du die Arbeit einer Kraft, die sich unterwegs ändert (z. B. eine Feder)?", ["Weg in kleine Stücke zerlegen und aufsummieren: W = ∫ F·dr – auf gerader Strecke die Fläche unter F(x)", "Anfangskraft mal Weg", "Endkraft mal Weg", "Mittelwert aus Anfangs- und Endkraft mal Zeit"], "Auf einem sehr kleinen Wegstück ist die Kraft fast konstant: dW = F·dr. Alle Stücke zusammen ergeben das Integral. Bei einer Feder ist die Fläche ein Dreieck.", "Physik V06, Folie 21–24");
+mc("phys", "Arbeit und Energie", "Eine Feder (k = 200 N/m) wird um 0,20 m gedehnt. Wie groß ist die Arbeit?", ["4,0 J", "40 J", "8,0 J", "2,0 J"], "Kraft am Ende: F = k·x = 200 · 0,20 = 40 N. Die Kraft steigt gleichmäßig von 0 auf 40 N, die Fläche ist ein Dreieck: W = ½ · 0,20 m · 40 N = 4,0 J.", "Physik V06, Folie 25–26");
+wf("phys", "Arbeit und Energie", "Bei einer konstanten Kraft hängt die Arbeit nur von Anfangs- und Endpunkt ab, nicht vom Verlauf der Bahn.", true, "Richtig. Bei überall gleicher Kraft gilt W = F·d mit der Verschiebung d vom Anfangs- zum Endpunkt (Skalarprodukt).", "Physik V06, Folie 27");
+mc("phys", "Arbeit und Energie", "Ein Körper (50 kg) wird gleichmäßig eine Rampe 2 m hochgezogen. Seilkraft: +981 J, Gewichtskraft: −981 J. Wie groß ist die Arbeit der Normalkraft und die Gesamtarbeit?", ["W_N = 0, W_res = 0", "W_N = 981 J, W_res = 981 J", "W_N = −981 J, W_res = −981 J", "W_N = 0, W_res = 1962 J"], "Die Normalkraft steht quer zum Weg und verrichtet keine Arbeit. Superposition: Die Arbeiten aller Kräfte werden addiert: 981 − 981 + 0 = 0 – passend dazu ändert sich die Geschwindigkeit nicht.", "Physik V06, Folie 28");
+mc("phys", "Arbeit und Energie", "Was ist Leistung?", ["Arbeit pro Zeit, P = W/t, Einheit Watt", "Arbeit mal Zeit", "Kraft pro Weg", "Energie pro Masse"], "P = W/t in W = J/s. Gleiche Arbeit in halber Zeit heißt doppelte Leistung. Umgekehrt ist die Arbeit die Fläche im P(t)-Diagramm: W = P·t.", "Physik V06, Folie 14–15");
+mc("phys", "Arbeit und Energie", "Eine Person (70 kg) läuft in 6,0 s ein Stockwerk (3,0 m) hoch. Wie groß ist ihre Leistung?", ["≈ 343 W", "≈ 2060 W", "≈ 34 W", "≈ 12 kW"], "W = 70 · 9,81 · 3,0 ≈ 2060 J. P = W/t = 2060 J / 6,0 s ≈ 343 W.", "Physik V06, Folie 16");
+mc("phys", "Arbeit und Energie", "Welche Formel verbindet Leistung, Kraft und Geschwindigkeit?", ["P = F · v", "P = F / v", "P = F · s", "P = ½·m·v²"], "P = W/t = F·s/t, und Weg pro Zeit ist die Geschwindigkeit: P = F·v (Kraft in Bewegungsrichtung).", "Physik V06, Folie 17");
+pair("phys", "Arbeit und Energie", "Wie lange liefert jedes Gerät 1 kWh?", [["Wasserkocher 2 kW", "0,5 h"], ["Mikrowelle 1 kW", "1 h"], ["LED-Lampe 10 W", "100 h"]], "1 kWh = 1000 W · 3600 s = 3,6 Millionen Joule. Die kWh ist eine Einheit der Arbeit (Energie), nicht der Leistung.", "Physik V06, Folie 18");
+mc("phys", "Arbeit und Energie", "Ein Wasserkocher (2 kW) läuft 3 Minuten. Wie viel Energie ist das?", ["0,1 kWh", "6 kWh", "0,6 kWh", "0,01 kWh"], "3 min = 0,05 h. W = P·t = 2 kW · 0,05 h = 0,1 kWh = 360 kJ.", "Physik V06, Selbsttest 6");
+wf("phys", "Arbeit und Energie", "Eine Mikrowelle mit der Aufschrift 1000 W zieht immer 1000 W.", false, "Falsch. 1000 W ist die Nennleistung, also die größte Leistung. Auf kleiner Stufe ist die Leistung im Mittel kleiner.", "Physik V06, Folie 18 und Selbsttest 7");
+mc("phys", "Arbeit und Energie", "Wie lautet der Arbeitssatz?", ["W_res = E_kin,2 − E_kin,1: Die Arbeit der resultierenden Kraft ändert die kinetische Energie", "W = m·g·h", "E_kin bleibt immer gleich", "W_res = ½·m·v"], "Positive Gesamtarbeit: der Körper wird schneller; negative: langsamer; null: gleich schnell.", "Physik V06, Folie 29–30");
+mc("phys", "Arbeit und Energie", "Ein Auto fährt doppelt so schnell. Was passiert mit kinetischer Energie und Bremsweg (gleiche Bremskraft)?", ["Beide werden viermal so groß", "Beide verdoppeln sich", "Energie ×4, Bremsweg ×2", "Energie ×2, Bremsweg ×4"], "E_kin = ½·m·v²: v steht im Quadrat. Der Bremsweg folgt aus F_B·s_B = ½·m·v², wächst also ebenfalls mit v².", "Physik V06, Folie 31, 35 und Selbsttest 11");
+mc("phys", "Arbeit und Energie", "Ein Auto (1000 kg) beschleunigt von 10 m/s auf 20 m/s. Wie viel Arbeit muss die resultierende Kraft verrichten?", ["150 kJ", "50 kJ", "100 kJ", "200 kJ"], "E_kin,1 = ½·1000·10² = 50 kJ, E_kin,2 = ½·1000·20² = 200 kJ. W_res = 200 − 50 = 150 kJ – nicht 50 kJ, obwohl v nur um 10 m/s steigt.", "Physik V06, Folie 32–34");
+wf("phys", "Arbeit und Energie", "Kinetische Energie kann negativ werden, wenn sich ein Körper rückwärts bewegt.", false, "Falsch. E_kin = ½·m·v² ist nie negativ, die Richtung der Bewegung spielt keine Rolle. Negativ kann nur die Arbeit sein (Kraft gegen die Bewegung).", "Physik V06, Folie 31 und 38");
+mc("phys", "Kraftgesetze", "Blatt 5, A1: Ein Block liegt am Boden, eine Kraft P zieht ihn senkrecht nach oben (P < mg). Wie groß ist die Normalkraft?", ["F_N = m·g − P", "F_N = m·g", "F_N = m·g + P", "F_N = P"], "Gleichgewicht senkrecht: F_N + P − m·g = 0. P entlastet den Boden, deshalb ist auch die größte Haftreibung μ_s·(mg − P) kleiner.", "Physik Übungsblatt 5 (neu), Aufgabe 1");
+mc("phys", "Kraftgesetze", "Blatt 5, A1: Die waagerechte Kraft F ist kleiner als μ_s·(mg − P). Wie groß ist die Reibungskraft?", ["F_R = F, entgegen F", "F_R = μ_s·(mg − P)", "F_R = μ_k·(mg − P)", "F_R = 0"], "Der Block bleibt liegen. Haftreibung ist nur so groß wie nötig – sie gleicht F genau aus. Erst wenn F größer als μ_s·F_N ist, rutscht er und es wirkt Gleitreibung μ_k·F_N.", "Physik Übungsblatt 5 (neu), Aufgabe 1 + Hinweise");
+mc("phys", "Kraftgesetze", "Blatt 5, A2: Unter welchem Winkel α zieht man eine Kiste am besten, um bei begrenzter Seilkraft möglichst viel Masse zu bewegen?", ["tan α = μ_s", "α = 0°", "α = 45°", "sin α = μ_s"], "M(α) = F(cos α + μ_s sin α)/(μ_s g) − m. Ableitung null: −sin α + μ_s cos α = 0 → tan α = μ_s. Schräg ziehen entlastet den Boden und senkt die Reibung.", "Physik Übungsblatt 5 (neu), Aufgabe 2");
+pair("phys", "Kraftgesetze", "Blatt 5, A3: Überhöhte Kurve – in welche Richtung zeigt die Haftreibung im Grenzfall?", [["Untere Grenzgeschwindigkeit v_u", "hangaufwärts"], ["Obere Grenzgeschwindigkeit v_o", "hangabwärts"], ["Ideale Geschwindigkeit √(r·g·tan α)", "keine Reibung nötig"]], "Die Reibung zeigt immer gegen die Rutschrichtung: zu langsam rutscht der Wagen nach unten, zu schnell nach außen oben. Ohne Reibung gibt es nur eine passende Geschwindigkeit.", "Physik Übungsblatt 5 (neu), Aufgabe 3 + Hinweise");
+wf("phys", "Kraftgesetze", "Blatt 5, A4: Am höchsten Punkt des Riesenrads ist die Normalkraft des Sitzes kleiner als das Gewicht – man fühlt sich leicht.", true, "Richtig. Oben zeigt die Resultierende nach unten zur Mitte: mg − N₁ = mv²/r > 0, also N₁ < mg. Unten ist es umgekehrt: N₂ = 2mg − N₁ > mg.", "Physik Übungsblatt 5 (neu), Aufgabe 4");
+mc("phys", "Kraftgesetze", "Blatt 5, A4: Das Riesenrad dreht doppelt so schnell. Wie groß ist die Normalkraft unten?", ["N₃ = 5mg − 4N₁", "N₃ = 2mg − N₁", "N₃ = 4(2mg − N₁)", "N₃ = 3mg − 2N₁"], "mv²/r = mg − N₁ wird bei doppeltem v viermal so groß. Unten: N₃ = mg + 4(mg − N₁) = 5mg − 4N₁.", "Physik Übungsblatt 5 (neu), Aufgabe 4c");
+mc("phys", "Kraftgesetze", "Blatt 5, A5: Ein Flugzeug fliegt eine waagerechte Kurve mit Querneigung α. Wie groß ist der Kurvenradius?", ["r = v² / (g·tan α)", "r = v²·tan α / g", "r = g·tan α / v²", "r = v / (g·sin α)"], "Auftrieb senkrecht zu den Tragflächen: senkrecht F_A·cos α = mg, waagerecht F_A·sin α = mv²/r. Teilen ergibt tan α = v²/(r·g).", "Physik Übungsblatt 5 (neu), Aufgabe 5");
+mc("phys", "Kraftgesetze", "Blatt 5, A6: Kugel an zwei Seilen (gleichseitiges Dreieck) am rotierenden Stab, oberes Seil T₁. Wie groß ist die Kraft im unteren Seil?", ["T₂ = T₁ − 2mg", "T₂ = T₁ + 2mg", "T₂ = T₁ − mg", "T₂ = T₁"], "Senkrecht: T₁·sin 30° − T₂·sin 30° − mg = 0 → ½(T₁ − T₂) = mg. Das obere Seil trägt also zusätzlich das Gewicht; deshalb muss T₁ > 2mg sein.", "Physik Übungsblatt 5 (neu), Aufgabe 6 + Hinweise");
+aufgabe({
+ "id": "phys-b5n-a3",
+ "f": "phys",
+ "t": "Kraftgesetze",
+ "titel": "Überhöhte Kurve: Geschwindigkeitsbereich",
+ "s": "Physik Übungsblatt 5 (neu), Aufgabe 3",
+ "angabe": "Ein Wagen (m) fährt mit konstantem v durch eine überhöhte Kurve (Neigung α, Radius r). Haftreibungszahl μ_s. In welchem Bereich muss v liegen, damit er nicht seitlich rutscht?",
+ "geg": [
+  "α",
+  "r",
+  "μ_s",
+  "m",
+  "g"
+ ],
+ "ges": "Untergrenze v_u und Obergrenze v_o",
+ "schritte": [
+  {
+   "f": "Welche Kräfte wirken auf den Wagen, und was ist ihre Resultierende?",
+   "o": [
+    [
+     "F_G nach unten, F_N senkrecht zur Fahrbahn, F_R entlang der Fahrbahn – Resultierende waagerecht zur Kurvenmitte, Betrag m·v²/r",
+     "Die Zentripetalkraft ist keine eigene Kraft, sondern die Resultierende."
+    ],
+    [
+     "F_G, F_N, F_R und zusätzlich die Zentripetalkraft",
+     "Die Zentripetalkraft ist die Summe der anderen, keine vierte Kraft."
+    ],
+    [
+     "Nur F_G und F_N, Reibung spielt keine Rolle",
+     "Gefragt sind gerade die Grenzen, bei denen die Haftreibung voll ausgenutzt wird."
+    ],
+    [
+     "F_G, F_N und eine Fliehkraft nach außen",
+     "Im ruhenden Bezugssystem gibt es keine Fliehkraft – die Resultierende zeigt nach innen."
+    ]
+   ],
+   "r": "F_res = m·v²/r (waagerecht)"
+  },
+  {
+   "f": "Wohin zeigt die Haftreibung bei der Untergrenze v_u?",
+   "o": [
+    [
+     "Hangaufwärts – zu langsam würde der Wagen nach unten rutschen",
+     "Reibung wirkt gegen die Rutschrichtung."
+    ],
+    [
+     "Hangabwärts",
+     "Das gilt für die Obergrenze."
+    ],
+    [
+     "Zur Kurvenmitte",
+     "Reibung wirkt entlang der Fahrbahn, nicht waagerecht."
+    ],
+    [
+     "Sie ist null",
+     "Im Grenzfall ist sie maximal: F_R = μ_s·F_N."
+    ]
+   ],
+   "r": "F_R = μ_s·F_N hangaufwärts"
+  },
+  {
+   "f": "Wie kommst du ohne F_N zu v_u?",
+   "o": [
+    [
+     "Waagerechte durch senkrechte Gleichung teilen: v_u²/(r g) = (sin α − μ_s cos α)/(cos α + μ_s sin α)",
+     "So kürzt sich F_N heraus (offizieller Hinweis)."
+    ],
+    [
+     "F_N = m·g einsetzen",
+     "Auf der schrägen Fahrbahn ist F_N nicht mg."
+    ],
+    [
+     "Energieerhaltung",
+     "Es ist ein Kräftegleichgewicht, keine Energiefrage."
+    ],
+    [
+     "μ_s = tan α setzen",
+     "Das ist der Grenzwinkel der schiefen Ebene, nicht diese Aufgabe."
+    ]
+   ],
+   "r": "v_u = √(r g (tan α − μ_s)/(1 + μ_s tan α))"
+  },
+  {
+   "f": "Was ändert sich für die Obergrenze v_o?",
+   "o": [
+    [
+     "Reibung zeigt hangabwärts – Vorzeichen von μ_s umdrehen",
+     "v_o = √(r g (tan α + μ_s)/(1 − μ_s tan α))"
+    ],
+    [
+     "Nichts, v_o = v_u",
+     "Dann gäbe es keinen Bereich."
+    ],
+    [
+     "Man nimmt μ_k statt μ_s",
+     "Es rutscht ja noch nicht – es bleibt Haftreibung."
+    ],
+    [
+     "v_o = 2·v_u",
+     "Kein solcher fester Zusammenhang."
+    ]
+   ],
+   "r": "Beispiel r = 50 m, α = 30°, μ_s = 0,2: 12,9 m/s ≤ v ≤ 20,8 m/s"
+  }
+ ],
+ "fazit": "Reibungsrichtung je Grenzfall festlegen, waagerecht = m·v²/r, senkrecht = m·g, Gleichungen teilen. Mit μ_s = 0 fallen beide Grenzen auf √(r g tan α)."
+});
+aufgabe({
+ "id": "phys-b5n-a4",
+ "f": "phys",
+ "t": "Kraftgesetze",
+ "titel": "Riesenrad: Normalkraft oben und unten",
+ "s": "Physik Übungsblatt 5 (neu), Aufgabe 4",
+ "angabe": "Ein Student (Gewicht mg) fährt Riesenrad. Oben drückt der Sitz mit N₁. Gesucht: N₂ unten, und N₃ unten bei doppelter Geschwindigkeit.",
+ "geg": [
+  "m·g",
+  "N₁"
+ ],
+ "ges": "N₂, N₃",
+ "schritte": [
+  {
+   "f": "Wie lautet das Kräftegleichgewicht oben (y-Achse nach oben)?",
+   "o": [
+    [
+     "m·g − N₁ = m·v²/r – die Mitte liegt unten",
+     "Die Resultierende zeigt zur Mitte, also nach unten."
+    ],
+    [
+     "N₁ − m·g = m·v²/r",
+     "Das gilt unten, wo die Mitte oben liegt."
+    ],
+    [
+     "N₁ = m·g",
+     "Dann gäbe es keine Kreisbewegung."
+    ],
+    [
+     "N₁ + m·g = m·v²/r",
+     "Die Normalkraft zeigt nach oben, das Gewicht nach unten – sie haben verschiedene Vorzeichen."
+    ]
+   ],
+   "r": "m·v²/r = m·g − N₁"
+  },
+  {
+   "f": "Und unten?",
+   "o": [
+    [
+     "N₂ − m·g = m·v²/r = m·g − N₁ → N₂ = 2mg − N₁",
+     "Gleiche Geschwindigkeit, gleicher Betrag der Zentripetalkraft."
+    ],
+    [
+     "N₂ = N₁",
+     "Oben leicht, unten schwer – die Kräfte sind verschieden."
+    ],
+    [
+     "N₂ = m·g − N₁",
+     "Das ist m·v²/r, nicht die Normalkraft."
+    ],
+    [
+     "N₂ = 2N₁ − mg",
+     "Vorzeichen vertauscht."
+    ]
+   ],
+   "r": "N₂ = 2mg − N₁"
+  },
+  {
+   "f": "Was passiert bei doppelter Geschwindigkeit?",
+   "o": [
+    [
+     "m·v²/r wird viermal so groß: N₃ = mg + 4(mg − N₁) = 5mg − 4N₁",
+     "v steht im Quadrat."
+    ],
+    [
+     "m·v²/r verdoppelt sich: N₃ = 3mg − 2N₁",
+     "v geht quadratisch ein, nicht linear."
+    ],
+    [
+     "N₃ = 2·N₂",
+     "Nur der Zentripetalanteil wächst, nicht das Gewicht."
+    ],
+    [
+     "Nichts ändert sich",
+     "Die nötige Zentripetalkraft hängt von v ab."
+    ]
+   ],
+   "r": "N₃ = 5mg − 4N₁ (Beispiel 70 kg, N₁ = 500 N: 873 N bzw. 1434 N)"
+  }
+ ],
+ "fazit": "Oben und unten alle Kräfte senkrecht, Resultierende immer zur Mitte mit Betrag m·v²/r. Kontrolle: N₁ + N₂ = 2mg."
+});
+aufgabe({
+ "id": "phys-v06-brems",
+ "f": "phys",
+ "t": "Arbeit und Energie",
+ "titel": "Bremsweg eines Autos",
+ "s": "Physik V06, Folie 36",
+ "angabe": "Ein Auto (1000 kg) fährt mit 20 m/s und bremst mit konstanter Bremskraft 8000 N bis zum Stillstand. Wie lang ist der Bremsweg?",
+ "geg": [
+  "m = 1000 kg",
+  "v = 20 m/s",
+  "F_B = 8000 N"
+ ],
+ "ges": "Bremsweg s_B",
+ "schritte": [
+  {
+   "f": "Welche Energie muss beim Bremsen abgebaut werden?",
+   "o": [
+    [
+     "Die kinetische Energie E_kin = ½·m·v²",
+     "Bis zum Stillstand muss die ganze Bewegungsenergie weg."
+    ],
+    [
+     "Die Hubarbeit m·g·h",
+     "Das Auto fährt waagerecht."
+    ],
+    [
+     "m·v",
+     "Das ist der Impuls, keine Energie."
+    ],
+    [
+     "Die Leistung F·v",
+     "Leistung ist Arbeit pro Zeit."
+    ]
+   ],
+   "r": "E_kin = ½·1000·20² = 200 000 J"
+  },
+  {
+   "f": "Welche Gleichung liefert den Bremsweg?",
+   "o": [
+    [
+     "F_B·s_B = ½·m·v² (Arbeitssatz, Bremsarbeit negativ)",
+     "Die Bremskraft zeigt gegen die Bewegung und nimmt die Energie weg."
+    ],
+    [
+     "s_B = v·t",
+     "Die Bremszeit kennen wir nicht."
+    ],
+    [
+     "s_B = F_B / E_kin",
+     "Die Einheit wäre 1/m."
+    ],
+    [
+     "s_B = v²/g",
+     "Das gälte nur für Bremsverzögerung g."
+    ]
+   ],
+   "r": "s_B = 200 000 J / 8000 N = 25 m"
+  },
+  {
+   "f": "Wie lang wäre der Bremsweg bei 40 m/s?",
+   "o": [
+    [
+     "100 m – viermal so lang",
+     "v steht im Quadrat."
+    ],
+    [
+     "50 m",
+     "Doppelt so schnell heißt nicht doppelter Bremsweg."
+    ],
+    [
+     "25 m",
+     "Die Energie ist viermal so groß."
+    ],
+    [
+     "200 m",
+     "Das wäre v³."
+    ]
+   ],
+   "r": "s_B = 800 000 J / 8000 N = 100 m"
+  }
+ ],
+ "fazit": "Bremsweg aus F_B·s_B = ½·m·v². Doppelte Geschwindigkeit, vierfacher Bremsweg."
+});
+/* Patch-Warteschlange · Baustoffkunde · V06 Mischen von Werkstoffkomponenten – Phasendiagramme (Vollpracht, 30 Folien) · erstellt 17.11.2026 · Werte an den Folien geprüft, Hebelgesetz und Phasenregel mit Python nachgerechnet */
+const B7 = "Phasendiagramme und Legierungen";
+THEMEN["bsk|Phasendiagramme und Legierungen"] = "Ein Phasendiagramm zeigt, welche Phasen bei welcher Temperatur und Zusammensetzung vorliegen. Zwei Komponenten können voll löslich sein (Cu–Ni: gleiche Kristallstruktur, ähnliche Ordnungszahl und Valenzelektronen), beschränkt löslich (Pb–Sn mit Eutektikum bei 183 °C) oder gar nicht löslich (Fe–Pb). Oberhalb der Liquiduslinie ist alles flüssig, unterhalb der Soliduslinie alles fest. Im Zweiphasengebiet liefert das Hebelgesetz die Anteile, und die Gibbs’sche Phasenregel F = K + 1 − P erklärt Halte- und Knickpunkte der Abkühlkurven. Das wichtigste Diagramm für Bauingenieure ist das Eisen-Kohlenstoff-Diagramm: Stahl hat unter etwa 2,06 M.-% Kohlenstoff, Gusseisen mehr. Merkpunkte sind das Eutektikum (4,3 % C, 1147 °C, Ledeburit), das Eutektoid (0,8 % C, 723 °C, Perlit) und das Peritektikum. Mit steigendem C-Gehalt steigen Festigkeit und Sprödigkeit, Verformbarkeit und Schweißbarkeit sinken.";
+
+/* ── Grundbegriffe ── */
+mc("bsk", B7, "Was zeigt ein Phasendiagramm?", ["Welche Phasen unter bestimmten Bedingungen (z. B. Temperatur, Druck, Zusammensetzung) vorliegen", "Wie sich die Festigkeit mit der Zeit entwickelt", "Die Spannungs-Dehnungs-Linie eines Werkstoffs", "Die Korngrößenverteilung eines Gemischs"], "Bekanntes Beispiel ist Wasser im Druck-Temperatur-Diagramm mit Eis, Wasser, Dampf, Tripelpunkt und kritischem Punkt (374 °C, 221 bar). Bei Legierungen trägt man meist Temperatur über Zusammensetzung bei konstantem Druck auf.", "Baustoffkunde V06, Folie 3");
+pair("bsk", B7, "Welcher Zustand entsteht beim Mischen und Abkühlen? Ordne zu.", [["Gleichgewichtszustand", "Minimum an potenzieller Energie wird erreicht"], ["Metastabiler Zustand", "insgesamt stabil, Energieminimum aber nicht erreicht"], ["Ungleichgewichtszustand", "plötzliches Abkühlen, instabil mit hoher Energie"]], "Ein Bild dafür ist eine Kugel in einer Mulde: ganz unten (Gleichgewicht), in einer höheren Mulde (metastabil) oder auf einer Kuppe (instabil). Zementit Fe₃C ist ein Beispiel für eine metastabile Phase.", "Baustoffkunde V06, Folie 4");
+mc("bsk", B7, "Welche Bedingungen müssen für volle Löslichkeit zweier Metalle erfüllt sein?", ["Gleiche Kristallstruktur, ähnliche Ordnungszahl, ähnliche Anzahl Valenzelektronen", "Gleiche Dichte und gleicher Schmelzpunkt", "Unterschiedliche Kristallstruktur, damit sich die Gitter ergänzen", "Nur ein ähnlicher Schmelzpunkt"], "Kupfer und Nickel erfüllen alles: beide kubisch-flächenzentriert (KFZ), Ordnungszahl 29 und 28. Blei (KFZ, 82) und Zinn (tetragonal, 50) erfüllen es nicht und sind nur beschränkt löslich.", "Baustoffkunde V06, Folien 5 und 11");
+pair("bsk", B7, "Wie gut sind die Komponenten ineinander löslich? Ordne zu.", [["Kupfer–Nickel", "voll löslich"], ["Blei–Zinn", "beschränkt löslich"], ["Eisen–Blei", "unlöslich"]], "Auch Aluminium–Blei ist unlöslich. Dort setzt sich das schwere Blei wegen des großen Dichteunterschieds im Schmelztiegel unten ab.", "Baustoffkunde V06, Folien 5, 10 und 11");
+pair("bsk", B7, "Linien im Zustandsdiagramm – ordne zu.", [["Liquiduslinie", "Beginn des Erstarrens beim Abkühlen"], ["Soliduslinie", "Ende des Erstarrens beim Abkühlen"], ["Gebiet dazwischen", "Schmelze und Mischkristalle gleichzeitig"]], "Oberhalb der Liquiduslinie ist alles flüssig (L), unterhalb der Soliduslinie liegen nur noch Mischkristalle (α) vor.", "Baustoffkunde V06, Folie 6");
+mc("bsk", B7, "Hebelgesetz im Zweiphasengebiet: Wie groß ist der Anteil der festen Phase? (c₀ Legierung, c_L Schmelze, c_S Mischkristall)", ["(c₀ − c_L) / (c_S − c_L) · 100 %", "(c_S − c₀) / (c_S − c_L) · 100 %", "c₀ / c_S · 100 %", "(c_S − c_L) / c₀ · 100 %"], "Man zieht bei der Temperatur eine waagerechte Linie durchs Zweiphasengebiet. Der Anteil einer Phase ist der Hebelarm auf der gegenüberliegenden Seite. Der flüssige Anteil ist entsprechend (c_S − c₀) / (c_S − c_L).", "Baustoffkunde V06, Folie 7");
+mc("bsk", B7, "Cu–Ni-Legierung mit c₀ = 40 M.-% Ni. Bei einer Temperatur gilt c_L = 30 % und c_S = 45 % Ni. Wie viel ist schon fest?", ["≈ 67 %", "≈ 33 %", "40 %", "50 %"], "Fest: (40 − 30) / (45 − 30) = 10/15 ≈ 67 %, flüssig: (45 − 40) / 15 ≈ 33 %. Kontrolle: Zusammen 100 %. Die Legierung liegt näher an der Soliduszusammensetzung, also ist mehr fest.", "Baustoffkunde V06, Folie 7 (eigenes Zahlenbeispiel)");
+mc("bsk", B7, "Wie lautet die Gibbs’sche Phasenregel bei konstantem Druck?", ["F = K + 1 − P", "F = K − P + 2", "F = P + 1 − K", "F = K · P − 1"], "F ist die Zahl der Freiheitsgrade, K die Zahl der Komponenten, P die Zahl der Phasen. Bei veränderlichem Druck käme +2 statt +1 hinein.", "Baustoffkunde V06, Folie 8");
+pair("bsk", B7, "Phasenregel F = K + 1 − P: Was zeigt die Abkühlkurve?", [["Reines Kupfer beim Erstarren (K = 1, P = 2)", "F = 0 → Haltepunkt"], ["Cu–Ni im Gebiet L + α (K = 2, P = 2)", "F = 1 → Knickpunkt, Temperatur sinkt langsamer"], ["Pb–Sn am Eutektikum (K = 2, P = 3)", "F = 0 → Haltepunkt bei 183 °C"]], "F = 0 heißt: Die Temperatur kann sich nicht ändern, solange die Phasen nebeneinander bestehen. Deshalb bleibt die Kurve waagerecht, bis alles erstarrt ist.", "Baustoffkunde V06, Folien 8 und 13");
+wf("bsk", B7, "Eine Cu–Ni-Legierung erstarrt wie ein reines Metall bei einer festen Temperatur.", false, "Falsch. Die Legierung erstarrt über einen Temperaturbereich zwischen Liquidus und Solidus. Die Abkühlkurve zeigt dort Knickpunkte statt eines Haltepunkts.", "Baustoffkunde V06, Folie 8");
+mc("bsk", B7, "Wofür werden Kupfer-Nickel-Legierungen vor allem eingesetzt?", ["Wegen der hohen Korrosionsbeständigkeit, z. B. im Schiffbau und für Münzen (CuNi25)", "Als Lötdraht wegen des niedrigen Schmelzpunkts", "Als Betonstahl", "Als Gleitlager mit Bleitröpfchen"], "Weitere Einsatzgebiete laut Folie: Offshore-Technik, Meerwasserentsalzung, LNG-Technik und Kondensatoren.", "Baustoffkunde V06, Folie 9");
+mc("bsk", B7, "Blei und Aluminium lassen sich nicht legieren. Wie nutzt man die Kombination trotzdem?", ["Als Dispersionslegierung: feinste Bleitröpfchen in harter Al-Matrix, z. B. für gute Gleiteigenschaften", "Gar nicht, die Metalle reagieren explosiv", "Man erhitzt so lange, bis sie doch löslich werden", "Als Lötzinn"], "Das gelingt durch extrem schnelles Abkühlen oder Pulvermetallurgie. Streng genommen ist das ein Verbundwerkstoff, keine Legierung.", "Baustoffkunde V06, Folie 10");
+pair("bsk", B7, "Pb–Sn-Diagramm: Was liegt im Bereich vor?", [["Bereich I", "nur Schmelze"], ["Bereich IV", "α-Mischkristalle und Schmelze"], ["Bereich VI", "α- und β-Mischkristalle, Schmelze erstarrt"], ["Bereich II", "nur α-Mischkristalle"]], "α ist das kfz-Gitter des Bleis mit eingelagerten Sn-Atomen, β das tetragonale Gitter des Zinns mit eingelagerten Pb-Atomen.", "Baustoffkunde V06, Folie 12");
+mc("bsk", B7, "Was ist das Eutektikum im Blei-Zinn-System?", ["Die Zusammensetzung (≈ 62 % Sn) mit dem tiefsten Schmelzpunkt, 183 °C, an dem die Schmelze direkt zu α + β erstarrt", "Der Schmelzpunkt von reinem Zinn (232 °C)", "Der Punkt, an dem nur α-Mischkristalle entstehen", "Die höchste Temperatur im Diagramm"], "Die eutektische Legierung schmilzt tiefer als beide reinen Metalle (Pb 327 °C, Sn 232 °C) und erstarrt wie ein reines Metall mit Haltepunkt. Darum nutzt man SnPb37 als Lötdraht.", "Baustoffkunde V06, Folien 12–14");
+wf("bsk", B7, "Im Pb–Sn-System sinkt die Löslichkeit von Sn in Pb (und umgekehrt) mit fallender Temperatur.", true, "Richtig. Deshalb ändert sich die Zusammensetzung von α und β im festen Zustand weiter, wenn die Legierung abkühlt (geneigte Grenzlinien unterhalb von 183 °C).", "Baustoffkunde V06, Folie 12");
+
+/* ── Eisen-Kohlenstoff ── */
+mc("bsk", B7, "Wo liegt die Grenze zwischen Stahl und Gusseisen?", ["Bei etwa 2,06 M.-% Kohlenstoff – darunter Stahl, darüber Gusseisen", "Bei 0,8 M.-% Kohlenstoff", "Bei 4,3 M.-% Kohlenstoff", "Bei 6,7 M.-% Kohlenstoff"], "2,06 % (gerundet 2,1 %) ist die größte Kohlenstoffmenge, die Austenit (γ-Eisen) lösen kann. 0,8 % ist das Eutektoid, 4,3 % das Eutektikum, 6,7 % reiner Zementit Fe₃C.", "Baustoffkunde V06, Folien 16 und 20");
+pair("bsk", B7, "Modifikationen des reinen Eisens – ordne zu.", [["α-Eisen (Ferrit)", "unter 911 °C, KRZ"], ["γ-Eisen (Austenit)", "911 bis 1392 °C, KFZ"], ["δ-Eisen", "1392 bis 1536 °C, KRZ"], ["Schmelze", "über 1536 °C"]], "Eisen wandelt seine Kristallstruktur also auch im festen Zustand um. Das ist die Grundlage für Wärmebehandlungen von Stahl.", "Baustoffkunde V06, Folie 17");
+mc("bsk", B7, "Welche Eisenmodifikation kann am meisten Kohlenstoff lösen?", ["γ-Eisen (Austenit, KFZ) mit bis zu 2,1 M.-%", "α-Eisen (Ferrit) mit bis zu 2,1 M.-%", "δ-Eisen mit bis zu 4,3 M.-%", "Alle gleich viel"], "Laut Folie nimmt α-Eisen höchstens etwa 0,1 % und δ-Eisen 0,2 % Kohlenstoff auf. Das kfz-Gitter des Austenits hat größere Lücken.", "Baustoffkunde V06, Folie 18");
+pair("bsk", B7, "Besondere Punkte im Eisen-Kohlenstoff-Diagramm – ordne zu.", [["Eutektikum C", "4,3 % C, 1147 °C → Ledeburit"], ["Eutektoid S", "0,8 % C, 723 °C → Perlit"], ["Peritektikum I", "um 0,2 % C, 1493 °C"], ["Punkt A", "Schmelzpunkt des reinen Eisens, 1536 °C"]], "Eutektikum: Schmelze erstarrt zu zwei festen Phasen. Eutektoid: Umwandlung im festen Zustand. Peritektikum: feste Phase und Schmelze reagieren zu einer neuen festen Phase.", "Baustoffkunde V06, Folien 19–22");
+pair("bsk", B7, "Was ist was im Fe-C-System?", [["Ferrit", "α-Mischkristall, weich und zäh"], ["Austenit", "γ-Mischkristall, kfz"], ["Zementit", "Eisencarbid Fe₃C, metastabil, hart"], ["Perlit", "eutektoides Gemisch aus Ferrit und Zementit"]], "Ledeburit ist das eutektische Gefüge bei 4,3 % C. Zementit ist am rechten Diagrammrand (6,7 % C) zu 100 % vorhanden.", "Baustoffkunde V06, Folien 19–20");
+pair("bsk", B7, "Linien im Eisen-Kohlenstoff-Diagramm – ordne zu.", [["ABCD", "Liquiduslinie"], ["AHIECF", "Soliduslinie"], ["ECF", "Eutektikale (1147 °C)"], ["PSK", "Eutektoide (723 °C)"]], "Die Linie SE ist die Löslichkeits- bzw. Sättigungslinie für Kohlenstoff im Austenit (0,8 bis 2,06 %). Unterschreitet man sie, scheidet sich Sekundärzementit aus.", "Baustoffkunde V06, Folie 22");
+pair("bsk", B7, "Gefüge eines Stahls bei Raumtemperatur – ordne zu.", [["0,2 % C", "Ferrit + Perlit"], ["0,8 % C", "nur Perlit"], ["1,4 % C", "Perlit + Sekundärzementit"]], "Unter 0,8 % C ist der Stahl untereutektoid, genau 0,8 % eutektoid, darüber übereutektoid. Die Folien zeigen die drei Fälle mit Schliffbildern.", "Baustoffkunde V06, Folien 23–25");
+mc("bsk", B7, "Wie unterscheiden sich Primär- und Sekundärzementit?", ["Primärzementit scheidet sich direkt aus der Schmelze aus (C > 4,3 %), Sekundärzementit beim Abkühlen aus dem Austenit", "Primärzementit entsteht nur in Stahl, Sekundärzementit nur in Gusseisen", "Primärzementit ist weich, Sekundärzementit hart", "Das sind zwei Namen für Perlit"], "Beide sind chemisch Fe₃C. Der Name sagt nur, woraus und wann sie entstehen.", "Baustoffkunde V06, Folie 19");
+mc("bsk", B7, "Wie verändern sich die Eigenschaften von Stahl mit steigendem Kohlenstoffgehalt?", ["Festigkeit, Sprödigkeit und Härtbarkeit steigen, die Verformbarkeit sinkt", "Festigkeit sinkt, Verformbarkeit steigt", "Nichts, nur die Farbe ändert sich", "Die Schweißbarkeit verbessert sich"], "Ferritischer Stahl ist weich und zäh. Perlitischer Stahl (0,8 %) ist fest, noch verformbar und härtbar. Mit Sekundärzementit wird er hart und spröde.", "Baustoffkunde V06, Folie 27");
+mc("bsk", B7, "Warum hat Betonstahl weniger als etwa 0,22 M.-% Kohlenstoff?", ["Damit er schweißbar und gut verformbar bleibt", "Damit er rostfrei ist", "Damit er besonders spröde wird", "Weil mehr Kohlenstoff nicht löslich ist"], "Die Folie nennt als Grenze für Schweißbarkeit rund 0,2 % C. Baustahl und Betonstahl gehören zum ferritisch-perlitischen Bereich.", "Baustoffkunde V06, Folie 27");
+pair("bsk", B7, "Werkstoff und typische Anwendung – ordne zu.", [["Ferritischer Stahl (< 0,02 % C)", "biegbarer Eisendraht"], ["Ferritisch-perlitischer Stahl", "Baustahl, Betonstahl"], ["Gusseisen mit Lamellengraphit", "Motoren- und Getriebegehäuse"], ["Gusseisen mit Kugelgraphit", "Kurbelwellen, Zahnräder"]], "Gusseisen ist sehr gut gießbar. Mit Kugelgraphit ist es außerdem zäh und fest.", "Baustoffkunde V06, Folie 27");
+mc("bsk", B7, "Warum lässt sich Gusseisen industriell so gut gießen?", ["Mehr Kohlenstoff senkt die Schmelztemperatur deutlich (Eutektikum 1147 °C statt 1536 °C bei reinem Eisen)", "Weil es keinen Kohlenstoff enthält", "Weil es bei Raumtemperatur flüssig ist", "Weil es aus Austenit besteht"], "Die Zusammenfassung der Vorlesung nennt genau das: höherer C-Gehalt, geringere Schmelztemperatur, sehr gute gießtechnische Eigenschaften.", "Baustoffkunde V06, Folie 29");
+/* Patch-Warteschlange · Data Analysis for Planning · L04 Central Limit Theorem (22 Folien), L05 Test Distributions and Confidence Intervals (30 Folien), R-Demos L04/L05, Exercise 3 Practice + Week 3.R · erstellt 17.11.2026 · alle Zahlen mit Python (scipy) nachgerechnet */
+const DAP_KI = "Grenzwertsatz und Konfidenzintervalle", DAP_TV = "Testverteilungen";
+THEMEN["dap|Grenzwertsatz und Konfidenzintervalle"] = "Der zentrale Grenzwertsatz (Central Limit Theorem) sagt zweierlei: Überlagern sich viele Zufallseinflüsse, entsteht annähernd eine Normalverteilung, und die Mittelwerte großer Stichproben sind normalverteilt um den wahren Mittelwert μ mit der Standardabweichung σ/√n (Standardfehler). Daraus folgt das Konfidenzintervall für den Mittelwert: x̄ ± z·σ/√n, wenn σ bekannt ist, und x̄ ± t·s/√n mit m = n − 1 Freiheitsgraden, wenn man σ durch die Stichprobenstandardabweichung s schätzen muss. Für Anteile gilt p̄ ± t·√(p̄(1 − p̄)/n). Das Konfidenzniveau γ ist die Fläche zwischen −z und +z, das Signifikanzniveau α = 1 − γ die Fläche in den beiden Rändern.";
+THEMEN["dap|Testverteilungen"] = "Testverteilungen beschreiben, wie sich aus Stichproben berechnete Größen verhalten. Die Chi-Quadrat-Verteilung entsteht als Summe quadrierter standardnormalverteilter Variablen (Mittelwert n, Varianz 2n) und beschreibt z. B. Zähler von Varianzen. Die t-Verteilung entsteht, wenn man eine normalverteilte Größe durch eine geschätzte Standardabweichung teilt; sie ist breiter als die Standardnormalverteilung und nähert sich ihr ab etwa n > 30. Die F-Verteilung ist das Verhältnis zweier Chi-Quadrat-Größen. Die Binomialverteilung B(n, p) gibt die Wahrscheinlichkeit für x Erfolge in n unabhängigen Versuchen an, mit μ = n·p und σ² = n·p·(1 − p).";
+
+/* ── L04 Central Limit Theorem ── */
+mc("dap", DAP_KI, "Was passiert, wenn man viele Verteilungen (auch nicht normalverteilte) addiert?", ["Die Summe nähert sich einer Normalverteilung", "Die Summe ist immer gleichverteilt", "Die Summe behält die Form der ersten Verteilung", "Die Summe wird immer schiefer"], "Das ist die erste Interpretation des Central Limit Theorem. Im R-Demo addiert man mehrere Gleichverteilungen und sieht im Histogramm, wie aus dem Rechteck eine Glocke wird.", "DAP L04, Folie 5 + L04_Demo_CentralLimitTheorem.R");
+wf("dap", DAP_KI, "Addiert man zwei Normalverteilungen, entsteht wieder eine Normalverteilung.", true, "Richtig (Observation 2). Bei nicht normalverteilten Ausgangsverteilungen ändert sich dagegen die Form der Verteilung (Observation 1).", "DAP L04, Folie 5");
+mc("dap", DAP_KI, "Warum sind z. B. Körpergrößen in der Natur oft normalverteilt?", ["Weil sich viele Zufallseinflüsse überlagern – das erklärt der zentrale Grenzwertsatz", "Weil Menschen bewusst gleich groß werden wollen", "Weil die Messgeräte normalverteilt sind", "Das ist reiner Zufall ohne Erklärung"], "Die Folie zeigt die Verteilung der Körpergrößen von Männern und Frauen in Deutschland (2006) als Beispiel.", "DAP L04, Folien 5–6");
+mc("dap", DAP_KI, "Man zieht viele Stichproben aus einer beliebig verteilten Grundgesamtheit (μ, σ). Wie sind die Stichprobenmittelwerte x̄ verteilt?", ["Normalverteilt mit Mittelwert μ und Standardabweichung σ/√n", "Wie die Grundgesamtheit mit Standardabweichung σ", "Normalverteilt mit Standardabweichung σ·n", "Gleichverteilt zwischen min und max"], "Das ist die zweite Interpretation des Central Limit Theorem. Die Streuung der Mittelwerte wird mit wachsendem n kleiner – vierfache Stichprobe, halbe Streuung.", "DAP L04, Folie 9");
+mc("dap", DAP_KI, "Wie groß müssen die Stichproben laut Folie sein, damit der Grenzwertsatz für die Mittelwerte greift?", ["n > 30 bei symmetrischer, n > 100 bei unsymmetrischer Verteilung", "n > 5 reicht immer", "n > 1000 in jedem Fall", "Die Stichprobengröße spielt keine Rolle"], "Je schiefer die Ausgangsverteilung, desto mehr Beobachtungen braucht man, bis die Mittelwerte normalverteilt aussehen.", "DAP L04, Folie 9");
+mc("dap", DAP_KI, "Wie heißt σ/√n, die Standardabweichung der Stichprobenmittelwerte?", ["Standardfehler (Standard Error, SE)", "Varianz", "Konfidenzniveau", "Freiheitsgrad"], "Der Standardfehler misst, wie stark der Stichprobenmittelwert vermutlich vom Mittelwert der Grundgesamtheit abweicht. Bei unbekanntem σ schätzt man ihn mit s/√n.", "DAP L05, Folie 13");
+pair("dap", DAP_KI, "Konfidenzintervall – ordne zu.", [["Konfidenzniveau γ", "Fläche unter f(z) zwischen −z und +z"], ["Signifikanzniveau α", "Fläche in den beiden Rändern außerhalb von ±z"], ["Zusammenhang", "γ = 1 − α"]], "Typisch ist γ = 0,95 bzw. α = 0,05. Man wählt γ, und daraus folgt der passende z- oder t-Wert.", "DAP L04, Folie 14");
+mc("dap", DAP_KI, "Für γ = 0,95 nimmt man z = 1,96. Bei welchem Wert der Tabelle Φ(z) liest man ab?", ["Φ(z) = 0,975", "Φ(z) = 0,95", "Φ(z) = 0,05", "Φ(z) = 0,5"], "Die Tabelle gibt die Fläche von −∞ bis z an. Damit zwischen −z und +z 95 % liegen, müssen in jedem Rand 2,5 % fehlen, also Φ(z) = 0,975.", "DAP L04, Folie 16");
+pair("dap", DAP_KI, "Welcher z-Wert gehört zum Konfidenzniveau?", [["γ = 0,90", "z ≈ 1,645"], ["γ = 0,95", "z ≈ 1,96"], ["γ = 0,99", "z ≈ 2,576"]], "Je sicherer man sein will, desto breiter wird das Intervall. Die Folie zeigt außerdem: ±2σ entsprechen etwa 95,5 %.", "DAP L04, Folien 13 und 16");
+mc("dap", DAP_KI, "Wie lautet das Konfidenzintervall für den Mittelwert, wenn σ der Grundgesamtheit bekannt ist?", ["[x̄ − z·σ/√n ; x̄ + z·σ/√n]", "[x̄ − z·σ ; x̄ + z·σ]", "[x̄ − t·s/√n ; x̄ + t·s/√n]", "[μ − z·σ/n ; μ + z·σ/n]"], "Mit unbekanntem σ ersetzt man σ durch s und z durch t (Variante aus L05). Ohne √n bekäme man das Streuband einzelner Werte, nicht des Mittelwerts.", "DAP L04, Folie 15");
+mc("dap", DAP_KI, "Folienbeispiel: 10 Studentinnen, x̄ = 170 cm, σ = 6,2 cm bekannt, γ = 0,95. Welches Intervall ergibt sich?", ["[166,1 ; 173,9] cm", "[157,8 ; 182,2] cm", "[165,6 ; 174,4] cm", "[169,4 ; 170,6] cm"], "170 ± 1,96 · 6,2/√10 = 170 ± 3,84. [157,8; 182,2] wäre ohne √10 gerechnet, [165,6; 174,4] ist die t-Variante aus L05.", "DAP L04, Folie 16");
+wf("dap", DAP_KI, "Konfidenzintervalle mit bekannter Standardabweichung σ kommen in der Praxis sehr häufig vor.", false, "Falsch – laut Folie sehr selten, weil man σ der Grundgesamtheit meist nicht kennt. Der Fall dient als Einstieg ins Prinzip: eine Größe mit bekannter Verteilung bilden (später Teststatistik) und mit deren Wahrscheinlichkeiten rechnen.", "DAP L04, Folie 17");
+mc("dap", DAP_KI, "Was bedeutet „degrees of freedom“ (Freiheitsgrade)?", ["Die Anzahl unabhängiger Informationen: Stichprobengröße minus bereits geschätzte Parameter", "Immer genau die Stichprobengröße n", "Die Zahl der Variablen im Datensatz", "Die Zahl der Nachkommastellen"], "Beispiel der Folie: 4 Werte haben 4 Freiheitsgrade. Kennt man den Mittelwert, sind nur noch 3 Werte frei, mit Mittelwert und Varianz nur noch 2.", "DAP L04, Folien 19–20");
+mc("dap", DAP_KI, "Warum teilt man bei der Stichprobenvarianz s² durch n − 1 statt durch n?", ["Sonst würde man die Varianz der Grundgesamtheit systematisch unterschätzen – ein Freiheitsgrad ist durch den Mittelwert schon verbraucht", "Damit das Ergebnis eine ganze Zahl wird", "Weil der erste Wert nicht zählt", "Weil R das so verlangt"], "Der Mittelwert wurde aus denselben Daten berechnet. Deshalb sind die Abweichungen nicht mehr ganz unabhängig, und es bleiben n − 1 Freiheitsgrade.", "DAP L04, Folie 21");
+
+/* ── L05 Testverteilungen ── */
+pair("dap", DAP_TV, "Welche Testverteilung entsteht? Ordne zu.", [["X₁² + X₂² + … + Xₙ² mit Xᵢ ~ N(0, 1)", "Chi-Quadrat-Verteilung, df = n"], ["X / √(Y/n) mit X ~ N(0, 1), Y ~ χ²(n)", "t-Verteilung, df = n"], ["(V₁/m) / (V₂/k) mit V₁, V₂ ~ χ²", "F-Verteilung, df = m, k"]], "Das ist die Übersichtstabelle der Vorlesung. Anwendung: Zähler von Varianzen sind χ²-verteilt, Teststatistiken der Form „normalverteilte Größe durch Standardabweichung“ t-verteilt, Verhältnisse zweier Fehlerquadratsummen F-verteilt.", "DAP L05, Folien 6 und 10");
+pair("dap", DAP_TV, "Kennwerte der Testverteilungen – ordne zu.", [["χ²-Verteilung (df = n)", "μ = n, σ² = 2n"], ["t-Verteilung (df = n)", "μ = 0, symmetrisch um null"], ["Binomialverteilung B(n, p)", "μ = n·p, σ² = n·p·(1 − p)"]], "Die t-Varianz ist n/(n − 2), also etwas größer als 1 – sie ist breiter als die Standardnormalverteilung.", "DAP L05, Folien 4, 6 und 17");
+mc("dap", DAP_TV, "Wie verändert sich die Chi-Quadrat-Verteilung mit wachsender Zahl der Freiheitsgrade?", ["Sie wird der Normalverteilung immer ähnlicher", "Sie wird immer schiefer", "Sie wird zur Gleichverteilung", "Sie bleibt unverändert"], "Im R-Demo quadriert man normalverteilte Werte und addiert immer weitere. Das Histogramm wandert nach rechts und wird symmetrischer.", "DAP L05, Folie 4 + L05_Demo_Test_distributions.R");
+mc("dap", DAP_TV, "Wie unterscheidet sich die t-Verteilung von der Standardnormalverteilung?", ["Sie ist etwas breiter und nähert sich der Normalverteilung ab etwa n > 30 an", "Sie ist schmaler und höher", "Sie ist nur für positive Werte definiert", "Sie ist schief nach rechts"], "Das R-Demo zeichnet t-Verteilungen mit df = 2, 5, 25 neben die Standardnormalverteilung: Je kleiner df, desto dicker die Ränder.", "DAP L05, Folien 8–9");
+mc("dap", DAP_TV, "Warum ist das t-Intervall breiter als das z-Intervall?", ["Weil s selbst eine Zufallsgröße ist – σ wird nur geschätzt, das bringt zusätzliche Unsicherheit", "Weil man mit n statt √n rechnet", "Weil t immer doppelt so groß ist wie z", "Weil die t-Verteilung schief ist"], "Für dasselbe γ ist t bei kleinen Stichproben größer als z, zum Beispiel t = 2,26 bei df = 9 statt z = 1,96.", "DAP L05, Folie 13");
+mc("dap", DAP_TV, "Konfidenzintervall für μ mit unbekanntem σ: Wie viele Freiheitsgrade hat der t-Wert bei n = 10?", ["m = 9", "m = 10", "m = 11", "m = 8"], "m = n − 1, weil die Varianz s² schon aus der Stichprobe berechnet wurde. Für γ = 0,95 und m = 9 ist t = 2,26.", "DAP L05, Folie 12");
+mc("dap", DAP_TV, "Gleiches Beispiel wie in L04, aber s = 6,2 cm aus der Stichprobe (n = 10, γ = 0,95). Welches Intervall?", ["[165,6 ; 174,4] cm", "[166,1 ; 173,9] cm", "[168,6 ; 171,4] cm", "[156,0 ; 184,0] cm"], "170 ± 2,26 · 6,2/√10 = 170 ± 4,43. Das Intervall ist breiter als mit bekanntem σ ([166,1; 173,9]). In R liefert t.test(cm, conf.level = 0.95) dasselbe.", "DAP L05, Folien 14–15");
+mc("dap", DAP_TV, "Binomialverteilung: Was gibt der Binomialkoeffizient (n über x) an?", ["Die Zahl der Möglichkeiten, genau x Erfolge auf n Versuche zu verteilen", "Die Wahrscheinlichkeit eines einzelnen Erfolgs", "Den Mittelwert n·p", "Die Zahl der Misserfolge"], "Formel: n! / (x! (n − x)!). Multipliziert mit pˣ(1 − p)ⁿ⁻ˣ, der Wahrscheinlichkeit jeder einzelnen Anordnung, ergibt sich P(x).", "DAP L05, Folie 18");
+mc("dap", DAP_TV, "Wie wahrscheinlich sind genau zwei Sechsen bei fünf Würfen?", ["≈ 16 %", "≈ 1,6 %", "≈ 33 %", "≈ 40 %"], "(5 über 2) = 10 Anordnungen, jede mit (1/6)² · (5/6)³ ≈ 0,016. 10 · 0,016 ≈ 0,16. In R: dbinom(2, size = 5, prob = 1/6).", "DAP L05, Folie 18 + L05_Demo_Test_distributions.R");
+pair("dap", DAP_TV, "Zehnmal würfeln – erwartete Zahl der Erfolge μ = n·p. Ordne zu.", [["Eine 1 würfeln (p = 1/6)", "μ ≈ 1,67"], ["Eine 1 oder 2 (p = 2/6)", "μ ≈ 3,33"], ["Gerade Zahl (p = 3/6)", "μ = 5"]], "Je näher p an 0,5 liegt, desto symmetrischer ist die Binomialverteilung.", "DAP L05, Folie 17");
+mc("dap", DAP_KI, "Wie lautet das Konfidenzintervall für einen Anteil p in der Grundgesamtheit?", ["[p̄ − t·√(p̄(1 − p̄)/n) ; p̄ + t·√(p̄(1 − p̄)/n)]", "[p̄ − t·p̄/√n ; p̄ + t·p̄/√n]", "[p̄ − z·√(n·p̄) ; p̄ + z·√(n·p̄)]", "[0 ; p̄]"], "p̄ ist der Anteil in der Stichprobe, t der Wert der t-Verteilung zu γ mit m = n − 1 Freiheitsgraden.", "DAP L05, Folie 25");
+mc("dap", DAP_KI, "Warum nimmt man beim Anteils-Intervall t statt z?", ["Weil die unbekannte Streuung mit dem Stichprobenanteil p̄ geschätzt wird – das bringt zusätzliche Unsicherheit", "Weil Anteile immer t-verteilt sind", "Weil z nur für Mittelwerte über 100 gilt", "Weil t kleiner ist als z"], "σ = √(n·p·(1 − p)) hängt vom gesuchten p ab. Man setzt p̄ ein und gleicht das mit t aus.", "DAP L05, Folie 24");
+mc("dap", DAP_KI, "200 Studierende, 180 mit Führerschein, γ = 0,95 (t = 1,97). Welches Intervall gilt für den Anteil?", ["[0,86 ; 0,94]", "[0,80 ; 1,00]", "[0,89 ; 0,91]", "[0,70 ; 0,95]"], "p̄ = 0,9; √(0,9 · 0,1/200) = 0,0212; 1,97 · 0,0212 = 0,042. Also 0,9 ± 0,04.", "DAP L05, Folie 26");
+wf("dap", DAP_KI, "Das t-Intervall für Anteile ist besonders genau, wenn n klein und p nahe 0 oder 1 ist.", false, "Falsch. Die Näherung durch eine symmetrische Verteilung passt gut bei großem n und p um 0,5. Bei kleinem n und p nahe 0 oder 1 ist die Binomialverteilung schief; dann liefern genauere Verfahren wie Clopper-Pearson (R: BinomCI) unsymmetrische Intervalle.", "DAP L05, Folie 28");
+pair("dap", DAP_KI, "Deskriptive oder induktive Statistik? Ordne zu.", [["Deskriptive Statistik", "beschreibt vorliegende Daten mit Kennzahlen und Diagrammen"], ["Induktive Statistik", "schließt von einer Stichprobe auf die Grundgesamtheit"], ["Konfidenzintervall, statistischer Test", "typische Methoden der induktiven Statistik"], ["Mittelwert, Varianz, Balkendiagramm", "typische Methoden der deskriptiven Statistik"]], "Mit L05 beginnt der induktive Teil: Ab jetzt geht es darum, wie sicher Aussagen über die Grundgesamtheit sind.", "DAP L05, Folie 29");
+pair("dap", DAP_KI, "Welche R-Funktion macht was (L05-Demo)?", [["qt(0.975, 199)", "t-Wert für γ = 0,95 und 199 Freiheitsgrade"], ["dbinom(2, size = 5, prob = 1/6)", "Wahrscheinlichkeit für genau 2 Erfolge"], ["t.test(x, conf.level = 0.95)", "Konfidenzintervall für den Mittelwert"], ["BinomCI(…, method = \"clopper-pearson\")", "genaues Intervall für einen Anteil"]], "dchisq, dt und dnorm liefern die Dichten (PDF), mit curve(…) werden sie gezeichnet.", "L05_Demo_Test_distributions.R");
+
+/* ── Exercise 3 (R, MiD-Wegedatensatz) ── */
+mc("dap", DAP_R2, "Exercise 3: Wie zählst du in R die Wege mit mindestens 90 Minuten Dauer?", ["nrow(wege[wege$wegmin_imp1 >= 90, ])", "nrow(wege$wegmin_imp1 >= 90)", "count(wege, 90)", "length(wege[ , wege$wegmin_imp1 >= 90])"], "Die Bedingung steht vor dem Komma in den eckigen Klammern, weil sie Zeilen auswählt. nrow() zählt die übrigen Zeilen.", "DAP Exercise 3, Aufgabe 1c + Week 3.R");
+mc("dap", DAP_R2, "Wie wählst du Wege aus, die mit dem Rad oder zu Fuß (hvm_imp < 3) in NRW (BLAND == 5) stattfanden?", ["wege[wege$hvm_imp < 3 & wege$BLAND == 5, ]", "wege[wege$hvm_imp < 3 | wege$BLAND == 5, ]", "wege[wege$hvm_imp < 3, wege$BLAND == 5]", "wege[hvm_imp < 3 and BLAND = 5]"], "& verknüpft beide Bedingungen (und). | wäre „oder“ und würde auch Autofahrten in NRW mitzählen.", "DAP Exercise 3, Aufgabe 1d + Week 3.R");
+ord("dap", DAP_R2, "Datensatz mit den 5000 längsten Fußwegen: Bring die Befehle in die richtige Reihenfolge.", ["wege2 <- wege[wege$hvm_imp == 1, ] – nur Fußwege", "wege2 <- wege2[order(-wege2$wegkm_imp), ] – absteigend nach Länge sortieren", "head(wege2, n = 5000) – die ersten 5000 Zeilen nehmen"], "Das Minus in order(-…) sortiert absteigend. Ohne vorheriges Sortieren lieferte head() nur irgendwelche 5000 Wege.", "DAP Exercise 3, Aufgabe 2 + Week 3.R");
+pair("dap", DAP_R2, "Runden in R – ordne zu (Wert 3,4 km).", [["round(3.4)", "3 – kaufmännisch runden"], ["floor(3.4)", "3 – abrunden"], ["ceiling(3.4)", "4 – aufrunden"]], "Für die Klassenbildung in Aufgabe 4a ist ceiling() gefragt: Die Klasse „4“ heißt dann „über 3 bis 4 km“.", "DAP Exercise 3, Aufgabe 4a + Week 3.R");
+mc("dap", DAP_R2, "Wie ersetzt du die Codes 1, 2, 3 … der Altersgruppe durch lesbare Bezeichnungen?", ["factor(x, levels = c(1, 2, …), labels = c(\"0-17 years\", …))", "rename(x, \"0-17 years\")", "as.numeric(x, labels = …)", "colnames(x) <- c(\"0-17 years\", …)"], "factor() ordnet jedem Code (levels) eine Bezeichnung (labels) zu. colnames() benennt dagegen Spalten um – das war Aufgabe 3b.", "DAP Exercise 3, Aufgabe 4b + Week 3.R");
+mc("dap", DAP_R2, "Was bewirkt prop.table(table(alter, klasse), 1) * 100?", ["Zeilenprozente: Jede Altersgruppe summiert sich auf 100 %", "Spaltenprozente: Jede Wegelängenklasse summiert sich auf 100 %", "Gesamtprozente der ganzen Tabelle", "Die absolute Häufigkeit mal 100"], "Das zweite Argument wählt die Richtung: 1 = Zeilen, 2 = Spalten. Ohne Argument bezieht sich der Anteil auf die ganze Tabelle.", "DAP Exercise 3, Aufgabe 4c + Week 3.R");
+mc("dap", DAP_R2, "Wie berücksichtigst du in der Kreuztabelle die Gewichtungsfaktoren W_GEW?", ["wtd.table(alter, klasse, weights = W_GEW) aus dem Paket questionr", "table(alter, klasse) * W_GEW", "Gar nicht, Gewichte gelten nur für Mittelwerte", "mean(table(alter, klasse), W_GEW)"], "Gewichtete Häufigkeiten korrigieren Schichtung und Ausfälle (Thema L02). Danach geht es wie gewohnt mit prop.table weiter.", "DAP Exercise 3, Aufgabe 4d + Week 3.R");
+
+/* ── Lösungsweg-Aufgabe ── */
+aufgabe({
+ "id": "dap-l05-ki-mittel", "f": "dap", "t": DAP_TV, "titel": "Konfidenzintervall für einen Mittelwert", "s": "DAP L04/L05 (eigenes Zahlenbeispiel)",
+ "angabe": "Bei 25 zufällig ausgewählten Pendlern wird die tägliche Wegezeit gemessen: x̄ = 50 min. Gesucht ist das 95-%-Konfidenzintervall für die mittlere Wegezeit aller Pendler. Variante a: σ = 10 min ist aus einer Großerhebung bekannt. Variante b: σ ist unbekannt, die Stichprobe liefert s = 10 min.",
+ "geg": ["n = 25", "x̄ = 50 min", "σ bzw. s = 10 min", "γ = 0,95"],
+ "ges": "Konfidenzintervall in beiden Varianten",
+ "schritte": [
+  { "f": "Wie groß ist der Standardfehler?", "o": [
+    ["σ/√n = 10/√25 = 2 min", "Die Mittelwerte streuen um den Faktor √n weniger als die Einzelwerte."],
+    ["σ/n = 10/25 = 0,4 min", "Geteilt wird durch √n, nicht durch n."],
+    ["σ = 10 min", "Das ist die Streuung einzelner Wegezeiten, nicht die des Mittelwerts."],
+    ["σ²/n = 100/25 = 4 min", "Das wäre die Varianz des Mittelwerts (in min²), nicht die Standardabweichung."]],
+   "r": "SE = 2 min" },
+  { "f": "Variante a (σ bekannt): Welcher Faktor und welches Intervall?", "o": [
+    ["z = 1,96 → 50 ± 3,92 = [46,1 ; 53,9] min", "σ bekannt → Standardnormalverteilung, Φ(z) = 0,975."],
+    ["z = 1,645 → [46,7 ; 53,3] min", "1,645 gehört zu γ = 0,90."],
+    ["t = 2,06 → [45,9 ; 54,1] min", "t braucht man nur, wenn σ geschätzt wird."],
+    ["z = 1,96 → 50 ± 19,6 = [30,4 ; 69,6] min", "Hier fehlt √n – das wäre das Band für einzelne Pendler."]],
+   "r": "[46,1 ; 53,9] min" },
+  { "f": "Variante b (σ unbekannt): Welche Verteilung und wie viele Freiheitsgrade?", "o": [
+    ["t-Verteilung mit m = n − 1 = 24", "s ist eine Schätzung, ein Freiheitsgrad ist durch den Mittelwert verbraucht."],
+    ["t-Verteilung mit m = 25", "m = n − 1, nicht n."],
+    ["Standardnormalverteilung, weil n > 20", "Die Folie nennt n > 30 als grobe Grenze; korrekt ist trotzdem die t-Verteilung."],
+    ["χ²-Verteilung mit 24 Freiheitsgraden", "χ² beschreibt Varianzen, nicht den standardisierten Mittelwert."]],
+   "r": "t(0,975; 24) = 2,064" },
+  { "f": "Welches Intervall ergibt sich in Variante b?", "o": [
+    ["50 ± 2,064 · 2 = [45,9 ; 54,1] min", "Etwas breiter als mit bekanntem σ, weil t > z."],
+    ["50 ± 1,96 · 2 = [46,1 ; 53,9] min", "Das ist Variante a."],
+    ["50 ± 2,064 · 10 = [29,4 ; 70,6] min", "Der Standardfehler s/√n fehlt."],
+    ["50 ± 2,064 / 2 = [49,0 ; 51,0] min", "Mit dem Standardfehler wird multipliziert, nicht durch ihn geteilt."]],
+   "r": "[45,9 ; 54,1] min" }],
+ "fazit": "Rezept: Standardfehler σ/√n bzw. s/√n · passenden Faktor z oder t(m = n − 1) wählen · x̄ ± Faktor · Standardfehler. Unbekanntes σ → t → breiteres Intervall."
+});
+/* Patch-Warteschlange · Bauinformatik · Vorlesung Block 3 Felder (Arrays), lineare und binäre Suche (Folien 107–117) + Übungsblatt 04 Vergleichsoperatoren, logische Operatoren, if-else, switch (16.–20.11.) · erstellt 17.11.2026 · alle Code-Ausgaben mit javac/java ausgeführt und geprüft */
+const BINF_AR = "Felder und Suchen";
+THEMEN["binf|Felder und Suchen"] = "Ein Feld (Array) ist eine Liste von Variablen desselben Typs mit fester Länge, zum Beispiel int[] noten = new int[6]. Die Elemente spricht man über ihren Index an, und der beginnt in Java immer bei 0 – das letzte Element hat also den Index length − 1, ein Zugriff daneben löst eine ArrayIndexOutOfBoundsException aus. Zweidimensionale Felder sind Matrizen: erster Index Zeile, zweiter Spalte. Hilfreich sind die Kurzdeklaration mit geschweiften Klammern, .length, Arrays.toString und System.arraycopy. Beim Suchen prüft die lineare Suche ein Element nach dem anderen (schlimmstenfalls n Schritte), die binäre Suche halbiert bei einer sortierten Liste den Bereich in jedem Durchlauf (schlimmstenfalls log₂ n Schritte).";
+
+/* ── Block 3: Felder ── */
+mc("binf", BINF_AR, "Wozu braucht man ein Feld (Array)?", ["Um viele Werte desselben Typs unter einem Namen zu speichern und über einen Index anzusprechen", "Um Werte verschiedener Typen beliebig zu mischen", "Um eine Variable mit unbegrenzter Länge zu haben", "Um Kommazahlen genauer zu speichern"], "Statt note_1, note_2, note_3 … für jede Note eine eigene Variable anzulegen, nimmt man int[] noten. Ein Array hat einen Namen, einen Datentyp und eine feste Länge.", "Bauinformatik Block 3, Folie 107");
+pair("binf", BINF_AR, "Was macht die Zeile? Ordne zu.", [["int[] noten;", "Deklaration – noch kein Speicher"], ["noten = new int[6];", "Erzeugung mit 6 Elementen"], ["int[] noten = new int[6];", "Deklaration und Erzeugung in einem"], ["int[] noten = {1, 2, 3};", "Kurzdeklaration mit Startwerten"]], "Die eckigen Klammern hinter dem Typ zeigen, dass es ein (eindimensionales) Feld ist. Die Zahl in new int[6] ist die Länge.", "Bauinformatik Block 3, Folien 108 und 111");
+mc("binf", BINF_AR, "int[] noten = new int[6]; Welchen Index hat das letzte Element?", ["5", "6", "1", "0"], "Die Indexzählung beginnt in Java immer bei 0. Element 1 hat Index 0, Element 6 hat Index 5 – allgemein noten.length − 1.", "Bauinformatik Block 3, Folie 109");
+mc("binf", BINF_AR, "Was passiert bei noten[6] = 3; wenn noten die Länge 6 hat?", ["Eine ArrayIndexOutOfBoundsException wird ausgelöst", "Das Feld wird automatisch verlängert", "Der Wert landet im ersten Element", "Nichts, die Zeile wird ignoriert"], "Index 6 gibt es nicht (gültig sind 0 bis 5). Java prüft das zur Laufzeit; der Compiler meldet es nicht.", "Bauinformatik Block 3, Folie 109");
+mc("binf", BINF_AR, "int[] a = new int[3]; a[0] = 4; a[1] = 7; a[2] = a[1] + 1; – Welchen Wert hat a[2]?", ["8", "5", "7", "3"], "a[1] ist 7, plus 1 ergibt 8. So zeigt es auch die Folie: noten[2] = noten[1] + 1.", "Bauinformatik Block 3, Folie 109");
+mc("binf", BINF_AR, "double[][] feld = new double[3][5]; – Was bedeuten die Zahlen?", ["3 Zeilen und 5 Spalten", "3 Spalten und 5 Zeilen", "Werte von 3 bis 5", "Ein Feld mit 8 Elementen"], "Der erste Index ist die Zeile, der zweite die Spalte. Das Feld hat 3 · 5 = 15 Elemente, feld[2][4] ist das letzte.", "Bauinformatik Block 3, Folie 110");
+pair("binf", BINF_AR, "double[][] feld = new double[3][5]; – Was liefert der Ausdruck?", [["feld.length", "3 – Anzahl der Zeilen"], ["feld[0].length", "5 – Anzahl der Spalten"], ["feld[2][4]", "letztes Element unten rechts"]], "Ein zweidimensionales Feld ist ein Feld von Zeilen. feld[0] ist die erste Zeile, ihre Länge ist die Spaltenzahl.", "Bauinformatik Block 3, Folien 110–111");
+mc("binf", BINF_AR, "int[][] m = {{1, 4, 7}, {2, 8, 1}, {9, 3, 5}}; – Welchen Wert hat m[1][2]?", ["1", "8", "7", "3"], "m[1] ist die zweite Zeile {2, 8, 1}, darin Index 2 → 1. m[2][1] wäre 3, m[0][2] wäre 7.", "Bauinformatik Block 3, Folie 111");
+mc("binf", BINF_AR, "Wie gibst du ein ganzes eindimensionales Feld lesbar aus?", ["System.out.println(Arrays.toString(woche));", "System.out.println(woche);", "System.out.println(woche[]);", "System.out.println(woche.length);"], "println(woche) gibt nur eine Speicheradresse wie [Ljava.lang.String;@1b6d3586 aus. Für mehrdimensionale Felder gibt es Arrays.deepToString(feld).", "Bauinformatik Block 3, Folie 112");
+mc("binf", BINF_AR, "System.arraycopy(woche, 0, arbeitswoche, 0, 5); – Was passiert?", ["Die ersten 5 Elemente von woche werden ab Index 0 nach arbeitswoche kopiert", "Das Element mit Index 5 wird kopiert", "woche wird 5-mal kopiert", "arbeitswoche wird nach woche kopiert"], "Parameter: Quellfeld (src), Startindex in der Quelle, Zielfeld (dst), Startindex im Ziel, Anzahl der Elemente. arbeitswoche enthält danach Mo bis Fr.", "Bauinformatik Block 3, Folie 113");
+pair("binf", BINF_AR, "Parameter von System.arraycopy(src, src_pos, dst, dst_pos, length) – ordne zu.", [["src", "Ursprungsfeld"], ["src_pos", "Index des ersten zu kopierenden Elements"], ["dst_pos", "Zielindex für das erste Element"], ["length", "Anzahl der zu kopierenden Elemente"]], "Das Zielfeld muss vorher mit passender Länge erzeugt sein, sonst gibt es eine Exception.", "Bauinformatik Block 3, Folie 113");
+
+/* ── Suchen ── */
+mc("binf", BINF_AR, "Was versteht man unter der Zeitkomplexität eines Algorithmus?", ["Die Anzahl der Rechenschritte, die er benötigt", "Die Zeit, die man zum Programmieren braucht", "Die Uhrzeit, zu der er läuft", "Die Anzahl der Codezeilen"], "Man vergleicht den günstigsten (best case) und den ungünstigsten Fall (worst case) abhängig von der Datenmenge n.", "Bauinformatik Block 3, Folie 114");
+pair("binf", BINF_AR, "Zeitkomplexität im worst case – ordne zu (n Elemente).", [["Lineare Suche", "n Schritte"], ["Binäre Suche", "log₂ n Schritte"], ["Beide im best case", "1 Schritt"]], "Bei 1000 Elementen braucht die lineare Suche schlimmstenfalls 1000 Vergleiche, die binäre nur etwa 10.", "Bauinformatik Block 3, Folien 114 und 117");
+mc("binf", BINF_AR, "Was setzt die binäre Suche voraus?", ["Die Liste muss sortiert sein", "Die Liste muss eine gerade Länge haben", "Die Suchzahl muss in der Liste vorkommen", "Die Liste darf nur positive Zahlen enthalten"], "Nur in einer sortierten Liste weiß man nach dem Vergleich mit der Mitte, ob man links oder rechts weitersuchen muss.", "Bauinformatik Block 3, Folien 116–117");
+mc("binf", BINF_AR, "Lineare Suche: Warum heißt die Bedingung while (i < feld.length && feld[i] != z) und nicht umgekehrt?", ["Weil && kurzschließt: Ist i schon zu groß, wird feld[i] gar nicht mehr ausgewertet", "Weil Java die Reihenfolge ohnehin vertauscht", "Weil != schneller ist als <", "Die Reihenfolge ist egal"], "Umgekehrt würde bei einer Zahl, die nicht im Feld steht, zuerst feld[14] gelesen – ArrayIndexOutOfBoundsException. Die Folie verweist dazu auf Folie 57 (Kurzschlussauswertung).", "Bauinformatik Block 3, Folie 115");
+mc("binf", BINF_AR, "Lineare Suche: Woran erkennt das Programm nach der Schleife, dass z nicht im Feld steht?", ["i == feld.length", "i == 0", "feld[i] == z", "i == -1"], "Die Schleife läuft nur bis zum Ende durch, wenn kein Element gepasst hat. Sonst bricht sie bei der Fundstelle ab und gibt i + 1 Durchläufe aus.", "Bauinformatik Block 3, Folie 115");
+ord("binf", BINF_AR, "Binäre Suche: Bring einen Durchlauf in die richtige Reihenfolge.", ["mitte = anfang + (ende − anfang) / 2 berechnen", "Ist z == feld[mitte]? → gefunden, Schleife mit break beenden", "Sonst: Ist z < feld[mitte]? → ende = mitte − 1", "Sonst: anfang = mitte + 1", "Zähler k um 1 erhöhen und nächster Durchlauf"], "Vor der Schleife: anfang = 0, ende = feld.length − 1, k = 1. Die Schleife ist while(true) und endet nur über break.", "Bauinformatik Block 3, Folie 117");
+mc("binf", BINF_AR, "Liste {1, 3, 4, 5, 7, 11, 12, 27, 29, 30, 33, 35, 47, 49}, gesucht 11. Welches Element prüft die binäre Suche im ersten Durchlauf?", ["12 (Index 6)", "11 (Index 5)", "27 (Index 7)", "1 (Index 0)"], "anfang = 0, ende = 13, mitte = 0 + 13/2 = 6 (Ganzzahldivision). feld[6] = 12 > 11, also geht es links weiter mit ende = 5.", "Bauinformatik Block 3, Folie 116");
+mc("binf", BINF_AR, "Gleiche Liste, gesucht 11: Nach wie vielen Durchläufen findet die binäre Suche die Zahl?", ["4", "6", "3", "1"], "Mitten: Index 6 (12) → 2 (4) → 4 (7) → 5 (11). Die lineare Suche bräuchte 6 Vergleiche.", "Bauinformatik Block 3, Folie 116 (mit Java nachgeprüft)");
+
+/* ── Übung 04: Vergleichs- und logische Operatoren ── */
+mc("binf", I4, "Übung 4, A1a: int a = 10, b = 11, c = 10; – Welcher Ausdruck ergibt false?", ["(a==b) && (a==c)", "a/c == 1", "(a==b) || (a==c)", "a != b"], "a == b ist false, a == c ist true. Bei && müssen beide Teile stimmen → false, bei || reicht einer → true. a/c ist 10/10 = 1 (Ganzzahldivision), also ist a/c == 1 true.", "Bauinformatik Übung 04, Aufgabe 1a (mit Java geprüft)");
+mc("binf", I4, "float f = 2.0000000000001f; double d = 2.0000000000001; – Was ergeben f == 2 und d == 2?", ["f == 2 ist true, d == 2 ist false", "beide true", "beide false", "f == 2 ist false, d == 2 ist true"], "float hat nur etwa 7 gültige Stellen: Die winzige Abweichung geht verloren, f ist genau 2.0. double mit etwa 16 Stellen kann sie noch speichern. Kommazahlen deshalb besser nicht mit == vergleichen.", "Bauinformatik Übung 04, Aufgabe 1a");
+mc("binf", I4, "Übung 4, A1b: boolean A = false, B = true, C = true; – Welcher Ausdruck ergibt false?", ["A && B", "A || B", "!A", "A || B && C"], "&& braucht zwei wahre Seiten, A ist aber false. A || B && C wird als A || (B && C) = false || true = true ausgewertet.", "Bauinformatik Übung 04, Aufgabe 1b (mit Java geprüft)");
+mc("binf", I4, "Welcher Operator wird in A || B && C zuerst ausgewertet?", ["&& – er bindet stärker als ||", "|| – weil er links steht", "Beide gleichzeitig", "Das hängt vom Wert von A ab"], "Wie Punkt- vor Strichrechnung: && vor ||. Wer es anders will, setzt Klammern: (A || B) && C.", "Bauinformatik Übung 04, Aufgabe 1b");
+
+/* ── Übung 04: if-else und switch ── */
+mc("binf", BINF_KS, "Übung 4, A3: Welche Bedingung erkennt sicher ungerade Zahlen, auch negative?", ["a % 2 != 0", "a % 2 == 1", "a / 2 == 1", "a % 2 == -1"], "In Java hat der Rest das Vorzeichen des Dividenden: −7 % 2 ergibt −1, nicht 1. Mit a % 2 == 1 würde −7 fälschlich als gerade gelten.", "Bauinformatik Übung 04, Aufgabe 3 (mit Java geprüft)");
+mc("binf", BINF_KS, "Übung 4, A3c: Wie prüfst du, ob a durch 7 teilbar ist?", ["if (a % 7 == 0)", "if (a / 7 == 0)", "if (a % 7 == 1)", "if (a == 7)"], "Teilbar heißt: kein Rest. a / 7 == 0 gilt nur für Zahlen von −6 bis 6.", "Bauinformatik Übung 04, Aufgabe 3c");
+mc("binf", BINF_KS, "WhatsYourNumber: Welche Zahlen liefert (int)(Math.random() * 5 + 1)?", ["Ganze Zahlen von 1 bis 5", "Ganze Zahlen von 0 bis 5", "Ganze Zahlen von 1 bis 6", "Kommazahlen von 1 bis 5"], "Math.random() liegt in [0; 1), mal 5 in [0; 5), plus 1 in [1; 6). Der Cast schneidet ab → 1, 2, 3, 4 oder 5.", "Bauinformatik Übung 04, Aufgabe 4");
+mc("binf", BINF_KS, "Warum steht in WhatsYourNumber Integer.parseInt(zahlTxt)?", ["showInputDialog liefert einen String – parseInt macht daraus eine int-Zahl zum Vergleichen", "Damit die Eingabe in Großbuchstaben erscheint", "Um eine Zufallszahl zu erzeugen", "Weil int-Werte nicht verglichen werden können"], "Ein String \"3\" ist nicht dasselbe wie die Zahl 3. Erst nach der Umwandlung funktioniert number == zahlInt.", "Bauinformatik Übung 04, Aufgabe 4");
+ord("binf", BINF_KS, "WhatsYourNumber mit Tipp (A5): Bring die Prüfungen in eine sinnvolle Reihenfolge.", ["Zufallszahl erzeugen und Zahl einlesen", "if (number == zahlInt) → „Super getippt!“", "else if (number > zahlInt) → „Nein, meine Zahl ist größer als deine!“", "else → „Nein, meine Zahl ist kleiner als deine!“"], "Nach Gleichheit und „größer“ bleibt nur noch „kleiner“ übrig – dafür reicht ein einfaches else.", "Bauinformatik Übung 04, Aufgabe 5");
+mc("binf", BINF_KS, "Mini-Taschenrechner (A6): Wo fängst du die Division durch 0 ab?", ["Im case \"/\" mit if (zahl2 == 0) vor der Division", "Gar nicht, Java gibt dann 0 aus", "Im default-Zweig", "Vor dem switch für alle Operatoren"], "So zeigt es das Struktogramm: Nur im Zweig „/“ steht die Abfrage „Nenner == 0?“. Bei int-Division durch 0 bricht Java mit einer ArithmeticException ab.", "Bauinformatik Übung 04, Aufgabe 6a");
+mc("binf", BINF_KS, "Wofür ist der default-Zweig im Taschenrechner da?", ["Für unbekannte Operatoren: System.err.println(\"Unbekannter Operator \" + operator)", "Für die Addition als Standardfall", "Für die Division durch null", "Er wird nach jedem case zusätzlich ausgeführt"], "System.err.println schreibt auf den Fehlerkanal, die Konsole zeigt das rot an.", "Bauinformatik Übung 04, Aufgabe 6a");
+mc("binf", BINF_KS, "A6b: Der Doppelpunkt „:“ soll auch dividieren. Wie geht das mit einer Zeile?", ["case \":\" direkt über case \"/\" schreiben, ohne break dazwischen", "Einen zweiten switch einbauen", "Den default-Zweig umschreiben", "Das geht in Java nicht"], "Fehlt das break, läuft Java in den nächsten case weiter (Fall-through). So teilen sich \":\" und \"/\" denselben Code.", "Bauinformatik Übung 04, Aufgabe 6b");
+/* Patch-Warteschlange · Baukonstruktion · V05 Stützen und Tragelemente (Rauber, 44 Folien) · erstellt 17.11.2026 · Formeln an den Folien geprüft, Rechenbeispiele mit Python nachgerechnet (Querschnittswerte HEB 200 aus Bautabellen) */
+const K10 = "Tragelemente", K11 = "Stützen und Knicken";
+THEMEN["bauko|Tragelemente"] = "Tragwerke lassen sich nach ihrer Geometrie ordnen. Linientragwerke sind lang im Verhältnis zum Querschnitt: gerade Stäbe (Balken mit Lasten quer zur Achse, Stützen mit Lasten längs der Achse, Zugstäbe), gekrümmte Stäbe (Bogen), zusammengesetzte Systeme (Fachwerk, Rahmen) und Seile. Flächentragwerke sind dünn im Verhältnis zur Fläche: Platten tragen Lasten senkrecht zur Fläche, Scheiben Lasten in ihrer Ebene. Raumtragwerke sind gekrümmte Flächen: Schalen tragen über Druck-, Zug- und Schubkräfte, Membranen nur über Zug.";
+THEMEN["bauko|Stützen und Knicken"] = "Schlanke Druckstäbe versagen nicht durch Zerdrücken, sondern weichen seitlich aus – sie knicken. Die ideale Knicklast nach Euler ist N_cr = π²·EI / l_k², mit der Knicklänge l_k = β·l aus den vier Eulerfällen (β = 2; 1; 0,7; 0,5). Im Holzbau weist man σ_c,0,d ≤ k_c·f_c,0,d nach, wobei k_c aus dem bezogenen Schlankheitsgrad λ_rel,c folgt (β_c = 0,2 für Vollholz, 0,1 für Brettschichtholz). Im Stahlbau gilt N_Ed ≤ N_b,Rd = χ·A·f_y / γ_M1; χ hängt von λ̄ = λ_k / λ_I und der Knickspannungslinie (a0 bis d) ab. Maßgebend ist die Achse mit der größeren Schlankheit, meist die schwache z-Achse.";
+
+/* ── Rückblick ── */
+pair("bauko", K10, "Rückblick Dächer – ordne zu.", [["Pfettendach, Sparren", "hauptsächlich Biegung"], ["Sparrendach, Sparren", "Biegung mit Längskraft"], ["Pfettendach unter vertikaler Last", "nur vertikale Auflagerkräfte"], ["Sparrendach unter vertikaler Last", "Horizontalkräfte am Sparrenfuß, die die Decke aufnimmt"]], "Beim Sparrendach stützen sich die beiden Sparren gegenseitig wie ein Dreigelenkbogen ab. Deshalb muss die Decke den Horizontalschub am Fuß aufnehmen.", "Baukonstruktion V05, Folie 6");
+
+/* ── Tragelemente ── */
+pair("bauko", K10, "Zu welcher Gruppe gehört das Tragelement?", [["Balken, Stütze, Seil", "Linientragwerk"], ["Platte, Scheibe", "Flächentragwerk"], ["Schale, Membran", "Raumtragwerk"]], "Linientragwerke sind lang und schlank, Flächentragwerke eben und dünn, Raumtragwerke gekrümmte dünne Flächen.", "Baukonstruktion V05, Folien 9–24");
+pair("bauko", K10, "Wie wird der Stab belastet? Ordne zu.", [["Balken", "Lasten rechtwinklig zur Stabachse"], ["Stütze", "Lasten parallel zur Stabachse (Druck)"], ["Zugstab", "Zug längs der Stabachse"]], "Balken, Stütze und Zugstab sind alles Stäbe mit gerader Achse. Bogen haben eine gekrümmte Achse, Fachwerk und Rahmen sind aus Stäben zusammengesetzt.", "Baukonstruktion V05, Folien 10–12");
+pair("bauko", K10, "Stabtragwerk und Achsform – ordne zu.", [["Balken", "gerade Stabachse"], ["Bogen", "gekrümmte Stabachse"], ["Fachwerk", "zusammengesetzt"], ["Rahmen", "zusammengesetzt, biegesteife Ecken"]], "Seile gehören auch zu den Linientragwerken, tragen aber nur Zug.", "Baukonstruktion V05, Folien 13–18");
+pair("bauko", K10, "Platte oder Scheibe?", [["Platte", "Beanspruchung senkrecht zu ihrer Fläche"], ["Scheibe", "Beanspruchung in Richtung ihrer Mittelfläche"]], "Eine Geschossdecke unter Nutzlast wirkt als Platte. Dieselbe Decke, die Windkräfte zu den Wänden leitet, wirkt als Scheibe – das wird bei der Aussteifung wichtig.", "Baukonstruktion V05, Folien 21–22");
+pair("bauko", K10, "Schale oder Membran?", [["Schale", "einfach oder doppelt gekrümmt, Druck-, Zug- und Schubkräfte"], ["Membran", "doppelt gekrümmt, nur Zugkräfte"]], "Beispiele der Vorlesung: Schale – Café „Los Manantiales“ (1958); Membran – Olympiastadion München, Sportstadion Harbin.", "Baukonstruktion V05, Folien 24–25");
+pair("bauko", K10, "Bauwerk und Tragelement – ordne zu.", [["Golden Gate Bridge", "Seil"], ["Hancock Center, Chicago", "Fachwerk"], ["Olympiastadion München", "Membran"], ["Café „Los Manantiales“", "Schale"]], "Die Bilder in der Vorlesung zeigen jeweils das Tragelement in Reinform.", "Baukonstruktion V05, Folien 16, 19, 24, 25");
+mc("bauko", K10, "Welche Bauteile bilden laut Vorlesung das Deckensystem?", ["Decke und Unterzug", "Stütze und Wand", "Decke und Stütze", "Wand und Unterzug"], "Die Decke gibt ihre Last an Unterzüge, diese an Stützen oder Wände und weiter in die Gründung.", "Baukonstruktion V05, Folie 27");
+
+/* ── Euler-Knicken ── */
+mc("bauko", K11, "Wie lautet die Eulersche Knicklast?", ["N_cr = π²·EI / l_k²", "N_cr = EI / l_k", "N_cr = π·EA / l_k", "N_cr = f_y·A"], "Sie folgt aus der Differentialgleichung EI·w'' + N·w = 0 mit dem Ansatz w = A·sin(πx/l). Die Knicklänge geht quadratisch ein: doppelte Länge, ein Viertel der Knicklast.", "Baukonstruktion V05, Folien 28–29");
+pair("bauko", K11, "Eulerfälle – ordne den Knicklängenbeiwert β zu.", [["Fall 1: unten eingespannt, oben frei", "β = 2"], ["Fall 2: beidseitig gelenkig", "β = 1"], ["Fall 3: eingespannt und gelenkig", "β = 0,7"], ["Fall 4: beidseitig eingespannt", "β = 0,5"]], "Knicklänge l_k = β·l ist der Abstand der Wendepunkte der Knickfigur. Je steifer gehalten, desto kürzer die Knicklänge.", "Baukonstruktion V05, Folie 29");
+mc("bauko", K11, "Eine gelenkige Stütze wird unten eingespannt (Fall 2 → Fall 3). Wie ändert sich die Euler-Knicklast?", ["Sie steigt auf etwa das Doppelte (1/0,7² ≈ 2,04)", "Sie bleibt gleich", "Sie halbiert sich", "Sie steigt um 30 %"], "N_cr ist proportional zu 1/l_k². Mit l_k = 0,7·l statt 1,0·l wird sie um den Faktor 1/0,49 größer.", "Baukonstruktion V05, Folie 29");
+wf("bauko", K11, "Eine Fahnenmast-Stütze (unten eingespannt, oben frei) hat die gleiche Knicklänge wie eine beidseitig gelenkige Stütze gleicher Höhe.", false, "Falsch. Beim Kragstützen-Fall ist β = 2, die Knicklänge also doppelt so groß wie die Stützenhöhe – die Knicklast nur ein Viertel.", "Baukonstruktion V05, Folie 29");
+
+/* ── Holz ── */
+mc("bauko", K11, "Wie lautet der Knicknachweis einer Holzstütze (Ersatzstabverfahren)?", ["σ_c,0,d / (k_c·f_c,0,d) ≤ 1", "σ_c,0,d / f_c,0,d ≤ k_c", "N_Ed / N_cr ≤ 1", "σ_m,d / f_m,d ≤ 1"], "k_c ≤ 1 mindert die Druckfestigkeit wegen der Knickgefahr ab. Gleichwertig: N_Ed / (k_c·N_u,d) ≤ 1.", "Baukonstruktion V05, Folien 30–31");
+mc("bauko", K11, "Welcher Imperfektionsbeiwert β_c gilt für Vollholz?", ["0,2", "0,1", "0,49", "0,7"], "Brettschichtholz und Furnierschichtholz sind gleichmäßiger und bekommen β_c = 0,1. Ein kleineres β_c ergibt ein größeres k_c.", "Baukonstruktion V05, Folie 32");
+mc("bauko", K11, "Wie lautet der bezogene Schlankheitsgrad im Holzbau?", ["λ_rel,c = l_ef / (π·i) · √(f_c,0,k / E_0,05)", "λ_rel,c = l_ef / i", "λ_rel,c = π · √(E / f_y)", "λ_rel,c = i / l_ef"], "Mit i = √(I/A), beim Rechteck i = h/√12. Charakteristische Festigkeit und 5-%-Quantil des E-Moduls stehen unter der Wurzel.", "Baukonstruktion V05, Folie 32");
+pair("bauko", K11, "Formelteile des Holz-Knicknachweises – ordne zu.", [["i = √(I/A)", "Trägheitsradius"], ["l_ef = β·s bzw. β·h", "Ersatzstablänge"], ["k = 0,5·[1 + β_c·(λ_rel,c − 0,3) + λ_rel,c²]", "Hilfswert"], ["k_c = 1 / (k + √(k² − λ_rel,c²)) ≤ 1", "Knickbeiwert"]], "Bis λ_rel,c ≤ 0,3 gibt es keine Abminderung (k_c = 1). In der Klausur liest man k_c oft aus Tabellen ab.", "Baukonstruktion V05, Folien 31–32");
+pair("bauko", K11, "Ausbildung von Holzstützen – ordne zu.", [["Nicht gespreizte Stütze", "Teile direkt miteinander verbunden"], ["Gespreizte Stütze", "Einzelstäbe mit Zwischenhölzern oder Vergitterung auf Abstand"], ["Fußpunkt mit Stabdübel und Stahlteil", "gelenkig"], ["Fußpunkt mit Passbolzen oder eingespanntem Mast", "Einspannung"]], "Spreizen vergrößert das Trägheitsmoment und damit den Knickwiderstand. Ein eingespannter Rundholzmast steckt 1,30 bis 1,80 m tief im Fundament.", "Baukonstruktion V05, Folien 33–35");
+
+/* ── Stahl ── */
+mc("bauko", K11, "Ungleiche Knicklängen: Eine Stahlstütze ist um die z-Achse in halber Höhe gehalten, um die y-Achse nicht. Was folgt?", ["Beide Achsen getrennt nachweisen: l_cr,y > l_cr,z – maßgebend ist die größere Schlankheit", "Nur die y-Achse prüfen, weil sie stärker ist", "Nur die z-Achse prüfen", "Die Knicklängen werden gemittelt"], "Die schwache z-Achse hat das kleinere i, dafür hier die kürzere Knicklänge. Erst λ = l_cr / i je Achse zeigt, welche maßgebend ist.", "Baukonstruktion V05, Folie 36");
+pair("bauko", K11, "Stahl: Systemgrößen – ordne zu.", [["λ_k = L_cr / i", "Schlankheitsgrad"], ["λ_I = π·√(E / f_y)", "Bezugsschlankheitsgrad"], ["λ̄ = λ_k / λ_I", "bezogener Schlankheitsgrad"]], "λ_I gilt für Erzeugnisdicken t ≤ 40 mm.", "Baukonstruktion V05, Folie 37");
+pair("bauko", K11, "Welcher Bezugsschlankheitsgrad λ_I gehört zur Stahlsorte?", [["S 235 (f_y = 235 N/mm²)", "λ_I = 93,9"], ["S 355 (f_y = 355 N/mm²)", "λ_I = 76,4"]], "λ_I = π·√(210 000 / f_y). Höherfester Stahl ist bei gleicher Geometrie bezogen schlanker.", "Baukonstruktion V05, Folie 37");
+mc("bauko", K11, "Wie lautet der Biegeknicknachweis im Stahlbau?", ["N_Ed / N_b,Rd ≤ 1 mit N_b,Rd = χ·A·f_y / γ_M1", "N_Ed / (A·f_y) ≤ χ²", "N_Ed ≤ N_cr", "σ ≤ f_y / χ"], "χ (0 ≤ χ ≤ 1) erfasst elastisches und plastisches Verhalten sowie Imperfektionen. Ohne Knickgefahr wäre χ = 1 und N_b,Rd die plastische Normalkraft.", "Baukonstruktion V05, Folie 38");
+pair("bauko", K11, "Imperfektionsbeiwert α der Knickspannungslinie – ordne zu.", [["a0", "0,13"], ["a", "0,21"], ["b", "0,34"], ["c", "0,49"]], "Linie d hat α = 0,76. Welche Linie gilt, hängt von Querschnitt, Ausweichachse und Herstellung ab (Tabelle auf Folie 40, auch im Schneider).", "Baukonstruktion V05, Folie 39");
+mc("bauko", K11, "Wie berechnet man den Abminderungsbeiwert χ?", ["χ = 1 / (φ + √(φ² − λ̄²)) mit φ = 0,5·[1 + α·(λ̄ − 0,2) + λ̄²]", "χ = λ̄ / φ", "χ = 1 − α·λ̄", "χ = π² / λ̄²"], "Die Formel ist genauso aufgebaut wie k_c im Holzbau, nur mit Plateau bis 0,2 statt 0,3 und α statt β_c.", "Baukonstruktion V05, Folie 39");
+pair("bauko", K11, "Stahlstützenfuß – welche Lasten werden aufgenommen?", [["Fußplatte mit Ankerschrauben", "nur Vertikallasten"], ["Fußplatte mit Knagge", "Horizontal- und Vertikallasten"], ["Einspannung mit Ankerbarren (Hammerkopf)", "Momente, verkürzt die Knicklänge"]], "Die Knagge greift in eine Aussparung im Fundament und leitet Querkraft ein. Für die Einspannung braucht man einen Hebelarm zwischen den Ankern.", "Baukonstruktion V05, Folie 41");
+mc("bauko", K11, "Welche Bauweisen von Verbundstützen zeigt die Vorlesung?", ["Einbetonierte Stahlprofile und ausbetonierte Hohlprofile", "Holz mit Stahlblech verklebt", "Mauerwerk mit Stahlankern", "Glasfaserverstärkter Kunststoff"], "Stahl und Beton wirken zusammen: Der Beton trägt mit und schützt im Brandfall, das Stahlprofil bringt Duktilität.", "Baukonstruktion V05, Folie 43");
+
+/* ── Lösungsweg-Aufgaben ── */
+aufgabe({
+ "id": "bauko-v05-holzstuetze", "f": "bauko", "t": K11, "titel": "Knicknachweis Holzstütze", "s": "Baukonstruktion V05, Folien 29–32 (eigenes Zahlenbeispiel)",
+ "angabe": "Innenstütze aus Vollholz C24, Querschnitt 14/14 cm, Höhe 3,00 m, oben und unten gelenkig gehalten. Bemessungsdruckkraft N_Ed = 100 kN (KLED mittel, NKL 1 → k_mod = 0,8; γ_M = 1,3). C24 nach Schneider Tafel 9.8: f_c,0,k = 21 N/mm², E_0,mean = 11 000 N/mm², für Nadelholz E_0,05 = ⅔ · E_0,mean (Fußnote 3).",
+ "geg": ["b = h = 140 mm", "l = 3000 mm, Eulerfall 2", "N_Ed = 100 kN", "f_c,0,k = 21 N/mm²", "E_0,05 = ⅔ · 11 000 = 7333 N/mm²", "k_mod = 0,8, γ_M = 1,3"],
+ "ges": "Knicknachweis σ_c,0,d / (k_c·f_c,0,d) ≤ 1",
+ "schritte": [
+  { "f": "Wie groß sind Knicklänge und Trägheitsradius?", "o": [
+    ["l_ef = 1,0 · 3000 = 3000 mm; i = 140/√12 = 40,4 mm", "Beidseitig gelenkig ist Eulerfall 2 mit β = 1. Für das Rechteck gilt i = h/√12."],
+    ["l_ef = 2,0 · 3000 = 6000 mm; i = 40,4 mm", "β = 2 gilt für die Kragstütze (unten eingespannt, oben frei)."],
+    ["l_ef = 3000 mm; i = 140/12 = 11,7 mm", "Die Wurzel fehlt: i = √(I/A) = h/√12."],
+    ["l_ef = 0,7 · 3000 = 2100 mm; i = 40,4 mm", "0,7 gilt nur, wenn ein Ende eingespannt ist."]],
+   "r": "l_ef = 3000 mm, i = 40,4 mm" },
+  { "f": "Wie groß ist der bezogene Schlankheitsgrad λ_rel,c?", "o": [
+    ["3000/(π · 40,4) · √(21/7333) = 1,26", "λ = 74,2 geteilt durch π, mal √(f_c,0,k / E_0,05)."],
+    ["3000/40,4 = 74,2", "Das ist der Schlankheitsgrad λ, noch nicht der bezogene."],
+    ["3000/(π · 40,4) · √(7333/21) = 442", "Der Bruch unter der Wurzel ist vertauscht."],
+    ["74,2 / 93,9 = 0,79", "93,9 ist der Bezugswert für Stahl S 235, nicht für Holz."]],
+   "r": "λ_rel,c = 1,26" },
+  { "f": "Wie groß ist k_c?", "o": [
+    ["k = 0,5·[1 + 0,2·(1,26 − 0,3) + 1,26²] = 1,40 → k_c = 1/(1,40 + √(1,40² − 1,26²)) = 0,503", "β_c = 0,2 für Vollholz. Kontrolle mit Schneider Tafel 9.29a: zwischen λ = 70 (0,550) und 75 (0,495) interpoliert ebenfalls 0,503."],
+    ["k = 0,5·[1 + 0,1·(1,26 − 0,3) + 1,26²] = 1,35 → k_c = 0,55", "β_c = 0,1 gilt für Brettschichtholz."],
+    ["k_c = 1,0, weil λ_rel,c > 0,3", "Über 0,3 wird abgemindert, nicht darunter."],
+    ["k_c = 1/1,26² = 0,63", "Das ist die reine Euler-Kurve ohne Imperfektionen."]],
+   "r": "k_c = 0,503" },
+  { "f": "Ist der Nachweis erfüllt?", "o": [
+    ["σ = 100 000/19 600 = 5,10 N/mm²; f_c,0,d = 0,8 · 21/1,3 = 12,9 N/mm²; 5,10/(0,503 · 12,9) = 0,78 ≤ 1 ✓", "Die Stütze ist zu 78 % ausgenutzt."],
+    ["5,10/12,9 = 0,40 ≤ 1 ✓", "Das ist nur der Spannungsnachweis ohne Knicken – k_c fehlt."],
+    ["5,10/(0,503 · 21) = 0,48 ≤ 1 ✓", "Mit dem charakteristischen Wert statt des Bemessungswerts gerechnet."],
+    ["100/(0,503 · 12,9) = 15,4 > 1 ✗", "Kraft in kN durch Spannung in N/mm² – die Einheiten passen nicht."]],
+   "r": "η = 0,78 → Nachweis erfüllt" }],
+ "fazit": "Rezept: Eulerfall → l_ef · i = h/√12 · E_0,05 = ⅔ · E_0,mean · λ_rel,c · k und k_c (β_c = 0,2 Vollholz) · f_c,0,d = k_mod·f_c,0,k/γ_M · σ_c,0,d/(k_c·f_c,0,d) ≤ 1. Mit β = 2 (Kragstütze) wäre λ_rel,c = 2,53 und k_c nur 0,14 – der Nachweis wäre klar verfehlt."
+});
+
+aufgabe({
+ "id": "bauko-v05-stahlstuetze", "f": "bauko", "t": K11, "titel": "Biegeknicken Stahlstütze HEB 200", "s": "Baukonstruktion V05, Folien 37–40 (eigenes Zahlenbeispiel)",
+ "angabe": "Stütze HEB 200 aus S 235, Höhe 4,00 m, oben und unten gelenkig, in beiden Richtungen nicht zwischengehalten. N_Ed = 800 kN, γ_M1 = 1,1. Querschnittswerte: A = 78,1 cm², i_y = 8,54 cm, i_z = 5,07 cm. Knickspannungslinien für gewalzte I-Profile mit h/b ≤ 1,2 und t_f ≤ 100 mm: um y → b, um z → c.",
+ "geg": ["L_cr = 4000 mm (beide Achsen)", "A = 7810 mm²", "i_y = 85,4 mm, i_z = 50,7 mm", "f_y = 235 N/mm², λ_I = 93,9", "N_Ed = 800 kN"],
+ "ges": "Nachweis N_Ed / N_b,Rd ≤ 1",
+ "schritte": [
+  { "f": "Welche Achse ist maßgebend?", "o": [
+    ["Die z-Achse: λ_z = 4000/50,7 = 78,9 > λ_y = 46,8, dazu die ungünstigere Linie c", "Gleiche Knicklänge, kleineres i → größere Schlankheit um die schwache Achse."],
+    ["Die y-Achse, weil sie die starke Achse ist", "Die starke Achse hat das größere i und knickt deshalb später."],
+    ["Beide sind gleich, weil die Knicklänge gleich ist", "Die Trägheitsradien unterscheiden sich deutlich."],
+    ["Keine, eine HEB-Stütze knickt nicht", "Jeder schlanke Druckstab kann knicken."]],
+   "r": "maßgebend z-Achse, λ_z = 78,9" },
+  { "f": "Wie groß ist der bezogene Schlankheitsgrad λ̄_z?", "o": [
+    ["78,9 / 93,9 = 0,84", "λ̄ = λ_k / λ_I mit λ_I = 93,9 für S 235."],
+    ["78,9 / 76,4 = 1,03", "76,4 gilt für S 355."],
+    ["78,9", "Das ist λ_k, noch nicht bezogen."],
+    ["93,9 / 78,9 = 1,19", "Der Bruch ist umgedreht."]],
+   "r": "λ̄_z = 0,84" },
+  { "f": "Wie groß ist χ_z (Linie c, α = 0,49)?", "o": [
+    ["φ = 0,5·[1 + 0,49·(0,84 − 0,2) + 0,84²] = 1,01 → χ = 1/(1,01 + √(1,01² − 0,84²)) = 0,637", "α = 0,49 für Knickspannungslinie c."],
+    ["φ mit α = 0,34 → χ = 0,70", "0,34 gehört zur Linie b (y-Achse)."],
+    ["χ = 1/0,84² = 1,42", "χ ist nie größer als 1; das wäre die reine Euler-Hyperbel."],
+    ["χ = 1,0, weil λ̄ < 1", "Abgemindert wird schon ab λ̄ > 0,2."]],
+   "r": "χ_z = 0,637" },
+  { "f": "Ist der Nachweis erfüllt?", "o": [
+    ["N_b,Rd = 0,637 · 7810 · 235 / 1,1 = 1063 kN → 800/1063 = 0,75 ≤ 1 ✓", "Die Stütze ist zu 75 % ausgenutzt."],
+    ["N_b,Rd = 7810 · 235 / 1,1 = 1669 kN → 0,48 ✓", "Das ist N_pl,Rd ohne Knickabminderung."],
+    ["N_b,Rd = 0,637 · 7810 · 235 = 1169 kN → 0,68 ✓", "γ_M1 = 1,1 fehlt."],
+    ["N_b,Rd = 0,637 · 78,1 · 235 / 1,1 = 10,6 kN → nicht erfüllt", "A in cm² mit f_y in N/mm² – erst in mm² umrechnen."]],
+   "r": "η = 0,75 → Nachweis erfüllt" }],
+ "fazit": "Rezept: λ_k = L_cr/i je Achse · λ̄ = λ_k/λ_I · Knickspannungslinie → α · φ und χ · N_b,Rd = χ·A·f_y/γ_M1. Um y wäre χ_y = 0,88 (Linie b) – die schwache Achse entscheidet."
+});
+
+/* Korrektur älterer Aufgabe: E_0,05 nach Schneider Tafel 9.8 (Fußnote 3) = ⅔ · E_0,mean = 7333 N/mm² – auf diesen Wert ist auch Tafel 9.29a (k_c) gerechnet. Ergebnis k_c = 0,44 bleibt. */
+Object.assign(KORREKTUR, { "bauko-knick-stuetze": { "geg": ["14/14 NH C24", "l = 3,27 m", "N_d = 53,41 kN", "k_mod = 1,0", "f_c,0,k = 21 N/mm²", "E_0,05 = ⅔ · 11 000 = 7333 N/mm² (Schneider Tafel 9.8, Fußnote 3)", "β_c = 0,2"] } });
