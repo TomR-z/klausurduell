@@ -2,7 +2,7 @@
 
 Hier liegen neue Fragen und Aufgaben, bis Tom „Patch durchführen“ sagt.
 
-Letzter Patch: **1.8 am 17.11.2026** (BSK V05/V06, Bauko Ü04/V05 Stützen, Physik V06 + neues Blatt 5, DAP L04/L05/Ü3, Bauinformatik Block 3/Ü4; Korrekturen Blatt 5 → 6 und E_0,05 = 7333). Stand: 876 Fragen, 60 Aufgaben, 85 Korrekturen. Warteschlange leer.
+Letzter Patch: **1.8 am 17.11.2026** (BSK V05/V06, Bauko Ü04/V05 Stützen, Physik V06 + neues Blatt 5, DAP L04/L05/Ü3, Bauinformatik Block 3/Ü4; Korrekturen Blatt 5 → 6 und E_0,05 = 7333). Stand: 876 Fragen, 60 Aufgaben, 85 Korrekturen. Wartend: `2026-11-18 Anmerkungen 2.js` (Issues #11–#13 als KORREKTUR, IDs bleiben) + `2026-11-18 neue Skizzen (FIG).js` (torricelli, sparren). Beim Patch Issues #11–#13 mit Kommentar schließen.
 
 - `app/anmerkungen.py`: liest offene Anmerkungs-Issues (gh api)
 - `app/pruefe.js`: Prüfskript (Fragen, Aufgaben, Korrekturen, Skizzen)
