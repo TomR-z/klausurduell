@@ -2,7 +2,7 @@
 
 Hier liegen neue Fragen und Aufgaben, bis Tom „Patch durchführen“ sagt.
 
-Letzter Patch: **2.0 am 19.11.2026** (Tiefenstufen 1 Grundlagen / 2 Verstehen / 3 Anwenden für alle Fragen, sanft von leicht nach schwer, Schalter pro Fach; Eingang 19.11.: 46 Fragen, 5 Lösungswege, Skizze schuettung). Stand: 922 Fragen, 65 Aufgaben. Warteschlange leer. Neue Fragen: Stufe direkt als Feld `st` setzen (oder `Object.assign(STUFE, {...})`), Skizzen per `ev`.
+Letzter Patch: **2.0 am 19.11.2026** (Tiefenstufen 1 Grundlagen / 2 Verstehen / 3 Anwenden für alle Fragen, sanft von leicht nach schwer, Schalter pro Fach; Eingang 19.11.: 46 Fragen, 5 Lösungswege, Skizze schuettung). Stand: 922 Fragen, 65 Aufgaben. Wartend für **2.1**: Stadt-Spiel (App-Änderung `2026-11-19 App 2.1 Stadt-Spiel.diff`, in /home/claude/app/app.html schon eingebaut, APP_VERSION 2.1): neuer Tab „Stadt“, Bitcoin (₿) fürs Lernen, isometrische Bauingenieur-Stadt (Rathaus, Wohnhaus, Park, je Fach ein Gebäude bis Stufe 5), 2 Bautrupps, Bauzeiten, richtige Antwort = 1 Min. schneller, Schalter unter Lernstand. Speicher: S.game. Sicherung des Stands davor: Branch `sicherung-2.0` (6b6aa17) und lokale Datei „Klausurduell Solo v1 – Sicherung 2.0 (vor Stadt).html“. Neue Fragen: Stufe direkt als Feld `st` setzen (oder `Object.assign(STUFE, {...})`), Skizzen per `ev`.
 
 - `app/anmerkungen.py`: liest offene Anmerkungs-Issues (gh api)
 - `app/pruefe.js`: Prüfskript (Fragen, Aufgaben, Korrekturen, Skizzen)
