@@ -1,5 +1,5 @@
-/* Klausurduell Offline-Speicher · Version 2.2 (3463af62) */
-const CACHE = "klausurduell-2.2-3463af62";
+/* Klausurduell Offline-Speicher · Version 2.3 (f27392bc) */
+const CACHE = "klausurduell-2.3-f27392bc";
 const FILES = ["./", "index.html", "fragen.js", "three.min.js", "manifest.webmanifest", "icons/icon-180.png", "icons/icon-192.png", "icons/icon-512.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES))); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
