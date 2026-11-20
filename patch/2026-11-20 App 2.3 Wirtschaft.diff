@@ -1,0 +1,1110 @@
+--- app_v22_backup.html	2026-11-20 01:48:12.277821904 +0100
++++ app.html	2026-11-20 02:11:47.298130739 +0100
+@@ -229,6 +229,58 @@
+ .c3.night .c3wel.c3g,.c3.night .c3drawer.c3g{background:rgba(8,12,26,.9)}
+ body.c3on .toast{top:calc(118px + env(safe-area-inset-top,0px));opacity:0;transition:transform .45s cubic-bezier(.2,.9,.25,1.2),opacity .25s}
+ body.c3on .toast.show{opacity:1}
++
++/* v2.3 Wirtschaft */
++.ric{display:inline-grid;place-items:center;flex:none;border-radius:50%;background:var(--rc);box-shadow:inset 0 -1.5px 0 rgba(0,0,0,.2)}.ric svg{width:68%;height:68%}
++.rcs{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}.rc{display:inline-flex;align-items:center;gap:3px;font-weight:700;font-size:12.5px;font-variant-numeric:tabular-nums}.rc.miss{color:#ff7b72}
++.sheet .rc.miss{color:var(--bad)}.c3cn.sm{width:15px;height:15px;font-size:9px}
++.rcrow{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:8px;font-size:13px;color:var(--ink-2)}
++.c3mini{display:flex;gap:8px;pointer-events:auto;margin-bottom:6px}
++.c3sm{position:relative;width:62px;height:58px;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:#fff;font-size:10.5px;font-weight:700}.c3sm svg{width:22px;height:22px}
++.c3sm em{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:#ff3b30;font-style:normal;font-size:11.5px;display:grid;place-items:center;box-shadow:0 0 0 2px rgba(0,0,0,.15)}
++.c3btn.on{background:rgba(255,190,60,.55)}
++.xpb{display:inline-block;width:46px;height:6px;border-radius:3px;background:rgba(255,255,255,.25);vertical-align:middle;overflow:hidden;margin:0 2px}.xpb em{display:block;height:100%;background:#7ee08f}
++.c3card2{position:absolute;left:0;top:0;width:min(280px,calc(100vw - 20px));border-radius:22px;padding:12px;z-index:4;background:rgba(14,20,38,.9);backdrop-filter:none;-webkit-backdrop-filter:none;font-size:13.5px}
++.c3card2 .ch{display:flex;align-items:center;gap:10px;margin-bottom:8px}.c3card2 .ch>div:nth-child(2){flex:1;min-width:0}.c3card2 .ch b{display:block;font-size:16px}.c3card2 .ch small{opacity:.75;font-size:12px}
++.c3card2 .gico{width:36px;height:36px;border-radius:11px;color:#fff;background:color-mix(in srgb,var(--c,#7aa7ff) 40%,rgba(255,255,255,.12))}.c3card2 .gico svg{width:20px;height:20px}
++.cline{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.cline svg{width:18px;height:18px}.cline small{opacity:.7}
++.cbar{height:7px;border-radius:4px;background:rgba(255,255,255,.18);margin:6px 0;overflow:hidden}.cbar i{display:block;height:100%;background:#7ee08f;border-radius:4px}
++.cnote{display:block;opacity:.8;font-size:12px;line-height:1.35;margin:4px 0}.cwhy{display:block;color:#ffb199;font-size:12px;margin-top:4px}
++.cbtns{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.c3card2 .btn2.sm,.sheet .btn2.sm{height:34px;padding:0 12px;font-size:13px;border-radius:12px;flex:none}
++.c3card2 .btn2{color:#fff;background:rgba(255,255,255,.14)}.c3card2 .btn2.acc{background:var(--accent)}
++.cup{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.14);display:flex;flex-direction:column;gap:6px}.cta.sm{height:40px;font-size:14px}.cta[data-off]{opacity:.5}
++.cfoot{display:flex;justify-content:space-between;margin-top:8px}.cfoot .link{color:#cfe3ff;font-size:13px;display:inline-flex;align-items:center;gap:5px;padding:4px 0;margin:0}.cfoot svg{width:16px;height:16px}
++.c3undo{position:absolute;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 112px);display:flex;align-items:center;gap:10px;padding:6px 6px 6px 14px;border-radius:20px;font-size:13.5px;z-index:5;white-space:nowrap}
++.c3undo button{height:30px;padding:0 12px;border-radius:15px;background:rgba(255,255,255,.2);color:#fff;font-weight:700;font-size:13px}
++.c3hint .btn2.sm{height:32px;padding:0 12px;font-size:13px;border-radius:12px;flex:none;color:#fff}
++.c3bub{position:absolute;left:0;top:0;margin:-34px 0 0 -26px;min-width:52px;height:34px;padding:0 9px 0 5px;border-radius:17px;display:flex;align-items:center;gap:5px;color:#fff;font-size:13px;font-weight:800;
++  background:rgba(255,255,255,.95);color:#1b2234;box-shadow:0 6px 14px rgba(0,0,0,.3);pointer-events:auto;will-change:transform}
++.c3bub::after{content:"";position:absolute;left:50%;bottom:-6px;margin-left:-6px;border:6px solid transparent;border-bottom:0;border-top-color:rgba(255,255,255,.95)}
++.c3bub.kz{background:rgba(30,36,55,.75);color:#cfd6e6;pointer-events:none;min-width:40px;margin-left:-20px}.c3bub.kz::after{border-top-color:rgba(30,36,55,.75)}
++.c3bub.kc{background:linear-gradient(#ffe08a,#f4b12a)}.c3bub.kc svg{width:18px;height:18px}
++.c3tabs{display:flex;gap:6px;overflow-x:auto;padding:0 14px 8px;scrollbar-width:none;touch-action:pan-x}.c3tabs::-webkit-scrollbar{display:none}
++.c3tab{flex:none;height:32px;padding:0 13px;border-radius:16px;font-size:13px;font-weight:700;color:#fff;background:rgba(255,255,255,.12)}.c3tab.on{background:#fff;color:#1b2234}
++.c3card .rcs{gap:3px 6px}.c3card .rc{font-size:11.5px}.c3card .ric{width:13px!important;height:13px!important}
++.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px;margin:8px 0}
++.rtile{display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 6px;border-radius:16px;background:var(--glass-soft);border:1px solid var(--hair);text-align:center}.rtile b{font-size:18px;font-variant-numeric:tabular-nums}.rtile small{font-size:11.5px;color:var(--ink-3);line-height:1.2}
++.rtile svg{width:26px;height:26px}.rtile.pop{animation:rpop .5s both}.rtile.pop:nth-child(2){animation-delay:.08s}.rtile.pop:nth-child(3){animation-delay:.16s}.rtile.pop:nth-child(4){animation-delay:.24s}.rtile.pop:nth-child(5){animation-delay:.32s}.rtile.pop:nth-child(6){animation-delay:.4s}
++@keyframes rpop{from{opacity:0;transform:scale(.6) translateY(10px)}}
++.rh{font-size:15px;margin:16px 0 4px}
++.ogrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
++.ocard{display:flex;flex-direction:column;gap:4px;padding:10px;border-radius:16px;background:var(--glass-soft);border:1px solid var(--hair);min-height:132px}.ocard>b{font-size:14px}.ocard>small{font-size:12px;color:var(--ink-3)}
++.ocard.ok{border-color:var(--ok);box-shadow:inset 0 0 0 1px var(--ok)}.ocard.lern{background:color-mix(in srgb,var(--accent) 8%,var(--glass-soft))}
++.ocard.wait{align-items:center;justify-content:center;color:var(--ink-3);text-align:center}.ocard.wait svg{width:26px;height:26px;opacity:.5}
++.orew{font-size:12px;font-weight:700;color:#d97706;display:flex;flex-wrap:wrap;align-items:center;gap:3px;margin-top:auto}
++.obtn{display:flex;gap:6px;align-items:center}.obtn .btn2{flex:1}.c3x.dk{background:var(--glass-strong);color:var(--ink-2);width:32px;height:32px}
++.shh{display:flex;gap:14px;align-items:center;margin-bottom:12px}
++.recipe{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:15px}.recipe .arr{font-size:20px;color:var(--ink-3)}
++.lchart{width:100%;height:auto;color:var(--ink-2)}
++.opt>b{display:block;margin-bottom:4px}.orow{display:flex;align-items:center;gap:10px;padding:6px 0;border-top:1px solid var(--hair)}.orow>span{width:24px;height:24px;border-radius:12px;display:grid;place-items:center;font-size:12px;font-weight:800;background:var(--glass-strong);flex:none}
++.orow.done>span{background:var(--ok);color:#fff}.orow>div{flex:1;min-width:0}.orow b{font-size:13.5px;display:block}.orow small{font-size:12px;color:var(--ink-3)}
++.chest{width:84px;height:84px;margin:6px auto 4px;border-radius:24px;display:grid;place-items:center;color:#fff;animation:cshake .6s ease 2}.chest svg{width:52px;height:52px}
++.chest.t0{background:linear-gradient(#c58a4c,#8a5a2b)}.chest.t1{background:linear-gradient(#e3e8ee,#9aa6b4)}.chest.t2{background:linear-gradient(#ffe08a,#e39b12)}
++@keyframes cshake{25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
++.rc small{font-weight:500;font-size:11.5px;opacity:.85;margin-left:1px}.ocard .rcs{flex-direction:column;align-items:flex-start;gap:2px}
+ /* ── 3D-STADT CSS ENDE ── */
+ 
+ /* tab bar */
+@@ -599,7 +651,7 @@
+ const ALLQ = FRAGEN.filter(q => !q.weg), ALLA = AUFG.filter(a => !a.weg);
+ 
+ /* storage */
+-const APP_VERSION = "2.2";
++const APP_VERSION = "2.3";
+ const KEY = "klausurduell.v1";
+ let S = {cards:{}, days:{}, aufg:{}};
+ try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch(e) {}
+@@ -618,7 +670,8 @@
+ function streak(){
+   let n=0; const d=new Date();
+   if(!(S.days[dayKey(d)]||{}).n) d.setDate(d.getDate()-1);
+-  while((S.days[dayKey(d)]||{}).n){ n++; d.setDate(d.getDate()-1); }
++  const sd = (S.game && S.game.sd) || [];
++  for (let i = 0; i < 4000; i++) { const k = dayKey(d); if ((S.days[k]||{}).n) n++; else if (!sd.includes(k)) break; d.setDate(d.getDate()-1); }
+   return n;
+ }
+ function tDue(id){ const c = S.aufg[id]; return c && c.due <= dayNum(); }
+@@ -907,7 +960,7 @@
+   const k=dayKey(); const d=S.days[k]||{n:0,r:0}; d.n++; if(ok) d.r++; S.days[k]=d;
+   const df=S.df[k]||(S.df[k]={}); df[q.f]=(df[q.f]||0)+1; save();
+   Q.res[Q.i]=ok; Q.state.done=true;
+-  const gchip = gAfter(q, ok, gp);
++  const gchip = gAfter(q, ok, gp); ecoAnswer(q, ok, gp);
+   if(Q.exam){ Q.ans[Q.i]=true; setTimeout(()=>{ if(Q && Q.exam) next(); }, 280); return; }
+   haptic(ok);
+   const extra = q.typ==="ord" && !ok ? `<ol>${q.steps.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>` : "";
+@@ -1008,7 +1061,7 @@
+   const c = S.aufg[a.id] || {b:0, runs:0, best:0}, dn = dayNum(), good = p >= .8;
+   c.b = good ? Math.min(5, c.b+1) : 1; c.due = dn + (good ? INTERVAL[c.b] : 1); c.last = p; c.best = Math.max(c.best||0, p); c.runs = (c.runs||0)+1;
+   S.aufg[a.id] = c; save(); haptic(good);
+-  const gT = gEarn(10 + 15*p);
++  const gT = gEarn(10 + 15*p); ecoTask(a, p);
+   const head = p===1 ? "Fehlerfrei gelöst" : p>=.8 ? "Stark gelöst" : p>=.5 ? "Weg gefunden" : "Nochmal üben";
+   const first = A.sc.filter(x=>x===1).length;
+   const nx = nextTask(a.id);
+@@ -1327,7 +1380,7 @@
+   const head = p >= .9 ? "Klausurreif" : p >= .7 ? "Stark" : p >= .5 ? "Bestanden – mit Luft nach oben" : "Noch nicht sicher";
+   const ansText = q => q.typ === "mc" ? q.a[0] : q.typ === "wf" ? (q.c ? "Wahr" : "Falsch") : q.typ === "ord" ? q.steps.join(" → ") : q.pairs.map(x => x[0] + " = " + x[1]).join("; ");
+   Q.exam = null;
+-  const gX = gEarn(2*r) + (Q.coins||0);
++  const gX = gEarn(2*r) + (Q.coins||0); ecoExam(p);
+   $("#quiz").innerHTML = `<div class="ambient"><i></i><i></i><i></i><i></i></div><div class="qwrap"><div class="qbody"><div class="res">
+     ${ring(p,170,16,p>=.5?"#7fe8a0":"#ffb199",p>=.5?"var(--ok)":"var(--bad)",`<b>${Math.round(p*100)} %</b><span>${r} von ${n}</span>`)}
+     <h1>${head}</h1><p class="sub">${esc(Q.label)} · ${mins} Min.${timeUp ? " · Zeit abgelaufen" : ""}${answered < n ? ` · ${n - answered} nicht beantwortet` : ""}</p>${gChip(gX)}
+@@ -1467,7 +1520,7 @@
+ };
+ const GORDER = ["wohnhaus","park","wasserturm","zimmerei","betonwerk","kran","rechenzentrum","vermessung","bahnhof"];
+ const GMAST = [0, 0, .10, .25, .45, .65];                          // nötige Beherrschung im Fach für Stufe 1–5 (Stufe 1: 10 Antworten)
+-const GTRUPP = 2;
++
+ function gInit(){
+   if (S.game && S.game.v) return S.game;
+   const answered = Object.values(S.days).reduce((a,d) => a + (d.n||0), 0);
+@@ -1496,6 +1549,7 @@
+   else if (ok && p.due) { r += 2; parts.push("Wiederholung"); }
+   if (p.had && p.b >= 4 && !p.due) r *= .25;                        // sicher Gekonntes bringt kaum etwas
+   if (dk.n >= 150) r *= .5;                                          // ab 150 Antworten am Tag halbiert
++  if (G().b.some(b => b.k === "schule" && b.l > 0)) r *= 1.05;
+   if (p.first) { const st = Math.min(streak() + 1, 10) * 5; r += st; parts.push("Tagesbonus " + st); }
+   (g.daily[dayKey()] || (g.daily[dayKey()] = {e:0, n:0})).n++;
+   if (ok) gBoost(60);
+@@ -1511,6 +1565,7 @@
+ function gFinalize(){
+   const g = G(), now = Date.now(); let done = [];
+   g.b.forEach(b => { if (b.until && b.until <= now) { b.l = b.next; b.until = 0; delete b.next; done.push(b); } });
++  done.forEach(b => ecoXP(4 + 4 * b.l));
+   if (done.length) { if (!(typeof C3 !== "undefined" && C3.open)) g.news = true; save(); if (gOn()) toast(done.map(b => `${GT[b.k].n} Stufe ${b.l} fertig`).join(" · ")); }
+   return done.length;
+ }
+@@ -1666,7 +1721,7 @@
+   const queue = busy.length ? busy.map(b => `<div class="row"><div class="round gico">${gIcon(b.k)}</div><div class="t"><b>${GT[b.k].n} → Stufe ${b.next}</b><small class="gtime" data-id="${b.id}">${gDur((b.until-Date.now())/1000)}</small></div></div>`).join("") : `<div class="row"><div class="t"><small>Kein Bautrupp beschäftigt. Tippe auf eine freie Fläche, um zu bauen.</small></div></div>`;
+   return `<div class="view gview">
+     <div class="head"><div><div class="eyebrow">Klausurduell</div><h1>Deine Stadt</h1></div><button class="chip glass press" data-act="g-info">So verdienst du ₿</button></div>
+-    <div class="ghud"><div class="gst glass"><b>₿ ${fmtB(g.coins)}</b><span>Bitcoin</span></div><div class="gst glass"><b>${fmtB(ew)}</b><span>Einwohner</span></div><div class="gst glass"><b>${busy.length}/${GTRUPP}</b><span>Bautrupps</span></div></div>
++    <div class="ghud"><div class="gst glass"><b>₿ ${fmtB(g.coins)}</b><span>Bitcoin</span></div><div class="gst glass"><b>${fmtB(ew)}</b><span>Einwohner</span></div><div class="gst glass"><b>${busy.length}/${gTr()}</b><span>Bautrupps</span></div></div>
+     ${welcome}
+     ${gCity()}
+     <p class="legend" style="text-align:center;margin:8px 0 0">Freie Fläche antippen zum Bauen · Gebäude antippen zum Ausbauen</p>
+@@ -1675,19 +1730,26 @@
+     <div class="sec"><div class="sec-h"><h2>Baustellen</h2><small>Richtige Antwort = 1 Min. schneller</small></div><div class="list glass">${queue}</div></div>
+   </div>`;
+ }
+-function gIcon(k){ const f = GT[k].f; const d = k === "rathaus" ? "M4 20h16M6 20V10l6-5 6 5v10M10 20v-5h4v5M12 5V2.5" : k === "park" ? "M12 21v-6M6.5 15a5.5 5.5 0 1 1 11 0z" : "M4 20V10l8-6 8 6v10zM10 20v-6h4v6"; return f ? SVG(ICON[f], 1.8) : SVG(`<path d="${d}"/>`, 1.8); }
++const GICON = {kieswerk:"M3 18l5-7 4 4 3-4 6 7zM7 8a2 2 0 1 0 0-.1M13 6a1.5 1.5 0 1 0 0-.1", stahlwerk:"M3 20V11l5 3V11l5 3V7h3v4h3v9zM16 4v3", lagerhaus:"M3 20V9l9-5 9 5v11M7 20v-7h10v7M7 16h10", mischanlage:"M5 20V8h6v12M11 12l7-5M15 20a3 3 0 0 1 6 0M5 8l3-4 3 4", mauersteinwerk:"M3 7h18v12H3zM3 13h18M9 7v6M15 13v6", glaserei:"M5 4h14v16H5zM12 4v16M5 12h14", abbundhalle:"M3 18l9-11 9 11M7 18l5-6 5 6M12 7v11M3 18h18", fertigteilwerk:"M3 10h18v5H3zM6 15v5M18 15v5M3 10l3-4h12l3 4", mehrfamilienhaus:"M4 21V5h10v16M14 9h6v12M7 8h2M7 12h2M7 16h2M17 13h1M17 17h1", schule:"M3 21V10l9-6 9 6v11M8 21v-5h8v5M12 7v3M10 12h4", feuerwache:"M3 21V9h12v12M15 13h6v8M6 21v-6h6v6M17 9V4", buero:"M7 21V3h10v18M10 7h4M10 11h4M10 15h4M4 21h16", fernsehturm:"M12 2v20M9 21h6M8 9h8l-1 3H9zM10 5h4", stadion:"M2 13c0-3 4.5-5 10-5s10 2 10 5-4.5 5-10 5S2 16 2 13zM6 13c0-1.3 2.7-2.4 6-2.4s6 1.1 6 2.4", kathedrale:"M4 21V11l4-4 4 4v10M12 21V8l4-5 4 5v13M15 13h2M6 15h2", bank:"M4 13h16M6 13v5M18 13v5M5 9h14", brunnen:"M4 16h16l-2 4H6zM12 16V7M9 9c1-2 5-2 6 0", laterne:"M12 21V9M9 5h6l-1 4h-4zM9 21h6", statue:"M9 21h6M10 21v-4h4v4M12 17V9M12 4a2 2 0 1 0 0 .1M9 11l3-2 3 2", blumen:"M12 20v-6M7 20h10M12 9a2.5 2.5 0 1 0 0 .1M9 10a2 2 0 1 0 0 .1M15 10a2 2 0 1 0 0 .1", baum:"M12 21v-6M6 14a6 6 0 1 1 12 0z", goldstatue:"M9 21h6M10 21v-4h4v4M12 17V8M12 3a2 2 0 1 0 0 .1M8 9l4-1 4 1"};
++function gIcon(k){ if (GICON[k]) return SVG(`<path d="${GICON[k]}"/>`, 1.8); const f = GT[k].f; const d = k === "rathaus" ? "M4 20h16M6 20V10l6-5 6 5v10M10 20v-5h4v5M12 5V2.5" : k === "park" ? "M12 21v-6M6.5 15a5.5 5.5 0 1 1 11 0z" : "M4 20V10l8-6 8 6v10zM10 20v-6h4v6"; return f ? SVG(ICON[f], 1.8) : SVG(`<path d="${d}"/>`, 1.8); }
+ 
+ /* ── Bau-Logik ── */
+ function gReq(k, L){                                             // gibt Text zurück, wenn etwas fehlt, sonst ""
+   const t = GT[k], g = G();
+   if (L > t.max) return "Höchste Stufe erreicht";
+-  if (k !== "rathaus" && L > gRat()) return `Erst Rathaus auf Stufe ${L}`;
++  if (k !== "rathaus" && !t.deko && L > gRat()) return `Erst Rathaus auf Stufe ${L}`;
+   if (k === "wohnhaus" && L === 1 && g.b.filter(b => b.k === "wohnhaus").length >= gRat()*2) return `Mehr Häuser ab Rathaus-Stufe ${gRat()+1}`;
+   if (k === "park" && g.b.filter(b => b.k === "park").length >= 8) return "Höchstens 8 Parks";
+   if (t.f && L === 1 && g.b.some(b => b.k === k)) return "Gibt es schon";
+   if (t.f && L === 1 && gAnsF(t.f) < 10) return `${10 - gAnsF(t.f)} Antworten in ${FACH[t.f].n} fehlen`;
+   if (t.f && L > 1) { const m = mastery(qsOf(t.f)); if (m < GMAST[L]) return `${FACH[t.f].n}: ${Math.round(GMAST[L]*100)} % beherrscht nötig (jetzt ${Math.round(m*100)} %)`; }
+-  if (gBusy().length >= GTRUPP && t.time[L-1] > 0) return "Beide Bautrupps sind beschäftigt";
++  if (L === 1 && t.rat && gRat() < t.rat) return `Ab Rathaus-Stufe ${t.rat}`;
++  if (L === 1 && t.need) { const nb = g.b.find(b => b.k === t.need[0]); if (!nb || nb.l < t.need[1]) return `Erst ${GT[t.need[0]].n} auf Stufe ${t.need[1]}`; }
++  if (L === 1 && t.uniq && g.b.some(b => b.k === k)) return "Gibt es schon";
++  if (L === 1 && t.cnt && g.b.filter(b => b.k === k).length >= t.cnt) return `Höchstens ${t.cnt}`;
++  if (L === 1 && t.cond) { const c = t.cond(); if (c) return c; }
++  if (L === 1 && t.rare && !(eco().inv.deko[k] > 0)) return "Gibt es nur in Truhen";
++  if (gBusy().length >= gTr() && t.time[L-1] > 0) return `Alle ${gTr()} Bautrupps sind beschäftigt`;
+   return "";
+ }
+ function gStart(b, L){ const t = GT[b.k], sec = t.time[L-1];
+@@ -1706,7 +1768,7 @@
+   const fi = t.f ? (() => { const m = mastery(qsOf(t.f)); return `<div class="panel glass" style="margin-top:12px"><div class="sec-h" style="padding:0"><h2>${FACH[t.f].n}</h2><small>${Math.round(m*100)} % beherrscht</small></div><div class="gbar"><i style="width:${Math.round(m*100)}%;background:${cssC(t.f)}"></i>${[2,3,4,5].map(l=>`<em style="left:${GMAST[l]*100}%" title="Stufe ${l}"></em>`).join("")}</div><p class="legend" style="margin:6px 0 0">Striche: nötige Beherrschung für Stufe 2 bis 5.</p><button class="btn2 acc press" style="margin-top:10px;width:100%" data-act="start-subject" data-f="${t.f}">${FACH[t.f].n} lernen</button></div>`; })() : "";
+   const act = busy ? `<p class="sub">Baut auf Stufe ${b.next} · noch <b class="gtime" data-id="${b.id}">${gDur((b.until-now)/1000)}</b>. Jede richtige Antwort spart 1 Minute.</p><button class="cta press" data-act="start-mix">${I.play}Lernen und schneller bauen</button>`
+     : L > t.max ? `<p class="sub">Höchste Stufe erreicht.</p>`
+-    : `<button class="cta press" data-act="g-up" data-id="${b.id}" ${why||poor?"disabled style='opacity:.5'":""}>Auf Stufe ${L} ausbauen · ₿ ${fmtB(cost)}</button><p class="legend" style="text-align:center;margin:6px 0 0">${why || (poor ? `Noch ${fmtB(cost - G().coins)} ₿ zu wenig` : `Bauzeit ${t.time[L-1] ? gDur(t.time[L-1]) : "sofort"} · +${t.ew} Einwohner`)}</p>`;
++    : `<button class="cta press" data-act="g-up" data-id="${b.id}" ${why||poor?"disabled style='opacity:.5'":""}>Auf Stufe ${L} ausbauen · ₿ ${fmtB(cost)}</button><p class="legend" style="text-align:center;margin:6px 0 0">${why || (poor ? `Noch ${fmtB(cost - G().coins)} ₿ zu wenig` : `Bauzeit ${t.time[L-1] ? gDur(t.time[L-1]) : "sofort"} · +${t.ew} Einwohner`)}</p>${L <= t.max && Object.keys(ecoCost(b.k, L)).length ? `<div class="rcrow">Dazu an Ressourcen: ${costHTML(ecoCost(b.k, L), undefined, true)}</div>` : ""}`;
+   openSheet(`<div style="display:flex;gap:14px;align-items:center;margin-bottom:12px"><div class="round gico big" style="${t.f?`--c:${cssC(t.f)}`:""}">${gIcon(b.k)}</div><div><h2>${t.n}</h2><p class="sub" style="margin:0">Stufe ${b.l || 0} von ${t.max} · ${t.d}</p></div></div>${act}${fi}
+     ${b.k !== "rathaus" && !busy ? `<button class="link" data-act="g-move" data-id="${b.id}" style="margin-top:12px">Versetzen</button>` : ""}`);
+   render();
+@@ -1727,6 +1789,10 @@
+     <p class="legend">Fragen, die schon sicher sitzen und nicht fällig sind, bringen nur ein Viertel. Ab 150 Antworten am Tag gibt es die Hälfte – Pausen lohnen sich.</p>
+     <h2 style="margin-top:18px;font-size:18px">Bauen</h2>
+     <p class="legend">Zwei Bautrupps arbeiten gleichzeitig. Jede richtige Antwort verkürzt alle Baustellen um 1 Minute. Fach-Gebäude brauchen 10 Antworten im Fach; für höhere Stufen musst du das Fach zu 10, 25, 45 oder 65 % beherrschen. Das Rathaus begrenzt die Stufe aller anderen Gebäude.</p>
++    <h2 style="margin-top:18px;font-size:18px">Ressourcen</h2>
++    <p class="legend">Jedes Fach betreibt ein Werk: Wasserwerk und Kieswerk (Hydromechanik), Zimmerei (Baukonstruktion), Zementwerk und Stahlwerk (Baustoffkunde), Kraftwerk (Physik), Planungsbüro (Bauinformatik), Prüflabor (Statistik) und Bahnhof (Data Analysis for Planning). Jede Antwort im Fach füllt sein Werk – richtige doppelt, Anwenden-Fragen und Lösungswege mehr. Tippe ein Werk an, dann fliegt die Ware ins Lager.</p>
++    <p class="legend">Fabriken machen daraus Beton, Mauersteine, Fenster, Dachstühle und Fertigteile. Ab Stufe 3 brauchen Ausbauten Ressourcen. Messdaten aus dem Prüflabor machen Fabriken schneller, Fachkräfte kommen mit dem Zug. Wer ein Fach eine Woche nicht lernt, sieht sein Werk stillstehen.</p>
++    <p class="legend">Auftragsblatt: 8 Aufträge für Bitcoin und Erfahrung, 2 davon sind Lernaufträge. Truhe: wartet am Rathaus, sobald du 20 Fragen am Tag geschafft hast – mit langer Serie wird sie besser. Serienschutz: einmal pro Woche darfst du einen Tag aussetzen. Gebäude verschiebst du, indem du sie lange drückst und ziehst.</p>
+     <p class="legend">Ausblenden kannst du die Stadt unter Lernstand → Stadt-Spiel.</p>`);
+ }
+ let GMOVE = null;
+@@ -1740,10 +1806,13 @@
+   if (a === "g-tile") gTile(+ds.x, +ds.y);
+   else if (a === "g-info") gInfo();
+   else if (a === "g-welcome") { const n = g.welcome; g.welcome = 0; gEarn(n, true); toast(`+${fmtB(n)} ₿ Startkapital`); render(); }
+-  else if (a === "g-build") { const k = ds.k, t = GT[k]; if (!GSEL || gReq(k,1) || g.coins < t.cost[0]) return; const b = {id: g.nid++, k, l:0, x: GSEL[0], y: GSEL[1], until:0, from:0};
+-    g.coins -= t.cost[0]; gStart(b, 1); g.b.push(b); save(); closeSheet(); GSEL = null; toast(t.time[0] ? `${t.n} wird gebaut · ${gDur(t.time[0])}` : `${t.n} gebaut`); render(); }
+-  else if (a === "g-up") { const b = g.b.find(o => o.id === +ds.id); if (!b) return; const L = b.l + 1, t = GT[b.k]; if (gReq(b.k, L) || g.coins < t.cost[L-1]) return;
+-    g.coins -= t.cost[L-1]; gStart(b, L); save(); closeSheet(); GSEL = null; toast(t.time[L-1] ? `${t.n} wird auf Stufe ${L} ausgebaut · ${gDur(t.time[L-1])}` : `${t.n} Stufe ${L}`); render(); }
++  else if (a === "g-build") { const k = ds.k, t = GT[k], free = t.deko && (eco().inv.deko[k] || 0) > 0, rc = free ? {} : ecoCost(k, 1);
++    if (!GSEL || gReq(k,1) || (!free && g.coins < t.cost[0])) return true; if (!ecoHave(rc)) { toast("Es fehlen: " + ecoMiss(rc, true)); return true; }
++    const b = {id: g.nid++, k, l:0, x: GSEL[0], y: GSEL[1], until:0, from:0};
++    ecoPay(rc); if (free) g.inv.deko[k]--; else g.coins -= t.cost[0]; gStart(b, 1); g.b.push(b); save(); closeSheet(); GSEL = null; toast(t.time[0] ? `${t.n} wird gebaut · ${gDur(t.time[0])}` : `${t.n} gebaut`); render(); }
++  else if (a === "g-up") { const b = g.b.find(o => o.id === +ds.id); if (!b) return; const L = b.l + 1, t = GT[b.k]; if (gReq(b.k, L) || g.coins < t.cost[L-1]) return true; const rc = ecoCost(b.k, L);
++    if (!ecoHave(rc)) { toast("Es fehlen: " + ecoMiss(rc, true)); return true; }
++    ecoPay(rc); g.coins -= t.cost[L-1]; gStart(b, L); save(); closeSheet(); GSEL = null; toast(t.time[L-1] ? `${t.n} wird auf Stufe ${L} ausgebaut · ${gDur(t.time[L-1])}` : `${t.n} Stufe ${L}`); render(); }
+   else if (a === "g-move") { GMOVE = +ds.id; closeSheet(); toast("Freie Fläche antippen"); if (C3.open) { C3.hlKey = ""; c3Refresh(); } }
+   else if (a === "g-tocity") { if (tab !== "stadt") C3.prev = tab; tab = "stadt"; if (A) endTask(); else if (Q) endQuiz(); else render(); }
+   else if (a === "g-toggle") { g.off = !g.off; save(); if (g.off && tab === "stadt") tab = "stand"; render(); toast(g.off ? "Stadt-Spiel ausgeblendet" : "Stadt-Spiel eingeblendet"); }
+@@ -1763,6 +1832,7 @@
+     <button class="tswitch press" style="margin-top:4px" data-act="g-toggle" role="switch" aria-checked="${!g.off}"><span class="t"><b>Stadt anzeigen</b><small>${g.off ? "Aus: kein Stadt-Tab, keine Bitcoin-Anzeige. Bitcoin werden im Hintergrund weiter gesammelt." : "Bitcoin fürs Lernen verdienen und eine Stadt aufbauen"}</small></span><span class="sw${g.off?"":" on"}"><i></i></span></button></div>`;
+ }
+ /* Zeitanzeigen live */
++setInterval(() => { if (S.game && (!window.__ecoT || Date.now() - window.__ecoT > 30000)) { window.__ecoT = Date.now(); ecoDaily(); } }, 5000);
+ setInterval(() => {
+   if (!S.game) return;
+   const now = Date.now(), byId = Object.fromEntries(G().b.map(b => [b.id, b]));
+@@ -1771,6 +1841,256 @@
+ }, 1000);
+ 
+ /* ── 3D-STADT START ── */
++
++/* ═════════ v2.3: Wirtschaft – Ressourcen aus dem Lernen, Fabriken, Lager, Aufträge, Truhe, Serienschutz ═════════ */
++const RES = {
++  wasser: {n: "Wasser", c: "#3d9be0"}, kies: {n: "Kies und Sand", c: "#b39b6e"}, holz: {n: "Bauholz", c: "#b07a45"}, zement: {n: "Zement", c: "#8f969e"},
++  stahl: {n: "Stahl", c: "#55687c"}, strom: {n: "Strom", c: "#e9a800"}, plan: {n: "Baupläne", c: "#2f6fb0"}, daten: {n: "Messdaten", c: "#a64fd9"}, fach: {n: "Fachkräfte", c: "#e8742c"},
++  beton: {n: "Beton", c: "#7c848d", p: 1}, stein: {n: "Mauersteine", c: "#b9ad97", p: 1}, fenster: {n: "Fenster", c: "#4fa3d9", p: 1}, dach: {n: "Dachstühle", c: "#b5773d", p: 1}, fert: {n: "Fertigteile", c: "#5f6a75", p: 1}
++};
++const RBASE = ["wasser", "kies", "holz", "zement", "stahl", "strom", "plan", "daten", "fach"], RPROD = ["beton", "stein", "fenster", "dach", "fert"];
++const RVAL = {wasser: 5, kies: 4, holz: 6, zement: 6, stahl: 8, strom: 5, plan: 8, daten: 8, fach: 6, beton: 10, stein: 8, fenster: 24, dach: 30, fert: 55};
++const RICON = {
++  wasser: '<path d="M12 4c3 4 5 6.6 5 9.3A5 5 0 0 1 7 13.3C7 10.6 9 8 12 4z"/>', kies: '<path d="M5 17l3-4 3 2 2-3 4 5zM7 18h10"/><circle cx="9" cy="9" r="1.6"/><circle cx="14" cy="8" r="1.3"/>',
++  holz: '<rect x="4" y="9" width="16" height="6" rx="3"/><circle cx="17" cy="12" r="1.5"/>', zement: '<path d="M7 6h10l1 13H6zM9 10h6"/>',
++  stahl: '<path d="M6 6h12M6 18h12M12 6v12M9 6v1.5M15 6v1.5M9 18v-1.5M15 18v-1.5"/>', strom: '<path d="M13 3L6 13h5l-1 8 7-10h-5z"/>',
++  plan: '<path d="M6 4h9l3 3v13H6zM9 10h6M9 13h6M9 16h4"/>', daten: '<path d="M5 19V5M5 19h14M8 16v-4M12 16V9M16 16v-6"/>',
++  fach: '<circle cx="12" cy="9" r="3"/><path d="M8 7.5a4 4 0 0 1 8 0M6 20c.6-3.6 3-5.5 6-5.5s5.4 1.9 6 5.5"/>',
++  beton: '<path d="M4 9l8-4 8 4-8 4zM4 9v7l8 4 8-4V9M12 13v7"/>', stein: '<path d="M4 7h16v10H4zM4 12h16M10 7v5M15 12v5"/>',
++  fenster: '<rect x="5" y="4" width="14" height="16" rx="1"/><path d="M12 4v16M5 12h14"/>', dach: '<path d="M3 17l9-10 9 10M7 17l5-5.5 5 5.5M12 7v10M3 17h18"/>',
++  fert: '<path d="M3 9h18v5H3zM6 14v4M18 14v4M3 9l3-3h12l3 3"/>'
++};
++const ricon = (k, s = 16) => `<span class="ric" style="--rc:${RES[k].c};width:${s}px;height:${s}px"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${RICON[k]}</svg></span>`;
++
++/* ── Gebäude: Umbenennungen und neue Typen ── */
++Object.assign(GT.wasserturm, {n: "Wasserwerk", d: "Fördert Wasser für Beton und Häuser. Läuft, wenn du Hydromechanik lernst."});
++Object.assign(GT.zimmerei, {d: "Liefert Bauholz für Dachstühle, Schalung und Fensterrahmen. Läuft mit Baukonstruktion."});
++Object.assign(GT.betonwerk, {n: "Zementwerk", d: "Brennt Zement, den Grundstoff für Beton. Läuft mit Baustoffkunde."});
++Object.assign(GT.kran, {n: "Kraftwerk", d: "Erzeugt Strom für Fabriken und Häuser. Läuft mit Physik."});
++Object.assign(GT.rechenzentrum, {n: "Planungsbüro", d: "Zeichnet Baupläne – kein Bau ohne Ausführungsplan. Läuft mit Bauinformatik."});
++Object.assign(GT.vermessung, {n: "Prüflabor", d: "Sammelt Messdaten. Damit machst du Fabriken effizienter. Läuft mit Statistik."});
++Object.assign(GT.bahnhof, {d: "Pendler kommen mit dem Zug und arbeiten als Fachkräfte. Läuft mit Data Analysis for Planning."});
++const GT23 = {
++  kieswerk: {n: "Kieswerk", d: "Baggert Kies und Sand aus dem Fluss. Läuft mit Hydromechanik.", f: "hydro", max: 5, cost: [80, 160, 350, 700, 1400], time: [120, 900, 3600, 10800, 28800], ew: 6, need: ["wasserturm", 2]},
++  stahlwerk: {n: "Stahlwerk", d: "Walzt Stahlträger und Bewehrung. Läuft mit Baustoffkunde.", f: "bsk", max: 5, cost: [90, 180, 380, 750, 1500], time: [120, 900, 3600, 10800, 28800], ew: 6, need: ["betonwerk", 2]},
++  lagerhaus: {n: "Lagerhaus", d: "Hier lagern deine Ressourcen. Jede Stufe fasst mehr.", f: null, max: 5, cost: [60, 150, 350, 700, 1300], time: [60, 600, 2700, 7200, 21600], ew: 2, uniq: 1},
++  mischanlage: {n: "Mischanlage", d: "Mischt Beton aus Zement, Kies und Sand und Wasser.", fab: 1, max: 3, cost: [150, 400, 900], time: [600, 3600, 14400], ew: 4, rat: 3, uniq: 1},
++  mauersteinwerk: {n: "Mauersteinwerk", d: "Presst und härtet Kalksandsteine.", fab: 1, max: 3, cost: [200, 450, 950], time: [900, 3600, 14400], ew: 4, rat: 3, uniq: 1},
++  glaserei: {n: "Glaserei", d: "Schmilzt Glas und baut Fenster mit Holzrahmen.", fab: 1, max: 3, cost: [220, 500, 1000], time: [900, 3600, 14400], ew: 4, rat: 3, uniq: 1},
++  abbundhalle: {n: "Abbundhalle", d: "Schneidet Bauholz nach Plan zu Dachstühlen zu.", fab: 1, max: 3, cost: [180, 450, 950], time: [900, 3600, 14400], ew: 4, rat: 3, uniq: 1},
++  fertigteilwerk: {n: "Fertigteilwerk", d: "Gießt Stahlbeton-Fertigteile für große Bauten.", fab: 1, max: 3, cost: [350, 800, 1600], time: [1800, 7200, 21600], ew: 6, rat: 4, uniq: 1},
++  mehrfamilienhaus: {n: "Mehrfamilienhaus", d: "Viele Wohnungen auf einem Grundstück.", max: 3, cost: [200, 450, 900], time: [1800, 7200, 21600], ew: 24, rat: 3, cnt: 3},
++  schule: {n: "Schule", d: "Lernen lohnt sich doppelt: +5 % Bitcoin auf jede Antwort.", max: 1, cost: [300], time: [3600], ew: 15, rat: 3, uniq: 1},
++  feuerwache: {n: "Feuerwache", d: "Schützt deine Serie: Du kannst 2 Serienschutze ansparen.", max: 1, cost: [400], time: [5400], ew: 12, rat: 4, uniq: 1},
++  buero: {n: "Bürohochhaus", d: "Firmen ziehen ein: Aufträge bringen 15 % mehr Bitcoin.", max: 1, cost: [700], time: [14400], ew: 40, rat: 5, uniq: 1},
++  fernsehturm: {n: "Fernsehturm", d: "Wahrzeichen für ein Fach, das du zu 80 % beherrschst.", lm: 1, max: 1, cost: [500], time: [7200], ew: 60, uniq: 1, cond: () => Object.keys(FACH).some(f => mastery(qsOf(f)) >= .8) ? "" : "Erst ein Fach zu 80 % beherrschen"},
++  stadion: {n: "Stadion", d: "Wahrzeichen für 30 Tage Lernen am Stück.", lm: 1, max: 1, cost: [600], time: [10800], ew: 60, uniq: 1, cond: () => (G().best || 0) >= 30 || streak() >= 30 ? "" : `Erst 30 Tage Serie (Rekord ${Math.max(G().best || 0, streak())})`},
++  kathedrale: {n: "Kathedrale", d: "Wahrzeichen für eine bestandene Probeklausur.", lm: 1, max: 1, cost: [800], time: [14400], ew: 60, uniq: 1, cond: () => G().kath ? "" : "Erst eine Probeklausur mit mindestens 50 % bestehen"},
++  bank: {n: "Bänke", d: "Ein Platz zum Ausruhen.", deko: 1, max: 1, cost: [10], time: [0], ew: 2},
++  brunnen: {n: "Brunnen", d: "Plätschert auf einem kleinen Platz.", deko: 1, max: 1, cost: [30], time: [0], ew: 3},
++  laterne: {n: "Laternenplatz", d: "Leuchtet nachts besonders schön.", deko: 1, max: 1, cost: [15], time: [0], ew: 2},
++  statue: {n: "Statue", d: "Ein Denkmal für fleißige Bauingenieure.", deko: 1, max: 1, cost: [40], time: [0], ew: 3},
++  blumen: {n: "Blumenbeet", d: "Bunte Beete. Gibt es in Truhen.", deko: 1, max: 1, cost: [0], time: [0], ew: 2, rare: 1},
++  baum: {n: "Seltener Baum", d: "Ein goldener Herbstbaum. Gibt es in Truhen.", deko: 1, max: 1, cost: [0], time: [0], ew: 3, rare: 1},
++  goldstatue: {n: "Goldene Statue", d: "Sehr selten in Truhen.", deko: 1, max: 1, cost: [0], time: [0], ew: 5, rare: 1}
++};
++Object.assign(GT, GT23);
++const GCAT = [["Wohnen", ["wohnhaus", "mehrfamilienhaus", "park"]], ["Werke", ["wasserturm", "kieswerk", "zimmerei", "betonwerk", "stahlwerk", "kran", "rechenzentrum", "vermessung", "bahnhof"]],
++  ["Fabriken", ["lagerhaus", "mischanlage", "mauersteinwerk", "glaserei", "abbundhalle", "fertigteilwerk"]], ["Stadt", ["schule", "feuerwache", "buero"]],
++  ["Wahrzeichen", ["fernsehturm", "stadion", "kathedrale"]], ["Deko", ["bank", "brunnen", "laterne", "statue", "blumen", "baum", "goldstatue"]]];
++GORDER.splice(0, GORDER.length, ...GCAT.flatMap(c => c[1]));
++const WERK = {wasserturm: {f: "hydro", r: "wasser"}, kieswerk: {f: "hydro", r: "kies"}, zimmerei: {f: "bauko", r: "holz"}, betonwerk: {f: "bsk", r: "zement"}, stahlwerk: {f: "bsk", r: "stahl"},
++  kran: {f: "phys", r: "strom"}, rechenzentrum: {f: "binf", r: "plan"}, vermessung: {f: "stat", r: "daten"}, bahnhof: {f: "dap", r: "fach"}};
++const WRATE = [0, .5, .65, .8, 1, 1.25], WCAP = [0, 10, 16, 24, 34, 48], LCAP = [25, 60, 100, 150, 220, 300];
++const FAB = {
++  mischanlage: {in: {zement: 1, kies: 2, wasser: 1}, out: {beton: 2}, t: 600, o1: "kies", n: ["Sieblinie optimiert", "Mischzeit per Regression bestimmt", "Wasserzementwert geprüft"]},
++  mauersteinwerk: {in: {zement: 1, kies: 3, wasser: 1, strom: 1}, out: {stein: 4}, t: 1200, o1: "kies", n: ["Rohdichte per Stichprobe", "Härtezeit ausgewertet", "Ausschuss halbiert"]},
++  glaserei: {in: {kies: 2, strom: 2, holz: 1}, out: {fenster: 1}, t: 1800, o1: "strom", n: ["Qualitätsregelkarte", "Ausreißer aussortiert", "Streuung gesenkt"]},
++  abbundhalle: {in: {holz: 3, plan: 1}, out: {dach: 1}, t: 2700, o1: "holz", n: ["Holzfeuchte gemessen", "Zuschnitt optimiert", "Toleranzen statistisch abgesichert"], o3: "plan"},
++  fertigteilwerk: {in: {beton: 2, stahl: 1, strom: 1, plan: 1}, out: {fert: 1}, t: 3600, o1: "strom", n: ["Bewehrung nachgerechnet", "Stichprobenprüfung", "Prüfplan nach Norm"]}
++};
++const OPTCOST = [[3, 30], [6, 60], [10, 120]];
++const ECOST = {
++  rathaus: [, , {}, {holz: 6, zement: 4, kies: 4, plan: 2, fach: 2}, {stein: 10, fenster: 4, dach: 2, plan: 3, fach: 3}, {fert: 6, fenster: 6, stahl: 4, plan: 4, fach: 4}],
++  wohnhaus: [, , , {holz: 4, zement: 2, kies: 3, plan: 1, fach: 1}, {stein: 6, holz: 3, fenster: 2, dach: 1, fach: 2}, {fert: 3, fenster: 4, stahl: 2, plan: 2, fach: 3}],
++  werk: [, , , {holz: 3, zement: 2, kies: 2, plan: 1, fach: 1}, {beton: 4, stein: 4, stahl: 2, plan: 2, fach: 2}, {fert: 3, fenster: 2, stahl: 3, plan: 3, fach: 3}],
++  lagerhaus: [, , , {holz: 5, stahl: 2}, {stein: 8, stahl: 3}, {fert: 2, stahl: 4}],
++  mischanlage: [, {zement: 3, kies: 4, holz: 2}, {stein: 4, stahl: 2, plan: 1, fach: 1}, {beton: 4, fenster: 2, stahl: 3, plan: 2, fach: 2}],
++  mauersteinwerk: [, {beton: 2, holz: 3, stahl: 1}, {stein: 4, stahl: 2, plan: 1, fach: 1}, {beton: 4, fenster: 2, stahl: 3, plan: 2, fach: 2}],
++  glaserei: [, {stein: 6, stahl: 2, strom: 3}, {stein: 4, stahl: 2, plan: 1, fach: 1}, {beton: 4, fenster: 2, stahl: 3, plan: 2, fach: 2}],
++  abbundhalle: [, {holz: 6, stein: 4, plan: 1}, {stein: 4, stahl: 2, plan: 1, fach: 1}, {beton: 4, fenster: 2, stahl: 3, plan: 2, fach: 2}],
++  fertigteilwerk: [, {beton: 6, stahl: 4, stein: 6, plan: 2}, {stein: 6, stahl: 3, plan: 2, fach: 2}, {beton: 6, fenster: 3, stahl: 4, plan: 3, fach: 3}],
++  mehrfamilienhaus: [, {stein: 6, fenster: 2, holz: 2, fach: 1}, {stein: 6, fenster: 2, dach: 1, fach: 2}, {fert: 2, fenster: 3, stahl: 2, fach: 2}],
++  schule: [, {stein: 6, beton: 3, plan: 2, fach: 2}], feuerwache: [, {stahl: 3, stein: 6, strom: 2, fenster: 1, fach: 2}], buero: [, {fert: 4, fenster: 4, plan: 3, strom: 3, fach: 3}],
++  fernsehturm: [, {fert: 4, stahl: 4, strom: 3, fach: 3}], stadion: [, {beton: 6, stahl: 4, stein: 4, fach: 3}], kathedrale: [, {stein: 10, fenster: 6, dach: 2, fach: 3}],
++  bank: [, {holz: 2}], brunnen: [, {beton: 2, wasser: 2}], laterne: [, {stahl: 1, strom: 1}], statue: [, {beton: 3, plan: 1}]
++};
++function ecoCost(k, L){ const row = ECOST[k] || (WERK[k] ? ECOST.werk : null); return (row && row[L]) ? Object.assign({}, row[L]) : {}; }
++
++/* ── Spielstand ── */
++function ecoInit(){
++  const g = G();
++  if (!g.r) g.r = {}; RBASE.concat(RPROD).forEach(k => { if (typeof g.r[k] !== "number") g.r[k] = 0; });
++  if (!g.fj) g.fj = {}; if (!g.opt) g.opt = {}; if (!g.inv) g.inv = {speed: 0, deko: {}}; if (!g.inv.deko) g.inv.deko = {};
++  if (!g.orders) g.orders = []; if (typeof g.xp !== "number") g.xp = 0; if (!g.lv) g.lv = 1; if (!g.sd) g.sd = []; if (typeof g.sh !== "number") g.sh = 1; if (!g.stat) g.stat = {};
++  return g;
++}
++const eco = () => ecoInit();
++const hasB = k => G().b.some(b => b.k === k && b.l > 0);
++const lagerL = () => { const b = G().b.find(o => o.k === "lagerhaus"); return b ? b.l : 0; };
++const lagerCap = () => LCAP[lagerL()];
++const lagerUsed = () => { const r = eco().r; return Object.keys(r).filter(k => k !== "daten" && k !== "fach").reduce((a, k) => a + r[k], 0); };
++const extraCap = k => k === "daten" ? 40 : k === "fach" ? 10 + 6 * ((G().b.find(o => o.k === "bahnhof") || {l: 0}).l) : 0;
++function ecoRoom(k){ return (k === "daten" || k === "fach") ? Math.max(0, extraCap(k) - eco().r[k]) : Math.max(0, lagerCap() - lagerUsed()); }
++function ecoStat(kind, k, n){ const g = eco(), d = dayKey(), s = g.stat[d] || (g.stat[d] = {p: {}, u: {}, m: {}}); s[kind][k] = (s[kind][k] || 0) + n;
++  const keys = Object.keys(g.stat).sort(); while (keys.length > 14) delete g.stat[keys.shift()]; }
++function ecoHave(c){ const r = eco().r; return Object.keys(c).every(k => (r[k] || 0) >= c[k]); }
++function ecoMiss(c, note){ const r = eco().r, m = Object.keys(c).filter(k => (r[k] || 0) < c[k]); if (note) m.forEach(k => ecoStat("m", k, 1)); return m.map(k => `${c[k] - (r[k] || 0)} ${RES[k].n}`).join(", "); }
++function ecoPay(c){ const r = eco().r; Object.keys(c).forEach(k => { r[k] -= c[k]; ecoStat("u", k, c[k]); }); }
++function ecoAdd(k, n){ const take = Math.min(n, ecoRoom(k)); eco().r[k] += take; return take; }
++function costHTML(c, coins, names){
++  const r = eco().r, parts = Object.keys(c).map(k => `<span class="rc${(r[k] || 0) < c[k] ? " miss" : ""}" title="${RES[k].n}">${ricon(k, 15)}${r[k] >= c[k] ? c[k] : `${Math.floor(r[k] || 0)}/${c[k]}`}${names ? `<small>${c[k] === 1 && k === "fach" ? "Fachkraft" : RES[k].n}</small>` : ""}</span>`);
++  if (coins !== undefined) parts.unshift(`<span class="rc${G().coins < coins ? " miss" : ""}"><i class="c3cn sm">₿</i>${fmtB(coins)}</span>`);
++  return `<span class="rcs">${parts.join("")}</span>`;
++}
++const gTr = () => 2 + (S.game && S.game.crew3 ? 1 : 0);
++
++/* ── Werke: Produktion nur durch Lernen ── */
++function ecoLastDays(f){
++  const ks = Object.keys(S.df).filter(k => (S.df[k] || {})[f] > 0).sort(); if (!ks.length) return 999;
++  const [y, m, d] = ks[ks.length - 1].split("-").map(Number); return dayNum() - dayNum(new Date(y, m - 1, d));
++}
++const werkIdle = b => WERK[b.k] && ecoLastDays(WERK[b.k].f) >= 7;
++function ecoFeed(f, pts){
++  const g = eco(), now = Date.now(); let any = 0;
++  g.b.forEach(b => { const w = WERK[b.k]; if (!w || w.f !== f || b.l < 1) return;
++    const boost = g.boost && g.boost.k === b.k && g.boost.until > now ? 2 : 1, cap = WCAP[b.l], before = b.st || 0;
++    b.st = Math.min(cap, before + pts * WRATE[b.l] * boost); if (b.st > before) { ecoStat("p", w.r, b.st - before); any = 1; } });
++  return any;
++}
++function ecoCollect(b){
++  const w = WERK[b.k]; if (!w) return 0; const n = Math.floor(b.st || 0); if (n < 1) return 0;
++  const take = ecoAdd(w.r, n); b.st -= take; save();
++  if (take < n) toast(w.r === "fach" ? "Mehr Fachkräfte passen nicht – baue den Bahnhof aus" : w.r === "daten" ? "Mehr Messdaten passen nicht – setze sie im Prüflabor ein" : "Das Lager ist voll – baue das Lagerhaus aus");
++  return take;
++}
++
++/* ── Fabriken ── */
++function fabRecipe(k){
++  const F = FAB[k], o = eco().opt[k] || 0, inp = Object.assign({fach: 1}, F.in), out = Object.assign({}, F.out);
++  if (o >= 1 && inp[F.o1] > 0) inp[F.o1] -= 1; if (o >= 3) { if (F.o3) delete inp[F.o3]; else out[Object.keys(out)[0]] += 1; }
++  Object.keys(inp).forEach(x => { if (!inp[x]) delete inp[x]; });
++  const L = (G().b.find(b => b.k === k) || {l: 1}).l || 1;
++  return {inp, out, t: Math.round(F.t * (o >= 2 ? .75 : 1) * [1, 1, .85, .7][L])};
++}
++const fabSlots = b => (b.l || 1) + 1;
++function fabJobs(b){ const g = eco(); return g.fj[b.id] || (g.fj[b.id] = []); }
++function fabStart(b){
++  const g = eco(), R = fabRecipe(b.k), J = fabJobs(b), now = Date.now();
++  if (b.l < 1) return "Die Fabrik ist noch im Bau"; if (J.length >= fabSlots(b)) return "Die Warteschlange ist voll";
++  if (!ecoHave(R.inp)) return "Es fehlen: " + ecoMiss(R.inp, true);
++  ecoPay(R.inp); const s = J.length ? Math.max(now, J[J.length - 1].e) : now; J.push({s, e: s + R.t * 1000, out: R.out}); save(); return "";
++}
++function fabCollect(b){
++  const J = fabJobs(b), now = Date.now(); let got = 0, full = 0;
++  while (J.length && J[0].e <= now) { const job = J[0], k = Object.keys(job.out)[0], n = job.out[k]; if (ecoRoom(k) < n) { full = 1; break; } ecoAdd(k, n); ecoStat("p", k, n); got += n; J.shift(); }
++  if (full) toast("Das Lager ist voll – baue das Lagerhaus aus"); if (got) save(); return got;
++}
++const fabReady = b => (eco().fj[b.id] || []).filter(j => j.e <= Date.now()).length;
++function optBuy(k){
++  const g = eco(), o = g.opt[k] || 0; if (o >= 3) return "Alle Optimierungen erledigt"; const [d, c] = OPTCOST[o];
++  if (g.r.daten < d) { ecoStat("m", "daten", 1); return `Es fehlen ${d - Math.floor(g.r.daten)} Messdaten`; } if (g.coins < c) return `Noch ${fmtB(c - g.coins)} ₿ zu wenig`;
++  g.r.daten -= d; ecoStat("u", "daten", d); g.coins -= c; g.opt[k] = o + 1; save(); return "";
++}
++function kampagne(k){ const g = eco(); if (g.r.daten < 5) { ecoStat("m", "daten", 1); return "Es fehlen Messdaten (5 nötig)"; } g.r.daten -= 5; ecoStat("u", "daten", 5); g.boost = {k, until: Date.now() + 2 * 3600e3}; save(); return ""; }
++
++/* ── Stadtstufe ── */
++const xpNeed = L => 60 + 40 * L;
++function ecoXP(n){
++  const g = eco(); g.xp += Math.round(n); let up = 0;
++  while (g.xp >= xpNeed(g.lv)) { g.xp -= xpNeed(g.lv); g.lv++; up++; g.coins += 25 * g.lv; g.total += 25 * g.lv; g.inv.speed++; }
++  if (up) setTimeout(() => toast(`Stadtstufe ${g.lv}! +₿ ${25 * g.lv} und ein Bau-Beschleuniger`), 400);
++}
++
++/* ── Aufträge ── */
++const OKUNDE = ["Kindergarten", "Spielplatz", "Bushaltestelle", "Radweg", "Gartenhaus", "Steg am Fluss", "Sporthalle", "Bäckerei", "Stadtfest-Bühne", "Hochbeete", "Carport", "Jugendzentrum", "Bibliothek", "Fahrradständer", "Pausenhof", "Arztpraxis", "Eisdiele", "Hundewiese"];
++function ecoAvail(){
++  const g = G(), a = [];
++  Object.keys(WERK).forEach(k => { if (hasB(k) && WERK[k].r !== "fach" && WERK[k].r !== "daten") a.push(WERK[k].r); });
++  Object.keys(FAB).forEach(k => { if (hasB(k)) a.push(Object.keys(FAB[k].out)[0]); });
++  return [...new Set(a)];
++}
++function neglectW(f){ return 1 + Math.min(10, ecoLastDays(f)); }
++function pickF(){ const fs = Object.keys(FACH), w = fs.map(neglectW), sum = w.reduce((a, b) => a + b, 0); let x = Math.random() * sum; for (let i = 0; i < fs.length; i++) { x -= w[i]; if (x <= 0) return fs[i]; } return fs[0]; }
++function orderNew(lern){
++  const g = eco(), av = ecoAvail(), id = Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
++  if (!lern && av.length) {
++    const rf = r => Object.keys(WERK).filter(k => WERK[k].r === r).map(k => WERK[k].f)[0], w = av.map(r => RES[r].p ? 2 : neglectW(rf(r)));
++    const pick = []; const n = Math.min(av.length, 1 + (Math.random() < .55) + (Math.random() < .3));
++    while (pick.length < n) { const sum = w.reduce((a, b, i) => a + (pick.includes(av[i]) ? 0 : b), 0); let x = Math.random() * sum; for (let i = 0; i < av.length; i++) { if (pick.includes(av[i])) continue; x -= w[i]; if (x <= 0) { pick.push(av[i]); break; } } }
++    const need = {}, RL = gRat(); pick.forEach(r => need[r] = RES[r].p ? 1 + Math.floor(Math.random() * Math.min(3, RL)) : 2 + Math.floor(Math.random() * (2 + RL)));
++    const val = Object.keys(need).reduce((a, r) => a + RVAL[r] * need[r], 0), rew = {b: Math.round(val * 1.3 / 5) * 5, xp: 5 + Math.round(val / 6)};
++    const x = Math.random(); if (x < .1) rew.speed = 1; else if (x < .2) rew.deko = ["bank", "laterne", "blumen", "brunnen"][Math.random() * 4 | 0];
++    return {id, kind: "res", name: OKUNDE[Math.random() * OKUNDE.length | 0], need, rew};
++  }
++  const f = pickF(), types = [["ok", 6, `6 richtige Antworten in ${FACH[f].n}`], ["st3", 3, `3 Anwenden-Fragen in ${FACH[f].n} richtig`], ["fix", 3, "3 frühere Fehler ausbügeln"], ["due", 5, "5 fällige Wiederholungen richtig"], ["task", 1, "Einen Lösungsweg fehlerfrei lösen"]];
++  const t = types[Math.random() < .6 ? (Math.random() < .55 ? 0 : 1) : 2 + (Math.random() * 3 | 0)];
++  const wr = Object.keys(WERK).find(k => WERK[k].f === f && !["kieswerk", "stahlwerk"].includes(k));
++  return {id, kind: "lern", t: t[0], f, n: t[1], c: 0, name: t[2], rew: {b: 30 + 10 * t[1] + (t[0] === "task" ? 40 : 0), xp: 20 + (t[0] === "task" ? 10 : 0), r: WERK[wr] ? [WERK[wr].r, 4] : null}};
++}
++function ordersTick(){
++  const g = eco(), now = Date.now(); let ch = 0;
++  for (let i = 0; i < 8; i++) { const o = g.orders[i]; if (!o || (o.wait && o.wait <= now)) { g.orders[i] = orderNew(i >= 6); ch = 1; } }
++  if (ch) save();
++}
++function orderOk(o){ return o && !o.wait && (o.kind === "res" ? ecoHave(o.need) : o.c >= o.n); }
++function orderDeliver(i){
++  const g = eco(), o = g.orders[i]; if (!o || o.wait) return "";
++  if (o.kind === "res") { if (!ecoHave(o.need)) return "Es fehlen: " + ecoMiss(o.need, true); ecoPay(o.need); } else if (o.c < o.n) return "Noch nicht geschafft";
++  const bonus = hasB("buero") ? 1.15 : 1, b = Math.round(o.rew.b * bonus); g.coins += b; g.total += b;
++  if (o.rew.speed) g.inv.speed++; if (o.rew.deko) g.inv.deko[o.rew.deko] = (g.inv.deko[o.rew.deko] || 0) + 1; if (o.rew.r) ecoAdd(o.rew.r[0], o.rew.r[1]);
++  ecoXP(o.rew.xp); g.orders[i] = {wait: Date.now() + 10 * 60e3}; save(); return "";
++}
++function orderDrop(i){ const g = eco(); if (g.oDrop === dayKey()) return "Heute hast du schon einen Auftrag verworfen"; g.oDrop = dayKey(); g.orders[i] = {wait: Date.now() + 10 * 60e3}; save(); return ""; }
++
++/* ── Truhe nach dem Tagesziel ── */
++const chestReady = () => gOn() && today().n >= GOAL && eco().chestDay !== dayKey();
++const chestTier = () => { const s = streak(); return s >= 30 ? 2 : s >= 7 ? 1 : 0; };
++function chestOpen(){
++  const g = eco(); if (!chestReady()) return null; const tier = chestTier(), out = {tier, items: []};
++  const base = RBASE.filter(r => r !== "fach" && r !== "daten" && Object.keys(WERK).some(k => WERK[k].r === r && hasB(k)));
++  const pool = base.length ? base : ["holz", "zement", "wasser"];
++  for (let i = 0; i < [2, 3, 4][tier]; i++) { const r = pool[Math.random() * pool.length | 0], n = [3, 4, 5][tier] + (Math.random() * 3 | 0); const got = ecoAdd(r, n); if (got) out.items.push([r, got]); }
++  if (tier === 2) { const pr = RPROD.filter(p => Object.keys(FAB).some(k => hasB(k) && FAB[k].out[p])); if (pr.length) { const p = pr[Math.random() * pr.length | 0], got = ecoAdd(p, 2); if (got) out.items.push([p, got]); } }
++  const b = [20, 40, 80][tier] + (Math.random() * [20, 40, 70][tier] | 0); g.coins += b; g.total += b; out.b = b;
++  if (tier === 2 || Math.random() < [.25, .45, 1][tier]) { g.inv.speed++; out.speed = 1; }
++  if (Math.random() < [.1, .2, .35][tier]) { const d = tier === 2 && Math.random() < .3 ? "goldstatue" : ["blumen", "baum", "blumen", "bank"][Math.random() * 4 | 0]; g.inv.deko[d] = (g.inv.deko[d] || 0) + 1; out.deko = d; }
++  if (Math.random() < [.03, .08, .15][tier] && g.sh < shCap()) { g.sh++; out.sh = 1; }
++  g.chestDay = dayKey(); ecoXP(10 + 10 * tier); save(); return out;
++}
++
++/* ── Serienschutz: einmal pro Woche ein Tag Pause ohne Serienbruch ── */
++const shCap = () => 1 + (hasB("feuerwache") ? 1 : 0);
++function ecoDaily(){
++  if (!S.game) return; const g = eco(), wk = Math.floor((dayNum() + 3) / 7);
++  if (g.shW !== wk) { if (g.shW !== undefined) g.sh = Math.min(shCap(), g.sh + 1); g.shW = wk; }
++  const d1 = new Date(); d1.setDate(d1.getDate() - 1); const d2 = new Date(); d2.setDate(d2.getDate() - 2);
++  const k1 = dayKey(d1), k2 = dayKey(d2), act = k => (S.days[k] || {}).n > 0 || g.sd.includes(k);
++  if (!act(k1) && act(k2) && g.sh > 0 && g.sdCheck !== dayKey()) { g.sh--; g.sd.push(k1); g.sd = g.sd.slice(-20); g.shUsed = k1; setTimeout(() => toast("Serienschutz eingesetzt – deine Serie läuft weiter"), 1200); }
++  g.sdCheck = dayKey(); g.best = Math.max(g.best || 0, streak()); ordersTick(); save();
++}
++
++/* ── Anbindung ans Lernen ── */
++function ecoAnswer(q, ok, p){
++  if (!S.game) return; const g = eco(), pts = (ok ? 1 : .5) * [1, 1, 1.25, 1.6][q.st || 2];
++  ecoFeed(q.f, pts);
++  g.orders.forEach(o => { if (!o || o.kind !== "lern" || o.wait || o.c >= o.n || !ok) return;
++    if ((o.t === "ok" && q.f === o.f) || (o.t === "st3" && q.f === o.f && q.st === 3) || (o.t === "fix" && p && p.had && p.last === false) || (o.t === "due" && p && p.due)) o.c++; });
++  g.best = Math.max(g.best || 0, streak()); save();
++}
++function ecoTask(a, p){ if (!S.game) return; const g = eco(); ecoFeed(a.f, 4 + 4 * p); if (p === 1) g.orders.forEach(o => { if (o && o.kind === "lern" && o.t === "task" && !o.wait && o.c < o.n) o.c++; }); save(); }
++function ecoExam(p){ if (!S.game) return; if (p >= .5) { eco().kath = 1; save(); } }
++const ordersReadyN = () => (eco().orders || []).filter(orderOk).length;
+ /* ═════════ v2.2: 3D-Stadt im Vollbild – three.js, Low-Poly ═════════ */
+ const C3 = {ok:null, open:false, init:false, prev:"heute", grp:{}, keys:{}, labs:{}, sel:null, place:null, drawer:false, t:0, last:0, raf:0, anims:[], wob:{}, fx:[], snapT:0};
+ function c3Ok(){
+@@ -1868,7 +2188,7 @@
+     glassL: S({color: 0x54697e, metalness: .4, roughness: .16, emissive: 0xffc46a, emissiveIntensity: 0}),
+     glassB: S({color: 0x7fb4dc, metalness: .45, roughness: .12, emissive: 0xbfe3ff, emissiveIntensity: 0}),
+     rzGlass: S({map: T.facade, emissiveMap: T.facadeE, emissive: 0xffffff, emissiveIntensity: .1, metalness: .35, roughness: .25}),
+-    led: S({color: 0x2ee87a, emissive: 0x2ee87a, emissiveIntensity: 1}), ledR: S({color: 0xff3b30, emissive: 0xff3b30, emissiveIntensity: 1}),
++    led: S({color: 0x2ee87a, emissive: 0x2ee87a, emissiveIntensity: 1}), glow: S({color: 0xffa040, emissive: 0xff6a00, emissiveIntensity: 1.3}), ledR: S({color: 0xff3b30, emissive: 0xff3b30, emissiveIntensity: 1}),
+     lamp: S({color: 0xfff3c4, emissive: 0xffd27a, emissiveIntensity: 0}), headL: S({color: 0xfffbe6, emissive: 0xfff2c0, emissiveIntensity: 0}), tailL: S({color: 0xb3261e, emissive: 0xff2a1a, emissiveIntensity: 0}),
+     door: S({color: 0x6b4a32}), solar: S({color: 0x1f2e5a, metalness: .55, roughness: .22}), clock: S({color: 0xfdfaf0}),
+     hedge: c3sway(S({color: 0x3e7d35})), leaf: c3sway(S({color: 0x4f9a3c})), leaf2: c3sway(S({color: 0x76b84a})), fir: c3sway(S({color: 0x2e6a3a})),
+@@ -1908,7 +2228,7 @@
+   push(x = 0, y = 0, z = 0, ry = 0){ const m = c3m4().makeRotationY(ry).setPosition(x, y, z); this.st.push(this.st[this.st.length-1].clone().multiply(m)); return this; }
+   pop(){ this.st.pop(); return this; }
+   put(mat, g, x = 0, y = 0, z = 0, ry = 0, rx = 0, rz = 0){
+-    if (this.raw) mat = /^(glass|glassL|glassB|rzGlass)$/.test(mat) ? "rawDark" : /^(led|ledR|lamp|jet|water|flag|flow[RYP]|leaf|leaf2|fir|hedge|lawn|grass|solar|gold|clock)$/.test(mat) ? null : /^(steel|scaf|metal|yellow|rail|tank)$/.test(mat) ? "steel" : "raw";
++    if (this.raw) mat = /^(glass|glassL|glassB|rzGlass)$/.test(mat) ? "rawDark" : /^(glow|led|ledR|lamp|jet|water|flag|flow[RYP]|leaf|leaf2|fir|hedge|lawn|grass|solar|gold|clock)$/.test(mat) ? null : /^(steel|scaf|metal|yellow|rail|tank)$/.test(mat) ? "steel" : "raw";
+     if (!mat) { g.dispose(); return this; }
+     const m = c3m4().makeRotationFromEuler(new THREE.Euler(rx, ry, rz, "YXZ")).setPosition(x, y, z);
+     g.applyMatrix4(this.st[this.st.length-1].clone().multiply(m));
+@@ -2175,13 +2495,182 @@
+   if (L >= 5) { K.put("glassB", new THREE.CylinderGeometry(.32, .32, 1.7, 10, 1, true, 0, Math.PI).rotateZ(Math.PI/2).rotateY(0), 0, .5, .6); }
+   if (L >= 2) { K.push(.35, .05, .68); K.box("train", .7, .2, .2); K.box("trainW", .7, .03, .202, 0, .06, 0); K.box("glass", .6, .06, .205, 0, .11, 0); K.box("grey", .66, .03, .18, 0, .2, 0); K.pop(); }
+ }
+-function c3design(k, L, id, raw){
++function c3design(k, L, id, raw, ex){
+   const K = new C3Kit(raw);
+-  ({rathaus: () => c3rathaus(K, L), wohnhaus: () => c3wohn(K, L, id), park: () => c3park(K, id), wasserturm: () => c3wasser(K, L), zimmerei: () => c3zimmerei(K, L),
++  if (typeof C3D23 !== "undefined" && C3D23[k]) C3D23[k](K, L, id);
++  else if (k === "kran") c3kraftwerk(K, L);
++  else if (k === "lagerhaus") c3lager(K, L, ex || 0);
++  else if (GT[k] && GT[k].deko) c3deko(K, k, id);
++  else ({rathaus: () => c3rathaus(K, L), wohnhaus: () => c3wohn(K, L, id), park: () => c3park(K, id), wasserturm: () => c3wasser(K, L), zimmerei: () => c3zimmerei(K, L),
+     betonwerk: () => c3beton(K, L), kran: () => c3kranHof(K, L), rechenzentrum: () => c3rechen(K, L), vermessung: () => c3vermess(K, L), bahnhof: () => c3bahnhof(K, L)}[k] || (() => {}))();
+   return K.build();
+ }
+ 
++/* ── v2.3: neue Gebäude in 3D ── */
++function c3rotor(K, x, y, z, r = .32, ry = 0){
++  const rk = new C3Kit(); rk.ball("white", .03, 0, 0, 0, 0);
++  for (let i = 0; i < 3; i++) { const a = i * 2.094; rk.put("white", c3boxG(.035, r, .012).translate(0, r / 2, 0), 0, 0, .02, 0, 0, a); }
++  const g = rk.build(false); K.add(g, "rotor", {sp: 2 + Math.random()}).position.set(x, y, z); g.rotation.y = ry;
++}
++function c3kraftwerk(K, L){
++  K.box("gravel", 1.8, .01, 1.8);
++  K.push(-.3, 0, -.45); K.box("metal", 1.0, .5 + .05 * L, .6); K.box("red", 1.02, .05, .62, 0, .32, 0); K.box("glassL", .9, .1, .02, 0, .18, .305); K.box("roofFlat", 1.06, .04, .66, 0, .5 + .05 * L, 0);
++  c3door(K, -.3, .3, .2, .26); K.pop();
++  const ch = 1.1 + .15 * L; for (let i = 0; i < 4; i++) K.cyl(i % 2 ? "white" : "red", .07 - i * .004, ch / 4, .12, i * ch / 4, -.62, 8); K.emit.push([.12, ch + .05, -.62]);
++  K.push(.55, 0, -.45); K.box("concrete", .5, .04, .5); for (const x of [-.12, .12]) { K.box("dark", .16, .2, .22, x, .04, 0); for (let i = 0; i < 4; i++) K.box("dark", .17, .015, .23, x, .07 + i * .04, 0); K.cyl("white", .015, .1, x, .24, .06, 6); K.cyl("white", .015, .1, x, .24, -.06, 6); } K.pop();
++  K.push(.62, 0, .45); for (const [a, b] of [[-1,-1],[1,-1],[-1,1],[1,1]]) K.beam("steel", [a * .1, 0, b * .1], [a * .03, 1.3, b * .03], .02);
++  for (const y of [.5, .9, 1.2]) { K.box("steel", .4, .015, .02, 0, y, 0); } K.beam("steel", [-.1, 0, .1], [.1, .6, .1], .01); K.beam("steel", [.1, 0, -.1], [-.1, .6, -.1], .01); K.pop();
++  const nT = Math.min(3, Math.max(0, L - 1));
++  for (let i = 0; i < nT; i++) { const x = -.7 + i * .42, z = .55; K.cyl("white", .03, 1.35, x, 0, z, 8, .045); K.box("white", .08, .07, .14, x, 1.33, z); c3rotor(K, x, 1.37, z + .08, .34); }
++  if (L >= 3) for (let i = 0; i < 3; i++) K.put("solar", c3boxG(.32, .02, .16), -.55 + i * .36, .12, .15, 0, -.45);
++  if (L >= 5) { K.box("contB", .4, .2, .2, .1, 0, .2); K.box("contB", .4, .2, .2, .1, 0, .0); }
++}
++function c3kieswerk(K, L){
++  K.box("sand", 1.8, .01, 1.8);
++  K.cyl("water", .42, .02, -.45, 0, -.45, 12); K.box("yellow", .22, .08, .12, -.45, .02, -.45); K.beam("yellow", [-.4, .1, -.45], [-.15, .25, -.45], .03);
++  K.push(.35, 0, -.35); for (const [a, b] of [[-1,-1],[1,-1],[-1,1],[1,1]]) K.box("steel", .03, .5, .03, a * .15, 0, b * .15); K.box("metal", .4, .3, .4, 0, .5, 0); K.box("roofFlat", .44, .03, .44, 0, .8, 0);
++  for (let i = 0; i < 3; i++) K.beam("steel", [-.15 + i * .15, .5, .2], [-.25 + i * .15, .12, .45], .03); K.pop();
++  K.beam("dark", [-.15, .12, -.45], [.2, .7, -.35], .06);
++  const piles = 2 + Math.min(3, L); for (let i = 0; i < piles; i++) K.cone(i % 2 ? "gravel" : "sand", .22 + .02 * L, .2 + .02 * L, -.6 + i * .32, 0, .55, 7);
++  if (L >= 3) { K.beam("dark", [.6, .1, .2], [.75, .5, -.2], .05); K.cone("gravel", .25, .25, .65, 0, .3, 7); }
++  if (L >= 4) { K.box("orange", .32, .1, .2, .1, .02, .15); K.box("orange", .12, .12, .2, .22, .1, .15); K.box("glass", .02, .07, .16, .28, .14, .15); }
++}
++function c3stahlwerk(K, L){
++  K.box("concrete", 1.8, .01, 1.8);
++  const w = 1.1 + .05 * L; K.push(-.15, 0, -.35); K.box("steel", w, .55 + .05 * L, .7);
++  for (let i = 0; i < 4; i++) K.put("metal", c3boxG(w / 4, .04, .38), -w / 2 + w / 8 + i * w / 4, .62 + .05 * L, -.12, 0, .45);
++  K.box("glow", .3, .22, .02, -.15, 0, .355); K.box("dark", .34, .02, .03, -.15, .22, .36); K.pop();
++  for (let i = 0; i < Math.min(3, 1 + Math.floor(L / 2)); i++) { const x = .25 + i * .25, h = 1.3 + .15 * L; K.cyl("dark", .07, h, x - .15, 0, -.7, 8); K.cyl("red", .072, .06, x - .15, h - .12, -.7, 8); K.emit.push([x - .15, h + .05, -.7]); }
++  K.push(.35, 0, .45); for (let l = 0; l < 2 + (L > 2); l++) for (let i = 0; i < 4; i++) { K.box("steel", .6, .04, .03, 0, l * .05, -.12 + i * .08); } K.pop();
++  K.push(-.55, 0, .5); for (let i = 0; i < 2 + (L > 3); i++) K.put("steel", new THREE.CylinderGeometry(.09, .09, .1, 10).rotateX(Math.PI / 2), i * .22, .09, 0); K.pop();
++}
++function c3lager(K, L, fill){
++  K.box("paving", 1.8, .012, 1.8);
++  const w = 1.2 + .06 * L, d = .8; K.push(0, 0, -.25); K.box("plinth", w, .12, d); K.box("metal", w, .4 + .05 * L, d, 0, .12, 0);
++  K.push(0, .52 + .05 * L, 0); c3gable(K, "metal", "roofDark", w, d, .25, .05); K.pop();
++  for (const x of [-w / 3, 0, w / 3]) { K.box("dark", .26, .32, .02, x, .02, d / 2 + .005); for (let i = 0; i < 6; i++) K.box("grey", .26, .006, .021, x, .05 + i * .05, d / 2 + .006); }
++  K.box("concrete", w, .08, .2, 0, 0, d / 2 + .1); K.pop();
++  if (L >= 4) { K.push(-.62, 0, .45); K.box("brick", .5, .4, .4); K.push(0, .4, 0); c3gable(K, "brick", "roofDark", .5, .4, .14, .04); K.pop(); K.pop(); }
++  const n = Math.round(c3clamp(fill, 0, 1) * 9);
++  for (let i = 0; i < n; i++) { const x = .1 + (i % 3) * .22, z = .38 + Math.floor(i / 3) * .2; K.box("wood", .18, .025, .16, x, 0, z); K.box(["timber", "brick", "concrete"][i % 3], .15, .12, .14, x, .025, z); }
++  K.push(-.25, 0, .55); K.box("yellow", .16, .07, .1); K.box("yellow", .05, .1, .1, -.05, .07, 0); K.box("dark", .02, .2, .08, .09, 0, 0); K.pop();
++}
++function c3fabBase(K, w, d, h, wall, roof, x = 0, z = -.3){
++  K.push(x, 0, z); K.box("plinth", w + .02, .08, d + .02); K.box(wall, w, h, d);
++  K.push(0, h, 0); c3gable(K, wall, roof, w, d, .22, .05); K.pop();
++  c3door(K, -w / 4, d / 2, .26, .3); c3win(K, w / 4, h * .45, d / 2, 0, .3, .12, w * 10, false); K.pop();
++}
++function c3misch(K, L){
++  K.box("concrete", 1.8, .012, 1.8);
++  K.push(.35, 0, -.35); K.box("concrete", .45, 1.0 + .1 * L, .45); K.box("metal", .5, .35, .5, 0, 1.0 + .1 * L, 0); K.box("roofFlat", .54, .03, .54, 0, 1.35 + .1 * L, 0); K.box("yellow", .48, .03, .48, 0, .9 + .1 * L, 0);
++  K.box("dark", .5, .12, .6, 0, .3, 0); K.pop();
++  for (let i = 0; i < 2; i++) { const x = -.25 + i * .3; K.cyl("grey", .13, .8, x, .3, -.55, 10); K.put("concrete", new THREE.ConeGeometry(.13, .2, 10).rotateX(Math.PI), x, .2, -.55); for (const a of [-1, 1]) K.box("steel", .025, .3, .025, x + a * .09, 0, -.55); }
++  K.beam("steel", [-.55, .1, .45], [.2, .95, -.25], .07); K.beam("dark", [-.55, .16, .45], [.2, 1.0, -.25], .02);
++  for (let i = 0; i < 3; i++) { K.box("concrete", .3, .14, .03, -.65 + i * .33, 0, .72); K.cone(["gravel", "sand", "gravel"][i], .14, .12, -.65 + i * .33, 0, .58, 7); }
++  K.push(.45, 0, .45); K.box("dark", .45, .05, .2, 0, .04, 0); K.box("orange", .14, .15, .2, .17, .06, 0); K.put("white", new THREE.CylinderGeometry(.09, .07, .26, 10).rotateZ(Math.PI / 2 - .16), -.05, .18, 0); K.pop();
++}
++function c3mauer(K, L){
++  K.box("paving", 1.8, .012, 1.8);
++  c3fabBase(K, 1.3, .65, .42 + .04 * L, "brick", "roofDark", -.15, -.45);
++  K.push(.62, 0, .1); for (let i = 0; i < 1 + (L > 1); i++) { K.put("steel", new THREE.CylinderGeometry(.13, .13, .9, 12).rotateX(Math.PI / 2), i * -.32, .2, 0); K.box("steel", .04, .08, .04, i * -.32, 0, .3); K.box("steel", .04, .08, .04, i * -.32, 0, -.3); } K.pop();
++  for (let p = 0; p < 2 + L; p++) { const x = -.7 + p * .3, z = .6; K.box("wood", .22, .025, .2, x, 0, z); for (let l = 0; l < 3; l++) K.box("white", .2, .05, .18, x, .025 + l * .052, z); }
++}
++function c3glas(K, L){
++  K.box("paving", 1.8, .012, 1.8);
++  K.push(-.1, 0, -.35); K.box("white", 1.3, .45 + .04 * L, .7); for (let i = 0; i < 4; i++) { K.put("glassB", c3boxG(.325, .03, .42), -.49 + i * .325, .55 + .04 * L, -.08, 0, .55); K.put("white", c3boxG(.325, .2, .03), -.49 + i * .325, .45 + .04 * L, .12, 0, 0); }
++  c3door(K, -.35, .35, .26, .3); c3win(K, .25, .2, .35, 0, .4, .14, 5, false, "glassB"); K.pop();
++  K.cyl("brick", .08, 1.3 + .1 * L, .7, 0, -.7, 8); K.emit.push([.7, 1.35 + .1 * L, -.7]);
++  for (let r = 0; r < 1 + (L > 1); r++) { K.push(-.4 + r * .7, 0, .55); K.beam("steel", [-.25, 0, -.08], [-.25, .35, 0], .02); K.beam("steel", [.25, 0, -.08], [.25, .35, 0], .02); K.box("steel", .52, .02, .2, 0, 0, 0);
++    for (let i = 0; i < 4; i++) { K.put("timber", c3boxG(.18, .26, .02), -.18 + i * .12, .16, .02 + i * .01, 0, -.15); K.put("glassB", c3boxG(.15, .22, .022), -.18 + i * .12, .16, .02 + i * .01, 0, -.15); } K.pop(); }
++}
++function c3abbund(K, L){
++  K.box("gravel", 1.8, .01, 1.8);
++  K.push(-.15, 0, -.35); for (const x of [-.6, -.2, .2, .6]) for (const z of [-.3, .3]) K.box("woodDark", .05, .5, .05, x, 0, z);
++  K.push(0, .5, 0); c3gable(K, "timber", "roofDark", 1.3, .7, .25, .06); K.pop(); K.box("dark", .3, .2, .3, -.2, 0, 0); K.box("yellow", .06, .25, .06, -.2, .2, 0); K.box("timber", .7, .04, .06, .15, .18, 0); K.pop();
++  for (let i = 0; i < 1 + L; i++) { K.push(-.6 + i * .32, 0, .55); K.beam("timber", [-.14, .02, 0], [0, .26, 0], .03); K.beam("timber", [.14, .02, 0], [0, .26, 0], .03); K.beam("timber", [-.14, .03, 0], [.14, .03, 0], .03); K.beam("timber", [0, .03, 0], [0, .26, 0], .02); K.pop(); }
++  K.push(.62, 0, .2); for (let l = 0; l < 3; l++) for (let i = 0; i < 4; i++) K.box("timber", .07, .05, .45, -.12 + i * .08, l * .055, 0); K.pop();
++}
++function c3fertig(K, L){
++  K.box("concrete", 1.8, .012, 1.8);
++  c3fabBase(K, 1.5, .75, .55 + .05 * L, "metal", "roofDark", 0, -.45);
++  for (const x of [-.85, .85]) K.box("yellow", .06, .62, .06, x, 0, .45); K.box("yellow", 1.76, .07, .08, 0, .62, .45); K.box("dark", .14, .08, .12, .2, .55, .45); K.box("dark", .006, .3, .006, .2, .25, .45);
++  K.box("concrete", .5, .05, .3, .2, .2, .45);
++  for (let s = 0; s < 2 + L; s++) K.box("concrete", .55, .05, .32, -.45, s * .055, .45);
++  K.push(.55, 0, .45); K.box("steel", .3, .02, .2); for (let i = 0; i < 2; i++) K.put("concrete", c3boxG(.3, .32, .04), 0, .18, -.04 + i * .08, 0, .08); K.pop();
++}
++function c3mfh(K, L, id){
++  const pm = "pl" + ((id + 2) % 6), fl = 2 + L, fh = .3, w = 1.55, d = 1.05, h = fl * fh + .05;
++  K.box("paving", 1.8, .012, .4, 0, 0, .7); K.push(0, 0, -.15); K.box("plinth", w + .02, .07, d + .02); K.box(pm, w, h, d);
++  c3wins(K, w, d, fl, fh, {cols: 5, side: 3, seed: id * 3, skip: 2, wh: .15}); c3door(K, 0, d / 2, .24, .26); K.box("white", .5, .03, .2, 0, .28, d / 2 + .1);
++  for (let f = 1; f < fl; f++) for (const x of [-.5, .5]) { K.push(x, f * fh + .02, d / 2); K.box("white", .36, .03, .18, 0, 0, .09); K.box("steel", .36, .09, .012, 0, .03, .18); K.pop(); }
++  if (L < 3) { K.push(0, h, 0); c3gable(K, pm, "roofRed", w, d, .4); K.pop(); } else { c3flat(K, w, d, h); K.box("lawn", .6, .05, .5, .4, h + .04, 0); c3tree(K, .4, 0, .45, false, h + .09); K.box("wood", .5, .02, .3, -.4, h + .04, .1); }
++  K.pop(); c3tree(K, -.75, .75, .6); c3tree(K, .75, .75, .6, true);
++}
++function c3schule(K){
++  K.box("paving", 1.8, .012, .9, 0, 0, .45); for (const [w, d, x, z] of [[.9, .02, 0, .2], [.9, .02, 0, .7], [.02, .5, -.45, .45], [.02, .5, .45, .45]]) K.box("line", w, .004, d, x, .013, z);
++  K.push(-.2, 0, -.5); K.box("plinth", 1.32, .07, .62); K.box("pl1", 1.3, .7, .6); c3wins(K, 1.3, .6, 2, .34, {cols: 6, side: 2, seed: 12, skip: 2, wh: .17}); c3door(K, 0, .3, .26, .3);
++  c3flat(K, 1.3, .6, .72); K.box("white", .26, .3, .26, 0, .72, 0); c3clockFace(K, .92, .13); K.pop();
++  K.push(.62, 0, .05); K.box("pl1", .45, .55, .8); c3wins(K, .45, .8, 1, .5, {cols: 1, side: 3, seed: 30, wh: .25}); K.box("roofFlat", .5, .04, .85, 0, .55, 0); K.pop();
++  K.cyl("steel", .012, .9, -.8, 0, .1, 6); const f = K.add(new THREE.Mesh(c3boxG(.24, .14, .01).translate(.12, 0, 0), C3.M.flag), "flag"); f.position.set(-.8, .82, .1);
++  K.box("dark", .03, .3, .03, .4, 0, .45); K.box("white", .14, .1, .01, .4, .3, .45);
++}
++function c3feuer(K){
++  K.box("concrete", 1.8, .012, .7, 0, 0, .55);
++  K.push(-.1, 0, -.3); K.box("brick", 1.3, .55, .75); for (let i = 0; i < 3; i++) { const x = -.42 + i * .42; K.box("red", .34, .38, .02, x, 0, .38); for (let j = 0; j < 4; j++) K.box("white", .34, .008, .021, x, .08 + j * .08, .385); }
++  K.box("white", 1.32, .06, .77, 0, .55, 0); K.box("roofFlat", 1.32, .03, .77, 0, .61, 0); K.box("red", .5, .08, .01, 0, .44, .39); K.pop();
++  K.push(.7, 0, -.4); K.box("brick", .3, 1.5, .3); K.box("red", .34, .08, .34, 0, 1.5, 0); K.box("roofFlat", .34, .03, .34, 0, 1.58, 0); for (let y = .4; y < 1.4; y += .35) c3win(K, 0, y, .15, 0, .1, .16, y * 9, false); K.pop();
++  K.push(-.1, 0, .55); K.box("red", .7, .18, .26, 0, .05, 0); K.box("red", .2, .14, .26, .3, .23, 0); K.box("glass", .02, .08, .22, .405, .26, 0); K.box("white", .7, .03, .262, 0, .14, 0); K.box("steel", .5, .03, .1, -.08, .26, 0);
++  for (const x of [.22, -.05, -.25]) for (const z of [.13, -.13]) K.put("black", new THREE.CylinderGeometry(.05, .05, .04, 10).rotateX(Math.PI / 2), x, .05, z); K.box("ledR", .06, .03, .08, .3, .37, 0); K.pop();
++}
++function c3buero(K){
++  K.box("paving", 1.8, .012, 1.8);
++  K.push(0, 0, -.1); K.box("concrete", 1.0, .25, 1.0); K.box("glassB", .95, .2, .95, 0, .02, 0);
++  const H = 3.3; K.box("glassB", .8, H, .8, 0, .25, 0); for (let y = .55; y < H + .2; y += .3) K.box("white", .82, .025, .82, 0, y, 0);
++  for (const [x, z] of [[-.4, -.4], [.4, -.4], [-.4, .4], [.4, .4]]) K.box("white", .04, H, .04, x, .25, z);
++  K.box("white", .84, .08, .84, 0, H + .25, 0); K.box("metal", .3, .2, .3, .1, H + .33, -.1); K.cyl("steel", .012, .5, -.25, H + .33, .2, 6); K.ball("ledR", .02, -.25, H + .84, .2, 1); K.pop();
++  K.box("white", .7, .03, .3, 0, .3, .55); c3tree(K, -.75, .75, .6); c3tree(K, .75, .75, .6);
++}
++function c3turm(K){
++  K.box("paving", 1.8, .012, 1.8); K.cyl("concrete", .55, .3, 0, 0, 0, 10); c3door(K, 0, .55, .2, .24);
++  K.cyl("concrete", .1, 3.6, 0, .3, 0, 10, .16); K.cyl("glassB", .32, .2, 0, 2.8, 0, 14); K.cyl("white", .34, .04, 0, 3.0, 0, 14); K.cyl("white", .34, .04, 0, 2.76, 0, 14); K.ball("white", .2, 0, 3.15, 0, 1);
++  for (let i = 0; i < 5; i++) K.cyl(i % 2 ? "white" : "red", .04 - i * .006, .16, 0, 3.6 + i * .16, 0, 6); K.ball("ledR", .03, 0, 4.42, 0, 1);
++}
++function c3stadion(K){
++  K.box("paving", 1.86, .012, 1.86);
++  K.put("concrete", new THREE.CylinderGeometry(.9, .92, .42, 28, 1, true).scale(1, 1, .74), 0, .21, 0);
++  for (let i = 0; i < 5; i++) { const r0 = .5 + i * .08; K.put(["red", "white", "red", "white", "red"][i], new THREE.RingGeometry(r0, r0 + .085, 28).rotateX(-Math.PI / 2).scale(1, 1, .74), 0, .06 + i * .075, 0);
++    K.put("concrete", new THREE.CylinderGeometry(r0, r0, .075, 28, 1, true).scale(1, 1, .74), 0, .025 + i * .075, 0); }
++  K.put("lawn", new THREE.CylinderGeometry(.5, .5, .03, 28).scale(1, 1, .74), 0, .015, 0);
++  K.box("line", .66, .004, .012, 0, .032, 0); K.box("line", .012, .004, .66, 0, .032, 0); K.put("line", new THREE.TorusGeometry(.09, .006, 4, 20).rotateX(Math.PI / 2), 0, .033, 0);
++  K.box("white", .03, .06, .14, -.52, .03, 0); K.box("white", .03, .06, .14, .52, .03, 0);
++  K.put("metal", new THREE.CylinderGeometry(.95, .95, .03, 28, 1, false, -0.9, 1.8).scale(1, 1, .74), 0, .5, 0);
++  for (const [x, z] of [[-.86, -.62], [.86, -.62], [-.86, .62], [.86, .62]]) { K.box("steel", .03, .95, .03, x, 0, z); K.box("lamp", .16, .07, .05, x, .95, z); }
++}
++function c3kathe(K){
++  K.box("paving", 1.8, .012, 1.8);
++  K.push(0, 0, -.2); K.box("cream", .62, .8, 1.2); K.push(0, .8, 0, Math.PI / 2); c3gable(K, "cream", "roofDark", 1.2, .62, .5, .04); K.pop();
++  for (let i = 0; i < 4; i++) for (const s of [-1, 1]) { K.box("cream", .08, .55, .12, s * .35, 0, -.45 + i * .3); c3win(K, s * .31, .2, -.3 + i * .3 - .15, s * Math.PI / 2, .1, .35, i * 3 + s, false, "glassB"); }
++  for (const s of [-1, 1]) { K.push(s * .22, 0, .62); K.box("cream", .26, 1.5, .26); c3win(K, 0, .9, .13, 0, .08, .25, s * 7, false, "glassB"); K.push(0, 1.5, 0); c3hip(K, "roofDark", .3, .3, .8); K.pop(); K.ball("gold", .03, 0, 2.33, 0, 1); K.pop(); }
++  K.put("glassB", new THREE.CylinderGeometry(.13, .13, .02, 14).rotateX(Math.PI / 2), 0, .95, .61); c3door(K, 0, .6, .2, .34); K.pop();
++}
++function c3deko(K, k, id){
++  const r = c3rng(id * 17 + 3);
++  K.box("paving", 1.8, .012, 1.8); K.box("lawn", 1.6, .015, .3, 0, 0, -.72); K.box("lawn", 1.6, .015, .3, 0, 0, .72);
++  const bench = (x, z, ry) => { K.push(x, 0, z, ry); K.box("wood", .3, .02, .08, 0, .07, 0); K.box("wood", .3, .08, .02, 0, .09, -.04); K.box("dark", .02, .07, .07, -.13, 0, 0); K.box("dark", .02, .07, .07, .13, 0, 0); K.pop(); };
++  if (k === "bank") { bench(-.35, .3, 0); bench(.35, .3, 0); bench(0, -.35, Math.PI); c3tree(K, -.65, -.2, .8); c3tree(K, .65, -.2, .75, true); K.box("flowY", .4, .04, .1, 0, 0, .05); }
++  else if (k === "brunnen") { K.cyl("concrete", .5, .1, 0, 0, 0, 16); K.cyl("water", .44, .105, 0, 0, 0, 16); K.cyl("concrete", .08, .35, 0, .1, 0, 10); K.cyl("concrete", .2, .05, 0, .45, 0, 12); K.cyl("water", .17, .055, 0, .45, 0, 12);
++    K.add(new THREE.Mesh(new THREE.CylinderGeometry(.012, .03, .25, 6), C3.M.jet), "jet").position.set(0, .5, 0); bench(-.7, 0, Math.PI / 2); bench(.7, 0, -Math.PI / 2); }
++  else if (k === "laterne") { for (const [x, z] of [[-.5, -.5], [.5, -.5], [-.5, .5], [.5, .5], [0, 0]]) c3lampPost(K, x, z, r() * 6); bench(0, .4, 0); bench(0, -.4, Math.PI); K.box("flowR", .3, .04, .3, -.5, 0, 0); K.box("flowP", .3, .04, .3, .5, 0, 0); }
++  else if (k === "statue" || k === "goldstatue") { const m = k === "goldstatue" ? "gold" : "white"; K.box("concrete", .4, .3, .4); K.box("concrete", .46, .06, .46, 0, .3, 0);
++    K.box(m, .1, .2, .08, 0, .36, 0); K.box(m, .16, .2, .1, 0, .56, 0); K.ball(m, .06, 0, .82, 0, 1); K.box(m, .05, .2, .05, .11, .6, .04); K.box("yellow", .1, .04, .1, .11, .8, .04);
++    bench(-.55, .55, 0); bench(.55, .55, 0); c3tree(K, -.65, -.6, .7); c3tree(K, .65, -.6, .7, true); }
++  else if (k === "blumen") { for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) { K.box("dirt", .3, .05, .3, -.6 + i * .4, 0, -.6 + j * .4); for (let f = 0; f < 4; f++) K.box(["flowR", "flowY", "flowP", "white"][(i + j + f) % 4], .05, .05, .05, -.66 + i * .4 + (f % 2) * .12, .05, -.66 + j * .4 + (f > 1) * .12); } }
++  else if (k === "baum") { K.cyl("trunk", .07, .6, 0, 0, 0, 7); K.ball("gold", .5, 0, 1.0, 0, 0); K.ball("orange", .32, .25, 1.25, .1, 0); K.ball("gold", .28, -.25, 1.2, -.1, 0); bench(0, .65, 0); for (let i = 0; i < 6; i++) K.box("orange", .05, .01, .04, (r() - .5) * 1.2, .015, (r() - .5) * 1.2); }
++}
++const C3D23 = {kieswerk: (K, L) => c3kieswerk(K, L), stahlwerk: (K, L) => c3stahlwerk(K, L), mischanlage: (K, L) => c3misch(K, L), mauersteinwerk: (K, L) => c3mauer(K, L), glaserei: (K, L) => c3glas(K, L),
++  abbundhalle: (K, L) => c3abbund(K, L), fertigteilwerk: (K, L) => c3fertig(K, L), mehrfamilienhaus: (K, L, id) => c3mfh(K, L, id), schule: K => c3schule(K), feuerwache: K => c3feuer(K), buero: K => c3buero(K),
++  fernsehturm: K => c3turm(K), stadion: K => c3stadion(K), kathedrale: K => c3kathe(K)};
++
+ /* ── Landschaft ── */
+ function c3terrain(){
+   const S = 250, N = 140, g0 = new THREE.PlaneGeometry(S, S, N, N); g0.rotateX(-Math.PI/2);
+@@ -2410,7 +2899,9 @@
+   const old = C3.grp[b.id]; if (old) { C3.world.remove(old); c3dispose(old); }
+   const grp = new THREE.Group(); grp.position.copy(c3lotPos(b)); grp.rotation.y = c3face(b.x, b.y); grp.userData = {id: b.id, lot: [b.x, b.y], k: b.k};
+   const L = Math.max(1, b.l);
+-  let body = ph === "done" || ph === "old" ? c3design(b.k, L, b.id) : ph === "pit" ? c3pit() : c3design(b.k, b.next, b.id, ph === "shell");
++  const ex = b.k === "lagerhaus" ? lagerUsed() / lagerCap() : 0;
++  let body = ph === "done" || ph === "old" ? c3design(b.k, L, b.id, false, ex) : ph === "pit" ? c3pit() : c3design(b.k, b.next, b.id, ph === "shell", ex);
++  if ((WERK[b.k] && werkIdle(b)) || (FAB[b.k] && !(eco().fj[b.id] || []).some(j => j.s <= Date.now() && j.e > Date.now()))) body.userData.emit = [];
+   const bb = new THREE.Box3().setFromObject(body); grp.add(body); grp.userData.body = body; grp.userData.top = Math.max(.35, bb.max.y);
+   if (ph === "shell") grp.userData.grow = b.l === 0 ? [.3, .78, .1] : [.45, .85, .62];
+   if (ph !== "done") {
+@@ -2433,8 +2924,8 @@
+   if (!C3.init) return;
+   const g = G(), now = Date.now(), seen = {};
+   g.b.forEach(b => {
+-    seen[b.id] = 1; const [ph, p] = c3phase(b, now), key = [b.k, b.l, b.next || 0, ph, b.x, b.y].join("|");
+-    if (C3.keys[b.id] !== key) { const was = C3.keys[b.id]; c3rebuild(b, ph); C3.keys[b.id] = key; if (was && !was.endsWith("|done|" + b.x + "|" + b.y) && ph === "done") c3party(b); }
++    seen[b.id] = 1; const [ph, p] = c3phase(b, now), key = [b.k, b.l, b.next || 0, ph, b.x, b.y, b.k === "lagerhaus" ? Math.round(lagerUsed() / lagerCap() * 9) : WERK[b.k] ? (werkIdle(b) ? "i" : "") : FAB[b.k] ? ((eco().fj[b.id] || []).some(j => j.s <= now && j.e > now) ? "w" : "") : ""].join("|");
++    if (C3.keys[b.id] !== key) { const was = C3.keys[b.id]; c3rebuild(b, ph); C3.keys[b.id] = key; if (was && was.split("|")[3] !== "done" && ph === "done") c3party(b); }
+     const grp = C3.grp[b.id];
+     if (grp.userData.grow) { const [a, z, s0] = grp.userData.grow; grp.userData.body.scale.y = s0 + (1 - s0) * c3ss(0, 1, (p - a) / (z - a)); }
+   });
+@@ -2464,10 +2955,10 @@
+ 
+ /* ── Auswahl-Markierung ── */
+ function c3hl(){
+-  const key = [C3.place, GMOVE, C3.sel && C3.sel.join(","), G().b.length].join("|"); if (key === C3.hlKey) return; C3.hlKey = key;
++  const key = [C3.place, GMOVE, !!C3.drag, C3.sel && C3.sel.join(","), G().b.length, G().b.map(b => b.x + "" + b.y).join("")].join("|"); if (key === C3.hlKey) return; C3.hlKey = key;
+   while (C3.hl.children.length) { const c = C3.hl.children.pop(); c.geometry.dispose(); }
+   const occ = {}; G().b.forEach(b => occ[b.x + "," + b.y] = 1);
+-  if (C3.place || GMOVE) for (let i = 0; i < 64; i++) { const x = i % 8, y = i / 8 | 0; if (occ[x + "," + y]) continue;
++  if (C3.place || GMOVE || C3.drag) for (let i = 0; i < 64; i++) { const x = i % 8, y = i / 8 | 0; if (occ[x + "," + y]) continue;
+     const m = new THREE.Mesh(new THREE.PlaneGeometry(1.8, 1.8).rotateX(-Math.PI / 2), C3.hlMat); m.position.set(c3lot(x), .07, c3lot(y)); C3.hl.add(m); }
+   if (C3.sel) { const [x, y] = C3.sel, K = new C3Kit(); for (const [w, d, ox, oz] of [[1.9, .06, 0, .92], [1.9, .06, 0, -.92], [.06, 1.9, .92, 0], [.06, 1.9, -.92, 0]]) K.box("white", w, .03, d, c3lot(x) + ox, .06, c3lot(y) + oz);
+     const g = K.build(false); g.children.forEach(m => { m.material = C3.selMat; C3.hl.add(m); }); }
+@@ -2528,6 +3019,8 @@
+   if (stop) { if (u < 16) { const k = u / 16; z = -125 * (1 - k) * (1 - k); } else if (u < 22) z = 0; else if (u < 38) { const k = (u - 22) / 16; z = 125 * k * k; } else on = false; }
+   else { if (u < 30) z = -125 + 250 * u / 30; else on = false; }
+   tr.visible = on; if (!on) return; tr.userData.cars.forEach((c, i) => c.position.set(C3RX, .09, z - i * 1.02));
++  if (stop && u >= 16 && u < 22) { const cyc0 = Math.floor((t + 20) / cyc); if (C3.pendC !== cyc0) { C3.pendC = cyc0; const n = 2 + Math.min(3, Math.floor(((G().b.find(b => b.k === "bahnhof") || {}).st || 0) / 3));
++      for (let i = 0; i < n; i++) { const o = c3person(false, "shirt" + (Math.random() * 7 | 0)); o.position.set(C3RX - .55, .1, -1 + i * .5); C3.sc.add(o); C3.fx.push({m: o, kind: "pend", to: [C3R + .8 + Math.random() * .3, (Math.random() - .5) * .8], life: 30, ph: i}); } } }
+ }
+ 
+ /* ── Effekte ── */
+@@ -2549,8 +3042,10 @@
+   for (let i = C3.fx.length - 1; i >= 0; i--) { const f = C3.fx[i]; f.life -= dt; const m = f.m;
+     if (f.kind === "smoke") { m.position.addScaledVector(f.v, dt); const k = 1 - f.life / f.max; m.scale.setScalar(.6 + k * 2.2); m.material.opacity = .55 * (1 - k) * (C3.night > .5 ? .6 : 1); m.rotation.y += dt * .3; }
+     else if (f.kind === "spark") { f.v.y -= 6 * dt; m.position.addScaledVector(f.v, dt); m.rotation.x += dt * 8; m.scale.setScalar(Math.max(.01, f.life / 1.4)); }
++    else if (f.kind === "crate") c3crateTick(f, dt);
++    else if (f.kind === "pend") { const o = f.m, dx = f.to[0] - o.position.x, dz = f.to[1] - o.position.z, d = Math.hypot(dx, dz); if (d < .05) f.life = 0; else { const s = Math.min(d, dt * .45); o.position.x += dx / d * s; o.position.z += dz / d * s; o.rotation.y = Math.atan2(dx, dz); c3walkPose(o, performance.now() / 120 + f.ph, .5); } }
+     else if (f.kind === "coin") { f.v.y -= 7 * dt; m.position.addScaledVector(f.v, dt); m.rotation.y += dt * 9; if (m.position.y < f.floor) { f.life = 0; c3wobble(f.id, .05); } }
+-    if (f.life <= 0) { C3.sc.remove(m); if (f.kind === "smoke") m.material.dispose(); C3.fx.splice(i, 1); } }
++    if (f.life <= 0) { C3.sc.remove(m); if (f.kind === "smoke" || f.own) (f.own || m.material).dispose(); C3.fx.splice(i, 1); } }
+ }
+ function c3animTick(dt, t){
+   C3.M.led.emissiveIntensity = .7 + .5 * Math.sin(t * 5); C3.M.ledR.emissiveIntensity = (t % 1.3) < .55 ? 1.6 : .1;
+@@ -2558,6 +3053,7 @@
+     if (a.type === "spin") o.rotation.y = (a.ph || 0) + Math.sin(t * a.sp + (a.ph || 0)) * a.amp;
+     else if (a.type === "jet") o.scale.y = 1 + .18 * Math.sin(t * 9 + o.position.x * 5);
+     else if (a.type === "flag") o.rotation.y = .4 + Math.sin(t * 2.3) * .3;
++    else if (a.type === "rotor") o.rotation.z += dt * a.sp;
+     else if (a.type === "drone") { o.position.y = 1.6 + Math.sin(t * 1.3) * .15; o.rotation.y += dt * .8; }
+     else if (a.type === "dig") { const d = o.userData.dig; d.up.rotation.y = Math.sin(t * .6) * 1.1; d.boom.rotation.z = -.35 + Math.sin(t * 1.3) * .28; d.stick.rotation.z = -.7 + Math.sin(t * 1.3 + 1.2) * .45; }
+     else if (a.type === "hammer") { o.position.set(a.p[0], 0, a.p[1]); o.rotation.y = a.ry; const p = o.userData.p; p.armR.rotation.x = -1.4 + Math.max(0, Math.sin(t * 7 + a.ph)) * 1.3; p.armL.rotation.x = -.5; }
+@@ -2636,28 +3132,35 @@
+ function c3tap(cx, cy){
+   const h = c3pick(cx, cy, !!(C3.place || GMOVE)); if (!h) return;
+   if (h.lot) { const [x, y] = h.lot, b = G().b.find(o => o.x === x && o.y === y);
+-    if (b && (C3.place || GMOVE)) { c3wobble(b.id); toast("Hier steht schon etwas – wähle eine freie Fläche"); return; }
+-    if (b) { c3wobble(b.id); C3.sel = null; if (C3.drawer) c3drawer(false); if (C3.place) { C3.place = null; c3hud(); } gTile(x, y); return; }
++    if (GMOVE) { const m = G().b.find(o => o.id === GMOVE); if (m && !(m.x === x && m.y === y)) c3swapTo(m, x, y); else { GMOVE = null; C3.hlKey = ""; c3hl(); c3hud(); } return; }
++    if (b && C3.place) { c3wobble(b.id); toast("Hier steht schon etwas – wähle eine freie Fläche"); return; }
++    if (b) { c3wobble(b.id); C3.sel = null; if (C3.drawer) c3drawer(false); if (C3.place) { C3.place = null; c3hud(); }
++      if (WERK[b.k] && (b.st || 0) >= 1 && !(b.until > Date.now() && b.l < 1)) c3Act23("c3-col", {id: b.id}); else if (FAB[b.k] && fabReady(b)) c3Act23("c3-fcol", {id: b.id});
++      c3cardOpen(b); return; }
+     if (C3.place) { c3buildAt(C3.place, x, y); return; }
+-    if (GMOVE) { gTile(x, y); C3.hlKey = ""; c3hud(); return; }
+     C3.sel = [x, y]; c3drawer(true); return; }
+   if (h.p && h.p.z < c3zr(h.p.x) - 2.2) { toast("Hinter dem Fluss liegt Neuland – bald kannst du eine Brücke hinüber bauen"); return; }
+-  C3.sel = null; if (C3.drawer) c3drawer(false); c3hl();
++  C3.sel = null; c3cardClose(); if (C3.drawer) c3drawer(false); c3hl();
+ }
+ function c3dbl(cx, cy){
+   const h = c3pick(cx, cy); if (C3CAM.r < 9.5 || !h) { c3fly(c3fit(C3.cam.aspect, C3.cam.fov)); return; }
+   if (h.lot) c3focus(h.lot[0], h.lot[1], 7); else c3fly({tx: h.p.x, tz: h.p.z, r: Math.max(6, C3CAM.r * .5)});
+ }
+ function c3controls(cv){
+-  const P = new Map(); let g0 = null, moved = false, multi = false, t0 = 0, sx = 0, sy = 0, lastTap = 0, lx = 0, ly = 0, tapT = 0, vx = 0, vz = 0;
++  const P = new Map(); let lpT = 0, g0 = null, moved = false, multi = false, t0 = 0, sx = 0, sy = 0, lastTap = 0, lx = 0, ly = 0, tapT = 0, vx = 0, vz = 0;
+   const gest = () => { const [a, b] = [...P.values()]; return {d: Math.hypot(a.x - b.x, a.y - b.y) || 1, a: Math.atan2(b.y - a.y, b.x - a.x), my: (a.y + b.y) / 2}; };
+   cv.addEventListener("pointerdown", e => { try { cv.setPointerCapture(e.pointerId); } catch(_) {} P.set(e.pointerId, {x: e.clientX, y: e.clientY, b: e.button}); C3.ptr = true; C3.anim = null;
+-    if (P.size === 1) { moved = false; multi = false; t0 = performance.now(); sx = e.clientX; sy = e.clientY; C3.vel.x = C3.vel.z = 0; vx = vz = 0; } else { multi = true; g0 = gest(); } });
++    if (P.size === 1) { moved = false; multi = false; t0 = performance.now(); sx = e.clientX; sy = e.clientY; C3.vel.x = C3.vel.z = 0; vx = vz = 0;
++      const X = e.clientX, Y = e.clientY, grab = () => { if (moved || multi || P.size !== 1 || C3.drag) return; const h = c3pick(X, Y); const b = h && h.id && G().b.find(o => o.id === h.id); if (b && c3dragStart(b)) { clearTimeout(tapT); lastTap = 0; } };
++      clearTimeout(lpT); if (C3.umbau) grab(); else lpT = setTimeout(grab, 450); }
++    else { multi = true; g0 = gest(); clearTimeout(lpT); if (C3.drag) { const D = C3.drag; C3.drag = null; D.grp.position.set(c3lot(D.b.x), .06, c3lot(D.b.y)); C3.sel = null; C3.hlKey = ""; c3hl(); } } });
+   cv.addEventListener("pointermove", e => { const p = P.get(e.pointerId); if (!p) return; const dx = e.clientX - p.x, dy = e.clientY - p.y; p.x = e.clientX; p.y = e.clientY;
++    if (C3.drag) { c3dragMove(e.clientX, e.clientY); return; }
+     if (P.size === 1 && !multi) { if (!moved && Math.hypot(e.clientX - sx, e.clientY - sy) > 7) moved = true; if (!moved) return;
+       if (p.b === 2 || e.shiftKey) { C3CAM.az -= dx * .008; C3CAM.po -= dy * .005; } else { const [a, b] = c3pan(dx, dy); vx = vx * .6 + a * 24; vz = vz * .6 + b * 24; } }
+     else if (P.size >= 2 && g0) { const g = gest(); C3CAM.r *= g0.d / g.d; let da = g.a - g0.a; da = Math.atan2(Math.sin(da), Math.cos(da)); C3CAM.az += da; C3CAM.po -= (g.my - g0.my) * .004; g0 = g; moved = true; } });
+-  const up = e => { if (!P.has(e.pointerId)) return; P.delete(e.pointerId);
++  const up = e => { if (!P.has(e.pointerId)) return; P.delete(e.pointerId); clearTimeout(lpT);
++    if (C3.drag && P.size === 0) { C3.ptr = false; c3dragEnd(); return; }
+     if (P.size === 1) { g0 = null; return; }
+     if (P.size === 0) { C3.ptr = false;
+       if (!moved && !multi && performance.now() - t0 < 450) { const now = performance.now();
+@@ -2717,11 +3220,12 @@
+   el.innerHTML = `<canvas id="c3cv"></canvas><div class="c3labs" id="c3labs"></div><div class="c3tag" id="c3tag">Neuland<small>bald mit Brücke</small></div>
+     <div class="c3top"><button class="c3btn c3g press" data-act="c3-back" aria-label="Zurück">${C3I.back}</button>
+       <div class="c3mid"><div class="c3chips"><div class="c3chip c3g" id="c3coinChip"><i class="c3cn">₿</i><b id="c3coins">0</b></div><div class="c3chip c3g">${C3I.ew}<b id="c3ew">0</b></div><div class="c3chip c3g">${C3I.crew}<b id="c3crew">0/2</b></div></div><div class="c3sub" id="c3sub"></div></div>
+-      <div class="c3col"><button class="c3btn c3g press" data-act="g-info" aria-label="So verdienst du Bitcoin">${C3I.info}</button><button class="c3btn c3g press" data-act="c3-home" aria-label="Ansicht zurücksetzen">${C3I.home}</button></div></div>
++      <div class="c3col"><button class="c3btn c3g press" data-act="g-info" aria-label="So verdienst du Bitcoin">${C3I.info}</button><button class="c3btn c3g press" data-act="c3-home" aria-label="Ansicht zurücksetzen">${C3I.home}</button><button class="c3btn c3g press" id="c3umb" data-act="c3-umbau" aria-label="Stadt umbauen">${C3I2.move}</button></div></div>
+     <div class="c3wel c3g" id="c3wel" hidden></div>
+     <div class="c3hint c3g" id="c3hint" hidden></div>
+     <div class="c3drawer c3g" id="c3drawer" hidden></div>
+-    <div class="c3bot" id="c3bot"><button class="c3round learn press" data-act="start-mix">${I.play}<span>Lernen</span></button><button class="c3round build press" data-act="c3-drawer">${C3I.crane}<span>Bauen</span></button></div>
++    <div class="c3bot" id="c3bot"><button class="c3round learn press" data-act="start-mix">${I.play}<span>Lernen</span></button><div class="c3mini"><button class="c3sm c3g press" data-act="c3-orders">${C3I2.orders}<span>Aufträge</span><em id="c3ob" hidden></em></button><button class="c3sm c3g press" data-act="c3-lager">${C3I2.lager}<span>Lager</span></button></div><button class="c3round build press" data-act="c3-drawer">${C3I.crane}<span>Bauen</span></button></div>
++    <div class="c3card2 c3g" id="c3card" hidden></div><div class="c3undo c3g" id="c3undo" hidden></div>
+     <div class="c3fly" id="c3fly"></div>`;
+   document.body.insertBefore(el, $("#scrim"));
+   window.addEventListener("resize", () => { if (C3.open) c3resize(); });
+@@ -2732,22 +3236,19 @@
+   const g = G(), busy = gBusy(), tg = gToday();
+   if (C3.shown === undefined) C3.shown = g.seenC !== undefined ? Math.min(g.seenC, g.coins) : g.coins;
+   if (g.coins > C3.shown + .5 && !C3.counting) c3count(C3.shown, g.coins); else if (!C3.counting) { C3.shown = g.coins; $("#c3coins").textContent = fmtB(g.coins); if (g.seenC !== g.coins) { g.seenC = g.coins; save(); } }
+-  $("#c3ew").textContent = fmtB(gEinw()); $("#c3crew").textContent = `${busy.length}/${GTRUPP}`;
+-  const st = streak(); $("#c3sub").textContent = `+${fmtB(tg.e)} ₿ heute${st ? ` · ${st} ${st === 1 ? "Tag" : "Tage"} in Folge` : ""}`;
++  $("#c3ew").textContent = fmtB(gEinw()); $("#c3crew").textContent = `${busy.length}/${gTr()}`;
++  const st = streak(), eg = eco(); $("#c3sub").innerHTML = `Stadtstufe ${eg.lv} <i class="xpb"><em style="width:${Math.min(100, eg.xp / xpNeed(eg.lv) * 100).toFixed(0)}%"></em></i> · +${fmtB(tg.e)} ₿ heute${st ? ` · ${st} ${st === 1 ? "Tag" : "Tage"} Serie` : ""}`;
++  const on = ordersReadyN(), ob = $("#c3ob"); ob.hidden = !on; ob.textContent = on; $("#c3umb").classList.toggle("on", !!C3.umbau);
+   const w = $("#c3wel"); w.hidden = !g.welcome;
+   if (g.welcome) w.innerHTML = `<h2>Willkommen in deiner Stadt</h2><p>Für dein bisheriges Lernen bekommst du ein Startkapital. Ab jetzt bringt jede Antwort Bitcoin – richtige mehr, Serien und schwere Fragen noch mehr.</p><button class="cta press" data-act="g-welcome">₿ ${fmtB(g.welcome)} abholen</button>`;
+   const h = $("#c3hint"), mv = GMOVE && g.b.find(b => b.id === GMOVE);
+-  h.hidden = !(C3.place || mv);
++  h.hidden = !(C3.place || mv || C3.umbau);
++  if (C3.umbau && !C3.place && !mv) h.innerHTML = `<span><b>Umbau-Modus:</b> Gebäude ziehen, auf ein anderes ziehen tauscht</span><button class="btn2 sm acc press" data-act="c3-umbau">Fertig</button>`;
+   if (C3.place) h.innerHTML = `<span>Tippe auf eine freie Fläche für <b>${GT[C3.place].n}</b></span><button class="c3x press" data-act="c3-cancel" aria-label="Abbrechen">${I.close}</button>`;
+-  else if (mv) h.innerHTML = `<span>Tippe auf eine freie Fläche für <b>${GT[mv.k].n}</b></span><button class="c3x press" data-act="c3-cancel" aria-label="Abbrechen">${I.close}</button>`;
++  else if (mv) h.innerHTML = `<span>Wohin mit <b>${GT[mv.k].n}</b>? Fläche antippen – auf einem Gebäude wird getauscht</span><button class="c3x press" data-act="c3-cancel" aria-label="Abbrechen">${I.close}</button>`;
+   if (C3.drawer) $("#c3drawer").innerHTML = c3drawerHTML();
+   $("#c3bot").classList.toggle("hide", C3.drawer || !!g.welcome);
+-}
+-function c3drawerHTML(){
+-  const g = G(), s = C3.sel;
+-  const cards = GORDER.map(k => { const t = GT[k], why = gReq(k, 1), c = t.cost[0], poor = !why && g.coins < c;
+-    return `<button class="c3card press${why || poor ? " off" : ""}" data-act="c3-card" data-k="${k}" style="${t.f ? `--c:${cssC(t.f)}` : ""}"><div class="gico">${gIcon(k)}</div><b>${t.n}</b><span class="c3pr">₿ ${fmtB(c)} · ${t.time[0] ? gDur(t.time[0]) : "sofort"}</span><small>${why || (poor ? `Noch ${fmtB(c - g.coins)} ₿ zu wenig` : t.d)}</small></button>`; }).join("");
+-  return `<div class="c3dh"><div><b>${s ? `Bauen auf Feld ${s[0] + 1}·${s[1] + 1}` : "Was möchtest du bauen?"}</b><small>Du hast ₿ ${fmtB(g.coins)}${s ? "" : " · danach Fläche antippen"}</small></div><button class="c3x press" data-act="c3-drawer" aria-label="Schließen">${I.close}</button></div><div class="c3cards">${cards}</div>`;
++  c3bubSync(); if (C3.card) c3cardDraw();
+ }
+ function c3drawer(on){
+   C3.drawer = on; const d = $("#c3drawer");
+@@ -2756,18 +3257,21 @@
+   c3hl(); c3hud();
+ }
+ function c3buildAt(k, x, y){
+-  const g = G(), t = GT[k], why = gReq(k, 1);
+-  if (why) { toast(why); return; } if (g.coins < t.cost[0]) { toast(`Noch ${fmtB(t.cost[0] - g.coins)} ₿ – lerne ein paar Fragen`); return; }
++  const g = G(), t = GT[k], why = gReq(k, 1), free = t.deko && (eco().inv.deko[k] || 0) > 0;
++  if (why) { toast(why); return; } if (!free && g.coins < t.cost[0]) { toast(`Noch ${fmtB(t.cost[0] - g.coins)} ₿ – lerne ein paar Fragen`); return; }
+   GSEL = [x, y]; C3.place = null; C3.sel = null; if (C3.drawer) c3drawer(false);
+   gAct("g-build", {k}); C3.shown = G().coins; c3sync(); c3focus(x, y, 9);
+ }
+ function c3Act(a, ds){
++  if (c3Act23(a, ds)) return true;
+   if (a === "c3-back") { C3.place = null; C3.sel = null; GMOVE = null; tab = C3.prev && C3.prev !== "stadt" ? C3.prev : "heute"; render(); }
+   else if (a === "c3-drawer") c3drawer(!C3.drawer);
+   else if (a === "c3-home") c3fly(c3fit(C3.cam.aspect, C3.cam.fov));
+   else if (a === "c3-cancel") { C3.place = null; GMOVE = null; C3.hlKey = ""; c3hl(); c3hud(); }
+   else if (a === "c3-card") { const k = ds.k, t = GT[k], why = gReq(k, 1);
+-    if (why) { toast(why); return true; } if (G().coins < t.cost[0]) { toast(`Noch ${fmtB(t.cost[0] - G().coins)} ₿ – lerne ein paar Fragen`); return true; }
++    const free = t.deko && (eco().inv.deko[k] || 0) > 0, rc = free ? {} : ecoCost(k, 1);
++    if (why) { toast(why); return true; } if (!free && G().coins < t.cost[0]) { toast(`Noch ${fmtB(t.cost[0] - G().coins)} ₿ – lerne ein paar Fragen`); return true; }
++    if (!ecoHave(rc)) { toast("Es fehlen: " + ecoMiss(rc, true)); return true; }
+     if (C3.sel) c3buildAt(k, C3.sel[0], C3.sel[1]); else { C3.place = k; c3drawer(false); c3hud(); } }
+   else return false;
+   return true;
+@@ -2827,12 +3331,12 @@
+   if (!C3.open) { el.hidden = false; document.body.classList.add("c3on"); C3.open = true;
+     try { if (!C3.init) c3setup(); } catch (e) { console.error(e); C3.ok = false; C3.open = false; el.hidden = true; document.body.classList.remove("c3on"); render(); return; }
+     c3resize(); c3day(); C3.last = 0; cancelAnimationFrame(C3.raf); C3.raf = requestAnimationFrame(c3loop);
+-    G().news = false; if (!c3snapUrl()) setTimeout(() => { if (C3.open) c3snap(); }, 1500); }
++    G().news = false; ecoDaily(); if (!c3snapUrl()) setTimeout(() => { if (C3.open) c3snap(); }, 1500); }
+   c3sync(); c3hud();
+ }
+ function c3Close(){
+   if (!C3.open) return; C3.open = false; cancelAnimationFrame(C3.raf);
+-  if (C3.drawer) { C3.drawer = false; $("#c3drawer").hidden = true; $("#c3drawer").classList.remove("show"); } C3.place = null; C3.sel = null;
++  if (C3.drawer) { C3.drawer = false; $("#c3drawer").hidden = true; $("#c3drawer").classList.remove("show"); } C3.place = null; C3.sel = null; C3.umbau = false; c3cardClose();
+   c3snap(); $("#c3").hidden = true; document.body.classList.remove("c3on");
+ }
+ function c3Refresh(){ if (C3.open) { c3sync(); c3hud(); } }
+@@ -2845,7 +3349,7 @@
+   C3SWAY.value = t; c3waterTick(C3.water, t);
+   if ((C3.syncT = (C3.syncT || 0) - dt) <= 0) { C3.syncT = 1; c3sync(); }
+   C3.hlMat.opacity = .22 + .14 * Math.sin(t * 4); C3.selMat.opacity = .65 + .3 * Math.sin(t * 5);
+-  c3animTick(dt, t); c3agentsTick(dt, t); c3fxTick(dt, t); c3labsTick();
++  c3animTick(dt, t); c3agentsTick(dt, t); c3fxTick(dt, t); c3labsTick(); c3bubTick(); c3cardTick(); c3chestTick(t);
+   C3.r.render(C3.sc, C3.cam);
+   /* langsames Gerät: Auflösung schrittweise senken */
+   C3.pf = (C3.pf || 0) + dt; C3.pn = (C3.pn || 0) + 1;
+@@ -2853,6 +3357,223 @@
+     if (avg > .034 && pr > 1) { C3.r.setPixelRatio(Math.max(1, pr - .25)); c3resize(); } }
+ }
+ 
++/* ── v2.3: Info-Karte, Lager, Aufträge, Fabriken, Prüflabor, Truhe, Verschieben ── */
++const C3I2 = {
++  orders: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v3H8zM6 5.5H5v15h14v-15h-1M8 11h8M8 15h5"/></svg>',
++  lager: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-5 9 5v11H3zM7 20v-7h10v7M7 16.5h10"/></svg>',
++  move: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18M9 6l3-3 3 3M9 18l3 3 3-3M6 9l-3 3 3 3M18 9l3 3-3 3"/></svg>',
++  chest: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10a8 5 0 0 1 16 0v9H4zM4 12h16M11 11h2v3h-2z"/></svg>'
++};
++const OTXT = (k, i) => { const F = FAB[k], R0 = Object.keys(F.out)[0]; return i === 0 ? `−1 ${RES[F.o1].n} je Lauf` : i === 1 ? "25 % schneller" : F.o3 ? "Kein Bauplan mehr nötig" : `+1 ${RES[R0].n} je Lauf`; };
++const TIER = ["Holztruhe", "Silbertruhe", "Goldtruhe"];
++
++/* ── Info-Karte über dem Gebäude ── */
++function c3cardOpen(b){ C3.card = b.id; C3.sel = null; if (C3.drawer) c3drawer(false); c3cardDraw(); }
++function c3cardClose(){ C3.card = null; const el = $("#c3card"); if (el) el.hidden = true; }
++function c3cardDraw(){
++  const el = $("#c3card"), b = C3.card && G().b.find(o => o.id === C3.card); if (!el) return; if (!b) { el.hidden = true; return; }
++  el.innerHTML = c3cardHTML(b); el.hidden = false; c3cardTick();
++}
++function c3upLine(b){
++  const t = GT[b.k], L = b.l + 1; if (b.until > Date.now() || t.deko || L > t.max) return "";
++  const why = gReq(b.k, L), rc = ecoCost(b.k, L), ok = !why && G().coins >= t.cost[L - 1] && ecoHave(rc);
++  return `<div class="cup"><button class="cta sm press" data-act="c3-up" data-id="${b.id}"${ok ? "" : " data-off=\"1\""}>Auf Stufe ${L} ausbauen</button>${costHTML(rc, t.cost[L - 1])}${why ? `<small class="cwhy">${why}</small>` : ""}</div>`;
++}
++function c3cardHTML(b){
++  const t = GT[b.k], g = eco(), now = Date.now(), site = b.until > now; let body = "";
++  if (site) { const p = c3clamp((now - b.from) / Math.max(1, b.until - b.from), 0, 1);
++    body += `<div class="cline">Baut auf Stufe ${b.next} · <b class="gtime" data-id="${b.id}">${gDur((b.until - now) / 1000)}</b></div><div class="cbar"><i style="width:${(p * 100).toFixed(0)}%"></i></div><small class="cnote">Jede richtige Antwort spart 1 Minute.</small>`;
++    if (g.inv.speed > 0) body += `<button class="btn2 sm press" data-act="c3-speed" data-id="${b.id}">Bau-Beschleuniger einsetzen (−30 Min.) · ${g.inv.speed}×</button>`; }
++  else if (WERK[b.k]) { const w = WERK[b.k], cap = WCAP[b.l], st = b.st || 0, idle = werkIdle(b), m = mastery(qsOf(w.f)), boost = g.boost && g.boost.k === b.k && g.boost.until > now;
++    body += `<div class="cline">${ricon(w.r, 18)}<b>${Math.floor(st)}</b>&nbsp;${RES[w.r].n} im Werk <small>· passt ${cap}</small></div><div class="cbar"><i style="width:${(st / cap * 100).toFixed(0)}%;background:${RES[w.r].c}"></i></div>`;
++    body += `<small class="cnote">${idle ? `Steht still: seit über 7 Tagen nichts in ${FACH[w.f].n} gelernt.` : `Pro richtiger Antwort in ${FACH[w.f].n} ≈ ${(WRATE[b.l] * (boost ? 2 : 1)).toFixed(2).replace(".", ",")} ${RES[w.r].n}${boost ? " (Messkampagne läuft)" : ""}.`} ${Math.round(m * 100)} % beherrscht.</small>`;
++    body += `<div class="cbtns">${st >= 1 ? `<button class="btn2 acc sm press" data-act="c3-col" data-id="${b.id}">Abholen</button>` : ""}<button class="btn2 sm press" data-act="start-subject" data-f="${w.f}">${FACH[w.f].n} lernen</button></div>`;
++    if (b.k === "bahnhof") body += `<small class="cnote">Fachkräfte im Ort: ${Math.floor(g.r.fach)} von ${extraCap("fach")}</small>${g.crew3 ? "" : `<button class="btn2 sm press" data-act="c3-crew">Dritter Bautrupp · 10 Fachkräfte + ₿ 400</button>`}`;
++    if (b.k === "vermessung") body += `<button class="btn2 acc sm press" data-act="c3-lab">Optimieren und auswerten</button>`; }
++  else if (FAB[b.k]) { const J = fabJobs(b), run = J.find(j => j.s <= now && j.e > now), rdy = fabReady(b), R = fabRecipe(b.k), ok = Object.keys(R.out)[0];
++    body += `<div class="cline">${ricon(ok, 18)}${run ? `Läuft · noch <b>${gDur((run.e - now) / 1000)}</b>` : "Wartet auf einen Auftrag"} <small>· ${J.length}/${fabSlots(b)} in der Schlange</small></div>`;
++    if (run) body += `<div class="cbar"><i style="width:${((now - run.s) / (run.e - run.s) * 100).toFixed(0)}%;background:${RES[ok].c}"></i></div>`;
++    body += `<div class="cbtns">${rdy ? `<button class="btn2 acc sm press" data-act="c3-fcol" data-id="${b.id}">${rdy} fertig · abholen</button>` : ""}<button class="btn2 sm press" data-act="c3-fab" data-id="${b.id}">Produzieren</button></div>`; }
++  else if (b.k === "lagerhaus") { body += `<div class="cline">${C3I2.lager}<b>${Math.floor(lagerUsed())}</b>&nbsp;von ${lagerCap()} belegt</div><div class="cbar"><i style="width:${(lagerUsed() / lagerCap() * 100).toFixed(0)}%"></i></div><button class="btn2 sm press" data-act="c3-lager">Lager ansehen</button>`; }
++  else if (b.k === "rathaus") { const n = ordersReadyN(); body += `<div class="cline">Stadtstufe ${g.lv} · ${g.xp}/${xpNeed(g.lv)} XP</div><div class="cbtns"><button class="btn2 acc sm press" data-act="c3-orders">Aufträge${n ? ` · ${n} bereit` : ""}</button>${chestReady() ? `<button class="btn2 sm press" data-act="c3-chest">${TIER[chestTier()]} öffnen</button>` : ""}</div>`; }
++  else body += `<small class="cnote">${t.d}${t.ew ? ` · ${t.ew * Math.max(1, b.l)} Einwohner` : ""}</small>`;
++  return `<div class="ch"><div class="gico" style="${t.f ? `--c:${cssC(t.f)}` : ""}">${gIcon(b.k)}</div><div><b>${t.n}</b><small>${t.deko ? "Deko" : t.lm ? "Wahrzeichen" : `Stufe ${b.l || 0} von ${t.max}`}</small></div><button class="c3x press" data-act="c3-cclose" aria-label="Schließen">${I.close}</button></div>${body}${c3upLine(b)}
++    <div class="cfoot">${site ? "" : `<button class="link press" data-act="c3-mv" data-id="${b.id}">${C3I2.move}Verschieben</button>`}<button class="link press" data-act="c3-det" data-id="${b.id}">Details</button></div>`;
++}
++function c3cardTick(){
++  const el = $("#c3card"); if (!el || el.hidden || !C3.card) return; const g = C3.grp[C3.card]; if (!g) return;
++  const v = new THREE.Vector3(0, g.userData.top + .2, 0).applyMatrix4(g.matrixWorld).project(C3.cam), w = C3.cv.clientWidth, h = C3.cv.clientHeight;
++  let x = (v.x * .5 + .5) * w, y = (-v.y * .5 + .5) * h; const cw = el.offsetWidth, ch = el.offsetHeight;
++  x = c3clamp(x - cw / 2, 10, w - cw - 10); y = c3clamp(y - ch - 14, 120, h - ch - 110); el.style.transform = `translate(${x}px,${y}px)`;
++}
++
++/* ── Blätter ── */
++function c3lagerSheet(){
++  const g = eco(), used = lagerUsed(), cap = lagerCap(), tile = k => `<div class="rtile">${ricon(k, 26)}<b>${Math.floor(g.r[k])}</b><small>${RES[k].n}</small></div>`;
++  openSheet(`<h2>Lager</h2><p class="sub">${Math.floor(used)} von ${cap} Plätzen belegt · ${lagerL() ? `Lagerhaus Stufe ${lagerL()}` : "noch ohne Lagerhaus – baue eins für mehr Platz"}</p><div class="gbar"><i style="width:${Math.min(100, used / cap * 100)}%;background:var(--accent)"></i></div>
++    <h3 class="rh">Grund-Ressourcen</h3><div class="rgrid">${RBASE.filter(k => k !== "daten" && k !== "fach").map(tile).join("")}</div>
++    <h3 class="rh">Bauteile aus Fabriken</h3><div class="rgrid">${RPROD.map(tile).join("")}</div>
++    <h3 class="rh">Außerhalb des Lagers</h3><div class="rgrid">${tile("daten")}${tile("fach")}</div>
++    <p class="legend">Messdaten: höchstens ${extraCap("daten")}. Fachkräfte: höchstens ${extraCap("fach")} (mehr mit höherem Bahnhof). Bau-Beschleuniger: ${g.inv.speed}. Serienschutz: ${g.sh} von ${shCap()}.</p>`);
++}
++function c3ordersSheet(){
++  const g = eco(); ordersTick(); const now = Date.now(), bonus = hasB("buero") ? 1.15 : 1;
++  const card = (o, i) => { if (!o || o.wait) return `<div class="ocard wait">${C3I2.orders}<small>Neuer Auftrag in ${gDur(((o && o.wait) - now) / 1000)}</small></div>`;
++    const ok = orderOk(o), rew = `<span class="orew"><i class="c3cn sm">₿</i>${fmtB(Math.round(o.rew.b * bonus))} · ${o.rew.xp} XP${o.rew.r ? ` · ${ricon(o.rew.r[0], 14)}${o.rew.r[1]}` : ""}${o.rew.speed ? " · Beschleuniger" : ""}${o.rew.deko ? ` · ${GT[o.rew.deko].n}` : ""}</span>`;
++    const need = o.kind === "res" ? costHTML(o.need, undefined, true) : `<div class="gbar" style="margin:6px 0 2px"><i style="width:${Math.min(100, o.c / o.n * 100)}%;background:${o.f ? cssC(o.f) : "var(--accent)"}"></i></div><small>${Math.min(o.c, o.n)} von ${o.n}</small>`;
++    return `<div class="ocard${ok ? " ok" : ""}${o.kind === "lern" ? " lern" : ""}"><b>${o.kind === "lern" ? "Lernauftrag" : esc(o.name)}</b><small>${o.kind === "lern" ? esc(o.name) : "braucht"}</small>${need}${rew}
++      <div class="obtn"><button class="btn2 ${ok ? "acc " : ""}sm press" data-act="c3-odo" data-i="${i}"${ok ? "" : " data-off=\"1\""}>${o.kind === "lern" ? "Abholen" : "Liefern"}</button><button class="c3x dk press" data-act="c3-odrop" data-i="${i}" aria-label="Verwerfen">${I.x}</button></div></div>`; };
++  openSheet(`<h2>Auftragsblatt</h2><p class="sub">Liefere Ressourcen oder erfülle Lernaufträge. Einen Auftrag am Tag darfst du verwerfen.${bonus > 1 ? " Bürohochhaus: +15 % Bitcoin." : ""}</p><div class="ogrid">${g.orders.map(card).join("")}</div>`);
++  C3.sheet = "orders";
++}
++function c3fabSheet(b){
++  const R = fabRecipe(b.k), J = fabJobs(b), now = Date.now(), ok = Object.keys(R.out)[0], why = b.l < 1 ? "Noch im Bau" : J.length >= fabSlots(b) ? "Warteschlange voll" : !ecoHave(R.inp) ? "Es fehlen: " + ecoMiss(R.inp) : "";
++  const o = eco().opt[b.k] || 0;
++  openSheet(`<div class="shh"><div class="gico big">${gIcon(b.k)}</div><div><h2>${GT[b.k].n}</h2><p class="sub" style="margin:0">Stufe ${b.l} · ${fabSlots(b)} Plätze in der Schlange</p></div></div>
++    <div class="panel glass"><div class="recipe">${costHTML(R.inp, undefined, true)}<span class="arr">→</span><span class="rcs"><span class="rc">${ricon(ok, 18)}${R.out[ok]}<small>${RES[ok].n}</small></span></span></div><small class="legend">Dauer ${gDur(R.t)} je Lauf · 1 Fachkraft je Lauf</small>
++    <button class="cta press" style="margin-top:10px" data-act="c3-fgo" data-id="${b.id}"${why ? " data-off=\"1\"" : ""}>Produktion starten</button>${why ? `<p class="legend" style="text-align:center;margin:6px 0 0">${why}</p>` : ""}</div>
++    <div class="list glass">${J.length ? J.map(j => `<div class="row"><div class="round gico">${ricon(ok, 20)}</div><div class="t"><b>${j.out[ok]} ${RES[ok].n}</b><small>${j.e <= now ? "fertig" : j.s > now ? `startet in ${gDur((j.s - now) / 1000)}` : `noch ${gDur((j.e - now) / 1000)}`}</small></div></div>`).join("") : `<div class="row"><div class="t"><small>Nichts in der Schlange.</small></div></div>`}</div>
++    ${fabReady(b) ? `<button class="btn2 acc press" style="width:100%;margin-top:10px" data-act="c3-fcol" data-id="${b.id}">${fabReady(b)} fertige Läufe abholen</button>` : ""}
++    <h3 class="rh">Optimierungen aus dem Prüflabor</h3><div class="list glass">${FAB[b.k].n.map((n, i) => `<div class="row"><div class="t"><b>${i < o ? "✓ " : ""}${n}</b><small>${OTXT(b.k, i)}</small></div></div>`).join("")}</div>`);
++  C3.sheet = "fab:" + b.id;
++}
++function c3chart(){
++  const g = eco(), days = Object.keys(g.stat).sort().slice(-7), sum = (kind, k) => days.reduce((a, d) => a + ((g.stat[d][kind] || {})[k] || 0), 0);
++  const ks = RBASE.concat(RPROD).filter(k => sum("p", k) + sum("u", k) + sum("m", k) > 0); if (!ks.length) return `<p class="legend">Noch keine Daten. Sammle Ressourcen und baue, dann zeigt das Labor hier, was knapp wird.</p>`;
++  const mx = Math.max(1, ...ks.map(k => Math.max(sum("p", k), sum("u", k)))), score = k => sum("m", k) * 4 + sum("u", k) - sum("p", k), eng = ks.slice().sort((a, b) => score(b) - score(a))[0];
++  const rows = ks.map((k, i) => { const y = 8 + i * 30, p = sum("p", k), u = sum("u", k), m = sum("m", k);
++    return `<g transform="translate(0 ${y})"><text x="0" y="13" font-size="12" fill="currentColor">${RES[k].n}</text><rect x="104" y="2" width="${(p / mx * 180).toFixed(1)}" height="9" rx="3" fill="${RES[k].c}"/><rect x="104" y="13" width="${(u / mx * 180).toFixed(1)}" height="9" rx="3" fill="${RES[k].c}" opacity=".4"/>${m ? `<text x="292" y="16" font-size="11" fill="#e5342a">${m}× fehlte</text>` : ""}</g>`; }).join("");
++  return `<svg viewBox="0 0 350 ${16 + ks.length * 30}" class="lchart">${rows}</svg><p class="legend"><b>Kräftig:</b> hergestellt · <b>blass:</b> verbraucht (letzte 7 Tage). Engpass: <b>${RES[eng].n}</b>${WERK[Object.keys(WERK).find(w => WERK[w].r === eng)] ? ` – mehr ${FACH[WERK[Object.keys(WERK).find(w => WERK[w].r === eng)].f].n} lernen hilft` : ""}.</p>`;
++}
++function c3labSheet(){
++  const g = eco(), now = Date.now(), fabs = Object.keys(FAB).filter(hasB), werke = Object.keys(WERK).filter(hasB), bo = g.boost && g.boost.until > now ? g.boost : null;
++  openSheet(`<h2>Prüflabor</h2><p class="sub">${ricon("daten", 16)} ${Math.floor(g.r.daten)} Messdaten · mit Statistik sammelst du mehr</p>
++    <h3 class="rh">Auswertung: Was wird knapp?</h3><div class="panel glass">${c3chart()}</div>
++    <h3 class="rh">Messkampagne</h3><p class="legend">Für 5 Messdaten produziert ein Werk 2 Stunden lang doppelt.${bo ? ` Läuft gerade: ${GT[bo.k].n}, noch ${gDur((bo.until - now) / 1000)}.` : ""}</p>
++    <div class="chips">${werke.filter(k => k !== "vermessung").map(k => `<button class="chip press" data-act="c3-kamp" data-k="${k}">${ricon(WERK[k].r, 14)}${GT[k].n}</button>`).join("") || "<small class='legend'>Erst Werke bauen.</small>"}</div>
++    <h3 class="rh">Fabriken optimieren</h3>${fabs.length ? fabs.map(k => { const o = g.opt[k] || 0; return `<div class="panel glass opt"><b>${GT[k].n}</b>${FAB[k].n.map((n, i) => `<div class="orow${i < o ? " done" : ""}"><span>${i < o ? "✓" : i + 1}</span><div><b>${n}</b><small>${OTXT(k, i)}</small></div>${i === o ? `<button class="btn2 acc sm press" data-act="c3-opt" data-k="${k}">${ricon("daten", 14)}${OPTCOST[i][0]} · ₿ ${OPTCOST[i][1]}</button>` : ""}</div>`).join("")}</div>`; }).join("") : `<p class="legend">Sobald du Fabriken hast, machst du sie hier mit Messdaten effizienter.</p>`}`);
++  C3.sheet = "lab";
++}
++function c3chestSheet(out){
++  const it = out.items.map(([k, n]) => `<div class="rtile pop">${ricon(k, 26)}<b>+${n}</b><small>${RES[k].n}</small></div>`).join("");
++  openSheet(`<div class="chest t${out.tier}">${C3I2.chest}</div><h2 style="text-align:center">${TIER[out.tier]}</h2><p class="sub" style="text-align:center">Tagesziel geschafft${out.tier ? ` · ${out.tier === 2 ? "30" : "7"}+ Tage Serie` : ""}</p>
++    <div class="rgrid">${it}<div class="rtile pop"><i class="c3cn">₿</i><b>+${out.b}</b><small>Bitcoin</small></div>${out.speed ? `<div class="rtile pop">${C3I.crew}<b>+1</b><small>Bau-Beschleuniger</small></div>` : ""}${out.deko ? `<div class="rtile pop">${gIcon(out.deko)}<b>+1</b><small>${GT[out.deko].n}</small></div>` : ""}${out.sh ? `<div class="rtile pop">${C3I2.chest}<b>+1</b><small>Serienschutz</small></div>` : ""}</div>
++    <button class="cta press" data-act="close" style="margin-top:14px">Super</button>`);
++}
++
++/* ── Bauleiste mit Kategorien ── */
++function c3drawerHTML(){
++  const g = eco(), s = C3.sel, cat = C3.cat || 0;
++  const tabs = GCAT.map((c, i) => `<button class="c3tab press${i === cat ? " on" : ""}" data-act="c3-cat" data-i="${i}">${c[0]}</button>`).join("");
++  const cards = GCAT[cat][1].map(k => { const t = GT[k], why = gReq(k, 1), free = t.deko && (g.inv.deko[k] || 0) > 0, rc = free ? {} : ecoCost(k, 1), c = free ? 0 : t.cost[0], poor = !why && g.coins < c, lack = !why && !ecoHave(rc);
++    return `<button class="c3card press${why || poor || lack ? " off" : ""}" data-act="c3-card" data-k="${k}" style="${t.f ? `--c:${cssC(t.f)}` : ""}"><div class="gico">${gIcon(k)}</div><b>${t.n}</b>${free ? `<span class="c3pr">${g.inv.deko[k]}× gratis</span>` : costHTML(rc, c)}<small>${why || (t.time[0] ? `Bauzeit ${gDur(t.time[0])} · ` : "") + t.d}</small></button>`; }).join("");
++  return `<div class="c3dh"><div><b>${s ? `Bauen auf Feld ${s[0] + 1}·${s[1] + 1}` : "Was möchtest du bauen?"}</b><small>Du hast ₿ ${fmtB(g.coins)}${s ? "" : " · danach Fläche antippen"}</small></div><button class="c3x press" data-act="c3-drawer" aria-label="Schließen">${I.close}</button></div><div class="c3tabs">${tabs}</div><div class="c3cards">${cards}</div>`;
++}
++
++/* ── Blasen über Werken und Fabriken ── */
++function c3bubs(){
++  const out = [];
++  G().b.forEach(b => { if (b.until > Date.now() && b.l < 1) return;
++    if (WERK[b.k] && (b.st || 0) >= 1) out.push([b.id, "w", `${ricon(WERK[b.k].r, 18)}<b>${Math.floor(b.st)}</b>`]);
++    else if (FAB[b.k] && fabReady(b)) out.push([b.id, "f", `${ricon(Object.keys(FAB[b.k].out)[0], 18)}<b>✓</b>`]);
++    else if (WERK[b.k] && werkIdle(b)) out.push([b.id, "z", "<b>Zz</b>"]);
++    if (b.k === "rathaus" && chestReady()) out.push([b.id, "c", `${C3I2.chest}<b>Truhe</b>`]); });
++  return out;
++}
++function c3bubSync(){
++  const box = $("#c3labs"); if (!box) return; C3.bub = C3.bub || {}; const want = {};
++  c3bubs().forEach(([id, kind, html]) => { const key = id + kind; want[key] = 1; let o = C3.bub[key];
++    if (!o) { const el = document.createElement("button"); el.className = "c3bub press k" + kind; if (kind !== "z") { el.dataset.act = kind === "c" ? "c3-chest" : kind === "w" ? "c3-col" : "c3-fcol"; el.dataset.id = id; } box.appendChild(el); o = C3.bub[key] = {el, id, kind}; }
++    if (o.html !== html) { o.el.innerHTML = html; o.html = html; } });
++  for (const k in C3.bub) if (!want[k]) { C3.bub[k].el.remove(); delete C3.bub[k]; }
++}
++function c3bubTick(){
++  if (!C3.bub) return; const v = new THREE.Vector3(), w = C3.cv.clientWidth, h = C3.cv.clientHeight, t = performance.now() / 1000;
++  for (const k in C3.bub) { const o = C3.bub[k], g = C3.grp[o.id]; if (!g || (C3.drag && C3.drag.b.id === o.id)) { o.el.style.display = "none"; continue; }
++    v.set(o.kind === "c" ? .55 : 0, g.userData.top + (o.kind === "c" ? .1 : .5), o.kind === "c" ? .6 : 0).applyMatrix4(g.matrixWorld).project(C3.cam);
++    if (v.z > 1 || Math.abs(v.x) > 1.1 || Math.abs(v.y) > 1.1) { o.el.style.display = "none"; continue; }
++    o.el.style.display = ""; o.el.style.transform = `translate(${(v.x * .5 + .5) * w}px,${(-v.y * .5 + .5) * h + Math.sin(t * 3 + o.id) * 3}px)`; }
++}
++/* Kisten fliegen ins Lagerhaus */
++function c3crates(b, n, res){
++  const from = C3.grp[b.id]; if (!from || !n) return; const lb = G().b.find(o => o.k === "lagerhaus" && o.l > 0) || G().b.find(o => o.k === "rathaus"), to = lb && C3.grp[lb.id]; if (!to) return;
++  const A = new THREE.Vector3(0, from.userData.top, 0).applyMatrix4(from.matrixWorld), B = new THREE.Vector3(0, to.userData.top * .7, 0).applyMatrix4(to.matrixWorld);
++  const mat = new THREE.MeshStandardMaterial({color: new THREE.Color(RES[res].c), flatShading: true, roughness: .7});
++  for (let i = 0; i < Math.min(6, n); i++) { const m = new THREE.Mesh(C3.G.crate || (C3.G.crate = c3boxG(.16, .16, .16)), mat); m.position.copy(A); m.visible = false; C3.sc.add(m);
++    C3.fx.push({m, kind: "crate", A: A.clone().add(new THREE.Vector3((Math.random() - .5) * .3, 0, (Math.random() - .5) * .3)), B, t: -i * .12, life: 9, id: lb.id, own: i === 0 ? mat : null}); }
++}
++function c3crateTick(f, dt){
++  f.t += dt; const k = f.t / 1.1; if (k < 0) return; f.m.visible = true;
++  if (k >= 1) { f.life = 0; c3wobble(f.id, .05); return; }
++  const mid = f.A.clone().lerp(f.B, .5); mid.y += 2.2; const a = f.A.clone().lerp(mid, k), b2 = mid.clone().lerp(f.B, k); f.m.position.copy(a.lerp(b2, k)); f.m.rotation.set(k * 5, k * 4, 0);
++}
++
++/* ── 3D-Truhe am Rathaus ── */
++function c3chestObj(){
++  if (C3.chest) return C3.chest; const K = new C3Kit(); K.box("wood", .3, .16, .2); K.box("gold", .31, .03, .21, 0, .07, 0); K.box("gold", .04, .17, .21, -.1, 0, 0); K.box("gold", .04, .17, .21, .1, 0, 0);
++  K.put("wood", new THREE.CylinderGeometry(.1, .1, .3, 10, 1, false, 0, Math.PI).rotateZ(Math.PI / 2), 0, .16, 0); K.box("gold", .05, .06, .02, 0, .1, .105);
++  const g = K.build(); const glow = new THREE.Mesh(new THREE.PlaneGeometry(1, 1).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({color: 0xffd36a, map: C3.T.glow, transparent: true, opacity: .7, depthWrite: false, blending: THREE.AdditiveBlending}));
++  glow.position.y = .02; g.add(glow); C3.sc.add(g); C3.chest = g; return g;
++}
++function c3chestTick(t){
++  const rh = G().b.find(b => b.k === "rathaus"), on = !!(rh && chestReady() && C3.grp[rh.id]); if (!on) { if (C3.chest) C3.chest.visible = false; return; }
++  const c = c3chestObj(), g = C3.grp[rh.id]; c.visible = true; const p = new THREE.Vector3(.55, 0, .6).applyMatrix4(g.matrixWorld); c.position.set(p.x, .07 + Math.abs(Math.sin(t * 2.5)) * .06, p.z); c.rotation.y = g.rotation.y + Math.sin(t) * .2;
++}
++
++/* ── Verschieben: lange drücken und ziehen, Tauschen, Rückgängig ── */
++function c3lotAt(p){ let best = null, bd = 1.3; for (let i = 0; i < 64; i++) { const x = i % 8, y = i / 8 | 0, d = Math.hypot(c3lot(x) - p.x, c3lot(y) - p.z); if (d < bd) { bd = d; best = [x, y]; } } return best; }
++function c3dragStart(b){
++  if (b.until > Date.now()) { toast("Baustellen lassen sich nicht verschieben"); return false; }
++  const grp = C3.grp[b.id]; if (!grp) return false; c3cardClose(); if (C3.drawer) c3drawer(false);
++  C3.drag = {b, grp, tx: b.x, ty: b.y}; C3.sel = [b.x, b.y]; C3.hlKey = ""; c3hl(); grp.position.y = .45; return true;
++}
++function c3dragMove(cx, cy){
++  const D = C3.drag, r = C3.cv.getBoundingClientRect(); C3.ndc.set((cx - r.left) / r.width * 2 - 1, -(cy - r.top) / r.height * 2 + 1); C3.rc.setFromCamera(C3.ndc, C3.cam);
++  const p = new THREE.Vector3(); if (!C3.rc.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 1, 0), 0), p)) return;
++  D.grp.position.x += (p.x - D.grp.position.x) * .5; D.grp.position.z += (p.z - D.grp.position.z) * .5; const l = c3lotAt(p); if (l && (l[0] !== D.tx || l[1] !== D.ty)) { D.tx = l[0]; D.ty = l[1]; C3.sel = l; C3.hlKey = ""; c3hl(); }
++}
++function c3dragEnd(){
++  const D = C3.drag; C3.drag = null; if (!D) return; const b = D.b, g = G(), o = g.b.find(x => x.x === D.tx && x.y === D.ty && x.id !== b.id);
++  const back = () => { D.grp.position.set(c3lot(b.x), .06, c3lot(b.y)); C3.sel = null; C3.hlKey = ""; c3hl(); };
++  if (D.tx === b.x && D.ty === b.y) return back();
++  if (o && o.until > Date.now()) { toast("Baustellen lassen sich nicht verschieben"); return back(); }
++  C3.undo = [[b.id, b.x, b.y]]; if (o) { C3.undo.push([o.id, o.x, o.y]); o.x = b.x; o.y = b.y; } b.x = D.tx; b.y = D.ty; save();
++  C3.sel = null; C3.hlKey = ""; c3sync(); c3undoShow(o ? `${GT[b.k].n} und ${GT[o.k].n} getauscht` : `${GT[b.k].n} verschoben`);
++}
++function c3undoShow(txt){ const el = $("#c3undo"); el.innerHTML = `<span>${txt}</span><button class="press" data-act="c3-undo">Rückgängig</button>`; el.hidden = false; clearTimeout(C3.undoT); C3.undoT = setTimeout(() => { el.hidden = true; C3.undo = null; }, 6000); }
++function c3swapTo(b, x, y){ const g = G(), o = g.b.find(q => q.x === x && q.y === y && q.id !== b.id); if (o && o.until > Date.now()) { toast("Baustellen lassen sich nicht verschieben"); return; }
++  C3.undo = [[b.id, b.x, b.y]]; if (o) { C3.undo.push([o.id, o.x, o.y]); o.x = b.x; o.y = b.y; } b.x = x; b.y = y; save(); GMOVE = null; C3.hlKey = ""; c3sync(); c3hud(); c3undoShow(o ? "Getauscht" : `${GT[b.k].n} verschoben`); }
++
++/* ── Aktionen ── */
++function c3Act23(a, ds){
++  const g = eco(), b = ds.id ? g.b.find(o => o.id === +ds.id) : null;
++  if (ds.off) { if (a === "c3-up" && b) { const L = b.l + 1, w = gReq(b.k, L), rc = ecoCost(b.k, L); toast(w || (g.coins < GT[b.k].cost[L - 1] ? `Noch ${fmtB(GT[b.k].cost[L - 1] - g.coins)} ₿ zu wenig` : "Es fehlen: " + ecoMiss(rc, true))); }
++    else if (a === "c3-fgo" && b) toast(fabStart(b) || "Gestartet"); else if (a === "c3-odo") { const o = g.orders[+ds.i]; toast(o && o.kind === "res" ? "Es fehlen: " + ecoMiss(o.need, true) : "Noch nicht geschafft"); } return true; }
++  if (a === "c3-cclose") c3cardClose();
++  else if (a === "c3-up" && b) { gAct("g-up", {id: b.id}); C3.shown = G().coins; c3cardDraw(); }
++  else if (a === "c3-det" && b) { c3cardClose(); gBuildingSheet(b); }
++  else if (a === "c3-mv" && b) { c3cardClose(); GMOVE = b.id; C3.hlKey = ""; c3hl(); c3hud(); }
++  else if (a === "c3-col" && b) { const n = ecoCollect(b); if (n) { c3crates(b, n, WERK[b.k].r); toast(`+${n} ${RES[WERK[b.k].r].n}`); } c3cardDraw(); c3bubSync(); }
++  else if (a === "c3-fcol" && b) { const res = Object.keys(FAB[b.k].out)[0], n = fabCollect(b); if (n) { c3crates(b, n, res); toast(`+${n} ${RES[res].n}`); } c3cardDraw(); c3bubSync(); if (C3.sheet === "fab:" + b.id && !$("#sheet").hidden) c3fabSheet(b); }
++  else if (a === "c3-fab" && b) { c3cardClose(); c3fabSheet(b); }
++  else if (a === "c3-fgo" && b) { const e = fabStart(b); toast(e || `${GT[b.k].n}: Produktion gestartet`); c3fabSheet(b); C3.keys[b.id] = ""; }
++  else if (a === "c3-lager") { c3cardClose(); c3lagerSheet(); }
++  else if (a === "c3-orders") { c3cardClose(); c3ordersSheet(); }
++  else if (a === "c3-odo") { const e = orderDeliver(+ds.i); if (e) toast(e); else { toast("Auftrag erledigt"); C3.shown = C3.shown; } c3ordersSheet(); c3hud(); }
++  else if (a === "c3-odrop") { const e = orderDrop(+ds.i); toast(e || "Auftrag verworfen – ein neuer kommt in 10 Minuten"); c3ordersSheet(); }
++  else if (a === "c3-lab") { c3cardClose(); c3labSheet(); }
++  else if (a === "c3-opt") { const e = optBuy(ds.k); toast(e || "Optimierung freigeschaltet"); c3labSheet(); c3hud(); }
++  else if (a === "c3-kamp") { const e = kampagne(ds.k); toast(e || `Messkampagne: ${GT[ds.k].n} produziert 2 Stunden doppelt`); c3labSheet(); }
++  else if (a === "c3-chest") { c3cardClose(); const out = chestOpen(); if (out) { c3chestSheet(out); c3hud(); } }
++  else if (a === "c3-crew") { if (g.crew3) return true; if (g.r.fach < 10) toast(`Es fehlen ${10 - Math.floor(g.r.fach)} Fachkräfte`); else if (g.coins < 400) toast(`Noch ${fmtB(400 - g.coins)} ₿ zu wenig`); else { g.r.fach -= 10; g.coins -= 400; g.crew3 = 1; save(); toast("Dritter Bautrupp eingestellt"); c3cardDraw(); c3hud(); } }
++  else if (a === "c3-speed" && b) { if (g.inv.speed > 0 && b.until > Date.now()) { g.inv.speed--; b.until = Math.max(Date.now(), b.until - 1800e3); save(); gFinalize(); toast("Bau um 30 Minuten beschleunigt"); c3sync(); c3cardDraw(); } }
++  else if (a === "c3-cat") { C3.cat = +ds.i; $("#c3drawer").innerHTML = c3drawerHTML(); }
++  else if (a === "c3-umbau") { C3.umbau = !C3.umbau; c3cardClose(); if (C3.drawer) c3drawer(false); c3hud(); toast(C3.umbau ? "Umbau-Modus: Gebäude einfach ziehen" : "Umbau beendet"); }
++  else if (a === "c3-undo") { (C3.undo || []).forEach(([id, x, y]) => { const o = g.b.find(q => q.id === id); if (o) { o.x = x; o.y = y; } }); C3.undo = null; save(); $("#c3undo").hidden = true; c3sync(); }
++  else return false;
++  return true;
++}
++
+ /* ── 3D-STADT ENDE ── */
+ 
+ let dropT = 0;
+@@ -3031,6 +3752,7 @@
+   }).catch(()=>{});
+   if(navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(()=>{});
+ }
++if (S.game) { try { ecoDaily(); } catch(e) { console.error(e); } }
+ render();
+ })();
+ </script>

@@ -1,0 +1,2 @@
+/* Patch-Warteschlange · 2.3 · neue Skizzen für Fragen ohne Bild (Sicherheitskonzept, Grundkombination, Skalarprodukt, Datentypen, krz/kfz, Gewichtung, Data Frame) · erstellt 20.11.2026 */
+for (const [id, ev] of Object.entries({"bauko-mctp1e":"sicherheit","bauko-15fn0bl":"grundkombi","bauko-1unldu":"grundkombi","phys-fxy2p8":"skalarprod","binf-103nehk":"datentypen","dap-rloqz2":"gewichtung","dap-814yna":"gewichtung","dap-ktknex":"dataframe","bsk-1hxweop":"krzkfz","bsk-183rq9b":"krzkfz","phys-7d8n53":"skalarprod"})) KORREKTUR[id] = Object.assign({}, KORREKTUR[id], {ev});
