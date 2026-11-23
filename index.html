@@ -268,6 +268,9 @@ body.c3on .toast.show{opacity:1}
   background:rgba(255,255,255,.95);color:#1b2234;box-shadow:0 6px 14px rgba(0,0,0,.3);pointer-events:auto;will-change:transform}
 .c3bub::after{content:"";position:absolute;left:50%;bottom:-6px;margin-left:-6px;border:6px solid transparent;border-bottom:0;border-top-color:rgba(255,255,255,.95)}
 .c3bub.kz{background:rgba(30,36,55,.75);color:#cfd6e6;pointer-events:none;min-width:40px;margin-left:-20px}.c3bub.kz::after{border-top-color:rgba(30,36,55,.75)}
+.c3bub.kp{background:rgba(22,30,48,.86);color:#fff;height:30px;margin:-30px 0 0 -34px;font-size:12.5px;font-variant-numeric:tabular-nums;padding:0 10px 0 6px}.c3bub.kp::after{border-top-color:rgba(22,30,48,.86)}.c3bub.kp .gear{display:flex;width:16px;height:16px;color:#7ee2a8;animation:c3spin 2.4s linear infinite}.c3bub.kp .gear svg{width:16px;height:16px}.c3bub.kp small{font-size:10.5px;opacity:.7;font-weight:700}
+.c3bub.ki{background:rgba(30,36,55,.72);color:#cfd6e6;height:28px;min-width:0;margin:-28px 0 0 -28px;font-size:12px;padding:0 10px}.c3bub.ki::after{border-top-color:rgba(30,36,55,.72)}
+@keyframes c3spin{to{transform:rotate(360deg)}}
 .c3bub.kc{background:linear-gradient(#ffe08a,#f4b12a)}.c3bub.kc svg{width:18px;height:18px}
 .c3tabs{display:flex;gap:6px;overflow-x:auto;padding:0 14px 8px;scrollbar-width:none;touch-action:pan-x}.c3tabs::-webkit-scrollbar{display:none}
 .c3tab{flex:none;height:32px;padding:0 13px;border-radius:16px;font-size:13px;font-weight:700;color:#fff;background:rgba(255,255,255,.12)}.c3tab.on{background:#fff;color:#1b2234}
@@ -1550,7 +1553,7 @@ if (typeof KORREKTUR !== "undefined") AUFG.forEach(a => { const x = KORREKTUR[a.
 const ALLQ = FRAGEN.filter(q => !q.weg), ALLA = AUFG.filter(a => !a.weg);
 
 /* storage */
-const APP_VERSION = "2.5.3";
+const APP_VERSION = "2.5.4";
 const KEY = "klausurduell.v1";
 let S = {cards:{}, days:{}, aufg:{}};
 try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch(e) {}
@@ -4401,19 +4404,35 @@ function c3drawerHTML(){
 }
 
 /* ── Blasen über Werken und Fabriken ── */
+/* v2.5.4: Restzeit über laufenden Fabriken, „Pause“ über leeren, Rauch und leichtes Arbeiten nur bei Produktion */
+const C3GEAR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.6M12 18.4V21M3 12h2.6M18.4 12H21M5.6 5.6l1.9 1.9M16.5 16.5l1.9 1.9M5.6 18.4l1.9-1.9M16.5 7.5l1.9-1.9"/></svg>';
+const c3tm = s => { s = Math.max(0, Math.ceil(s)); if (s < 3600) return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60); return h + " h " + String(m).padStart(2, "0"); };
+const c3fabAktiv = b => FAB[b.k] && b.l >= 1 && fabJobs(b).some(j => j.s <= Date.now() && j.e > Date.now());
+setInterval(() => {
+  if (!C3.open || document.hidden) return;
+  C3.akt = C3.akt || {}; C3.akTick = (C3.akTick || 0) + 1; let neu = 0;
+  G().b.forEach(b => { if (!FAB[b.k]) return; const a = c3fabAktiv(b);
+    if (C3.akt[b.id] !== undefined && C3.akt[b.id] !== a) { C3.keys[b.id] = ""; neu = 1; }
+    C3.akt[b.id] = a; if (a && C3.akTick % 3 === 0) c3wobble(b.id, .025); });
+  if (neu) { try { c3sync(); } catch (e) {} }
+  c3bubSync();
+}, 1000);
 function c3bubs(){
   const out = [];
   G().b.forEach(b => { if (b.until > Date.now() && b.l < 1) return;
     if (WERK[b.k] && (b.st || 0) >= 1) out.push([b.id, "w", `${ricon(WERK[b.k].r, 18)}<b>${Math.floor(b.st)}</b>`]);
     else if (FAB[b.k] && fabReady(b)) out.push([b.id, "f", `${ricon(Object.keys(FAB[b.k].out)[0], 18)}<b>✓</b>`]);
     else if (WERK[b.k] && werkIdle(b)) out.push([b.id, "z", "<b>Zz</b>"]);
+    else if (FAB[b.k] && b.l >= 1) { const now = Date.now(), J = fabJobs(b), cur = J.find(j => j.s <= now && j.e > now);
+      if (cur) out.push([b.id, "p", `<i class="gear">${C3GEAR}</i><b>${c3tm((cur.e - now) / 1000)}</b>${J.length > 1 ? `<small>+${J.length - 1}</small>` : ""}`]);
+      else if (!J.length) out.push([b.id, "i", "<b>Pause</b>"]); }
     if (b.k === "rathaus" && chestReady()) out.push([b.id, "c", `${C3I2.chest}<b>Truhe</b>`]); });
   return out;
 }
 function c3bubSync(){
   const box = $("#c3labs"); if (!box) return; C3.bub = C3.bub || {}; const want = {};
   c3bubs().forEach(([id, kind, html]) => { const key = id + kind; want[key] = 1; let o = C3.bub[key];
-    if (!o) { const el = document.createElement("button"); el.className = "c3bub press k" + kind; if (kind !== "z") { el.dataset.act = kind === "c" ? "c3-chest" : kind === "w" ? "c3-col" : "c3-fcol"; el.dataset.id = id; } box.appendChild(el); o = C3.bub[key] = {el, id, kind}; }
+    if (!o) { const el = document.createElement("button"); el.className = "c3bub press k" + kind; if (kind !== "z") { el.dataset.act = kind === "c" ? "c3-chest" : kind === "w" ? "c3-col" : kind === "p" || kind === "i" ? "c3-fab" : "c3-fcol"; el.dataset.id = id; } box.appendChild(el); o = C3.bub[key] = {el, id, kind}; }
     if (o.html !== html) { o.el.innerHTML = html; o.html = html; } });
   for (const k in C3.bub) if (!want[k]) { C3.bub[k].el.remove(); delete C3.bub[k]; }
 }
