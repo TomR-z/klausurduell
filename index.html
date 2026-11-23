@@ -291,7 +291,7 @@ body.c3on .toast.show{opacity:1}
 .chest{width:84px;height:84px;margin:6px auto 4px;border-radius:24px;display:grid;place-items:center;color:#fff;animation:cshake .6s ease 2}.chest svg{width:52px;height:52px}
 .chest.t0{background:linear-gradient(#c58a4c,#8a5a2b)}.chest.t1{background:linear-gradient(#e3e8ee,#9aa6b4)}.chest.t2{background:linear-gradient(#ffe08a,#e39b12)}
 @keyframes cshake{25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
-.rc small{font-weight:500;font-size:11.5px;opacity:.85;margin-left:1px}.ocard .rcs{flex-direction:column;align-items:flex-start;gap:2px}
+.rc small{font-weight:500;font-size:11.5px;opacity:.85;margin-left:1px}.rc.have{color:#3fb950}.rc .rst{font-weight:800}.rtile .rneed{font-size:11px;color:#3fb950;font-weight:600}.rtile .rneed.miss{color:#ff7b72}.txl{display:block;margin:10px 0 0;font-size:12.5px;font-weight:700;color:var(--ink-3)}.chip.on{background:var(--accent);color:#fff;border-color:transparent}.txrow{display:flex;align-items:center;gap:10px;margin-top:12px}.txrow .c3x{font-size:20px;font-weight:700;flex:none}.txeq{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}.txeq .arr{opacity:.6}.ocard .rcs{flex-direction:column;align-items:flex-start;gap:2px}
 /* ── 3D-STADT CSS ENDE ── */
 
 /* tab bar */
@@ -1550,7 +1550,7 @@ if (typeof KORREKTUR !== "undefined") AUFG.forEach(a => { const x = KORREKTUR[a.
 const ALLQ = FRAGEN.filter(q => !q.weg), ALLA = AUFG.filter(a => !a.weg);
 
 /* storage */
-const APP_VERSION = "2.5.2";
+const APP_VERSION = "2.5.3";
 const KEY = "klausurduell.v1";
 let S = {cards:{}, days:{}, aufg:{}};
 try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch(e) {}
@@ -2848,8 +2848,8 @@ function ecoHave(c){ const r = eco().r; return Object.keys(c).every(k => (r[k] |
 function ecoMiss(c, note){ const r = eco().r, m = Object.keys(c).filter(k => (r[k] || 0) < c[k]); if (note) m.forEach(k => ecoStat("m", k, 1)); return m.map(k => `${c[k] - (r[k] || 0)} ${RES[k].n}`).join(", "); }
 function ecoPay(c){ const r = eco().r; Object.keys(c).forEach(k => { r[k] -= c[k]; ecoStat("u", k, c[k]); }); }
 function ecoAdd(k, n){ const take = Math.min(n, ecoRoom(k)); eco().r[k] += take; return take; }
-function costHTML(c, coins, names){
-  const r = eco().r, parts = Object.keys(c).map(k => `<span class="rc${(r[k] || 0) < c[k] ? " miss" : ""}" title="${RES[k].n}">${ricon(k, 15)}${r[k] >= c[k] ? c[k] : `${Math.floor(r[k] || 0)}/${c[k]}`}${names ? `<small>${c[k] === 1 && k === "fach" ? "Fachkraft" : RES[k].n}</small>` : ""}</span>`);
+function costHTML(c, coins, names, stock){
+  const r = eco().r, parts = Object.keys(c).map(k => `<span class="rc${(r[k] || 0) < c[k] ? " miss" : stock ? " have" : ""}" title="${RES[k].n}">${ricon(k, 15)}${stock ? `<span class="rst">${Math.floor(r[k] || 0)}</span>/${c[k]}` : r[k] >= c[k] ? c[k] : `${Math.floor(r[k] || 0)}/${c[k]}`}${names ? `<small>${c[k] === 1 && k === "fach" ? "Fachkraft" : RES[k].n}</small>` : ""}</span>`);
   if (coins !== undefined) parts.unshift(`<span class="rc${G().coins < coins ? " miss" : ""}"><i class="c3cn sm">₿</i>${fmtB(coins)}</span>`);
   return `<span class="rcs">${parts.join("")}</span>`;
 }
@@ -4308,22 +4308,52 @@ function c3cardTick(){
 }
 
 /* ── Blätter ── */
+function c3lagerKeep(){ const sc = $("#sheet"), y = sc ? sc.scrollTop : 0, b = sc && sc.querySelector(".sbody"), yb = b ? b.scrollTop : 0; c3lagerSheet(); const s2 = $("#sheet"); if (s2) { s2.scrollTop = y; const b2 = s2.querySelector(".sbody"); if (b2) b2.scrollTop = yb; } }
+/* v2.5.3: Bedarf aus offenen Aufträgen und Tauschen im Verhältnis 3 : 1 (nach Wert) */
+function orderNeed(){ const n = {}; (eco().orders || []).forEach(o => { if (o && !o.wait && o.kind === "res") Object.keys(o.need).forEach(k => n[k] = (n[k] || 0) + o.need[k]); }); return n; }
+const TX_F = 3, TX_RES = () => RBASE.concat(RPROD).filter(k => k !== "daten" && k !== "fach");
+const txCost = (from, to, n) => Math.ceil(n * TX_F * RVAL[to] / RVAL[from]);
+function txMax(from, to){ const r = eco().r; let n = 0; while (n < 99 && txCost(from, to, n + 1) <= Math.floor(r[from] || 0)) n++; return n; }
+function txDo(){
+  const t = C3.tx || {}, g = eco(); if (!t.from || !t.to || t.from === t.to) return "Wähle aus, was du abgibst und was du bekommst";
+  const n = Math.max(1, t.n || 1), cost = txCost(t.from, t.to, n);
+  if ((g.r[t.from] || 0) < cost) return `Dafür brauchst du ${cost} ${RES[t.from].n}`;
+  if (lagerCap() - (lagerUsed() - cost) < n) return "Dafür ist im Lager kein Platz – baue das Lagerhaus aus";
+  g.r[t.from] -= cost; ecoStat("u", t.from, cost); const got = ecoAdd(t.to, n); ecoStat("p", t.to, got);
+  save(); haptic(true); return `Getauscht: ${cost} ${RES[t.from].n} → ${got} ${RES[t.to].n}`;
+}
+function txHTML(){
+  const g = eco(), t = C3.tx || (C3.tx = {}), have = TX_RES().filter(k => Math.floor(g.r[k] || 0) > 0);
+  if (!have.length) return `<p class="legend">Sobald du Ressourcen im Lager hast, kannst du Überschuss hier eintauschen.</p>`;
+  if (!t.from || !have.includes(t.from)) { const need = orderNeed(); t.from = have.slice().sort((a, b) => (g.r[b] - (need[b] || 0)) * RVAL[b] - (g.r[a] - (need[a] || 0)) * RVAL[a])[0]; }
+  const tos = RBASE.filter(k => k !== "daten" && k !== "fach" && k !== t.from);
+  if (!t.to || t.to === t.from) { const need = orderNeed(); t.to = tos.slice().sort((a, b) => ((need[b] || 0) - (g.r[b] || 0)) - ((need[a] || 0) - (g.r[a] || 0)))[0]; }
+  const mx = txMax(t.from, t.to); t.n = Math.max(1, Math.min(t.n || 1, Math.max(1, mx)));
+  const cost = txCost(t.from, t.to, t.n), ok = mx >= 1;
+  return `<p class="legend" style="margin-top:0">Für Überschuss: Du gibst Ressourcen ab und bekommst ein Drittel ihres Werts in einer anderen zurück. Lernen bleibt der bessere Weg.</p>
+    <small class="txl">Gib ab</small><div class="chips">${have.map(k => `<button class="chip press${k === t.from ? " on" : ""}" data-act="c3-txf" data-k="${k}">${ricon(k, 14)}${Math.floor(g.r[k])} ${RES[k].n}</button>`).join("")}</div>
+    <small class="txl">Bekomme</small><div class="chips">${tos.map(k => `<button class="chip press${k === t.to ? " on" : ""}" data-act="c3-txt" data-k="${k}">${ricon(k, 14)}${RES[k].n}</button>`).join("")}</div>
+    <div class="txrow"><button class="c3x dk press" data-act="c3-txn" data-d="-1" aria-label="Weniger">−</button><div class="txeq"><span class="rc${ok ? "" : " miss"}">${ricon(t.from, 16)}${cost} ${RES[t.from].n}</span><span class="arr">→</span><span class="rc">${ricon(t.to, 16)}${t.n} ${RES[t.to].n}</span></div><button class="c3x dk press" data-act="c3-txn" data-d="1" aria-label="Mehr">+</button></div>
+    <button class="btn2 acc press" style="width:100%;margin-top:8px" data-act="c3-tx"${ok ? "" : " data-off=\"1\""}>${ok ? "Tauschen" : `Zu wenig ${RES[t.from].n} (mind. ${txCost(t.from, t.to, 1)})`}</button>`;
+}
 function c3lagerSheet(){
-  const g = eco(), used = lagerUsed(), cap = lagerCap(), tile = k => `<div class="rtile">${ricon(k, 26)}<b>${Math.floor(g.r[k])}</b><small>${RES[k].n}</small></div>`;
+  const g = eco(), used = lagerUsed(), cap = lagerCap(), need = orderNeed(), tile = k => `<div class="rtile">${ricon(k, 26)}<b>${Math.floor(g.r[k])}</b><small>${RES[k].n}</small>${need[k] ? `<small class="rneed${Math.floor(g.r[k]) >= need[k] ? "" : " miss"}">Aufträge: ${need[k]}</small>` : ""}</div>`;
   openSheet(`<h2>Lager</h2><p class="sub">${Math.floor(used)} von ${cap} Plätzen belegt · ${lagerL() ? `Lagerhaus Stufe ${lagerL()}` : "noch ohne Lagerhaus – baue eins für mehr Platz"}</p><div class="gbar"><i style="width:${Math.min(100, used / cap * 100)}%;background:var(--accent)"></i></div>
     <h3 class="rh">Grund-Ressourcen</h3><div class="rgrid">${RBASE.filter(k => k !== "daten" && k !== "fach").map(tile).join("")}</div>
     <h3 class="rh">Bauteile aus Fabriken</h3><div class="rgrid">${RPROD.map(tile).join("")}</div>
     <h3 class="rh">Außerhalb des Lagers</h3><div class="rgrid">${tile("daten")}${tile("fach")}</div>
-    <p class="legend">Messdaten: höchstens ${extraCap("daten")}. Fachkräfte: höchstens ${extraCap("fach")} (mehr mit höherem Bahnhof). Bau-Beschleuniger: ${g.inv.speed}. Serienschutz: ${g.sh} von ${shCap()}.</p>`);
+    <p class="legend">Messdaten: höchstens ${extraCap("daten")}. Fachkräfte: höchstens ${extraCap("fach")} (mehr mit höherem Bahnhof). Bau-Beschleuniger: ${g.inv.speed}. Serienschutz: ${g.sh} von ${shCap()}.</p>
+    <h3 class="rh">Tauschen</h3><div class="panel glass">${txHTML()}</div>`);
+  C3.sheet = "lager";
 }
 function c3ordersSheet(){
   const g = eco(); ordersTick(); const now = Date.now(), bonus = hasB("buero") ? 1.15 : 1;
   const card = (o, i) => { if (!o || o.wait) return `<div class="ocard wait">${C3I2.orders}<small>Neuer Auftrag in ${gDur(((o && o.wait) - now) / 1000)}</small></div>`;
     const ok = orderOk(o), rew = `<span class="orew"><i class="c3cn sm">₿</i>${fmtB(Math.round(o.rew.b * bonus))} · ${o.rew.xp} XP${o.rew.r ? ` · ${ricon(o.rew.r[0], 14)}${o.rew.r[1]}` : ""}${o.rew.speed ? " · Beschleuniger" : ""}${o.rew.deko ? ` · ${GT[o.rew.deko].n}` : ""}</span>`;
-    const need = o.kind === "res" ? costHTML(o.need, undefined, true) : `<div class="gbar" style="margin:6px 0 2px"><i style="width:${Math.min(100, o.c / o.n * 100)}%;background:${o.f ? cssC(o.f) : "var(--accent)"}"></i></div><small>${Math.min(o.c, o.n)} von ${o.n}</small>`;
+    const need = o.kind === "res" ? costHTML(o.need, undefined, true, true) : `<div class="gbar" style="margin:6px 0 2px"><i style="width:${Math.min(100, o.c / o.n * 100)}%;background:${o.f ? cssC(o.f) : "var(--accent)"}"></i></div><small>${Math.min(o.c, o.n)} von ${o.n}</small>`;
     return `<div class="ocard${ok ? " ok" : ""}${o.kind === "lern" ? " lern" : ""}"><b>${o.kind === "lern" ? "Lernauftrag" : esc(o.name)}</b><small>${o.kind === "lern" ? esc(o.name) : "braucht"}</small>${need}${rew}
       <div class="obtn"><button class="btn2 ${ok ? "acc " : ""}sm press" data-act="c3-odo" data-i="${i}"${ok ? "" : " data-off=\"1\""}>${o.kind === "lern" ? "Abholen" : "Liefern"}</button><button class="c3x dk press" data-act="c3-odrop" data-i="${i}" aria-label="Verwerfen">${I.x}</button></div></div>`; };
-  openSheet(`<h2>Auftragsblatt</h2><p class="sub">Liefere Ressourcen oder erfülle Lernaufträge. Einen Auftrag am Tag darfst du verwerfen.${bonus > 1 ? " Bürohochhaus: +15 % Bitcoin." : ""}</p><div class="ogrid">${g.orders.map(card).join("")}</div>`);
+  openSheet(`<h2>Auftragsblatt</h2><p class="sub">Liefere Ressourcen oder erfülle Lernaufträge. Einen Auftrag am Tag darfst du verwerfen.${bonus > 1 ? " Bürohochhaus: +15 % Bitcoin." : ""}</p><p class="legend" style="margin:-4px 0 6px">Zahlen bei Ressourcen: <b>im Lager / gebraucht</b> – grün reicht, rot fehlt. Überschuss tauschst du im Lager.</p><div class="ogrid">${g.orders.map(card).join("")}</div>`);
   C3.sheet = "orders";
 }
 function c3fabSheet(b){
@@ -4458,6 +4488,10 @@ function c3Act23(a, ds){
   else if (a === "c3-fab" && b) { c3cardClose(); c3fabSheet(b); }
   else if (a === "c3-fgo" && b) { const e = fabStart(b); toast(e || `${GT[b.k].n}: Produktion gestartet`); c3fabSheet(b); C3.keys[b.id] = ""; }
   else if (a === "c3-lager") { c3cardClose(); c3lagerSheet(); }
+  else if (a === "c3-txf") { C3.tx = Object.assign(C3.tx || {}, {from: ds.k, n: 1}); if (C3.tx.to === ds.k) C3.tx.to = ""; c3lagerKeep(); }
+  else if (a === "c3-txt") { C3.tx = Object.assign(C3.tx || {}, {to: ds.k, n: 1}); c3lagerKeep(); }
+  else if (a === "c3-txn") { const t = C3.tx || (C3.tx = {}); t.n = Math.max(1, Math.min((t.n || 1) + +ds.d, Math.max(1, txMax(t.from, t.to)))); c3lagerKeep(); }
+  else if (a === "c3-tx") { const e = txDo(); toast(e); c3lagerKeep(); c3hud(); }
   else if (a === "c3-orders") { c3cardClose(); c3ordersSheet(); }
   else if (a === "c3-odo") { const e = orderDeliver(+ds.i); if (e) toast(e); else { toast("Auftrag erledigt"); C3.shown = C3.shown; } c3ordersSheet(); c3hud(); }
   else if (a === "c3-odrop") { const e = orderDrop(+ds.i); toast(e || "Auftrag verworfen – ein neuer kommt in 10 Minuten"); c3ordersSheet(); }
@@ -4679,13 +4713,32 @@ async function pushPost(pfad, body){
   const r = await fetch(PUSH_URL + pfad, {method: "POST", body: JSON.stringify(body), keepalive: true, headers: {"Content-Type": "text/plain"}});
   return r.json().catch(() => ({ok: false}));
 }
-let pushLast = 0, pushSig = "";
+let pushLast = 0, pushSig = "", pushHeilt = false;
+/* v2.5.3: Selbstheilung – fehlt das Abo am Gerät oder kennt der Server das Gerät nicht mehr, neu anmelden */
+async function pushHeilen(grund){
+  if (!pushOn() || !pushKann() || pushHeilt) return;
+  pushHeilt = true;
+  try {
+    if (Notification.permission !== "granted") { S.push.kaputt = "erlaubnis"; save(); return; }
+    const reg = await navigator.serviceWorker.ready;
+    let sub = await reg.pushManager.getSubscription(), neu = false;
+    if (!sub) { try { sub = await reg.pushManager.subscribe({userVisibleOnly: true, applicationServerKey: pushKey(PUSH_VAPID)}); neu = true; } catch (e) { S.push.kaputt = "abo"; save(); return; } }
+    if (neu || grund === "server" || S.push.ep !== sub.endpoint) {
+      const r = await pushPost("/abo", {id: pushId(), sub: sub.toJSON(), tz: Intl.DateTimeFormat().resolvedOptions().timeZone, cfg: pushCfg(), stand: pushStand()});
+      if (!r.ok) { S.push.kaputt = "server"; save(); return; }
+      S.push.ep = sub.endpoint;
+    }
+    if (S.push.kaputt) { delete S.push.kaputt; save(); render(); }
+    else save();
+  } catch (e) { /* offline o. ä.: beim nächsten Öffnen erneut */ }
+  finally { pushHeilt = false; }
+}
 function pushReport(force){
   if (!pushOn() || !navigator.onLine) return;
   const st = pushStand(), sig = JSON.stringify(st);
   if (!force && (sig === pushSig || Date.now() - pushLast < 60000)) return;
   pushSig = sig; pushLast = Date.now();
-  pushPost("/stand", {id: pushId(), stand: st, tz: Intl.DateTimeFormat().resolvedOptions().timeZone}).then(r => { if (r && r.fehler === "unbekannt") { S.push.an = false; save(); } }).catch(() => {});
+  pushPost("/stand", {id: pushId(), stand: st, tz: Intl.DateTimeFormat().resolvedOptions().timeZone}).then(r => { if (r && r.fehler === "unbekannt") pushHeilen("server"); }).catch(() => {});
 }
 async function pushEinschalten(){
   if (!pushKann()) { pushHilfe(); return; }
@@ -4699,7 +4752,7 @@ async function pushEinschalten(){
     const cfg = pushCfg(); cfg.an = true;
     const r = await pushPost("/abo", {id: pushId(), sub: sub.toJSON(), tz: Intl.DateTimeFormat().resolvedOptions().timeZone, cfg, stand: pushStand()});
     if (!r.ok) throw new Error(r.fehler || "Server");
-    S.push.an = true; S.push.cfg = cfg; save(); pushSig = ""; render(); pushSheet(); toast("Erinnerungen sind an");
+    S.push.an = true; S.push.cfg = cfg; S.push.ep = sub.endpoint; delete S.push.kaputt; save(); pushSig = ""; render(); pushSheet(); toast("Erinnerungen sind an");
   } catch (e) { toast("Einschalten hat nicht geklappt: " + (e.message || e)); }
 }
 async function pushAusschalten(){
@@ -4746,8 +4799,10 @@ async function pushDiag(){
 }
 function pushPanel(){
   const on = pushOn(), c = pushCfg();
-  return `<div class="panel glass"><div class="sec-h" style="padding:0"><h2>Erinnerungen</h2><small>${on ? `an · ${c.tlern ? c.lern + " Uhr" : "ohne Lernerinnerung"}` : "aus"}</small></div>
-    <p class="legend" style="margin:0">${on ? "Mitteilungen kommen auch, wenn die App geschlossen ist." : "Mitteilungen ans Tagesziel, an deine Serie und an Werke, die bald stillstehen."}</p>
+  const kp = on && S.push.kaputt;
+  return `<div class="panel glass"><div class="sec-h" style="padding:0"><h2>Erinnerungen</h2><small>${kp ? "<span style=\"color:#ff7b72\">getrennt</span>" : on ? `an · ${c.tlern ? c.lern + " Uhr" : "ohne Lernerinnerung"}` : "aus"}</small></div>
+    <p class="legend" style="margin:0">${kp ? (kp === "erlaubnis" ? "Mitteilungen sind in den iPhone-Einstellungen aus. Erlaube sie dort für Klausurduell, dann verbindet sich die App von selbst neu." : "Die Verbindung für Erinnerungen ist verloren gegangen. Ein Tipp verbindet sie neu.") : on ? "Mitteilungen kommen auch, wenn die App geschlossen ist. Die App prüft die Verbindung bei jedem Öffnen." : "Mitteilungen ans Tagesziel, an deine Serie und an Werke, die bald stillstehen."}</p>
+    ${kp && kp !== "erlaubnis" ? `<div class="btnrow" style="margin-top:0"><button class="btn2 acc press" data-act="push-an">Neu verbinden</button></div>` : ""}
     <div class="btnrow" style="margin-top:0"><button class="btn2${on ? "" : " acc"} press" data-act="push-sheet">${on ? "Einstellungen" : "Einschalten"}</button></div></div>`;
 }
 function pushAct(a, d){
@@ -4761,7 +4816,8 @@ function pushAct(a, d){
   return false;
 }
 function pushMerkeZeiten(c){ const l = $("#pz-lern"), s = $("#pz-serie"); if (l && /^\d\d:\d\d$/.test(l.value)) c.lern = l.value; if (s && /^\d\d:\d\d$/.test(s.value)) c.serie = s.value; }
-document.addEventListener("visibilitychange", () => { if (document.hidden) pushReport(); else if (pushOn()) setTimeout(() => pushReport(true), 1500); });
+document.addEventListener("visibilitychange", () => { if (document.hidden) pushReport(); else if (pushOn()) { pushHeilen(); setTimeout(() => pushReport(true), 1500); } });
+if (pushOn()) setTimeout(() => { pushHeilen(); pushReport(true); }, 2500);
 setInterval(() => pushReport(), 120000);
 /* Aus einer Mitteilung kommend: passenden Tab öffnen */
 function pushGoto(h){ const t = (h || "").replace("#", ""); if (["heute", "faecher", "aufgaben", "stadt", "stand"].includes(t) && t !== tab) { if (t === "stadt" && !gOn()) return; tab = t; render(); window.scrollTo({top: 0}); } }
