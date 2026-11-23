@@ -1550,7 +1550,7 @@ if (typeof KORREKTUR !== "undefined") AUFG.forEach(a => { const x = KORREKTUR[a.
 const ALLQ = FRAGEN.filter(q => !q.weg), ALLA = AUFG.filter(a => !a.weg);
 
 /* storage */
-const APP_VERSION = "2.5";
+const APP_VERSION = "2.5.1";
 const KEY = "klausurduell.v1";
 let S = {cards:{}, days:{}, aufg:{}};
 try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch(e) {}
@@ -4551,7 +4551,7 @@ document.addEventListener("click", e => {
   else if(a==="ex-go") examGo();
   else if(a==="export") exportBackup();
   else if(a==="import") $("#importFile").click();
-  else if(a==="reload") location.reload();
+  else if(a==="reload"){ try{ navigator.serviceWorker.getRegistration().then(r=>{ if(r&&r.waiting) r.waiting.postMessage("skip"); setTimeout(()=>location.reload(),400); }); }catch(e){ location.reload(); } }
   else if(a==="more"){ const m=b.nextElementSibling; m.hidden=!m.hidden; b.classList.toggle("open",!m.hidden); if(!m.hidden) setTimeout(()=>m.scrollIntoView({behavior:"smooth",block:"nearest"}),50); }
   else if(a==="reset-yes"){ S={cards:{},days:{},aufg:{},aufgR:{},df:{},notes:S.notes,hide:S.hide}; save(); closeSheet(); render(); toast("Fortschritt zurückgesetzt"); }
   else if(a==="close") closeSheet();
