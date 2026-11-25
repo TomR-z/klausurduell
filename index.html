@@ -268,9 +268,6 @@ body.c3on .toast.show{opacity:1}
   background:rgba(255,255,255,.95);color:#1b2234;box-shadow:0 6px 14px rgba(0,0,0,.3);pointer-events:auto;will-change:transform}
 .c3bub::after{content:"";position:absolute;left:50%;bottom:-6px;margin-left:-6px;border:6px solid transparent;border-bottom:0;border-top-color:rgba(255,255,255,.95)}
 .c3bub.kz{background:rgba(30,36,55,.75);color:#cfd6e6;pointer-events:none;min-width:40px;margin-left:-20px}.c3bub.kz::after{border-top-color:rgba(30,36,55,.75)}
-.c3bub.kp{background:rgba(22,30,48,.86);color:#fff;height:30px;margin:-30px 0 0 -34px;font-size:12.5px;font-variant-numeric:tabular-nums;padding:0 10px 0 6px}.c3bub.kp::after{border-top-color:rgba(22,30,48,.86)}.c3bub.kp .gear{display:flex;width:16px;height:16px;color:#7ee2a8;animation:c3spin 2.4s linear infinite}.c3bub.kp .gear svg{width:16px;height:16px}.c3bub.kp small{font-size:10.5px;opacity:.7;font-weight:700}
-.c3bub.ki{background:rgba(30,36,55,.72);color:#cfd6e6;height:28px;min-width:0;margin:-28px 0 0 -28px;font-size:12px;padding:0 10px}.c3bub.ki::after{border-top-color:rgba(30,36,55,.72)}
-@keyframes c3spin{to{transform:rotate(360deg)}}
 .c3bub.kc{background:linear-gradient(#ffe08a,#f4b12a)}.c3bub.kc svg{width:18px;height:18px}
 .c3tabs{display:flex;gap:6px;overflow-x:auto;padding:0 14px 8px;scrollbar-width:none;touch-action:pan-x}.c3tabs::-webkit-scrollbar{display:none}
 .c3tab{flex:none;height:32px;padding:0 13px;border-radius:16px;font-size:13px;font-weight:700;color:#fff;background:rgba(255,255,255,.12)}.c3tab.on{background:#fff;color:#1b2234}
@@ -294,7 +291,15 @@ body.c3on .toast.show{opacity:1}
 .chest{width:84px;height:84px;margin:6px auto 4px;border-radius:24px;display:grid;place-items:center;color:#fff;animation:cshake .6s ease 2}.chest svg{width:52px;height:52px}
 .chest.t0{background:linear-gradient(#c58a4c,#8a5a2b)}.chest.t1{background:linear-gradient(#e3e8ee,#9aa6b4)}.chest.t2{background:linear-gradient(#ffe08a,#e39b12)}
 @keyframes cshake{25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
-.rc small{font-weight:500;font-size:11.5px;opacity:.85;margin-left:1px}.rc.have{color:#3fb950}.rc .rst{font-weight:800}.rtile .rneed{font-size:11px;color:#3fb950;font-weight:600}.rtile .rneed.miss{color:#ff7b72}.txl{display:block;margin:10px 0 0;font-size:12.5px;font-weight:700;color:var(--ink-3)}.chip.on{background:var(--accent);color:#fff;border-color:transparent}.txrow{display:flex;align-items:center;gap:10px;margin-top:12px}.txrow .c3x{font-size:20px;font-weight:700;flex:none}.txeq{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}.txeq .arr{opacity:.6}.ocard .rcs{flex-direction:column;align-items:flex-start;gap:2px}
+.rc small{font-weight:500;font-size:11.5px;opacity:.85;margin-left:1px}.ocard .rcs{flex-direction:column;align-items:flex-start;gap:2px}
+#c3.c3load::after{content:"Stadt wird geladen …";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font:700 17px/1.3 -apple-system,system-ui,sans-serif;letter-spacing:.01em;background:linear-gradient(#3d8fe2,#cde9ff);z-index:50}
+.c3res{position:absolute;left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));bottom:calc(env(safe-area-inset-bottom,0px) + 106px);display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;padding:6px;border-radius:20px;color:#fff;text-align:left;-webkit-overflow-scrolling:touch;transition:opacity .25s,transform .25s;z-index:3}
+.c3res::-webkit-scrollbar{display:none}.c3res.hide{opacity:0;transform:translateY(16px);pointer-events:none}
+.c3r{flex:none;display:flex;align-items:center;gap:7px;padding:4px 10px 4px 4px;border-radius:15px;background:rgba(255,255,255,.09)}
+.c3r b{display:block;font-size:15px;line-height:1.05;font-weight:800;font-variant-numeric:tabular-nums}
+.c3r small{display:block;font-size:10px;font-weight:650;opacity:.85;white-space:nowrap;line-height:1.15}
+.c3r.zero{opacity:.42}.c3r.cap{padding-left:10px;background:rgba(255,255,255,.16)}
+.c3bub.kz{min-width:30px;height:26px;margin:-26px 0 0 -15px;padding:0 7px;font-size:10.5px;opacity:.8}
 /* ── 3D-STADT CSS ENDE ── */
 
 /* tab bar */
@@ -591,6 +596,7 @@ body.locked{position:fixed;left:0;right:0;overflow:hidden}
 <div class="toast glass" id="toast" role="status"></div>
 
 <script src="three.min.js"></script>
+<script src="gltf-umd.js"></script>
 <script src="fragen.js"></script>
 <script>
 /* Abbildungen für Bildfragen (SVG, Farben aus den Theme-Tokens) */
@@ -1553,7 +1559,7 @@ if (typeof KORREKTUR !== "undefined") AUFG.forEach(a => { const x = KORREKTUR[a.
 const ALLQ = FRAGEN.filter(q => !q.weg), ALLA = AUFG.filter(a => !a.weg);
 
 /* storage */
-const APP_VERSION = "2.5.4";
+const APP_VERSION = "3.0";
 const KEY = "klausurduell.v1";
 let S = {cards:{}, days:{}, aufg:{}};
 try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch(e) {}
@@ -2408,7 +2414,7 @@ function calcAdvance(){
 
 /* v1.6: Reihenfolge per Ziehen (Tippen funktioniert weiter) */
 /* ═════════ v2.1: Stadt-Spiel – Bitcoin verdienen durch Lernen, damit eine Bauingenieur-Stadt aufbauen ═════════ */
-const GN = 8, GW = 560, GH = 446, GX0 = 280, GY0 = 152;          // Raster 8 × 8, isometrische Kacheln 64 × 32
+const GN = 12, GW = 816, GH = 574, GX0 = 408, GY0 = 152;         // Raster 12 × 12 (Stadt 3.0), isometrische Kacheln 64 × 32
 const GT = {
   rathaus:  {n:"Rathaus", d:"Herz der Stadt. Seine Stufe begrenzt die Stufe aller anderen Gebäude.", f:null, max:5, cost:[0,100,300,700,1500], time:[0,300,1800,7200,28800], ew:20},
   wohnhaus: {n:"Wohnhaus", d:"Hier wohnen deine Einwohner. Je Rathaus-Stufe zwei Häuser.", f:null, max:5, cost:[30,70,160,350,700], time:[30,300,1200,3600,14400], ew:6},
@@ -2604,7 +2610,7 @@ function gCity(){
     s += `<polygon points="${pts([[X,Y-16],[X+32,Y],[X,Y+16],[X-32,Y]])}" fill="${(x+y)%2 ? (night?"#3f7a3a":"#78c25a") : (night?"#45823f":"#80c862")}"/>`;
     if (!occ[x+","+y] && (x*7 + y*13) % 5 === 0) s += `<path d="M${X-6} ${Y+2}l2-6 2 6M${X+5} ${Y-3}l2-5 2 5" stroke="${night?"#2f5f2c":"#4f9a3c"}" stroke-width="1.3" fill="none"/>`; }
   /* Gebäude von hinten nach vorn */
-  g.b.slice().sort((a, b) => (a.x + a.y) - (b.x + b.y) || a.x - b.x).forEach(b => { const [X, Y] = T(b.x, b.y);
+  g.b.filter(b => b.x >= 0).sort((a, b) => (a.x + a.y) - (b.x + b.y) || a.x - b.x).forEach(b => { const [X, Y] = T(b.x, b.y);
     s += `<ellipse cx="${X}" cy="${Y+2}" rx="26" ry="11" fill="rgba(0,0,0,.13)"/>`;
     s += b.until > now ? gScaffold(X, Y, b) : gDraw(b, X, Y, night);
     if (b.until <= now && b.k !== "park") s += `<g transform="translate(${X+22} ${Y+6})"><circle r="7" fill="rgba(20,24,40,.72)"/><text y="3.3" text-anchor="middle" font-size="9" font-weight="800" fill="#fff">${b.l}</text></g>`; });
@@ -2673,7 +2679,7 @@ function gBuildingSheet(b){
     : L > t.max ? `<p class="sub">Höchste Stufe erreicht.</p>`
     : `<button class="cta press" data-act="g-up" data-id="${b.id}" ${why||poor?"disabled style='opacity:.5'":""}>Auf Stufe ${L} ausbauen · ₿ ${fmtB(cost)}</button><p class="legend" style="text-align:center;margin:6px 0 0">${why || (poor ? `Noch ${fmtB(cost - G().coins)} ₿ zu wenig` : `Bauzeit ${t.time[L-1] ? gDur(t.time[L-1]) : "sofort"} · +${t.ew} Einwohner`)}</p>${L <= t.max && Object.keys(ecoCost(b.k, L)).length ? `<div class="rcrow">Dazu an Ressourcen: ${costHTML(ecoCost(b.k, L), undefined, true)}</div>` : ""}`;
   openSheet(`<div style="display:flex;gap:14px;align-items:center;margin-bottom:12px"><div class="round gico big" style="${t.f?`--c:${cssC(t.f)}`:""}">${gIcon(b.k)}</div><div><h2>${t.n}</h2><p class="sub" style="margin:0">Stufe ${b.l || 0} von ${t.max} · ${t.d}</p></div></div>${act}${fi}
-    ${b.k !== "rathaus" && !busy ? `<button class="link" data-act="g-move" data-id="${b.id}" style="margin-top:12px">Versetzen</button>` : ""}`);
+    ${b.k !== "rathaus" && b.k !== "meinhaus" && !busy ? `<button class="link" data-act="g-move" data-id="${b.id}" style="margin-top:12px">Versetzen</button>` : ""}`);
   render();
 }
 function gInfo(){
@@ -2774,6 +2780,7 @@ Object.assign(GT.rechenzentrum, {n: "Planungsbüro", d: "Zeichnet Baupläne – 
 Object.assign(GT.vermessung, {n: "Prüflabor", d: "Sammelt Messdaten. Damit machst du Fabriken effizienter. Läuft mit Statistik."});
 Object.assign(GT.bahnhof, {d: "Pendler kommen mit dem Zug und arbeiten als Fachkräfte. Läuft mit Data Analysis for Planning."});
 const GT23 = {
+  meinhaus: {n: "Mein Haus", d: "Dein eigenes Zuhause am Fluss – vom Baucontainer bis zur Villa mit Pool.", max: 5, cost: [80, 300, 900, 2400, 6000], time: [120, 1800, 7200, 21600, 43200], ew: 1, uniq: 1},
   kieswerk: {n: "Kieswerk", d: "Baggert Kies und Sand aus dem Fluss. Läuft mit Hydromechanik.", f: "hydro", max: 5, cost: [80, 160, 350, 700, 1400], time: [120, 900, 3600, 10800, 28800], ew: 6, need: ["wasserturm", 2]},
   stahlwerk: {n: "Stahlwerk", d: "Walzt Stahlträger und Bewehrung. Läuft mit Baustoffkunde.", f: "bsk", max: 5, cost: [90, 180, 380, 750, 1500], time: [120, 900, 3600, 10800, 28800], ew: 6, need: ["betonwerk", 2]},
   lagerhaus: {n: "Lagerhaus", d: "Hier lagern deine Ressourcen. Jede Stufe fasst mehr.", f: null, max: 5, cost: [60, 150, 350, 700, 1300], time: [60, 600, 2700, 7200, 21600], ew: 2, uniq: 1},
@@ -2798,13 +2805,13 @@ const GT23 = {
   goldstatue: {n: "Goldene Statue", d: "Sehr selten in Truhen.", deko: 1, max: 1, cost: [0], time: [0], ew: 5, rare: 1}
 };
 Object.assign(GT, GT23);
-const GCAT = [["Wohnen", ["wohnhaus", "mehrfamilienhaus", "park"]], ["Werke", ["wasserturm", "kieswerk", "zimmerei", "betonwerk", "stahlwerk", "kran", "rechenzentrum", "vermessung", "bahnhof"]],
+const GCAT = [["Wohnen", ["meinhaus", "wohnhaus", "mehrfamilienhaus", "park"]], ["Werke", ["wasserturm", "kieswerk", "zimmerei", "betonwerk", "stahlwerk", "kran", "rechenzentrum", "vermessung", "bahnhof"]],
   ["Fabriken", ["lagerhaus", "mischanlage", "mauersteinwerk", "glaserei", "abbundhalle", "fertigteilwerk"]], ["Stadt", ["schule", "feuerwache", "buero"]],
   ["Wahrzeichen", ["fernsehturm", "stadion", "kathedrale"]], ["Deko", ["bank", "brunnen", "laterne", "statue", "blumen", "baum", "goldstatue"]]];
 GORDER.splice(0, GORDER.length, ...GCAT.flatMap(c => c[1]));
 const WERK = {wasserturm: {f: "hydro", r: "wasser"}, kieswerk: {f: "hydro", r: "kies"}, zimmerei: {f: "bauko", r: "holz"}, betonwerk: {f: "bsk", r: "zement"}, stahlwerk: {f: "bsk", r: "stahl"},
   kran: {f: "phys", r: "strom"}, rechenzentrum: {f: "binf", r: "plan"}, vermessung: {f: "stat", r: "daten"}, bahnhof: {f: "dap", r: "fach"}};
-const WRATE = [0, .5, .65, .8, 1, 1.25], WCAP = [0, 10, 16, 24, 34, 48], LCAP = [25, 60, 100, 150, 220, 300];
+const WRATE = [0, 1, 1.3, 1.6, 2, 2.5], WCAP = [0, 15, 24, 36, 51, 72], LCAP = [40, 90, 150, 225, 330, 450];   // 3.0: Ertrag ×2, Speicher ×1,5
 const FAB = {
   mischanlage: {in: {zement: 1, kies: 2, wasser: 1}, out: {beton: 2}, t: 600, o1: "kies", n: ["Sieblinie optimiert", "Mischzeit per Regression bestimmt", "Wasserzementwert geprüft"]},
   mauersteinwerk: {in: {zement: 1, kies: 3, wasser: 1, strom: 1}, out: {stein: 4}, t: 1200, o1: "kies", n: ["Rohdichte per Stichprobe", "Härtezeit ausgewertet", "Ausschuss halbiert"]},
@@ -2814,6 +2821,7 @@ const FAB = {
 };
 const OPTCOST = [[3, 30], [6, 60], [10, 120]];
 const ECOST = {
+  meinhaus: [, {}, {holz: 4, zement: 2, kies: 2}, {stein: 6, holz: 4, fenster: 2, dach: 1}, {beton: 6, stein: 6, fenster: 4, dach: 2, stahl: 2}, {fert: 4, fenster: 8, stahl: 4, beton: 6, plan: 3}],
   rathaus: [, , {}, {holz: 6, zement: 4, kies: 4, plan: 2, fach: 2}, {stein: 10, fenster: 4, dach: 2, plan: 3, fach: 3}, {fert: 6, fenster: 6, stahl: 4, plan: 4, fach: 4}],
   wohnhaus: [, , , {holz: 4, zement: 2, kies: 3, plan: 1, fach: 1}, {stein: 6, holz: 3, fenster: 2, dach: 1, fach: 2}, {fert: 3, fenster: 4, stahl: 2, plan: 2, fach: 3}],
   werk: [, , , {holz: 3, zement: 2, kies: 2, plan: 1, fach: 1}, {beton: 4, stein: 4, stahl: 2, plan: 2, fach: 2}, {fert: 3, fenster: 2, stahl: 3, plan: 3, fach: 3}],
@@ -2851,8 +2859,8 @@ function ecoHave(c){ const r = eco().r; return Object.keys(c).every(k => (r[k] |
 function ecoMiss(c, note){ const r = eco().r, m = Object.keys(c).filter(k => (r[k] || 0) < c[k]); if (note) m.forEach(k => ecoStat("m", k, 1)); return m.map(k => `${c[k] - (r[k] || 0)} ${RES[k].n}`).join(", "); }
 function ecoPay(c){ const r = eco().r; Object.keys(c).forEach(k => { r[k] -= c[k]; ecoStat("u", k, c[k]); }); }
 function ecoAdd(k, n){ const take = Math.min(n, ecoRoom(k)); eco().r[k] += take; return take; }
-function costHTML(c, coins, names, stock){
-  const r = eco().r, parts = Object.keys(c).map(k => `<span class="rc${(r[k] || 0) < c[k] ? " miss" : stock ? " have" : ""}" title="${RES[k].n}">${ricon(k, 15)}${stock ? `<span class="rst">${Math.floor(r[k] || 0)}</span>/${c[k]}` : r[k] >= c[k] ? c[k] : `${Math.floor(r[k] || 0)}/${c[k]}`}${names ? `<small>${c[k] === 1 && k === "fach" ? "Fachkraft" : RES[k].n}</small>` : ""}</span>`);
+function costHTML(c, coins, names){
+  const r = eco().r, parts = Object.keys(c).map(k => `<span class="rc${(r[k] || 0) < c[k] ? " miss" : ""}" title="${RES[k].n}">${ricon(k, 15)}${r[k] >= c[k] ? c[k] : `${Math.floor(r[k] || 0)}/${c[k]}`}${names ? `<small>${c[k] === 1 && k === "fach" ? "Fachkraft" : RES[k].n}</small>` : ""}</span>`);
   if (coins !== undefined) parts.unshift(`<span class="rc${G().coins < coins ? " miss" : ""}"><i class="c3cn sm">₿</i>${fmtB(coins)}</span>`);
   return `<span class="rcs">${parts.join("")}</span>`;
 }
@@ -3006,20 +3014,24 @@ const c3ss = (a, b, v) => { const t = c3clamp((v - a) / (b - a), 0, 1); return t
 const c3lerp = (a, b, t) => a + (b - a) * t;
 function c3rng(seed){ let s = seed >>> 0 || 1; return () => { s += 0x6D2B79F5; let t = s; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
 
-/* ── Welt-Maße: 1 Einheit ≈ 10 m. Raster 8 × 8 Grundstücke à 2 × 2, Straßen 1,6 breit ── */
-const C3RD = 1.6, C3R = 9.6, C3RX = 13.8, C3FAR = 70;
-const c3lot = i => (i - 3.5) * 2 + (i < 4 ? -C3RD/2 : C3RD/2);
+/* ── Welt-Maße (Stadt 3.0): 1 Einheit ≈ 10 m. Raster 12 × 12 Grundstücke à 2 × 2 in 3 × 3 Blöcken, Straßen 1,6 breit ── */
+const C3RD = 1.6, C3R = 14.4, C3RX = 18.4, C3FAR = 70, C3PZ = 4.8;
+const C3RL = [-14.4, -4.8, 4.8, 14.4];
+const C3HAUS = {x: -9.6, z: -17.6};                               // Grundstück „Mein Haus“ am Fluss                              // Straßenachsen in x und z
+const c3lot = i => (i - 5.5) * 2 + (Math.floor(i / 4) - 1) * C3RD;
 function c3face(x, y){                                            // Gebäude schaut zur nächsten Straße
-  if (y === 3 || y === 7) return 0; if (x === 3 || x === 7) return Math.PI/2;
-  if (x === 0 || x === 4) return -Math.PI/2; if (y === 0 || y === 4) return Math.PI; return 0;
+  const cx = c3lot(x), cz = c3lot(y); let bx = 99, bz = 99;
+  C3RL.forEach(r => { if (Math.abs(r - cz) < Math.abs(bz)) bz = r - cz; if (Math.abs(r - cx) < Math.abs(bx)) bx = r - cx; });
+  return Math.abs(bz) <= Math.abs(bx) ? (bz > 0 ? 0 : Math.PI) : (bx > 0 ? Math.PI/2 : -Math.PI/2);
 }
-const c3zr = x => -19.5 + 3 * Math.sin(x * .055 + .6) + 1.4 * Math.sin(x * .13 + 2.1);   // Flusslauf
+const c3zr = x => -24 + 3 * Math.sin(x * .055 + .6) + 1.4 * Math.sin(x * .13 + 2.1);   // Flusslauf
 function c3h(x, z){                                               // Geländehöhe
-  const m = c3ss(13, 30, Math.max(Math.abs(x), Math.abs(z)));
+  const m = c3ss(17.5, 34, Math.max(Math.abs(x), Math.abs(z)));
   let h = Math.max(0, Math.sin(x*.075 + 1.3) * Math.cos(z*.065 - .4) * 2.4 + Math.sin(x*.16 + z*.12) * 1.1 + Math.sin(z*.23 - x*.07 + .8) * .6 + 1.2) * m;
   const dist = Math.hypot(x, z + 10);
   h += c3ss(80, 132, dist) * (13 + 7 * Math.sin(Math.atan2(z, x) * 5 + 1) + 3 * Math.sin(x * .3) * Math.cos(z * .27));
-  if (z > 8) h *= c3ss(1.6, 4.8, Math.abs(x));
+  if (z > 12) h *= c3ss(1.6, 4.8, Math.abs(x - 4.8));
+  if (x > 12 && Math.abs(z - C3PZ) < 6) h *= c3ss(1.6, 4.8, Math.abs(z - C3PZ));
   h *= c3ss(1.4, 4.2, Math.abs(x - C3RX));
   const d = Math.abs(z - c3zr(x)), w = c3ss(3.7, 1.3, d);
   return h * (1 - w) - .95 * w;
@@ -3585,7 +3597,7 @@ function c3terrain(){
     const zr = c3zr(x), d = Math.abs(z - zr), n = Math.sin(x * .21) * Math.cos(z * .17) * .5 + .5;
     if (y < -.32) c.copy(pal.bed); else if (d < 3.9 && y < -.04) c.copy(pal.sand);
     else if (y > 15.5) c.copy(pal.snow); else if (y > 9.5) c.copy(pal.rock).lerp(pal.hi, c3clamp((15.5 - y) / 8, 0, .5)); else if (y > 4.5) c.copy(pal.hi).lerp(pal.g2, .3);
-    else if (Math.abs(x) < 11.4 && Math.abs(z) < 11.4) c.copy(pal.city); else c.copy(pal.g1).lerp(pal.g2, n);
+    else if (Math.abs(x) < 15.6 && Math.abs(z) < 15.6) c.copy(pal.city); else c.copy(pal.g1).lerp(pal.g2, n);
     if (z < zr - 3.4) c.lerp(lock, .38).multiplyScalar(.9);
     c.multiplyScalar(.95 + r() * .1);
     for (let k = 0; k < 3; k++) { col[(i+k)*3] = c.r; col[(i+k)*3+1] = c.g; col[(i+k)*3+2] = c.b; }
@@ -3605,40 +3617,6 @@ function c3waterTick(m, t){
   for (let i = 0; i < p.count; i++) { const x = b[i*3], z = b[i*3+2]; p.setY(i, -.3 + .045 * Math.sin(t*1.5 + x*.45 + z*1.3) + .03 * Math.sin(t*2.2 - x*.8 + z*.6)); }
   p.needsUpdate = true;
 }
-function c3roads(){
-  const K = new C3Kit(), R = C3R, N = [-R, 0, R];
-  for (const c of N) { K.box("asphalt", 2*R + 1.2, .02, 1.2, 0, 0, c); for (const [a, b] of [[-R + .6, -.6], [.6, R - .6]]) K.box("asphalt", 1.2, .02, b - a, c, 0, (a + b) / 2); }
-  const segs = [[-R + .6, -.6], [.6, R - .6]];
-  for (const c of N) for (const [a, b] of segs) { const L = b - a, m = (a + b) / 2;
-    for (const s of [-1, 1]) { if (Math.abs(c) === R && s * c > 0) continue; K.box("side", L, .045, .2, m, 0, c + s * .7); K.box("side", .2, .045, L, c + s * .7, 0, m); }
-    for (let x = a + .75; x < b - .7; x += .6) { K.box("line", .3, .004, .035, x + .15, .02, c); K.box("line", .035, .004, .3, c, .02, x + .15); } }
-  const ex = [[-R - .8, -.6], [.6, R + .8]];                       // Außen-Gehwege, unterbrochen an Landstraße (Süd) und Bahnhofszufahrt (Ost)
-  K.box("side", 2*R + 1.6, .045, .2, 0, 0, -(R + .7)); K.box("side", .2, .045, 2*R + 1.2, -(R + .7), 0, 0);
-  for (const [a, b] of ex) K.box("side", b - a, .045, .2, (a + b) / 2, 0, R + .7);
-  for (const [a, b] of [[-R - .6, -.6], [.6, R + .6]]) K.box("side", .2, .045, b - a, R + .7, 0, (a + b) / 2);
-  for (const [cx, cz, rot] of [[0, 1.1, 0], [0, -1.1, 0], [1.1, 0, 1], [-1.1, 0, 1]]) for (let i = -2; i <= 2; i++) rot ? K.box("line", .26, .004, .1, cx, .02, cz + i * .22) : K.box("line", .1, .004, .26, cx + i * .22, .02, cz);
-  K.box("asphalt", 1.2, .02, 125 - R - .6, 0, 0, (R + .6 + 125) / 2); K.box("line", .035, .004, 125 - R - 1, .0, .02, (R + 1 + 125) / 2);
-  for (const s of [-1, 1]) K.box("line", .03, .004, 125 - R - 1, s * .55, .02, (R + 1 + 125) / 2);
-  K.box("asphalt", C3RX - R - 1.9, .02, 1.2, (R + .6 + C3RX - 1.3) / 2, 0, 0); K.box("side", .9, .03, 1.8, C3RX - 1.35, 0, 0);
-  /* Laternen */
-  for (const c of N) for (const [a, b] of segs) for (let v = a + .8; v < b - .3; v += 2.2) { c3lampPost(K, v, c + .74 * (c === -R ? 1 : -1), c === -R ? Math.PI : 0); c3lampPost(K, c + .74 * (c === -R ? 1 : -1), v, c === -R ? -Math.PI/2 : Math.PI/2); }
-  for (let z = R + 3; z < 40; z += 4) c3lampPost(K, .78, z, -Math.PI/2);
-  /* Fußweg zum Fluss mit Brücken-Baustelle (kommt später) */
-  const zr0 = c3zr(0); K.box("gravel", .5, .02, -zr0 - R - 3.6, 0, 0, (-R - .8 + zr0 + 2.8) / 2);
-  for (const s of [-1, 1]) K.box("concrete", .5, .5, .5, s * .9, -.3, zr0 + 3.3);
-  K.box("fenceR", 1.3, .05, .05, 0, .25, zr0 + 3.6); for (const x of [-.6, .6]) K.box("dark", .04, .3, .04, x, 0, zr0 + 3.6);
-  for (let i = 0; i < 5; i++) K.box(i % 2 ? "white" : "red", .26, .05, .052, -.52 + i*.26, .25, zr0 + 3.6);
-  K.push(1.6, 0, zr0 + 4.2, -.3); K.box("woodDark", .05, .5, .05, -.2); K.box("woodDark", .05, .5, .05, .2); K.box("wood", .6, .28, .04, 0, .36, 0); K.pop();
-  const g = K.build(); g.children.forEach(m => m.castShadow = /^(dark|lamp|concrete|wood|woodDark)$/.test(m.userData.mat)); return g;
-}
-function c3lampSpots(){                                          // Lichtkegel der Laternen am Boden (nachts)
-  const pts = [], R = C3R, N = [-R, 0, R], segs = [[-R + .6, -.6], [.6, R - .6]];
-  for (const c of N) for (const [a, b] of segs) for (let v = a + .8; v < b - .3; v += 2.2) { const o = .74 * (c === -R ? 1 : -1), q = c === -R ? -.12 : .12; pts.push([v, c + o - q*0]); pts.push([c + o, v]); }
-  for (let z = R + 3; z < 40; z += 4) pts.push([.66, z]);
-  const mat = new THREE.MeshBasicMaterial({color: 0xffd27a, map: C3.T.glow, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending});
-  const m = new THREE.InstancedMesh(new THREE.PlaneGeometry(1.5, 1.5).rotateX(-Math.PI/2), mat, pts.length), o = new THREE.Object3D();
-  pts.forEach(([x, z], i) => { o.position.set(x, .06, z); o.updateMatrix(); m.setMatrixAt(i, o.matrix); }); m.renderOrder = 2; return m;
-}
 function c3rail(){
   const K = new C3Kit(), x = C3RX, zr = c3zr(x), b0 = zr - 3.9, b1 = zr + 3.9;
   for (const [a, b] of [[-125, b0], [b1, 125]]) { K.box("ballast", .62, .05, b - a, x, 0, (a + b) / 2); }
@@ -3654,18 +3632,18 @@ function c3platform(){
   K.box("concrete", .55, .1, 3.4, x, 0, 0); K.box("white", .02, .004, 3.4, x + .26, .1, 0);
   for (let z = -1.2; z <= 1.21; z += .8) K.box("steel", .03, .42, .03, x - .1, .1, z); K.put("metal", c3boxG(.5, .03, 2.8), x - .02, .53, 0, 0, 0, .12);
   K.box("glassB", .02, .3, 1.0, x - .2, .1, .4); K.box("wood", .3, .04, .1, x - .1, .17, -.4); K.push(x - .05, .1, 1.5); K.box("dark", .02, .45, .02); K.box("contB", .26, .12, .02, 0, .4, 0); K.pop();
-  return K.build();
+  const g = K.build(); g.position.z = C3PZ; return g;
 }
 function c3forest(){
   const r = c3rng(1234), L = [];
   for (let i = 0; i < 2600 && L.length < 560; i++) { const x = (r() - .5) * 230, z = (r() - .5) * 230;
-    if (Math.abs(x) < 12.8 && Math.abs(z) < 12.8) continue; if (z > 8 && Math.abs(x) < 3.2) continue; if (Math.abs(x - C3RX) < 2.6) continue;
+    if (Math.abs(x) < 16.8 && Math.abs(z) < 16.8) continue; if (z > 12 && Math.abs(x - 4.8) < 3.2) continue; if (x > 12 && Math.abs(z - C3PZ) < 2.6) continue; if (Math.hypot(x - C3HAUS.x, z - C3HAUS.z) < 2.6) continue; if (Math.abs(x - C3RX) < 2.6) continue;
     const zr = c3zr(x); if (Math.abs(z - zr) < 4.4) continue; const h = c3h(x, z); if (h > 11) continue; if (Math.hypot(x, z) > 115) continue;
     const dens = Math.sin(x*.09) * Math.cos(z*.11 + 1) + Math.sin((x + z)*.05) + (z < zr ? .7 : 0); if (dens < -.2 && r() < .75) continue;
     L.push({x, y: h, z, s: .85 + r() * .8, fir: r() < (z < zr ? .65 : .4), ry: r() * 6});
   }
-  for (let v = -C3R - 1; v <= C3R + 1; v += 2.4) for (const [x, z] of [[v, -C3R - 1.45], [-C3R - 1.45, v], [C3R + 1.45, v], [v, C3R + 1.45]]) { if (Math.abs(x) < 1.6 && z > 0) continue; if (Math.abs(z) < 1.6 && x > 0) continue; L.push({x, y: 0, z, s: .8 + r() * .3, fir: false, ry: r() * 6}); }
-  for (let i = 0; i < 26; i++) { const z = C3R + 3 + i * 3.2; L.push({x: (i % 2 ? 2.1 : -2.1), y: 0, z, s: .9 + r() * .3, fir: i % 3 === 0, ry: r()*6}); }
+  for (let v = -C3R - 1; v <= C3R + 1; v += 2.4) for (const [x, z] of [[v, -C3R - 1.45], [-C3R - 1.45, v], [C3R + 1.45, v], [v, C3R + 1.45]]) { if (Math.abs(x - 4.8) < 1.6 && z > 0) continue; if (Math.abs(z - C3PZ) < 1.6 && x > 0) continue; if (Math.abs(x + 4.8) < 1.2 && z < 0) continue; if (Math.hypot(x - C3HAUS.x, z - C3HAUS.z) < 2.2) continue; L.push({x, y: 0, z, s: .8 + r() * .3, fir: false, ry: r() * 6}); }
+  for (let i = 0; i < 26; i++) { const z = C3R + 3 + i * 3.2; L.push({x: 4.8 + (i % 2 ? 2.1 : -2.1), y: 0, z, s: .9 + r() * .3, fir: i % 3 === 0, ry: r()*6}); }
   const firG = c3merge([new THREE.ConeGeometry(.26, .45, 7).translate(0, .445, 0), new THREE.ConeGeometry(.19, .36, 7).translate(0, .66, 0)]);
   const rndG = c3merge([new THREE.IcosahedronGeometry(.27, 0).translate(0, .5, 0), new THREE.IcosahedronGeometry(.18, 0).translate(.1, .64, -.05)]);
   const trG = new THREE.CylinderGeometry(.03, .04, .32, 5).translate(0, .16, 0);
@@ -3674,7 +3652,7 @@ function c3forest(){
     list.forEach((t, i) => { o.position.set(t.x, t.y - .02, t.z); o.rotation.y = t.ry; o.scale.setScalar(t.s); o.updateMatrix(); m.setMatrixAt(i, o.matrix); const v = .82 + ((i * 37) % 30) / 100; c.setRGB(v, v + .04, v * .92); m.setColorAt(i, c); });
     m.castShadow = true; m.receiveShadow = true; return m; };
   const g = new THREE.Group(); g.add(mk(firG, C3.M.fir, fir), mk(rndG, C3.M.leaf, rnd), mk(trG, C3.M.trunk, L));
-  const rocks = []; for (let i = 0; i < 70; i++) { const x = (r() - .5) * 200, z = (r() - .5) * 200; if (Math.abs(x) < 14 && Math.abs(z) < 14) continue; if (Math.abs(z - c3zr(x)) < 3.6 || (z > 8 && Math.abs(x) < 3) || Math.abs(x - C3RX) < 2.4) continue; rocks.push({x, y: c3h(x, z), z, s: .4 + r() * 1.1, fir: 0, ry: r() * 6}); }
+  const rocks = []; for (let i = 0; i < 70; i++) { const x = (r() - .5) * 200, z = (r() - .5) * 200; if (Math.abs(x) < 18 && Math.abs(z) < 18) continue; if (Math.abs(z - c3zr(x)) < 3.6 || (z > 12 && Math.abs(x - 4.8) < 3) || Math.abs(x - C3RX) < 2.4) continue; rocks.push({x, y: c3h(x, z), z, s: .4 + r() * 1.1, fir: 0, ry: r() * 6}); }
   g.add(mk(new THREE.DodecahedronGeometry(.3, 0), C3.M.rock, rocks));
   return g;
 }
@@ -3707,7 +3685,7 @@ function c3person(worker, shirt){
   g.userData.p = {legL, legR, armL, armR, box}; return g;
 }
 function c3walkPose(g, ph, amp = .55){ const p = g.userData.p, s = Math.sin(ph) * amp; p.legL.rotation.x = s; p.legR.rotation.x = -s; p.armL.rotation.x = -s * .8; p.armR.rotation.x = s * .8; }
-function c3car(mat){
+function c3carBox(mat){
   const K = new C3Kit(); K.box(mat, .56, .11, .27, 0, .05, 0); K.box(mat, .3, .11, .25, -.04, .16, 0); K.box("glass", .31, .075, .256, -.04, .175, 0);
   for (const [x, z] of [[.18, .13], [-.18, .13], [.18, -.13], [-.18, -.13]]) K.put("black", new THREE.CylinderGeometry(.055, .055, .04, 10).rotateX(Math.PI / 2), x, .055, z);
   for (const z of [-.08, .08]) { K.box("headL", .012, .03, .05, .28, .08, z); K.box("tailL", .012, .03, .05, -.28, .08, z); }
@@ -3721,7 +3699,7 @@ function c3truck(){
   for (let i = 0; i < 6; i++) { const a = i * 1.05; dk.put("orange", c3boxG(.06, .02, .04), -.2 + i * .08, Math.cos(a) * .125, Math.sin(a) * .125, 0, a); }
   const drum = dk.build(), tilt = new THREE.Group(); tilt.position.set(-.12, .3, 0); tilt.rotation.z = .16; tilt.add(drum); g.add(tilt); g.userData.drum = drum; return g;
 }
-function c3trainSet(){
+function c3trainBox(){
   const g = new THREE.Group(); g.userData.cars = [];
   for (let i = 0; i < 3; i++) { const K = new C3Kit(); K.box("train", .26, .25, .98, 0, .07, 0); K.box("trainW", .262, .035, .98, 0, .14, 0);
     K.box(c3lit(i) ? "glassL" : "glass", .265, .07, .82, 0, .19, 0); K.box("grey", .22, .03, .96, 0, .32, 0); K.box("dark", .2, .06, .2, 0, .02, .32); K.box("dark", .2, .06, .2, 0, .02, -.32);
@@ -3789,7 +3767,8 @@ function c3pit(){
   const g = K.build(); const bg = c3bagger(); bg.position.set(-.15, .016, -.1); bg.rotation.y = .4; bg.userData.anim = {type: "dig"}; g.add(bg); return g;
 }
 function c3worker(type, o){ const w = c3person(true); w.userData.anim = Object.assign({type, ph: Math.random() * 6}, o); return w; }
-function c3lotPos(b){ return new THREE.Vector3(c3lot(b.x), .06, c3lot(b.y)); }
+function c3lotPos(b){ return b.k === "meinhaus" ? new THREE.Vector3(C3HAUS.x, .06, C3HAUS.z) : new THREE.Vector3(c3lot(b.x), .06, c3lot(b.y)); }
+function c3body(k, L, id, raw, ex){ let g = null; try { g = c3modBody(k, L, id, raw, ex); } catch(e) { console.error(e); } return g || c3design(k, L, id, raw, ex); }
 
 /* ── Abgleich Spielstand → Szene ── */
 function c3phase(b, now){
@@ -3800,10 +3779,10 @@ function c3phase(b, now){
 function c3dispose(o){ o.traverse(m => { if (m.geometry) m.geometry.dispose(); if (m.material && !m.material.userData.c3 && m.material !== C3.M.flag) { if (Array.isArray(m.material)) m.material.forEach(x => x.dispose()); } }); }
 function c3rebuild(b, ph){
   const old = C3.grp[b.id]; if (old) { C3.world.remove(old); c3dispose(old); }
-  const grp = new THREE.Group(); grp.position.copy(c3lotPos(b)); grp.rotation.y = c3face(b.x, b.y); grp.userData = {id: b.id, lot: [b.x, b.y], k: b.k};
+  const grp = new THREE.Group(); grp.position.copy(c3lotPos(b)); grp.rotation.y = b.k === "meinhaus" ? 0 : c3face(b.x, b.y); grp.userData = {id: b.id, lot: [b.x, b.y], k: b.k};
   const L = Math.max(1, b.l);
   const ex = b.k === "lagerhaus" ? lagerUsed() / lagerCap() : 0;
-  let body = ph === "done" || ph === "old" ? c3design(b.k, L, b.id, false, ex) : ph === "pit" ? c3pit() : c3design(b.k, b.next, b.id, ph === "shell", ex);
+  let body = ph === "done" || ph === "old" ? c3body(b.k, L, b.id, false, ex) : ph === "pit" ? c3pit() : c3body(b.k, b.next, b.id, ph === "shell", ex);
   if ((WERK[b.k] && werkIdle(b)) || (FAB[b.k] && !(eco().fj[b.id] || []).some(j => j.s <= Date.now() && j.e > Date.now()))) body.userData.emit = [];
   const bb = new THREE.Box3().setFromObject(body); grp.add(body); grp.userData.body = body; grp.userData.top = Math.max(.35, bb.max.y);
   if (ph === "shell") grp.userData.grow = b.l === 0 ? [.3, .78, .1] : [.45, .85, .62];
@@ -3835,7 +3814,7 @@ function c3sync(){
   for (const id in C3.grp) if (!seen[id]) { C3.world.remove(C3.grp[id]); c3dispose(C3.grp[id]); delete C3.grp[id]; delete C3.keys[id]; c3anims(); }
   /* Grundstücke einfärben */
   const occ = {}, col = new THREE.Color(); g.b.forEach(b => occ[b.x + "," + b.y] = b); let ek = "";
-  for (let i = 0; i < 64; i++) { const x = i % 8, y = i / 8 | 0, b = occ[x + "," + y];
+  for (let i = 0; i < GN * GN; i++) { const x = i % GN, y = i / GN | 0, b = occ[x + "," + y];
     col.set(!b ? 0x74ad53 : b.until > now ? 0x8d7050 : b.k === "park" ? 0x6aab4c : 0xc9c7c0); C3.plates.setColorAt(i, col); if (!b) ek += i + ","; }
   C3.plates.instanceColor.needsUpdate = true;
   if (ek !== C3.emptyKey) { C3.emptyKey = ek; c3decor(occ); }
@@ -3846,34 +3825,24 @@ function c3sync(){
   C3.peds.forEach((a, i) => a.obj.userData.want = i < (C3.night > .6 ? Math.ceil(nP * .35) : nP));
   c3labsSync(); c3hl();
 }
-function c3decor(occ){
-  if (C3.decor) { C3.sc.remove(C3.decor); c3dispose(C3.decor); }
-  const K = new C3Kit();
-  for (let i = 0; i < 64; i++) { const x = i % 8, y = i / 8 | 0; if (occ[x + "," + y]) continue; const r = c3rng(i * 13 + 5), cx = c3lot(x), cz = c3lot(y);
-    for (let j = 0; j < 2 + (r() * 3 | 0); j++) K.ball("hedge", .06 + r() * .07, cx + (r() - .5) * 1.5, .09, cz + (r() - .5) * 1.5, 0);
-    if (r() < .18) K.box(["flowR", "flowY", "flowP"][r() * 3 | 0], .2, .03, .2, cx + (r() - .5) * 1.2, .06, cz + (r() - .5) * 1.2);
-    if (r() < .35) c3tree(K, cx + (r() - .5) * 1.3, cz + (r() - .5) * 1.3, .6 + r() * .3, r() < .5, .06); }
-  C3.decor = K.build(); C3.sc.add(C3.decor);
-}
-
 /* ── Auswahl-Markierung ── */
 function c3hl(){
   const key = [C3.place, GMOVE, !!C3.drag, C3.sel && C3.sel.join(","), G().b.length, G().b.map(b => b.x + "" + b.y).join("")].join("|"); if (key === C3.hlKey) return; C3.hlKey = key;
   while (C3.hl.children.length) { const c = C3.hl.children.pop(); c.geometry.dispose(); }
   const occ = {}; G().b.forEach(b => occ[b.x + "," + b.y] = 1);
-  if (C3.place || GMOVE || C3.drag) for (let i = 0; i < 64; i++) { const x = i % 8, y = i / 8 | 0; if (occ[x + "," + y]) continue;
+  if (C3.place || GMOVE || C3.drag) for (let i = 0; i < GN * GN; i++) { const x = i % GN, y = i / GN | 0; if (occ[x + "," + y]) continue;
     const m = new THREE.Mesh(new THREE.PlaneGeometry(1.8, 1.8).rotateX(-Math.PI / 2), C3.hlMat); m.position.set(c3lot(x), .07, c3lot(y)); C3.hl.add(m); }
   if (C3.sel) { const [x, y] = C3.sel, K = new C3Kit(); for (const [w, d, ox, oz] of [[1.9, .06, 0, .92], [1.9, .06, 0, -.92], [.06, 1.9, .92, 0], [.06, 1.9, -.92, 0]]) K.box("white", w, .03, d, c3lot(x) + ox, .06, c3lot(y) + oz);
     const g = K.build(false); g.children.forEach(m => { m.material = C3.selMat; C3.hl.add(m); }); }
 }
 
 /* ── Wege für Autos und Fußgänger ── */
-function c3graph(){
-  const R = C3R, N = [];
-  for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) N.push({x: [-R, 0, R][i], z: [-R, 0, R][j], n: []});
+function c3graph(){                                                 // 4 × 4 Kreuzungen, dazu Landstraße (16) und Bahnhofszufahrt (17)
+  const L = C3RL, N = [];
+  for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) N.push({x: L[i], z: L[j], n: []});
   const link = (a, b) => { N[a].n.push(b); N[b].n.push(a); };
-  for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) { const k = i * 3 + j; if (i < 2) link(k, k + 3); if (j < 2) link(k, k + 1); }
-  N.push({x: 0, z: C3FAR, n: []}); link(9, 5); N.push({x: C3RX - 1.5, z: 0, n: []}); link(10, 7);
+  for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) { const k = i * 4 + j; if (i < 3) link(k, k + 4); if (j < 3) link(k, k + 1); }
+  N.push({x: 4.8, z: C3FAR, n: []}); link(16, 11); N.push({x: C3RX - 1.6, z: C3PZ, n: []}); link(17, 14);
   return N;
 }
 function c3walk(ag, dt, ok){
@@ -3884,21 +3853,21 @@ function c3walk(ag, dt, ok){
 }
 function c3turn(o, ang, k){ let d = ang - o.rotation.y; d = Math.atan2(Math.sin(d), Math.cos(d)); o.rotation.y += d * k; }
 function c3ped(){
-  const o = c3person(false, "shirt" + (Math.random() * 7 | 0)); C3.sc.add(o); const a = Math.random() * 9 | 0;
+  const o = c3person(false, "shirt" + (Math.random() * 7 | 0)); C3.sc.add(o); const a = Math.random() * 16 | 0;
   const ag = {obj: o, a, b: C3.N[a].n[0], s: Math.random() * 4, sp: .28 + Math.random() * .18, side: Math.random() < .5 ? -1 : 1, ph: Math.random() * 6}; o.position.set(C3.N[a].x, .045, C3.N[a].z); return ag;
 }
 function c3carAgent(){
-  const o = c3car("car" + (Math.random() * 6 | 0)); C3.sc.add(o); const a = Math.random() * 9 | 0;
+  const o = c3car("car" + (Math.random() * 6 | 0)); C3.sc.add(o); const a = Math.random() * 16 | 0;
   const ag = {obj: o, a, b: C3.N[a].n[Math.random() * C3.N[a].n.length | 0], s: Math.random() * 5, sp: 1.1 + Math.random() * .7}; o.position.set(C3.N[a].x, .02, C3.N[a].z); return ag;
 }
 function c3route(from, to){
   const prev = {[from]: -1}, q = [from];
-  while (q.length) { const k = q.shift(); if (k === to) break; for (const n of C3.N[k].n) if (prev[n] === undefined && n !== 10) { prev[n] = k; q.push(n); } }
+  while (q.length) { const k = q.shift(); if (k === to) break; for (const n of C3.N[k].n) if (prev[n] === undefined && n !== 17) { prev[n] = k; q.push(n); } }
   const p = []; for (let k = to; k !== -1 && k !== undefined; k = prev[k]) p.unshift(k); return p;
 }
 function c3roadPt(x, z){
   let best = null; const N = C3.N;
-  N.forEach((A, a) => A.n.forEach(b => { if (b < a || a > 8 || b > 8) return; const B = N[b], vx = B.x - A.x, vz = B.z - A.z, L2 = vx * vx + vz * vz, t = c3clamp(((x - A.x) * vx + (z - A.z) * vz) / L2, .08, .92);
+  N.forEach((A, a) => A.n.forEach(b => { if (b < a || a > 15 || b > 15) return; const B = N[b], vx = B.x - A.x, vz = B.z - A.z, L2 = vx * vx + vz * vz, t = c3clamp(((x - A.x) * vx + (z - A.z) * vz) / L2, .08, .92);
     const px = A.x + vx * t, pz = A.z + vz * t, d = Math.hypot(x - px, z - pz); if (!best || d < best.d) best = {d, a, b, x: px, z: pz, t}; }));
   return best;
 }
@@ -3906,8 +3875,8 @@ function c3truckTick(dt, t){
   const T = C3.truck, now = Date.now();
   if (T.st === "idle") { T.wait -= dt; if (T.wait > 0) return;
     const site = G().b.find(b => { const ph = c3phase(b, now)[0]; return ph === "shell" || ph === "finish"; }); if (!site) { T.wait = 3; return; }
-    const rp = c3roadPt(c3lot(site.x), c3lot(site.y)), ea = c3route(9, rp.a), eb = c3route(9, rp.b), path = (ea.length <= eb.length ? ea : eb).map(k => [C3.N[k].x, C3.N[k].z]);
-    path[0] = [0, 26]; path.push([rp.x, rp.z]); T.path = path; T.i = 0; T.s = 0; T.st = "go"; T.obj.visible = true; T.obj.position.set(path[0][0], .02, path[0][1]); return; }
+    const sp = c3lotPos(site), rp = c3roadPt(sp.x, sp.z), ea = c3route(16, rp.a), eb = c3route(16, rp.b), path = (ea.length <= eb.length ? ea : eb).map(k => [C3.N[k].x, C3.N[k].z]);
+    path[0] = [4.8, 30]; path.push([rp.x, rp.z]); T.path = path; T.i = 0; T.s = 0; T.st = "go"; T.obj.visible = true; T.obj.position.set(path[0][0], .02, path[0][1]); return; }
   if (T.st === "go" || T.st === "back") {
     const P = T.path; let A = P[T.i], B = P[T.i + 1]; if (!B) { T.st = T.st === "go" ? "pour" : "idle"; T.wait = T.st === "pour" ? 8 : 30; return; }
     let L = Math.hypot(B[0] - A[0], B[1] - A[1]); T.s += 1.8 * dt * (T.i === P.length - 2 && L - T.s < 1 ? .5 : 1);
@@ -3921,9 +3890,9 @@ function c3trainTick(dt, t){
   const tr = C3.train, stop = C3.plat.visible, cyc = stop ? 60 : 75, u = (t + 20) % cyc; let z, on = true;
   if (stop) { if (u < 16) { const k = u / 16; z = -125 * (1 - k) * (1 - k); } else if (u < 22) z = 0; else if (u < 38) { const k = (u - 22) / 16; z = 125 * k * k; } else on = false; }
   else { if (u < 30) z = -125 + 250 * u / 30; else on = false; }
-  tr.visible = on; if (!on) return; tr.userData.cars.forEach((c, i) => c.position.set(C3RX, .09, z - i * 1.02));
+  tr.visible = on; if (!on) return; if (stop) z += C3PZ; tr.userData.cars.forEach((c, i) => c.position.set(C3RX, .09, z - i * 1.02));
   if (stop && u >= 16 && u < 22) { const cyc0 = Math.floor((t + 20) / cyc); if (C3.pendC !== cyc0) { C3.pendC = cyc0; const n = 2 + Math.min(3, Math.floor(((G().b.find(b => b.k === "bahnhof") || {}).st || 0) / 3));
-      for (let i = 0; i < n; i++) { const o = c3person(false, "shirt" + (Math.random() * 7 | 0)); o.position.set(C3RX - .55, .1, -1 + i * .5); C3.sc.add(o); C3.fx.push({m: o, kind: "pend", to: [C3R + .8 + Math.random() * .3, (Math.random() - .5) * .8], life: 30, ph: i}); } } }
+      for (let i = 0; i < n; i++) { const o = c3person(false, "shirt" + (Math.random() * 7 | 0)); o.position.set(C3RX - .55, .1, C3PZ - 1 + i * .5); C3.sc.add(o); C3.fx.push({m: o, kind: "pend", to: [C3R + .8 + Math.random() * .3, C3PZ + (Math.random() - .5) * .8], life: 30, ph: i}); } } }
 }
 
 /* ── Effekte ── */
@@ -3974,7 +3943,7 @@ function c3agentsTick(dt, t){
   const k = 1 - Math.exp(-dt * 10);
   C3.cars.forEach(c => { const p = c3walk(c, dt, () => true), x = p.x - p.dz * .28, z = p.z + p.dx * .28, o = c.obj;
     o.position.x += (x - o.position.x) * k; o.position.z += (z - o.position.z) * k; o.position.y = c3gy(o.position.x, o.position.z) + .015; c3turn(o, Math.atan2(-p.dz, p.dx), k); });
-  const far = C3CAM.r > 30; C3.peds.forEach(c => { const o = c.obj; o.visible = !!o.userData.want && !far; if (!o.visible) return; const p = c3walk(c, dt, n => n !== 9), hz = Math.abs(p.dz) < .5;
+  const far = C3CAM.r > 30; C3.peds.forEach(c => { const o = c.obj; o.visible = !!o.userData.want && !far; if (!o.visible) return; const p = c3walk(c, dt, n => n !== 16), hz = Math.abs(p.dz) < .5;
     const x = p.x + (hz ? 0 : c.side * .7), z = p.z + (hz ? c.side * .7 : 0); o.position.x += (x - o.position.x) * k; o.position.z += (z - o.position.z) * k; o.position.y = .045;
     c3turn(o, Math.atan2(p.dx, p.dz), k); c3walkPose(o, t * 8 * c.sp / .35 + c.ph, .5); });
   c3truckTick(dt, t); c3trainTick(dt, t);
@@ -3985,7 +3954,7 @@ function c3agentsTick(dt, t){
 
 /* ── Tag und Nacht nach Uhrzeit ── */
 function c3day(){
-  const d = new Date(), h = d.getHours() + d.getMinutes() / 60, day = c3ss(6, 8.2, h) * (1 - c3ss(18.2, 20.4, h)), dusk = Math.max(0, 1 - Math.abs(day - .5) * 2);
+  const d = new Date(), h = S.c3tag ? 13.2 : d.getHours() + d.getMinutes() / 60, day = c3ss(6, 8.2, h) * (1 - c3ss(18.2, 20.4, h)), dusk = Math.max(0, 1 - Math.abs(day - .5) * 2);
   C3.night = 1 - day; const C = (a, b, t) => new THREE.Color(a).lerp(new THREE.Color(b), t);
   const top = C(0x081028, 0x3d8fe2, day).lerp(new THREE.Color(0x5a58b8), dusk * .45), hor = C(0x1b2a58, 0xcde9ff, day).lerp(new THREE.Color(0xffa877), dusk * .7);
   C3.skyTop = "#" + top.getHexString(); C3.skyHor = "#" + hor.getHexString();
@@ -3996,7 +3965,7 @@ function c3day(){
   C3.sun.color.copy(C(0xa9bcff, 0xfff6e8, day).lerp(new THREE.Color(0xffb27a), dusk * .75)); C3.sun.intensity = .42 + day * .42;
   C3.hemi.color.copy(C(0x5a6cae, 0xdcecff, day)); C3.hemi.groundColor.copy(C(0x1c2436, 0x76805a, day)); C3.hemi.intensity = .52 + .04 * day;
   const n = C3.night, M = C3.M; M.glassL.emissiveIntensity = n * .95; M.glassB.emissiveIntensity = n * .45; M.rzGlass.emissiveIntensity = .1 + n * .9; M.lamp.emissiveIntensity = n * 1.4; M.headL.emissiveIntensity = n * 1.5; M.tailL.emissiveIntensity = .2 + n;
-  M.jet.emissiveIntensity = .25 + n * .5; C3.spots.material.opacity = n * .55; C3.stars.material.opacity = c3ss(.5, .95, n) * .9;
+  M.jet.emissiveIntensity = .25 + n * .5; for (const k in C3MOD.mat) if (C3MOD.mat[k].lit.emissiveMap) C3MOD.mat[k].lit.emissiveIntensity = c3ss(.3, .9, n) * 1.15; C3.spots.material.opacity = n * .55; C3.stars.material.opacity = c3ss(.5, .95, n) * .9;
   C3.clouds.userData.mat.color.copy(C(0x5b6380, 0xffffff, day)); C3.clouds.userData.mat.emissiveIntensity = .05 + .25 * day; M.water.color.copy(C(0x1c3a66, 0x3f8fd2, day));
 }
 
@@ -4015,12 +3984,12 @@ function c3camTick(dt){
   c3camApply();
 }
 function c3fit(asp, fov){
-  let x0 = 1e9, x1 = -1e9, z0 = 1e9, z1 = -1e9; G().b.forEach(b => { const x = c3lot(b.x), z = c3lot(b.y); x0 = Math.min(x0, x - 1.1); x1 = Math.max(x1, x + 1.1); z0 = Math.min(z0, z - 1.1); z1 = Math.max(z1, z + 1.1); });
+  let x0 = 1e9, x1 = -1e9, z0 = 1e9, z1 = -1e9; G().b.forEach(b => { const p = c3lotPos(b), x = p.x, z = p.z; x0 = Math.min(x0, x - 1.1); x1 = Math.max(x1, x + 1.1); z0 = Math.min(z0, z - 1.1); z1 = Math.max(z1, z + 1.1); });
   const rad = Math.max(5.4, Math.hypot(x1 - x0, z1 - z0) / 2), vf = fov * Math.PI / 360, hf = Math.atan(Math.tan(vf) * asp);
-  return {tx: (x0 + x1) / 2, tz: (z0 + z1) / 2 + .3, r: c3clamp(rad * .82 / Math.tan(Math.min(vf, hf)), 14, 36), az: .62, po: 1.07};
+  return {tx: (x0 + x1) / 2, tz: (z0 + z1) / 2 + .3, r: c3clamp(rad * .6 / Math.tan(Math.min(vf, hf)), 12, 24), az: .62, po: 1.0};
 }
 function c3fly(to, d = .9){ C3.anim = {f: Object.assign({}, C3CAM), to: Object.assign({}, C3CAM, to), t: 0, d}; C3.vel.x = C3.vel.z = 0; }
-function c3focus(x, y, r = 8){ c3fly({tx: c3lot(x), tz: c3lot(y), r: Math.min(C3CAM.r, r)}); }
+function c3focus(x, y, r = 8){ const h = x < 0; c3fly({tx: h ? C3HAUS.x : c3lot(x), tz: h ? C3HAUS.z : c3lot(y), r: Math.min(C3CAM.r, r)}); }
 function c3pan(dx, dy){
   const c = C3CAM, s = 2 * c.r * Math.tan(C3.cam.fov * Math.PI / 360) / Math.max(1, C3.cv.clientHeight), ca = Math.cos(c.az), sa = Math.sin(c.az), k = 1 / Math.max(.4, Math.cos(c.po));
   const vx = (-ca * dx - sa * dy * k) * s, vz = (sa * dx - ca * dy * k) * s; c.tx += vx; c.tz += vz; return [vx, vz];
@@ -4028,7 +3997,7 @@ function c3pan(dx, dy){
 function c3pick(cx, cy, only){
   const r = C3.cv.getBoundingClientRect(); C3.ndc.set((cx - r.left) / r.width * 2 - 1, -(cy - r.top) / r.height * 2 + 1); C3.rc.setFromCamera(C3.ndc, C3.cam);
   const hits = C3.rc.intersectObjects(only ? [C3.plates] : [C3.world, C3.plates, C3.terrain, C3.water], true);
-  for (const h of hits) { let o = h.object; if (o === C3.plates) return {lot: [h.instanceId % 8, h.instanceId / 8 | 0], p: h.point};
+  for (const h of hits) { let o = h.object; if (o === C3.plates) return {lot: [h.instanceId % GN, h.instanceId / GN | 0], p: h.point};
     while (o && !o.userData.lot) o = o.parent; if (o) return {lot: o.userData.lot, id: o.userData.id, p: h.point}; return {p: h.point}; }
   return null;
 }
@@ -4084,7 +4053,7 @@ function c3setup(){
   const sc = new THREE.Scene(); C3.sc = sc; sc.fog = new THREE.Fog(0xcfeaff, 62, 175);
   C3.cam = new THREE.PerspectiveCamera(50, 1, .1, 420);
   C3.hemi = new THREE.HemisphereLight(0xd6ecff, 0x6b7f4f, .65); sc.add(C3.hemi);
-  const sun = new THREE.DirectionalLight(0xffffff, 1); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); const s = sun.shadow.camera; s.left = s.bottom = -17; s.right = s.top = 17; s.near = 1; s.far = 90;
+  const sun = new THREE.DirectionalLight(0xffffff, 1); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); const s = sun.shadow.camera; s.left = s.bottom = -23; s.right = s.top = 23; s.near = 1; s.far = 90;
   sun.shadow.bias = -.0004; sun.shadow.normalBias = .025; sun.target.position.set(0, 0, 0); sc.add(sun, sun.target); C3.sun = sun;
   C3.G = {spark: new THREE.OctahedronGeometry(.05, 0), coin: new THREE.CylinderGeometry(.09, .09, .022, 14).rotateX(Math.PI / 2), puff: new THREE.IcosahedronGeometry(.11, 0)};
   C3.smoke = new THREE.MeshStandardMaterial({color: 0xe6e6e2, roughness: 1, flatShading: true, transparent: true, opacity: .5, depthWrite: false});
@@ -4092,8 +4061,8 @@ function c3setup(){
   C3.terrain = c3terrain(); sc.add(C3.terrain); C3.water = c3waterMesh(); sc.add(C3.water);
   sc.add(c3roads()); C3.spots = c3lampSpots(); sc.add(C3.spots); sc.add(c3rail()); C3.plat = c3platform(); C3.plat.visible = false; sc.add(C3.plat);
   sc.add(c3forest()); C3.clouds = c3clouds(); sc.add(C3.clouds); C3.stars = c3stars(); sc.add(C3.stars);
-  C3.plates = new THREE.InstancedMesh(c3boxG(1.9, .06, 1.9).translate(0, .03, 0), new THREE.MeshStandardMaterial({color: 0xffffff, roughness: .95, flatShading: true}), 64);
-  const o = new THREE.Object3D(); for (let i = 0; i < 64; i++) { o.position.set(c3lot(i % 8), 0, c3lot(i / 8 | 0)); o.updateMatrix(); C3.plates.setMatrixAt(i, o.matrix); C3.plates.setColorAt(i, new THREE.Color(0x86c463)); }
+  C3.plates = new THREE.InstancedMesh(c3boxG(1.9, .06, 1.9).translate(0, .03, 0), new THREE.MeshStandardMaterial({color: 0xffffff, roughness: .95, flatShading: true}), GN * GN);
+  const o = new THREE.Object3D(); for (let i = 0; i < GN * GN; i++) { o.position.set(c3lot(i % GN), 0, c3lot(i / GN | 0)); o.updateMatrix(); C3.plates.setMatrixAt(i, o.matrix); C3.plates.setColorAt(i, new THREE.Color(0x86c463)); }
   C3.plates.receiveShadow = true; sc.add(C3.plates);
   C3.world = new THREE.Group(); sc.add(C3.world); C3.hl = new THREE.Group(); sc.add(C3.hl);
   C3.peds = []; C3.cars = []; C3.vel = {x: 0, z: 0}; C3.rc = new THREE.Raycaster(); C3.ndc = new THREE.Vector2(); C3.night = 0;
@@ -4123,10 +4092,11 @@ function c3dom(){
   el.innerHTML = `<canvas id="c3cv"></canvas><div class="c3labs" id="c3labs"></div><div class="c3tag" id="c3tag">Neuland<small>bald mit Brücke</small></div>
     <div class="c3top"><button class="c3btn c3g press" data-act="c3-back" aria-label="Zurück">${C3I.back}</button>
       <div class="c3mid"><div class="c3chips"><div class="c3chip c3g" id="c3coinChip"><i class="c3cn">₿</i><b id="c3coins">0</b></div><div class="c3chip c3g">${C3I.ew}<b id="c3ew">0</b></div><div class="c3chip c3g">${C3I.crew}<b id="c3crew">0/2</b></div></div><div class="c3sub" id="c3sub"></div></div>
-      <div class="c3col"><button class="c3btn c3g press" data-act="g-info" aria-label="So verdienst du Bitcoin">${C3I.info}</button><button class="c3btn c3g press" data-act="c3-home" aria-label="Ansicht zurücksetzen">${C3I.home}</button><button class="c3btn c3g press" id="c3umb" data-act="c3-umbau" aria-label="Stadt umbauen">${C3I2.move}</button></div></div>
+      <div class="c3col"><button class="c3btn c3g press" data-act="g-info" aria-label="So verdienst du Bitcoin">${C3I.info}</button><button class="c3btn c3g press" data-act="c3-home" aria-label="Ansicht zurücksetzen">${C3I.home}</button><button class="c3btn c3g press" id="c3umb" data-act="c3-umbau" aria-label="Stadt umbauen">${C3I2.move}</button><button class="c3btn c3g press" id="c3tagb" data-act="c3-tag" aria-label="Tag und Nacht"></button></div></div>
     <div class="c3wel c3g" id="c3wel" hidden></div>
     <div class="c3hint c3g" id="c3hint" hidden></div>
     <div class="c3drawer c3g" id="c3drawer" hidden></div>
+    <button class="c3res c3g press" id="c3res" data-act="c3-lager" aria-label="Rohstoffe – Lager öffnen"></button>
     <div class="c3bot" id="c3bot"><button class="c3round learn press" data-act="start-mix">${I.play}<span>Lernen</span></button><div class="c3mini"><button class="c3sm c3g press" data-act="c3-orders">${C3I2.orders}<span>Aufträge</span><em id="c3ob" hidden></em></button><button class="c3sm c3g press" data-act="c3-lager">${C3I2.lager}<span>Lager</span></button></div><button class="c3round build press" data-act="c3-drawer">${C3I.crane}<span>Bauen</span></button></div>
     <div class="c3card2 c3g" id="c3card" hidden></div><div class="c3undo c3g" id="c3undo" hidden></div>
     <div class="c3fly" id="c3fly"></div>`;
@@ -4141,7 +4111,7 @@ function c3hud(){
   if (g.coins > C3.shown + .5 && !C3.counting) c3count(C3.shown, g.coins); else if (!C3.counting) { C3.shown = g.coins; $("#c3coins").textContent = fmtB(g.coins); if (g.seenC !== g.coins) { g.seenC = g.coins; save(); } }
   $("#c3ew").textContent = fmtB(gEinw()); $("#c3crew").textContent = `${busy.length}/${gTr()}`;
   const st = streak(), eg = eco(); $("#c3sub").innerHTML = `Stadtstufe ${eg.lv} <i class="xpb"><em style="width:${Math.min(100, eg.xp / xpNeed(eg.lv) * 100).toFixed(0)}%"></em></i> · +${fmtB(tg.e)} ₿ heute${st ? ` · ${st} ${st === 1 ? "Tag" : "Tage"} Serie` : ""}`;
-  const on = ordersReadyN(), ob = $("#c3ob"); ob.hidden = !on; ob.textContent = on; $("#c3umb").classList.toggle("on", !!C3.umbau);
+  const on = ordersReadyN(), ob = $("#c3ob"); ob.hidden = !on; ob.textContent = on; $("#c3umb").classList.toggle("on", !!C3.umbau); const tb = $("#c3tagb"); if (tb) tb.innerHTML = S.c3tag ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>` : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.3 6.3 0 0 0 10.5 10.5z"/></svg>`;
   const w = $("#c3wel"); w.hidden = !g.welcome;
   if (g.welcome) w.innerHTML = `<h2>Willkommen in deiner Stadt</h2><p>Für dein bisheriges Lernen bekommst du ein Startkapital. Ab jetzt bringt jede Antwort Bitcoin – richtige mehr, Serien und schwere Fragen noch mehr.</p><button class="cta press" data-act="g-welcome">₿ ${fmtB(g.welcome)} abholen</button>`;
   const h = $("#c3hint"), mv = GMOVE && g.b.find(b => b.id === GMOVE);
@@ -4151,6 +4121,9 @@ function c3hud(){
   else if (mv) h.innerHTML = `<span>Wohin mit <b>${GT[mv.k].n}</b>? Fläche antippen – auf einem Gebäude wird getauscht</span><button class="c3x press" data-act="c3-cancel" aria-label="Abbrechen">${I.close}</button>`;
   if (C3.drawer) $("#c3drawer").innerHTML = c3drawerHTML();
   $("#c3bot").classList.toggle("hide", C3.drawer || !!g.welcome);
+  const rb = $("#c3res"), rr = eco().r; if (rb) { const ks = [...RBASE, ...RPROD].filter(k => RBASE.includes(k) || (rr[k] || 0) >= 1);
+    const html = ks.map(k => `<span class="c3r${(rr[k] || 0) >= 1 ? "" : " zero"}">${ricon(k, 26)}<span><b>${Math.floor(rr[k] || 0)}</b><small>${RES[k].n}</small></span></span>`).join("") + `<span class="c3r cap"><span><b>${Math.floor(lagerUsed())}/${lagerCap()}</b><small>im Lager</small></span></span>`;
+    if (rb.dataset.h !== html) { rb.innerHTML = html; rb.dataset.h = html; } rb.classList.toggle("hide", C3.drawer || !!g.welcome); }
   c3bubSync(); if (C3.card) c3cardDraw();
 }
 function c3drawer(on){
@@ -4163,10 +4136,11 @@ function c3buildAt(k, x, y){
   const g = G(), t = GT[k], why = gReq(k, 1), free = t.deko && (eco().inv.deko[k] || 0) > 0;
   if (why) { toast(why); return; } if (!free && g.coins < t.cost[0]) { toast(`Noch ${fmtB(t.cost[0] - g.coins)} ₿ – lerne ein paar Fragen`); return; }
   GSEL = [x, y]; C3.place = null; C3.sel = null; if (C3.drawer) c3drawer(false);
-  gAct("g-build", {k}); C3.shown = G().coins; c3sync(); c3focus(x, y, 9);
+  gAct("g-build", {k}); C3.shown = G().coins; c3sync(); if (k === "meinhaus") c3fly({tx: C3HAUS.x, tz: C3HAUS.z, r: Math.min(C3CAM.r, 9)}); else c3focus(x, y, 9);
 }
 function c3Act(a, ds){
   if (c3Act23(a, ds)) return true;
+  if (a === "c3-tag") { S.c3tag = !S.c3tag; save(); c3day(); c3hud(); toast(S.c3tag ? "Immer Tag – Nacht ausgeschaltet" : "Echte Tageszeit – nachts wird es dunkel"); return true; }
   if (a === "c3-back") { C3.place = null; C3.sel = null; GMOVE = null; tab = C3.prev && C3.prev !== "stadt" ? C3.prev : "heute"; render(); }
   else if (a === "c3-drawer") c3drawer(!C3.drawer);
   else if (a === "c3-home") c3fly(c3fit(C3.cam.aspect, C3.cam.fov));
@@ -4175,7 +4149,7 @@ function c3Act(a, ds){
     const free = t.deko && (eco().inv.deko[k] || 0) > 0, rc = free ? {} : ecoCost(k, 1);
     if (why) { toast(why); return true; } if (!free && G().coins < t.cost[0]) { toast(`Noch ${fmtB(t.cost[0] - G().coins)} ₿ – lerne ein paar Fragen`); return true; }
     if (!ecoHave(rc)) { toast("Es fehlen: " + ecoMiss(rc, true)); return true; }
-    if (C3.sel) c3buildAt(k, C3.sel[0], C3.sel[1]); else { C3.place = k; c3drawer(false); c3hud(); } }
+    if (k === "meinhaus") c3buildAt(k, -1, -1); else if (C3.sel) c3buildAt(k, C3.sel[0], C3.sel[1]); else { C3.place = k; c3drawer(false); c3hud(); } }
   else return false;
   return true;
 }
@@ -4231,6 +4205,7 @@ function c3snapUrl(){ if (C3.snapUrl) return C3.snapUrl; try { return C3.snapUrl
 /* ── Öffnen, Schließen, Schleife ── */
 function c3Open(){
   c3dom(); const el = $("#c3");
+  if (!C3MOD.ready && !C3MOD.fail) { el.hidden = false; document.body.classList.add("c3on"); el.classList.add("c3load"); c3modLoad(() => { el.classList.remove("c3load"); if (tab === "stadt") c3Open(); else { el.hidden = true; document.body.classList.remove("c3on"); } }); return; }
   if (!C3.open) { el.hidden = false; document.body.classList.add("c3on"); C3.open = true;
     try { if (!C3.init) c3setup(); } catch (e) { console.error(e); C3.ok = false; C3.open = false; el.hidden = true; document.body.classList.remove("c3on"); render(); return; }
     c3resize(); c3day(); C3.last = 0; cancelAnimationFrame(C3.raf); C3.raf = requestAnimationFrame(c3loop);
@@ -4311,52 +4286,22 @@ function c3cardTick(){
 }
 
 /* ── Blätter ── */
-function c3lagerKeep(){ const sc = $("#sheet"), y = sc ? sc.scrollTop : 0, b = sc && sc.querySelector(".sbody"), yb = b ? b.scrollTop : 0; c3lagerSheet(); const s2 = $("#sheet"); if (s2) { s2.scrollTop = y; const b2 = s2.querySelector(".sbody"); if (b2) b2.scrollTop = yb; } }
-/* v2.5.3: Bedarf aus offenen Aufträgen und Tauschen im Verhältnis 3 : 1 (nach Wert) */
-function orderNeed(){ const n = {}; (eco().orders || []).forEach(o => { if (o && !o.wait && o.kind === "res") Object.keys(o.need).forEach(k => n[k] = (n[k] || 0) + o.need[k]); }); return n; }
-const TX_F = 3, TX_RES = () => RBASE.concat(RPROD).filter(k => k !== "daten" && k !== "fach");
-const txCost = (from, to, n) => Math.ceil(n * TX_F * RVAL[to] / RVAL[from]);
-function txMax(from, to){ const r = eco().r; let n = 0; while (n < 99 && txCost(from, to, n + 1) <= Math.floor(r[from] || 0)) n++; return n; }
-function txDo(){
-  const t = C3.tx || {}, g = eco(); if (!t.from || !t.to || t.from === t.to) return "Wähle aus, was du abgibst und was du bekommst";
-  const n = Math.max(1, t.n || 1), cost = txCost(t.from, t.to, n);
-  if ((g.r[t.from] || 0) < cost) return `Dafür brauchst du ${cost} ${RES[t.from].n}`;
-  if (lagerCap() - (lagerUsed() - cost) < n) return "Dafür ist im Lager kein Platz – baue das Lagerhaus aus";
-  g.r[t.from] -= cost; ecoStat("u", t.from, cost); const got = ecoAdd(t.to, n); ecoStat("p", t.to, got);
-  save(); haptic(true); return `Getauscht: ${cost} ${RES[t.from].n} → ${got} ${RES[t.to].n}`;
-}
-function txHTML(){
-  const g = eco(), t = C3.tx || (C3.tx = {}), have = TX_RES().filter(k => Math.floor(g.r[k] || 0) > 0);
-  if (!have.length) return `<p class="legend">Sobald du Ressourcen im Lager hast, kannst du Überschuss hier eintauschen.</p>`;
-  if (!t.from || !have.includes(t.from)) { const need = orderNeed(); t.from = have.slice().sort((a, b) => (g.r[b] - (need[b] || 0)) * RVAL[b] - (g.r[a] - (need[a] || 0)) * RVAL[a])[0]; }
-  const tos = RBASE.filter(k => k !== "daten" && k !== "fach" && k !== t.from);
-  if (!t.to || t.to === t.from) { const need = orderNeed(); t.to = tos.slice().sort((a, b) => ((need[b] || 0) - (g.r[b] || 0)) - ((need[a] || 0) - (g.r[a] || 0)))[0]; }
-  const mx = txMax(t.from, t.to); t.n = Math.max(1, Math.min(t.n || 1, Math.max(1, mx)));
-  const cost = txCost(t.from, t.to, t.n), ok = mx >= 1;
-  return `<p class="legend" style="margin-top:0">Für Überschuss: Du gibst Ressourcen ab und bekommst ein Drittel ihres Werts in einer anderen zurück. Lernen bleibt der bessere Weg.</p>
-    <small class="txl">Gib ab</small><div class="chips">${have.map(k => `<button class="chip press${k === t.from ? " on" : ""}" data-act="c3-txf" data-k="${k}">${ricon(k, 14)}${Math.floor(g.r[k])} ${RES[k].n}</button>`).join("")}</div>
-    <small class="txl">Bekomme</small><div class="chips">${tos.map(k => `<button class="chip press${k === t.to ? " on" : ""}" data-act="c3-txt" data-k="${k}">${ricon(k, 14)}${RES[k].n}</button>`).join("")}</div>
-    <div class="txrow"><button class="c3x dk press" data-act="c3-txn" data-d="-1" aria-label="Weniger">−</button><div class="txeq"><span class="rc${ok ? "" : " miss"}">${ricon(t.from, 16)}${cost} ${RES[t.from].n}</span><span class="arr">→</span><span class="rc">${ricon(t.to, 16)}${t.n} ${RES[t.to].n}</span></div><button class="c3x dk press" data-act="c3-txn" data-d="1" aria-label="Mehr">+</button></div>
-    <button class="btn2 acc press" style="width:100%;margin-top:8px" data-act="c3-tx"${ok ? "" : " data-off=\"1\""}>${ok ? "Tauschen" : `Zu wenig ${RES[t.from].n} (mind. ${txCost(t.from, t.to, 1)})`}</button>`;
-}
 function c3lagerSheet(){
-  const g = eco(), used = lagerUsed(), cap = lagerCap(), need = orderNeed(), tile = k => `<div class="rtile">${ricon(k, 26)}<b>${Math.floor(g.r[k])}</b><small>${RES[k].n}</small>${need[k] ? `<small class="rneed${Math.floor(g.r[k]) >= need[k] ? "" : " miss"}">Aufträge: ${need[k]}</small>` : ""}</div>`;
+  const g = eco(), used = lagerUsed(), cap = lagerCap(), tile = k => `<div class="rtile">${ricon(k, 26)}<b>${Math.floor(g.r[k])}</b><small>${RES[k].n}</small></div>`;
   openSheet(`<h2>Lager</h2><p class="sub">${Math.floor(used)} von ${cap} Plätzen belegt · ${lagerL() ? `Lagerhaus Stufe ${lagerL()}` : "noch ohne Lagerhaus – baue eins für mehr Platz"}</p><div class="gbar"><i style="width:${Math.min(100, used / cap * 100)}%;background:var(--accent)"></i></div>
     <h3 class="rh">Grund-Ressourcen</h3><div class="rgrid">${RBASE.filter(k => k !== "daten" && k !== "fach").map(tile).join("")}</div>
     <h3 class="rh">Bauteile aus Fabriken</h3><div class="rgrid">${RPROD.map(tile).join("")}</div>
     <h3 class="rh">Außerhalb des Lagers</h3><div class="rgrid">${tile("daten")}${tile("fach")}</div>
-    <p class="legend">Messdaten: höchstens ${extraCap("daten")}. Fachkräfte: höchstens ${extraCap("fach")} (mehr mit höherem Bahnhof). Bau-Beschleuniger: ${g.inv.speed}. Serienschutz: ${g.sh} von ${shCap()}.</p>
-    <h3 class="rh">Tauschen</h3><div class="panel glass">${txHTML()}</div>`);
-  C3.sheet = "lager";
+    <p class="legend">Messdaten: höchstens ${extraCap("daten")}. Fachkräfte: höchstens ${extraCap("fach")} (mehr mit höherem Bahnhof). Bau-Beschleuniger: ${g.inv.speed}. Serienschutz: ${g.sh} von ${shCap()}.</p>`);
 }
 function c3ordersSheet(){
   const g = eco(); ordersTick(); const now = Date.now(), bonus = hasB("buero") ? 1.15 : 1;
   const card = (o, i) => { if (!o || o.wait) return `<div class="ocard wait">${C3I2.orders}<small>Neuer Auftrag in ${gDur(((o && o.wait) - now) / 1000)}</small></div>`;
     const ok = orderOk(o), rew = `<span class="orew"><i class="c3cn sm">₿</i>${fmtB(Math.round(o.rew.b * bonus))} · ${o.rew.xp} XP${o.rew.r ? ` · ${ricon(o.rew.r[0], 14)}${o.rew.r[1]}` : ""}${o.rew.speed ? " · Beschleuniger" : ""}${o.rew.deko ? ` · ${GT[o.rew.deko].n}` : ""}</span>`;
-    const need = o.kind === "res" ? costHTML(o.need, undefined, true, true) : `<div class="gbar" style="margin:6px 0 2px"><i style="width:${Math.min(100, o.c / o.n * 100)}%;background:${o.f ? cssC(o.f) : "var(--accent)"}"></i></div><small>${Math.min(o.c, o.n)} von ${o.n}</small>`;
+    const need = o.kind === "res" ? costHTML(o.need, undefined, true) : `<div class="gbar" style="margin:6px 0 2px"><i style="width:${Math.min(100, o.c / o.n * 100)}%;background:${o.f ? cssC(o.f) : "var(--accent)"}"></i></div><small>${Math.min(o.c, o.n)} von ${o.n}</small>`;
     return `<div class="ocard${ok ? " ok" : ""}${o.kind === "lern" ? " lern" : ""}"><b>${o.kind === "lern" ? "Lernauftrag" : esc(o.name)}</b><small>${o.kind === "lern" ? esc(o.name) : "braucht"}</small>${need}${rew}
       <div class="obtn"><button class="btn2 ${ok ? "acc " : ""}sm press" data-act="c3-odo" data-i="${i}"${ok ? "" : " data-off=\"1\""}>${o.kind === "lern" ? "Abholen" : "Liefern"}</button><button class="c3x dk press" data-act="c3-odrop" data-i="${i}" aria-label="Verwerfen">${I.x}</button></div></div>`; };
-  openSheet(`<h2>Auftragsblatt</h2><p class="sub">Liefere Ressourcen oder erfülle Lernaufträge. Einen Auftrag am Tag darfst du verwerfen.${bonus > 1 ? " Bürohochhaus: +15 % Bitcoin." : ""}</p><p class="legend" style="margin:-4px 0 6px">Zahlen bei Ressourcen: <b>im Lager / gebraucht</b> – grün reicht, rot fehlt. Überschuss tauschst du im Lager.</p><div class="ogrid">${g.orders.map(card).join("")}</div>`);
+  openSheet(`<h2>Auftragsblatt</h2><p class="sub">Liefere Ressourcen oder erfülle Lernaufträge. Einen Auftrag am Tag darfst du verwerfen.${bonus > 1 ? " Bürohochhaus: +15 % Bitcoin." : ""}</p><div class="ogrid">${g.orders.map(card).join("")}</div>`);
   C3.sheet = "orders";
 }
 function c3fabSheet(b){
@@ -4404,41 +4349,25 @@ function c3drawerHTML(){
 }
 
 /* ── Blasen über Werken und Fabriken ── */
-/* v2.5.4: Restzeit über laufenden Fabriken, „Pause“ über leeren, Rauch und leichtes Arbeiten nur bei Produktion */
-const C3GEAR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.6M12 18.4V21M3 12h2.6M18.4 12H21M5.6 5.6l1.9 1.9M16.5 16.5l1.9 1.9M5.6 18.4l1.9-1.9M16.5 7.5l1.9-1.9"/></svg>';
-const c3tm = s => { s = Math.max(0, Math.ceil(s)); if (s < 3600) return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60); return h + " h " + String(m).padStart(2, "0"); };
-const c3fabAktiv = b => FAB[b.k] && b.l >= 1 && fabJobs(b).some(j => j.s <= Date.now() && j.e > Date.now());
-setInterval(() => {
-  if (!C3.open || document.hidden) return;
-  C3.akt = C3.akt || {}; C3.akTick = (C3.akTick || 0) + 1; let neu = 0;
-  G().b.forEach(b => { if (!FAB[b.k]) return; const a = c3fabAktiv(b);
-    if (C3.akt[b.id] !== undefined && C3.akt[b.id] !== a) { C3.keys[b.id] = ""; neu = 1; }
-    C3.akt[b.id] = a; if (a && C3.akTick % 3 === 0) c3wobble(b.id, .025); });
-  if (neu) { try { c3sync(); } catch (e) {} }
-  c3bubSync();
-}, 1000);
 function c3bubs(){
   const out = [];
   G().b.forEach(b => { if (b.until > Date.now() && b.l < 1) return;
     if (WERK[b.k] && (b.st || 0) >= 1) out.push([b.id, "w", `${ricon(WERK[b.k].r, 18)}<b>${Math.floor(b.st)}</b>`]);
     else if (FAB[b.k] && fabReady(b)) out.push([b.id, "f", `${ricon(Object.keys(FAB[b.k].out)[0], 18)}<b>✓</b>`]);
     else if (WERK[b.k] && werkIdle(b)) out.push([b.id, "z", "<b>Zz</b>"]);
-    else if (FAB[b.k] && b.l >= 1) { const now = Date.now(), J = fabJobs(b), cur = J.find(j => j.s <= now && j.e > now);
-      if (cur) out.push([b.id, "p", `<i class="gear">${C3GEAR}</i><b>${c3tm((cur.e - now) / 1000)}</b>${J.length > 1 ? `<small>+${J.length - 1}</small>` : ""}`]);
-      else if (!J.length) out.push([b.id, "i", "<b>Pause</b>"]); }
     if (b.k === "rathaus" && chestReady()) out.push([b.id, "c", `${C3I2.chest}<b>Truhe</b>`]); });
   return out;
 }
 function c3bubSync(){
   const box = $("#c3labs"); if (!box) return; C3.bub = C3.bub || {}; const want = {};
   c3bubs().forEach(([id, kind, html]) => { const key = id + kind; want[key] = 1; let o = C3.bub[key];
-    if (!o) { const el = document.createElement("button"); el.className = "c3bub press k" + kind; if (kind !== "z") { el.dataset.act = kind === "c" ? "c3-chest" : kind === "w" ? "c3-col" : kind === "p" || kind === "i" ? "c3-fab" : "c3-fcol"; el.dataset.id = id; } box.appendChild(el); o = C3.bub[key] = {el, id, kind}; }
+    if (!o) { const el = document.createElement("button"); el.className = "c3bub press k" + kind; if (kind !== "z") { el.dataset.act = kind === "c" ? "c3-chest" : kind === "w" ? "c3-col" : "c3-fcol"; el.dataset.id = id; } box.appendChild(el); o = C3.bub[key] = {el, id, kind}; }
     if (o.html !== html) { o.el.innerHTML = html; o.html = html; } });
   for (const k in C3.bub) if (!want[k]) { C3.bub[k].el.remove(); delete C3.bub[k]; }
 }
 function c3bubTick(){
   if (!C3.bub) return; const v = new THREE.Vector3(), w = C3.cv.clientWidth, h = C3.cv.clientHeight, t = performance.now() / 1000;
-  for (const k in C3.bub) { const o = C3.bub[k], g = C3.grp[o.id]; if (!g || (C3.drag && C3.drag.b.id === o.id)) { o.el.style.display = "none"; continue; }
+  for (const k in C3.bub) { const o = C3.bub[k], g = C3.grp[o.id]; if (!g || (C3.drag && C3.drag.b.id === o.id) || (o.kind === "z" && C3CAM.r > 19)) { o.el.style.display = "none"; continue; }
     v.set(o.kind === "c" ? .55 : 0, g.userData.top + (o.kind === "c" ? .1 : .5), o.kind === "c" ? .6 : 0).applyMatrix4(g.matrixWorld).project(C3.cam);
     if (v.z > 1 || Math.abs(v.x) > 1.1 || Math.abs(v.y) > 1.1) { o.el.style.display = "none"; continue; }
     o.el.style.display = ""; o.el.style.transform = `translate(${(v.x * .5 + .5) * w}px,${(-v.y * .5 + .5) * h + Math.sin(t * 3 + o.id) * 3}px)`; }
@@ -4470,9 +4399,10 @@ function c3chestTick(t){
 }
 
 /* ── Verschieben: lange drücken und ziehen, Tauschen, Rückgängig ── */
-function c3lotAt(p){ let best = null, bd = 1.3; for (let i = 0; i < 64; i++) { const x = i % 8, y = i / 8 | 0, d = Math.hypot(c3lot(x) - p.x, c3lot(y) - p.z); if (d < bd) { bd = d; best = [x, y]; } } return best; }
+function c3lotAt(p){ let best = null, bd = 1.3; for (let i = 0; i < GN * GN; i++) { const x = i % GN, y = i / GN | 0, d = Math.hypot(c3lot(x) - p.x, c3lot(y) - p.z); if (d < bd) { bd = d; best = [x, y]; } } return best; }
 function c3dragStart(b){
   if (b.until > Date.now()) { toast("Baustellen lassen sich nicht verschieben"); return false; }
+  if (b.k === "meinhaus") { toast("Dein Haus bleibt am Fluss"); return false; }
   const grp = C3.grp[b.id]; if (!grp) return false; c3cardClose(); if (C3.drawer) c3drawer(false);
   C3.drag = {b, grp, tx: b.x, ty: b.y}; C3.sel = [b.x, b.y]; C3.hlKey = ""; c3hl(); grp.position.y = .45; return true;
 }
@@ -4507,10 +4437,6 @@ function c3Act23(a, ds){
   else if (a === "c3-fab" && b) { c3cardClose(); c3fabSheet(b); }
   else if (a === "c3-fgo" && b) { const e = fabStart(b); toast(e || `${GT[b.k].n}: Produktion gestartet`); c3fabSheet(b); C3.keys[b.id] = ""; }
   else if (a === "c3-lager") { c3cardClose(); c3lagerSheet(); }
-  else if (a === "c3-txf") { C3.tx = Object.assign(C3.tx || {}, {from: ds.k, n: 1}); if (C3.tx.to === ds.k) C3.tx.to = ""; c3lagerKeep(); }
-  else if (a === "c3-txt") { C3.tx = Object.assign(C3.tx || {}, {to: ds.k, n: 1}); c3lagerKeep(); }
-  else if (a === "c3-txn") { const t = C3.tx || (C3.tx = {}); t.n = Math.max(1, Math.min((t.n || 1) + +ds.d, Math.max(1, txMax(t.from, t.to)))); c3lagerKeep(); }
-  else if (a === "c3-tx") { const e = txDo(); toast(e); c3lagerKeep(); c3hud(); }
   else if (a === "c3-orders") { c3cardClose(); c3ordersSheet(); }
   else if (a === "c3-odo") { const e = orderDeliver(+ds.i); if (e) toast(e); else { toast("Auftrag erledigt"); C3.shown = C3.shown; } c3ordersSheet(); c3hud(); }
   else if (a === "c3-odrop") { const e = orderDrop(+ds.i); toast(e || "Auftrag verworfen – ein neuer kommt in 10 Minuten"); c3ordersSheet(); }
@@ -4526,6 +4452,216 @@ function c3Act23(a, ds){
   else return false;
   return true;
 }
+
+/* ═════════ v3.0: Stadt 3.0 – Modelle aus den Kenney-Baukästen (CC0, kenney.nl) ═════════ */
+const C3MOD = {ready: false, busy: false, cat: {}, mat: {}, err: "", wait: []};
+function c3modLoad(done){
+  if (C3MOD.ready || C3MOD.fail) { done && done(); return; }
+  C3MOD.wait.push(done); if (C3MOD.busy) return; C3MOD.busy = true;
+  let end = false; const fin = ok => { if (end) return; end = true; C3MOD.busy = false; C3MOD.ready = ok; C3MOD.fail = !ok; const w = C3MOD.wait; C3MOD.wait = []; w.forEach(f => f && f()); };
+  if (!THREE.GLTFLoader || !THREE.MeshoptDecoder) return fin(false);
+  const ld = new THREE.GLTFLoader(); ld.setMeshoptDecoder(THREE.MeshoptDecoder);
+  const ok = gl => { try { c3modIndex(gl.scene); fin(true); } catch(e) { C3MOD.err = String(e && e.message || e); fin(false); } };
+  const bad = e => { C3MOD.err = String(e && e.message || e); fin(false); };
+  setTimeout(() => { if (!end) { C3MOD.err = "Zeitüberschreitung"; fin(false); } }, 20000);
+  try {
+    if (window.C3GLB) { const s = atob(window.C3GLB), b = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) b[i] = s.charCodeAt(i); ld.parse(b.buffer, "", ok, bad); }
+    else ld.load("stadt.glb", ok, undefined, bad);
+  } catch(e) { bad(e); }
+}
+function c3modMerge(list){                                           // Teile eines Modells zu einer Geometrie (Float32, indiziert)
+  let n = 0, ni = 0; list.forEach(({g}) => { n += g.attributes.position.count; ni += g.index ? g.index.count : g.attributes.position.count; });
+  const P = new Float32Array(n * 3), Nn = new Float32Array(n * 3), U = new Float32Array(n * 2), I = n > 65000 ? new Uint32Array(ni) : new Uint16Array(ni);
+  const v = new THREE.Vector3(), nm = new THREE.Matrix3(); let o = 0, io = 0;
+  list.forEach(({g, m}) => { nm.getNormalMatrix(m); const p = g.attributes.position, no = g.attributes.normal, uv = g.attributes.uv;
+    for (let i = 0; i < p.count; i++) { v.fromBufferAttribute(p, i).applyMatrix4(m); P[(o + i) * 3] = v.x; P[(o + i) * 3 + 1] = v.y; P[(o + i) * 3 + 2] = v.z;
+      if (no) { v.fromBufferAttribute(no, i).applyMatrix3(nm).normalize(); Nn[(o + i) * 3] = v.x; Nn[(o + i) * 3 + 1] = v.y; Nn[(o + i) * 3 + 2] = v.z; }
+      if (uv) { U[(o + i) * 2] = uv.getX(i); U[(o + i) * 2 + 1] = uv.getY(i); } }
+    if (g.index) for (let i = 0; i < g.index.count; i++) I[io++] = g.index.getX(i) + o; else for (let i = 0; i < p.count; i++) I[io++] = o + i;
+    o += p.count; });
+  const geo = new THREE.BufferGeometry(); geo.setAttribute("position", new THREE.BufferAttribute(P, 3)); geo.setAttribute("normal", new THREE.BufferAttribute(Nn, 3)); geo.setAttribute("uv", new THREE.BufferAttribute(U, 2));
+  geo.setIndex(new THREE.BufferAttribute(I, 1)); geo.computeBoundingBox(); geo.computeBoundingSphere(); geo.userData.mod = 1; return geo;
+}
+function c3modGlow(map){                                             // Leuchtmaske: hellblaues Farbfeld der Palette (= Fensterglas)
+  try { const im = map.image, c = document.createElement("canvas"), W = c.width = im.width, H = c.height = im.height, g = c.getContext("2d"); g.drawImage(im, 0, 0);
+    const cw = W / 8, ch = H / 8, on = [];
+    for (let gy = 0; gy < 8; gy++) for (let gx = 0; gx < 8; gx++) { const d = g.getImageData(gx * cw + cw / 2 - 2, gy * ch + ch / 2 - 2, 4, 4).data; let R = 0, G = 0, B = 0;
+      for (let i = 0; i < d.length; i += 4) { R += d[i] / 16; G += d[i+1] / 16; B += d[i+2] / 16; }
+      if (B > 215 && B - R > 35 && G > R && R > 150) on.push([gx, gy]); }
+    g.fillStyle = "#000"; g.fillRect(0, 0, W, H); g.fillStyle = "#fff"; on.forEach(([x, y]) => g.fillRect(x * cw, y * ch, cw, ch));
+    const t = new THREE.CanvasTexture(c); t.flipY = map.flipY; return on.length ? t : null; } catch(e) { return null; }
+}
+function c3modMat(key, src){
+  if (C3MOD.mat[key]) return C3MOD.mat[key];
+  if (src.map) { src.map.encoding = THREE.LinearEncoding; src.map.anisotropy = 4; src.map.needsUpdate = true; }       // wie die übrige Szene: Farben unverändert
+  const day = new THREE.MeshStandardMaterial({map: src.map || null, color: src.map ? 0xffffff : src.color, roughness: .82, metalness: 0}); day.userData.c3 = 1;
+  const lit = day.clone(); lit.userData.c3 = 1; const gm = src.map && c3modGlow(src.map);
+  if (gm) { lit.emissive = new THREE.Color(0xffd48a); lit.emissiveMap = gm; lit.emissiveIntensity = 0; }
+  return C3MOD.mat[key] = {day, lit};
+}
+function c3modIndex(root){
+  root.updateMatrixWorld(true); const inv = new THREE.Matrix4();
+  C3MOD.clay = new THREE.MeshStandardMaterial({color: 0xd8d0c2, roughness: .95}); C3MOD.clay.userData.c3 = 1;
+  root.children.forEach(h => {
+    const i = h.name.indexOf("_"); if (i < 0) return; const kit = h.name.slice(0, i), parts = {};
+    inv.copy(h.matrixWorld).invert();
+    h.traverse(o => { if (!o.isMesh) return; const key = o.material.map ? kit : kit + o.material.color.getHexString();
+      (parts[key] = parts[key] || {src: o.material, l: []}).l.push({g: o.geometry, m: inv.clone().multiply(o.matrixWorld)}); });
+    const list = Object.entries(parts).map(([key, p]) => { const g = c3modMerge(p.l); return {g, m: c3modMat(key, p.src)}; });
+    const box = new THREE.Box3(); list.forEach(x => box.union(x.g.boundingBox));
+    C3MOD.cat[h.name] = {list, box, size: box.getSize(new THREE.Vector3()), c: box.getCenter(new THREE.Vector3())};
+  });
+  C3MOD.n = Object.keys(C3MOD.cat).length;
+}
+/* Ein Modell als Gruppe: auf der Grundfläche zentriert, r in Vierteldrehungen */
+function c3M(name, x = 0, z = 0, r = 0, s = 1, o = {}){
+  const c = C3MOD.cat[name]; if (!c) return null;
+  const g = new THREE.Group(), inner = new THREE.Group(); inner.position.set(-c.c.x, -c.box.min.y, -c.c.z); g.add(inner);
+  c.list.forEach(p => { const m = new THREE.Mesh(p.g, o.raw ? C3MOD.clay : o.lit ? p.m.lit : p.m.day); m.castShadow = o.shadow !== false; m.receiveShadow = true; inner.add(m); });
+  g.position.set(x, o.y || 0, z); g.rotation.y = r * Math.PI / 2; g.scale.setScalar(s); return g;
+}
+const c3MS = name => C3MOD.cat[name] ? C3MOD.cat[name].size : new THREE.Vector3(1, 1, 1);
+/* Instanzen vieler gleicher Modelle (Straßen, Laternen, Bäume) */
+function c3MI(name, list, shadow = false){
+  const c = C3MOD.cat[name], g = new THREE.Group(); if (!c || !list.length) return g;
+  const o = new THREE.Object3D(), off = new THREE.Matrix4().makeTranslation(-c.c.x, -c.box.min.y, -c.c.z);
+  c.list.forEach(p => { const m = new THREE.InstancedMesh(p.g, p.m.day, list.length);
+    list.forEach(([x, z, r, s = 1, y = 0], i) => { o.position.set(x, y, z); o.rotation.set(0, r * Math.PI / 2, 0); o.scale.setScalar(s); o.updateMatrix(); m.setMatrixAt(i, o.matrix.clone().multiply(off)); });
+    m.castShadow = shadow; m.receiveShadow = true; g.add(m); });
+  return g;
+}
+
+/* ── Gebäude: Zusammenstellung je Typ und Stufe. Grundstück 2 × 2, Vorderseite zeigt nach +z (Straße) ── */
+const C3V = (id, a) => a[((id * 2654435761) >>> 0) % a.length];
+const C3FIT = 1.8;
+function c3B(spec, raw, lit){
+  const g = new THREE.Group(), emit = [];
+  spec.forEach(e => { if (!e) return; const [n, x = 0, z = 0, r = 0, s = 0, smoke] = e; const sz = c3MS(n);
+    const fp = Math.max(sz.x, sz.z), sc = s > 0 ? s : Math.min(1.35, (s < 0 ? -s : C3FIT) / fp);
+    const m = c3M(n, x, z, r, sc, {raw, lit: lit && !/^(car|road)_/.test(n)}); if (!m) return; g.add(m);
+    if (smoke) emit.push([x, sz.y * sc + .04, z]); });
+  g.userData.emit = emit; return g;
+}
+const S_ = n => "sub_building-type-" + n, CO = n => "com_building-" + n, IN = n => "ind_building-" + n;
+const TREE = (x, z, s = 1.9) => ["sub_tree-large", x, z, 0, s], TREES = (x, z, s = 1.7) => ["sub_tree-small", x, z, 0, s];
+const CAR = (n, x, z, r = 0) => ["car_" + n, x, z, r, .17];
+const C3BAU = {
+  wohnhaus: (L, id) => { const h = S_(C3V(id, [["h", "i", "k"], ["a", "c", "r"], ["e", "o", "j"], ["d", "s", "u"], ["b", "n", "f"]][L - 1]));
+    return [[h, 0, -.12, 0, -Math.min(1.75, 1.35 + L * .1)], L >= 2 && ["sub_fence-1x4", 0, -.86, 0, 1.15], TREE(C3V(id + 1, [-.72, .72]), .62), L >= 3 && CAR(C3V(id, ["sedan", "suv", "hatchback-sports"]), C3V(id + 1, [.72, -.72]), .55, 0),
+      L >= 2 && ["sub_planter", C3V(id + 1, [.72, -.72]) * -.4, .78, 0, 1.3], L >= 4 && TREES(-.8, -.8), L >= 5 && TREES(.8, -.8)]; },
+  mehrfamilienhaus: L => [[CO(["c", "j", "l"][L - 1]), 0, -.05], TREES(-.8, .78), TREES(.8, .78), L >= 2 && CAR("van", .75, .5, 0)],
+  schule: () => [[CO("e"), 0, -.2, 0, -1.9], ["sub_fence-1x4", -.4, .85, 0, 1.2], TREE(.8, .7), TREE(-.85, .65, 1.5)],
+  feuerwache: () => [[CO("h"), -.25, -.2, 0, -1.4], CAR("firetruck", .72, .2, 0), ["road_construction-cone", .45, .85, 0, 1.4]],
+  buero: () => [[CO("skyscraper-d"), 0, -.05, 0, -1.5], ["com_detail-parasol-a", .75, .75, 0, 1.4], ["com_detail-parasol-b", -.75, .75, 0, 1.4]],
+  wasserturm: L => [["ind_water-tower", -.45, -.35, 0, .62 + L * .06], L >= 2 && ["ind_detail-tank", .55, -.45, 1, 1.1], L >= 3 && [IN("h"), .45, .45, 0, .62], L >= 4 && ["ind_detail-tank-large", -.5, .55, 0, .62], L >= 5 && ["ind_water-tower", .6, -.6, 0, .55]],
+  kieswerk: L => [[IN("s"), 0, -.55, 0, -1.6], CAR("tractor-shovel", -.45, .4, 1), L >= 2 && ["ind_shipping-container-a", .6, .5, 0, 1.2], L >= 3 && CAR("truck-flat", .1, .55, 1), L >= 4 && ["ind_detail-tank", .7, -.1, 1, 1], L >= 5 && ["ind_shipping-container-b", .8, .5, 0, 1.2]],
+  zimmerei: L => [[IN(L >= 3 ? "i" : "h"), 0, -.25, 0, -1.55], CAR("truck-flat", .55, .6, 1), L >= 2 && ["ind_shipping-container-c", -.7, .6, 0, 1.1], L >= 4 && TREES(-.85, .1), L >= 5 && ["ind_solar-panel-landscape", -.4, .75, 0, 1]],
+  betonwerk: L => [[IN(L >= 3 ? "m" : "e"), .1, -.15, 0, -1.6], ["ind_chimney-medium", -.75, -.55, 0, .5 + L * .05, 1], L >= 2 && ["ind_detail-tank", -.7, .55, 1, 1], L >= 4 && ["ind_detail-tank", .7, .7, 1, 1]],
+  stahlwerk: L => [[IN(L >= 3 ? "l" : "f"), .15, -.1, 0, -1.55], ["ind_chimney-medium", -.75, -.55, 0, .55 + L * .05, 1], L >= 2 && ["ind_chimney-small", -.75, .2, 0, 1, 1], L >= 4 && ["ind_shipping-container-a", .7, .75, 1, 1.1]],
+  kran: L => [["ind_chimney-large", -.35, -.3, 0, .72 + L * .04, 1], [IN("n"), .55, .45, 0, -.9], L >= 2 && ["ind_windmill", .7, -.7, 0, .5], L >= 3 && ["ind_solar-panel-landscape-group", -.45, .65, 0, .8], L >= 4 && ["ind_windmill", .15, -.85, 0, .5], L >= 5 && ["ind_solar-panel-portrait-group", .8, .9, 0, .55]],
+  rechenzentrum: L => [[CO(["k", "a", "g", "f", "n"][L - 1]), 0, -.1, 0, -1.7], L >= 2 && ["ind_solar-panel-flat", -.75, .75, 0, 1.2], TREES(.8, .78)],
+  vermessung: L => [[IN(L >= 3 ? "t" : "p"), 0, -.15, 0, -1.7], ["ind_detail-tank", .7, .7, 1, .8], L >= 2 && ["road_electricity-pole", -.85, .8, 0, 1], L >= 4 && TREES(-.4, .8)],
+  lagerhaus: (L, id, ex) => { const n = Math.round((ex || 0) * 6), s = [[IN(L >= 3 ? "j" : "k"), 0, -.35, 0, -1.7]];
+    for (let i = 0; i < n; i++) s.push(["ind_shipping-container-" + "abc"[i % 3], -.75 + (i % 3) * .5, .5 + (i > 2 ? 0 : .0), 1, 1.05]);
+    if (n > 3) s.push(CAR("delivery", .7, .45, 1)); return s; },
+  mischanlage: L => [[IN("c"), 0, -.2, 0, -1.6], ["ind_detail-tank-large", .62, .55, 0, .55], ["ind_chimney-small", -.75, .6, 0, 1, 1], L >= 2 && CAR("truck", -.2, .7, 1)],
+  mauersteinwerk: L => [[IN("b"), 0, -.15, 0, -1.7], ["ind_chimney-basic", -.8, -.75, 0, .9, 1], L >= 2 && ["ind_shipping-container-a", .7, .7, 1, 1]],
+  glaserei: L => [[IN("q"), 0, -.1, 0, -1.75], ["ind_chimney-small", .75, -.7, 0, 1.1, 1], L >= 3 && TREES(-.8, .8)],
+  abbundhalle: L => [[IN("i"), 0, -.2, 0, -1.7], CAR("truck-flat", .55, .7, 1), L >= 2 && ["ind_shipping-container-c", -.7, .7, 0, 1.1]],
+  fertigteilwerk: L => [[IN("o"), 0, -.2, 0, -1.6], ["ind_chimney-medium", .8, -.75, 0, .55, 1], CAR("delivery-flat", -.45, .7, 1), L >= 2 && ["ind_detail-tank", .7, .65, 1, .9]],
+  meinhaus: L => [
+    L === 1 ? ["ind_shipping-container-b", -.2, -.1, 1, 1.5] : L === 5 ? [S_("p"), .2, -.3, 0, 1.45] : [S_(["", "k", "f", "t"][L - 1]), -.05, -.25, 0, -[0, 1.0, 1.6, 1.85][L - 1]],
+    L === 1 && ["road_construction-cone", .55, .55, 0, 1.4], L === 1 && ["road_construction-light", .7, .3, 0, 1.4],
+    L >= 3 && TREE(-.85, -.75), L >= 4 && CAR(L >= 5 ? "suv-luxury" : "sedan", .68, .6, 0), L === 4 && ["sub_planter", -.35, .8, 0, 1.4],
+    L >= 5 && TREES(-.95, -.2), L >= 5 && TREES(.95, -.85, 2)]
+};
+function c3modBody(k, L, id, raw, ex){
+  const f = C3MOD.ready && C3BAU[k]; if (!f) return null;
+  const g = c3B(f(Math.max(1, L), id, ex), raw, c3lit(id));
+  if (k === "meinhaus" && L >= 5 && !raw) { const K = new C3Kit(); K.box("white", .78, .06, .5, -.55, 0, .45); K.box("water", .66, .02, .38, -.55, .05, .45); g.add(K.build()); }
+  return g;
+}
+
+/* ── Straßennetz aus Kacheln (1 Kachel = 1,6) ── */
+const C3T = 1.6;
+function c3roadCells(){
+  const R = [-9, -3, 3, 9], on = {};
+  for (let a = -9; a <= 9; a++) for (const c of R) { on[a + "," + c] = 1; on[c + "," + a] = 1; }
+  for (let z = 10; z <= 44; z++) on["3," + z] = 1;                  // Landstraße nach Süden
+  on["10,3"] = 1;                                                    // Bahnhofszufahrt
+  return on;
+}
+function c3roads(){
+  const grp = new THREE.Group(), on = c3roadCells(), has = (x, z) => !!on[x + "," + z], T = C3T;
+  if (!C3MOD.ready) {                                                // einfacher Ersatz ohne Modelle
+    const K = new C3Kit(); for (const key in on) { const [x, z] = key.split(",").map(Number); K.box("asphalt", T, .02, T, x * T, 0, z * T); } grp.add(K.build()); C3.lampPts = []; return grp;
+  }
+  const L = {straight: [], crossing: [], crossroad: [], intersection: [], bend: [], end: []}, lamps = [], tl = [];
+  for (const key in on) { const [x, z] = key.split(",").map(Number), n = has(x, z - 1), e = has(x + 1, z), s = has(x, z + 1), w = has(x - 1, z), c = n + e + s + w, P = [x * T, z * T];
+    if (c === 4) { L.crossroad.push([...P, 0]); if (Math.abs(x) === 3 && Math.abs(z) === 3) tl.push(P); }
+    else if (c === 3) L.intersection.push([...P, !n ? 0 : !w ? 1 : !s ? 2 : 3]);
+    else if (c === 2 && (n && s || e && w)) { const r = n ? 1 : 0, along = r ? z : x, across = r ? x : z;
+      const nb = r ? [[x, z - 1], [x, z + 1]] : [[x - 1, z], [x + 1, z]], nextToX = Math.abs(across) === 3 && nb.some(([a, b]) => has(a - 1, b) + has(a + 1, b) + has(a, b - 1) + has(a, b + 1) === 4);
+      (nextToX ? L.crossing : L.straight).push([...P, r]);
+      if (along % 2 === 0 && !nextToX && z < 30) for (const sd of [-1, 1]) { if (across * sd === 9) continue;
+        lamps.push([r ? P[0] + .74 * sd : P[0], r ? P[1] : P[1] + .74 * sd, r ? (sd > 0 ? 1 : 3) : (sd > 0 ? 0 : 2)]); } }
+    else if (c === 2) L.bend.push([...P, w && s ? 0 : s && e ? 1 : e && n ? 2 : 3]);
+    else L.end.push([...P, e ? 0 : n ? 1 : w ? 2 : 3]);
+  }
+  const map = {straight: "road_road-straight", crossing: "road_road-crossing", crossroad: "road_road-crossroad", intersection: "road_road-intersection", bend: "road_road-bend", end: "road_road-end-round"};
+  for (const k in L) grp.add(c3MI(map[k], L[k].map(a => [a[0], a[1], a[2], T, -.01])));
+  grp.add(c3MI("road_light-square", lamps.map(([x, z, r]) => [x, z, r, 1.25]), true));
+  const tls = []; tl.forEach(([x, z]) => { for (const [dx, dz, r] of [[.72, .72, 0], [-.72, -.72, 2], [.72, -.72, 1], [-.72, .72, 3]]) tls.push([x + dx, z + dz, r, 1.5]); });
+  grp.add(c3MI("road_traffic-light", tls, true));
+  C3.lampPts = lamps.map(([x, z, r]) => { const d = [[0, -.42], [-.42, 0], [0, .42], [.42, 0]][r]; return [x + d[0], z + d[1]]; });
+  /* Fußweg zum Fluss bei x = −4,8 mit späterer Brücken-Baustelle */
+  const K = new C3Kit(), zr0 = c3zr(-4.8), x0 = -4.8; K.box("gravel", .5, .02, -zr0 - C3R - 3.6, x0, 0, (-C3R - .8 + zr0 + 2.8) / 2);
+  for (const s of [-1, 1]) K.box("concrete", .5, .5, .5, x0 + s * .9, -.3, zr0 + 3.3);
+  grp.add(K.build());
+  grp.add(c3MI("road_construction-fence", [[x0 - .35, zr0 + 3.6, 1, 2], [x0 + .35, zr0 + 3.6, 1, 2]], true));
+  grp.add(c3MI("road_construction-light", [[x0 + .9, zr0 + 3.9, 0, 2]], true));
+  grp.add(c3MI("road_sign-highway", [[4.8 + 1.1, C3R + 4, 0, 1.4]], true));
+  /* Grundstück „Mein Haus“ am Fluss: Rasen, Zaun, Zufahrt zur Ringstraße */
+  const H = C3HAUS, KH = new C3Kit(); KH.box("lawn", 2.3, .06, 2.3, H.x, 0, H.z); KH.box("paving", .5, .03, C3HAUS.z * -1 - C3R - .8 - 1.15 + .05, H.x + .65, 0, (H.z + 1.15 + (-C3R - .8)) / 2); grp.add(KH.build());
+  grp.add(c3MI("sub_fence-1x4", [[H.x, H.z - 1.12, 0, 1.33], [H.x - 1.12, H.z, 1, 1.33], [H.x + 1.12, H.z, 1, 1.33]], true));
+  /* Stromleitung an der Landstraße */
+  const poles = []; for (let z = C3R + 2.4; z < 60; z += 4.8) poles.push([4.8 - 1.15, z, 1, 1.5]); grp.add(c3MI("road_electricity-pole", poles, true));
+  return grp;
+}
+function c3lampSpots(){                                              // Lichtkegel der Laternen am Boden (nachts)
+  const pts = C3.lampPts || [];
+  const mat = new THREE.MeshBasicMaterial({color: 0xffd27a, map: C3.T.glow, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending});
+  const m = new THREE.InstancedMesh(new THREE.PlaneGeometry(1.5, 1.5).rotateX(-Math.PI/2), mat, Math.max(1, pts.length)), o = new THREE.Object3D();
+  pts.forEach(([x, z], i) => { o.position.set(x, .06, z); o.updateMatrix(); m.setMatrixAt(i, o.matrix); }); m.count = pts.length; m.renderOrder = 2; return m;
+}
+
+/* ── Fahrzeuge aus dem Auto-Baukasten ── */
+const C3CARS = ["sedan", "taxi", "suv", "van", "hatchback-sports", "sedan-sports", "suv-luxury", "police", "delivery", "garbage-truck", "ambulance", "truck"];
+function c3car(mat){
+  if (!C3MOD.ready) return c3carBox(mat);
+  const i = mat ? +String(mat).replace(/\D/g, "") || 0 : 0, n = C3CARS[(i + (Math.random() * C3CARS.length | 0)) % C3CARS.length];
+  const g = new THREE.Group(), m = c3M("car_" + n, 0, 0, 1, .19); g.add(m); return g;
+}
+function c3trainSet(){
+  if (!C3MOD.ready) return c3trainBox();
+  const g = new THREE.Group(); g.userData.cars = [];
+  ["train_train-electric-city-a", "train_train-electric-city-b", "train_train-electric-city-c"].forEach((n, i) => {
+    const sz = c3MS(n), s = .98 / Math.max(sz.z, sz.x), c = new THREE.Group(); c.add(c3M(n, 0, 0, i === 0 ? 2 : 0, s, {lit: true})); g.add(c); g.userData.cars.push(c); });
+  return g;
+}
+/* Bäume aus dem Vorstadt-Baukasten auf freien Grundstücken */
+function c3decor(occ){
+  if (C3.decor) { C3.sc.remove(C3.decor); c3dispose(C3.decor); }
+  if (!C3MOD.ready) { C3.decor = new THREE.Group(); C3.sc.add(C3.decor); return; }
+  const big = [], small = [], fl = [];
+  for (let i = 0; i < GN * GN; i++) { const x = i % GN, y = i / GN | 0; if (occ[x + "," + y]) continue; const r = c3rng(i * 13 + 5), cx = c3lot(x), cz = c3lot(y);
+    const n = r() < .45 ? 0 : 1 + (r() * 2 | 0); for (let j = 0; j < n; j++) (r() < .5 ? big : small).push([cx + (r() - .5) * 1.4, cz + (r() - .5) * 1.4, r() * 4, 1.6 + r() * .5]);
+    if (r() < .2) fl.push([cx + (r() - .5) * 1.1, cz + (r() - .5) * 1.1, 0, 1.3]); }
+  const g = new THREE.Group(); g.add(c3MI("sub_tree-large", big, true), c3MI("sub_tree-small", small, true), c3MI("sub_planter", fl, true));
+  C3.decor = g; C3.sc.add(g);
+}
+
+setTimeout(() => { try { if (c3Ok()) c3modLoad(); } catch(e) {} }, 2500);   // Modelle früh im Hintergrund laden
 
 /* ── 3D-STADT ENDE ── */
 
