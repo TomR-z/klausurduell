@@ -10920,3 +10920,112 @@ HUz({ st: 2 });
 
 wf("hydro", H3, "Beim Moment um den Wandfuß (Aufgabe 2.10) werden alle Teilkräfte einfach addiert, egal von welcher Seite sie drücken.", false, "Falsch. Jede Teilkraft wird mit ihrem Hebelarm multipliziert und bekommt ein Vorzeichen nach Drehsinn: M_A = F_H1·a_H1 − F_H2·a_H2 + F_V1·a_V1 + F_V2·a_V2. F_H2 dreht hier entgegen und wird abgezogen. Ergebnis der Übung: M_A = 1540,16 kNm/m.", "Hydromechanik Übung 02 (Fassung 10.11.2026), Aufgabe 2.10");
 HUz({ st: 2 });
+
+/* Patch-Warteschlange · Physik · Übungsblatt 7 (Energiesatz-Anwendungen, Moodle 24.11.2026) · erstellt 24.11.2026
+   Thema phys|Energie und Energiesatz (seit 2.4 vorhanden). Ergebnisse eigene Rechnung, Zahlenbeispiele mit Python geprüft. */
+const PB7 = "Energie und Energiesatz";
+const PB7z = o => Object.assign(FRAGEN[FRAGEN.length - 1], o);
+
+/* ── Vorgehen ── */
+mc("phys", PB7, "Was ist bei Energiesatz-Aufgaben fast immer der erste Schritt nach der Skizze?", ["Den Nullpunkt der potenziellen Energie festlegen", "Die Beschleunigung ausrechnen", "Alle Kräfte in x und y zerlegen", "Die Zeit bestimmen"], "Ohne Nullpunkt kannst du E_pot nicht aufschreiben. Wo er liegt, ist egal – geschickt ist ein Punkt, an dem möglichst viele Energien null sind, z. B. die Höhe des Pflocks oder die entspannte Feder.", "Physik Übungsblatt 7, Hinweise A1–A3");
+PB7z({ st: 1 });
+wf("phys", PB7, "Bei einer Feder, die von Anfang an gestaucht war, rechnet man die Federenergie mit der gesamten Stauchung, nicht nur mit dem zusätzlichen Stück.", true, "Richtig. E_pot = ½·k·x² gilt für die Auslenkung aus der entspannten Lage. Liegt ein Stein schon um Δl₁ auf der Feder und drückt man um Δl₂ weiter, ist x = Δl₁ + Δl₂.", "Physik Übungsblatt 7, Aufgabe 3");
+PB7z({ st: 2, ev: "federarbeit" });
+mc("phys", PB7, "Ein Stein ruht auf einer Feder und drückt sie um Δl₁ zusammen. Wie bekommst du die Federkonstante?", ["k = m·g / Δl₁ aus dem Kräftegleichgewicht", "k = ½·m·g·Δl₁", "k = m·g·Δl₁", "k = Δl₁ / (m·g)"], "Ruht der Stein, heben sich Federkraft und Gewicht auf: k·Δl₁ = m·g. Daraus k = m·g/Δl₁ – ganz ohne Energie.", "Physik Übungsblatt 7, Aufgabe 3a");
+PB7z({ st: 1 });
+mc("phys", PB7, "Ein Kletterseil reißt bei der Kraft F_R und ist dann um ε_R·L gedehnt. Wie lautet die Federkonstante?", ["k = F_R / (ε_R·L)", "k = F_R · ε_R · L", "k = ε_R·L / F_R", "k = ½·F_R·ε_R·L"], "Hooke gilt bis zum Reißen: F_R = k·Δl_R mit Δl_R = ε_R·L. Umgestellt: k = F_R/(ε_R·L). Längeres Seil → kleineres k, das Seil ist weicher.", "Physik Übungsblatt 7, Aufgabe 2 (Hinweis)");
+PB7z({ st: 2 });
+mc("phys", PB7, "Wann ist die Beschleunigung einer gestürzten Kletterin im Seil am größten?", ["Im tiefsten Punkt, wenn das Seil am stärksten gedehnt ist", "In dem Moment, in dem das Seil straff wird", "Mitten im freien Fall", "Wenn sie am schnellsten ist"], "Die Seilkraft k·Δl wächst mit der Dehnung. Im tiefsten Punkt steht sie kurz still, die Dehnung ist maximal – dort gilt k·Δl − m·g = m·a mit dem größten a, nach oben gerichtet.", "Physik Übungsblatt 7, Aufgabe 2");
+PB7z({ st: 2 });
+wf("phys", PB7, "Beim Sturz ins Seil reicht es, im Energiesatz nur die Fallhöhe bis zum Straffwerden des Seils einzusetzen.", false, "Falsch. Während sich das Seil um ΔL dehnt, fällt die Kletterin noch weiter. Im Energiesatz steht deshalb m·g·(2L + ΔL) = ½·k·ΔL² – das ergibt eine quadratische Gleichung, nur die positive Lösung zählt.", "Physik Übungsblatt 7, Aufgabe 2");
+PB7z({ st: 3 });
+
+/* ── Kreis mit Pflock ── */
+mc("phys", PB7, "Ein Ball an einer Schnur soll einen vollen Kreis um einen Pflock fliegen. Welche Bedingung gilt im höchsten Punkt?", ["v² ≥ g·r – das Gewicht allein darf höchstens die nötige Zentripetalkraft liefern", "v > 0 reicht", "v² ≥ 2·g·r", "Die Schnurkraft muss dort gleich m·g sein"], "Im Grenzfall ist die Schnurkraft oben null, dann liefert nur das Gewicht die Kraft zur Mitte: m·g = m·v²/r. Ist der Ball langsamer, wird die Schnur schlaff und er fällt aus dem Kreis.", "Physik Übungsblatt 7, Aufgabe 1 (Hinweis)");
+PB7z({ st: 2 });
+mc("phys", PB7, "Ball an der Schnur (Länge L), Pflock im Abstand d unter dem Aufhängepunkt. Ab welchem d schafft er den vollen Kreis um den Pflock?", ["d ≥ 0,6·L", "d ≥ 0,5·L", "d ≥ L", "d ≥ 0,25·L"], "Mit r = L − d: Energie bis oben v² = 2g(2d − L), Bedingung v² ≥ g(L − d). Daraus 4d − 2L ≥ L − d, also 5d ≥ 3L. Mit nur d > L/2 wäre v zwar reell, die Schnur aber oben schon schlaff.", "Physik Übungsblatt 7, Aufgabe 1c");
+PB7z({ st: 3 });
+
+/* ── Energiediagramm ── */
+mc("phys", PB7, "Im E_pot(x)-Diagramm fällt die Kurve an einer Stelle mit −28 J pro Meter. Welche Kraft wirkt dort?", ["+28 N, also in +x-Richtung", "−28 N, also in −x-Richtung", "28 J", "Keine – Kraft hängt nur von E_kin ab"], "F_x = −dE_pot/dx = −(−28 J/m) = +28 N. Die Kraft zeigt immer „bergab“ in der E_pot-Landschaft – hier nach rechts.", "Physik Übungsblatt 7, Aufgabe 4a");
+PB7z({ st: 2, ev: "epotdiag" });
+mc("phys", PB7, "Wie findest du im Energiediagramm die Grenzen, zwischen denen sich ein Teilchen bewegt?", ["E_mech als waagerechte Linie einzeichnen und mit der E_pot-Kurve schneiden", "Die Nullstellen von E_pot suchen", "Die Minima von E_pot ablesen", "Dort, wo die Kraft am größten ist"], "E_mech = E_kin + E_pot ist konstant. Wo die Linie die Kurve schneidet, ist E_kin = 0 – das Teilchen kehrt um. Dahinter wäre E_kin negativ, das geht nicht.", "Physik Übungsblatt 7, Aufgabe 4b");
+PB7z({ st: 1, ev: "epotdiag" });
+wf("phys", PB7, "Hat ein Teilchen die Geschwindigkeit −½ m/s, ist seine kinetische Energie negativ.", false, "Falsch. In E_kin = ½·m·v² steht v im Quadrat – das Vorzeichen zeigt nur die Richtung. Bei 56 kg und ½ m/s sind es +7 J.", "Physik Übungsblatt 7, Aufgabe 4");
+PB7z({ st: 1 });
+
+/* ── Reibung ── */
+mc("phys", PB7, "Eine Rutsche ist ein Kreisbogen (Radius r, Winkel φ). Wie lang ist sie?", ["L = r·φ mit φ in Radiant", "L = r·φ mit φ in Grad", "L = 2·π·r", "L = r·sin φ"], "Bogenlänge = Radius mal Winkel im Bogenmaß. Mit Grad käme ein viel zu großer Wert heraus – Taschenrechner auf RAD oder mit π/180 umrechnen.", "Physik Übungsblatt 7, Aufgabe 5 (Hinweis)");
+PB7z({ st: 1 });
+mc("phys", PB7, "Ein Kind kommt unten langsamer an, als es ohne Reibung wäre. Wie bekommst du die mittlere Reibungskraft?", ["F̄ = (m·g·h − ½·m·v²) / L", "F̄ = μ·m·g", "F̄ = ½·m·v² / L", "F̄ = m·g·h / L"], "Fehlende mechanische Energie = Wärme = F̄·L. Die Reibung ist auf dem Bogen nicht konstant (die Normalkraft ändert sich), darum nur der Mittelwert über den Weg.", "Physik Übungsblatt 7, Aufgabe 5b");
+PB7z({ st: 2 });
+mc("phys", PB7, "Eine Kiste fällt auf ein Förderband mit Geschwindigkeit v und rutscht, bis sie mitfährt. Wie viel Wärme entsteht?", ["½·m·v² – genauso viel, wie die Kiste an Bewegungsenergie bekommt", "Null, weil das Band gleichmäßig läuft", "m·v²", "μ_k·m·g·v"], "Die Kiste rutscht relativ zum Band die Strecke v²/(2μ_k g). Wärme = μ_k·m·g · v²/(2μ_k g) = ½·m·v² – μ_k kürzt sich. Der Motor liefert deshalb insgesamt m·v².", "Physik Übungsblatt 7, Aufgabe 6");
+PB7z({ st: 3 });
+wf("phys", PB7, "Für die Reibungswärme zählt der Weg, den die Kiste relativ zum Band rutscht – nicht der Weg relativ zur Fabrik.", true, "Richtig. Wärme entsteht nur, wo Flächen aufeinander gleiten. Die Kiste fährt in der Fabrik v²/(2μ_k g), das Band aber doppelt so weit – gerutscht ist die Differenz.", "Physik Übungsblatt 7, Aufgabe 6 (Hinweis)");
+PB7z({ st: 3 });
+
+/* ── Lösungsweg-Aufgaben (eigene Zahlen) ── */
+aufgabe({
+ "id": "phys-b07-stein-feder", "f": "phys", "t": PB7, "titel": "Stein auf der Feder", "s": "Physik Übungsblatt 7, Aufgabe 3 (eigene Zahlen)",
+ "angabe": "Ein Stein (m = 8,0 kg) liegt auf einer Feder und drückt sie um Δl₁ = 10 cm zusammen. Er wird um weitere Δl₂ = 30 cm nach unten gedrückt und losgelassen. Wie hoch steigt er über den Loslasspunkt?",
+ "geg": ["m = 8,0 kg", "Δl₁ = 0,10 m", "Δl₂ = 0,30 m", "g = 9,81 m/s²"],
+ "ges": "Steighöhe h über dem Loslasspunkt",
+ "schritte": [
+  { "f": "Wie bekommst du die Federkonstante?", "o": [
+    ["k·Δl₁ = m·g → k = m·g/Δl₁ = 785 N/m", "Der ruhende Stein ist im Gleichgewicht: Federkraft = Gewicht. 8,0 · 9,81 / 0,10 = 784,8 N/m."],
+    ["k = m·g·Δl₁ = 7,8 N/m", "Durch Δl₁ teilen, nicht mal nehmen – die Einheit wäre sonst N·m."],
+    ["½·k·Δl₁² = m·g·Δl₁ → k = 1570 N/m", "Ruht der Stein, gilt das Kräftegleichgewicht. Die Energiebilanz passt hier nicht, weil er nicht aus der entspannten Lage fällt."],
+    ["Aus der Steighöhe", "Die kennst du noch nicht – erst k, dann die Höhe."]],
+   "r": "k = 785 N/m" },
+  { "f": "Wie viel Energie steckt beim Loslassen in der Feder?", "o": [
+    ["½·k·(Δl₁ + Δl₂)² = ½·785·0,40² ≈ 62,8 J", "Die Feder ist insgesamt um 40 cm gestaucht."],
+    ["½·k·Δl₂² = 35,3 J", "Δl₁ fehlt – die Feder war schon vorher gestaucht."],
+    ["k·(Δl₁ + Δl₂) = 314 J", "Das wäre eine Kraft in N, keine Energie. Es fehlt ½ und das Quadrat."],
+    ["½·k·Δl₁² + ½·k·Δl₂² = 39,2 J", "Quadrate addieren sich nicht so: (a + b)² ≠ a² + b²."]],
+   "r": "E_el ≈ 62,8 J" },
+  { "f": "Welche Energiebilanz gilt bis zum höchsten Punkt?", "o": [
+    ["E_el = m·g·h (unten und oben jeweils E_kin = 0)", "Die ganze Federenergie wird zu Lageenergie des Steins."],
+    ["E_el = ½·m·v²", "Im höchsten Punkt steht der Stein kurz still."],
+    ["E_el = m·g·(h − Δl₁ − Δl₂)", "h wird ab dem Loslasspunkt gemessen – die Stauchung steckt schon in h."],
+    ["E_el + m·g·h = 0", "Die Federenergie nimmt ab, die Lageenergie zu – das Vorzeichen passt nicht."]],
+   "r": "E_el = m·g·h" },
+  { "f": "Wie hoch steigt der Stein?", "o": [
+    ["h = 62,8 / (8,0 · 9,81) = 0,80 m", "Allgemein h = (Δl₁ + Δl₂)²/(2·Δl₁) = 0,16/0,2 = 0,8 m."],
+    ["h = 0,45 m", "Das kommt heraus, wenn man nur Δl₂ quadriert."],
+    ["h = 0,40 m", "Das ist nur die Stauchung. Der Stein fliegt darüber hinaus."],
+    ["h = 7,85 m", "Die Masse wurde vergessen: durch m·g teilen, nicht nur durch g."]],
+   "r": "h = 0,80 m" }],
+ "fazit": "Rezept: k aus dem Gleichgewicht, Federenergie mit der gesamten Stauchung, dann Federenergie = m·g·h. Kontrolle: h = 0,8 m > 0,4 m – der Stein löst sich wirklich von der Feder."
+});
+aufgabe({
+ "id": "phys-b07-foerderband", "f": "phys", "t": PB7, "titel": "Kiste auf dem Förderband", "s": "Physik Übungsblatt 7, Aufgabe 6 (eigene Zahlen)",
+ "angabe": "Eine Kiste (m = 2,0 kg) fällt senkrecht auf ein Förderband, das mit v = 1,5 m/s läuft (μ_k = 0,40). Sie rutscht, bis sie mitfährt. Wie viel Energie muss der Motor dafür liefern?",
+ "geg": ["m = 2,0 kg", "v = 1,5 m/s", "μ_k = 0,40", "g = 9,81 m/s²"],
+ "ges": "Energie W des Motors",
+ "schritte": [
+  { "f": "Wie viel kinetische Energie bekommt die Kiste?", "o": [
+    ["½·m·v² = ½·2,0·1,5² = 2,25 J", "Sie startet waagerecht mit 0 und endet mit der Bandgeschwindigkeit."],
+    ["m·v² = 4,5 J", "In E_kin steht ½."],
+    ["½·m·v = 1,5 J", "v muss quadriert werden."],
+    ["0 J, weil sich v nicht ändert", "Das Band ändert seine Geschwindigkeit nicht – die Kiste schon."]],
+   "r": "ΔE_kin = 2,25 J" },
+  { "f": "Wie weit rutscht die Kiste relativ zum Band?", "o": [
+    ["L_C = x_Band − x_Kiste = v²/(μ_k g) − v²/(2μ_k g) = 0,29 m", "Zeit bis zum Mitfahren t₁ = v/(μ_k g) = 0,38 s. Das Band fährt v·t₁ = 0,57 m, die Kiste ½·a·t₁² = 0,29 m."],
+    ["L_C = v²/(μ_k g) = 0,57 m", "Das ist der Weg des Bandes. Die Kiste bewegt sich in der Zeit ja auch."],
+    ["L_C = v·t₁ + ½·a·t₁² = 0,86 m", "Die Wege werden abgezogen, nicht addiert."],
+    ["L_C = 0, weil die Kiste mitfährt", "Erst nach dem Rutschen fährt sie mit."]],
+   "r": "L_C = 0,29 m" },
+  { "f": "Wie viel Wärme entsteht?", "o": [
+    ["ΔE_th = μ_k·m·g·L_C = 7,85 N · 0,287 m ≈ 2,25 J", "Genau so viel wie die kinetische Energie – μ_k kürzt sich allgemein heraus."],
+    ["ΔE_th = μ_k·m·g·0,57 m = 4,5 J", "Wärme entsteht nur auf dem Weg, den die Kiste relativ zum Band rutscht."],
+    ["ΔE_th = 0", "Beim Rutschen entsteht immer Wärme."],
+    ["ΔE_th = μ_k·m·g = 7,85 J", "Das ist die Reibungskraft in N – sie muss noch mit dem Weg multipliziert werden."]],
+   "r": "ΔE_th ≈ 2,25 J" },
+  { "f": "Was liefert der Motor?", "o": [
+    ["W = ΔE_kin + ΔE_th = 4,5 J = m·v²", "Kontrolle: Der Motor schiebt das Band mit 7,85 N über 0,57 m → 4,5 J ✓"],
+    ["W = 2,25 J", "Die Wärme muss der Motor mitbezahlen."],
+    ["W = ΔE_kin − ΔE_th = 0", "Beide Energien kommen vom Motor, sie addieren sich."],
+    ["W = 9,0 J", "Das wäre doppelt gezählt."]],
+   "r": "W = 4,5 J" }],
+ "fazit": "Merke: Beim Mitnehmen durch Gleitreibung geht genau die Hälfte der Motorarbeit als Wärme verloren – egal wie groß μ_k ist."
+});
