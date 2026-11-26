@@ -2,7 +2,7 @@
 
 Hier liegen neue Fragen und Aufgaben, bis Tom „Patch durchführen“ sagt.
 
-Letzter Patch: **2.5 am 23.11.2026** (Erinnerungen per Push: Modul push25 in app.html, Service Worker mit push/notificationclick in build_pwa25.py; Server Cloudflare Worker `klausurduell-push`, https://klausurduell-push.klausurduell.workers.dev, KV `klausurduell-push`, Cron */15, Quelle `app/push/worker.js`; VAPID-Schlüssel nur auf Toms PC). Stand: 958 Fragen, 66 Aufgaben, 302 Korrekturen. Fragendatei `fragen_v24full.js`, Build `build_pwa25.py`. Sicherungen: Branches `sicherung-2.0` bis `sicherung-2.2`, app_v23_backup.html. Warteschlange leer (2.5.4 eingespielt 23.11.2026, lokal app_v254.html). Neue Fragen: Stufe als Feld `st`, Skizzen per `ev`.
+Letzter Patch: **3.0 am 26.11.2026** (neue Stadt mit Kenney-Modellen in `stadt.glb` + `gltf-umd.js`, Raster 12 × 12, Mein Haus, Ziele, Wochentruhe, Klausur-Countdown, Bitcoin ×2). Stadt-Code nur in `c3/*.js` ändern, dann `c3/einbauen.py`; Build `build_pwa30.py` (legt auch `v25/` an), Artifact `build30.py`. Stand: 973 Fragen, 68 Aufgaben, 302 Korrekturen, Fragendatei `fragen_v30full.js`. Sicherungen: Branches `sicherung-2.0` bis `sicherung-2.2`, `sicherung-2.5`; in der App unter `v25/`. Erinnerungs-Server: `app/push/worker.js` (Countdown-Pensum, Endspurt). Warteschlange leer. Neue Fragen: Stufe als Feld `st`, Skizzen per `ev`.
 
 - `app/anmerkungen.py`: liest offene Anmerkungs-Issues (gh api)
 - `app/pruefe.js`: Prüfskript (Fragen, Aufgaben, Korrekturen, Skizzen)

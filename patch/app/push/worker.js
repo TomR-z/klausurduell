@@ -43,6 +43,8 @@ async function senden(env, sub, nachricht) {
   const body = await verschluesseln(sub, JSON.stringify(nachricht));
   const r = await fetch(sub.endpoint, { method: "POST", body, headers: {
     "Authorization": await vapid(env, sub.endpoint), "Content-Encoding": "aes128gcm", "Content-Type": "application/octet-stream", "TTL": "14400", "Urgency": "normal" } });
+  let txt = ""; try { txt = (await r.text()).slice(0, 300); } catch (e) {}
+  senden.letzte = { status: r.status, text: txt, zeit: new Date().toISOString() };
   return r.status;
 }
 
@@ -71,8 +73,14 @@ function faellig(u, jetzt) {
   /* Lernerinnerung */
   if (c.tlern && !log.n.includes("lern") && imFenster(L.min, c.lern) && nHeute < ZIEL) {
     const f = Array.isArray(st.faellig) ? (st.faellig[Math.min(st.faellig.length - 1, Math.max(0, alter))] || 0) : 0;
-    const body = nHeute > 0 ? `Noch ${ZIEL - nHeute} Fragen bis zum Tagesziel.` : f > 0 ? `${f} Fragen sind fällig – etwa ${Math.max(3, Math.round(f * 0.4))} Minuten.` : `Zeit fürs Tagesziel: 20 Fragen, etwa 8 Minuten.`;
+    const plan = st.plan && st.am === L.tag && st.plan.text ? st.plan.text + ". " : "";   // 3.0: Pensum aus dem Klausur-Countdown
+    const body = plan ? plan + (nHeute < ZIEL ? `Tagesziel: noch ${ZIEL - nHeute} Fragen.` : "") : nHeute > 0 ? `Noch ${ZIEL - nHeute} Fragen bis zum Tagesziel.` : f > 0 ? `${f} Fragen sind fällig – etwa ${Math.max(3, Math.round(f * 0.4))} Minuten.` : `Zeit fürs Tagesziel: 20 Fragen, etwa 8 Minuten.`;
     out.push(["lern", { title: "Klausurduell", body, url: "./#heute" }]);
+  }
+  /* Endspurt eine Woche vor einer Klausur */
+  if (c.tlern && !log.n.includes("endspurt") && imFenster(L.min, c.lern) && st.plan && Array.isArray(st.plan.exams)) {
+    const e = st.plan.exams.find(x => x.ex && tagNr(x.ex) - heute === 7);
+    if (e) out.unshift(["endspurt", { title: `${e.f}: noch eine Woche`, body: "Der Endspurt beginnt – jetzt Probeklausuren schreiben und Schwachstellen üben.", url: "./#heute" }]);
   }
   /* Werk steht bald still (Stillstand nach 7 Tagen ohne Fach) */
   if (c.twerk && !log.n.includes("werk") && imFenster(L.min, "12:00") && Array.isArray(st.werke)) {
@@ -91,6 +99,14 @@ function faellig(u, jetzt) {
 
 async function rundgang(env, jetzt = new Date()) {
   const keys = (await env.KD.list({ prefix: "u:" })).keys;
+  /* Diagnose: Testnachricht an alle Geräte, wenn der Schlüssel "diag:test" gesetzt ist */
+  if (await env.KD.get("diag:test")) {
+    await env.KD.delete("diag:test");
+    for (const k of keys) { const u = await env.KD.get(k.name, "json"); if (!u || !u.sub) continue;
+      try { await senden(env, u.sub, { tag: "test", title: "Klausurduell", body: "Testnachricht vom Server.", url: "./#stand" }); u.letzterTest = senden.letzte; }
+      catch (e) { u.letzterTest = { fehler: String(e && e.stack || e) }; }
+      await env.KD.put(k.name, JSON.stringify(u)); }
+  }
   for (const k of keys) {
     const u = await env.KD.get(k.name, "json"); if (!u || !u.sub) continue;
     const todo = faellig(u, jetzt); if (!todo.length) continue;
@@ -129,7 +145,7 @@ export default {
     }
     if (!u) return json({ ok: false, fehler: "unbekannt" }, 404);
     if (p === "/stand") { u.stand = b.stand || u.stand; if (b.cfg) u.cfg = Object.assign({}, STD, b.cfg); if (b.tz) u.tz = b.tz; await env.KD.put(key, JSON.stringify(u)); return json({ ok: true }); }
-    if (p === "/test") { const s = await senden(env, u.sub, { tag: "test", title: "Klausurduell", body: "Erinnerungen funktionieren. So sehen sie später aus.", url: "./#stand" }); return json({ ok: s < 300, status: s }); }
+    if (p === "/test") { let s; try { s = await senden(env, u.sub, { tag: "test", title: "Klausurduell", body: "Erinnerungen funktionieren. So sehen sie später aus.", url: "./#stand" }); u.letzterTest = senden.letzte; } catch (e) { u.letzterTest = { fehler: String(e && e.stack || e) }; s = 599; } await env.KD.put(key, JSON.stringify(u)); return json({ ok: s < 300, status: s }); }
     if (p === "/aus") { await env.KD.delete(key); return json({ ok: true }); }
     return json({ ok: false, fehler: "unbekannter Pfad" }, 404);
   },
