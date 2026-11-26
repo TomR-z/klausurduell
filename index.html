@@ -9,6 +9,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 <link rel="icon" type="image/png" href="icons/icon-192.png">
+<script>try{if(localStorage.getItem("klausurduell.version")==="2.5"&&!/[?&]neu/.test(location.search))location.replace("v25/"+location.hash)}catch(e){}</script>
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}</style>
 <title>Klausurduell</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -268,6 +269,9 @@ body.c3on .toast.show{opacity:1}
   background:rgba(255,255,255,.95);color:#1b2234;box-shadow:0 6px 14px rgba(0,0,0,.3);pointer-events:auto;will-change:transform}
 .c3bub::after{content:"";position:absolute;left:50%;bottom:-6px;margin-left:-6px;border:6px solid transparent;border-bottom:0;border-top-color:rgba(255,255,255,.95)}
 .c3bub.kz{background:rgba(30,36,55,.75);color:#cfd6e6;pointer-events:none;min-width:40px;margin-left:-20px}.c3bub.kz::after{border-top-color:rgba(30,36,55,.75)}
+.c3bub.kp{background:rgba(22,30,48,.86);color:#fff;height:30px;margin:-30px 0 0 -34px;font-size:12.5px;font-variant-numeric:tabular-nums;padding:0 10px 0 6px}.c3bub.kp::after{border-top-color:rgba(22,30,48,.86)}.c3bub.kp .gear{display:flex;width:16px;height:16px;color:#7ee2a8;animation:c3spin 2.4s linear infinite}.c3bub.kp .gear svg{width:16px;height:16px}.c3bub.kp small{font-size:10.5px;opacity:.7;font-weight:700}
+.c3bub.ki{background:rgba(30,36,55,.72);color:#cfd6e6;height:28px;min-width:0;margin:-28px 0 0 -28px;font-size:12px;padding:0 10px}.c3bub.ki::after{border-top-color:rgba(30,36,55,.72)}
+@keyframes c3spin{to{transform:rotate(360deg)}}
 .c3bub.kc{background:linear-gradient(#ffe08a,#f4b12a)}.c3bub.kc svg{width:18px;height:18px}
 .c3tabs{display:flex;gap:6px;overflow-x:auto;padding:0 14px 8px;scrollbar-width:none;touch-action:pan-x}.c3tabs::-webkit-scrollbar{display:none}
 .c3tab{flex:none;height:32px;padding:0 13px;border-radius:16px;font-size:13px;font-weight:700;color:#fff;background:rgba(255,255,255,.12)}.c3tab.on{background:#fff;color:#1b2234}
@@ -291,15 +295,45 @@ body.c3on .toast.show{opacity:1}
 .chest{width:84px;height:84px;margin:6px auto 4px;border-radius:24px;display:grid;place-items:center;color:#fff;animation:cshake .6s ease 2}.chest svg{width:52px;height:52px}
 .chest.t0{background:linear-gradient(#c58a4c,#8a5a2b)}.chest.t1{background:linear-gradient(#e3e8ee,#9aa6b4)}.chest.t2{background:linear-gradient(#ffe08a,#e39b12)}
 @keyframes cshake{25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
-.rc small{font-weight:500;font-size:11.5px;opacity:.85;margin-left:1px}.ocard .rcs{flex-direction:column;align-items:flex-start;gap:2px}
+.rc small{font-weight:500;font-size:11.5px;opacity:.85;margin-left:1px}.rc.have{color:#3fb950}.rc .rst{font-weight:800}.rtile .rneed{font-size:11px;color:#3fb950;font-weight:600}.rtile .rneed.miss{color:#ff7b72}.txl{display:block;margin:10px 0 0;font-size:12.5px;font-weight:700;color:var(--ink-3)}.chip.on{background:var(--accent);color:#fff;border-color:transparent}.txrow{display:flex;align-items:center;gap:10px;margin-top:12px}.txrow .c3x{font-size:20px;font-weight:700;flex:none}.txeq{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}.txeq .arr{opacity:.6}.ocard .rcs{flex-direction:column;align-items:flex-start;gap:2px}
 #c3.c3load::after{content:"Stadt wird geladen …";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font:700 17px/1.3 -apple-system,system-ui,sans-serif;letter-spacing:.01em;background:linear-gradient(#3d8fe2,#cde9ff);z-index:50}
-.c3res{position:absolute;left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));bottom:calc(env(safe-area-inset-bottom,0px) + 106px);display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;padding:6px;border-radius:20px;color:#fff;text-align:left;-webkit-overflow-scrolling:touch;transition:opacity .25s,transform .25s;z-index:3}
-.c3res::-webkit-scrollbar{display:none}.c3res.hide{opacity:0;transform:translateY(16px);pointer-events:none}
-.c3r{flex:none;display:flex;align-items:center;gap:7px;padding:4px 10px 4px 4px;border-radius:15px;background:rgba(255,255,255,.09)}
-.c3r b{display:block;font-size:15px;line-height:1.05;font-weight:800;font-variant-numeric:tabular-nums}
-.c3r small{display:block;font-size:10px;font-weight:650;opacity:.85;white-space:nowrap;line-height:1.15}
-.c3r.zero{opacity:.42}.c3r.cap{padding-left:10px;background:rgba(255,255,255,.16)}
+.c3head2{position:absolute;left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));top:calc(env(safe-area-inset-top,0px) + 62px);display:flex;flex-direction:column;gap:6px;pointer-events:none;transition:opacity .25s,transform .25s;z-index:3}
+.c3head2.hide{opacity:0;transform:translateY(-12px)}.c3head2.hide *{pointer-events:none!important}
+.c3lvl{align-self:center;display:flex;align-items:center;gap:8px;padding:5px 12px;border-radius:14px;font-size:12.5px;font-weight:650;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.4);pointer-events:auto;max-width:100%}
+.c3lvl b{font-weight:800;white-space:nowrap}.c3lvl span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.92}.c3lvl .xpb{width:74px;height:7px;border-radius:4px}
+.c3res{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;padding:5px;border-radius:20px;color:#fff;-webkit-overflow-scrolling:touch;pointer-events:auto}
+.c3res::-webkit-scrollbar{display:none}
+.c3r{flex:none;display:flex;align-items:center;gap:7px;padding:4px 10px 4px 4px;border-radius:15px;background:rgba(255,255,255,.1);color:#fff;text-align:left;transition:transform .15s}
+.c3r b{display:block;font-size:15.5px;line-height:1.05;font-weight:800;font-variant-numeric:tabular-nums}
+.c3r small{display:block;font-size:10px;font-weight:650;opacity:.88;white-space:nowrap;line-height:1.15}
+.c3r.zero{opacity:.45}.c3r.cap{padding-left:10px;background:rgba(255,255,255,.18)}.c3r.cap.full{background:#f08a00;box-shadow:0 0 0 1px rgba(255,255,255,.35)}
+.c3r.bump{animation:c3bump .5s cubic-bezier(.3,1.6,.5,1)}@keyframes c3bump{40%{transform:scale(1.12)}}
+.ric.sq{border-radius:28%}
+.c3menu{position:absolute;right:max(12px,env(safe-area-inset-right,0px));top:calc(env(safe-area-inset-top,0px) + 60px);width:244px;padding:6px;border-radius:20px;display:flex;flex-direction:column;gap:2px;z-index:8;transform-origin:top right;transform:scale(.92) translateY(-6px);opacity:0;transition:transform .2s cubic-bezier(.3,1.3,.5,1),opacity .18s}
+.c3menu.show{transform:none;opacity:1}.c3menu.c3g{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(16,24,44,.9)}
+.c3mi{display:flex;align-items:center;gap:11px;padding:10px 10px;border-radius:14px;color:#fff;font-size:14px;font-weight:650;text-align:left;width:100%}
+.c3mi svg{width:21px;height:21px;flex:none;opacity:.95}.c3mi span{flex:1}.c3mi small{font-size:11px;opacity:.7;font-weight:600;white-space:nowrap}
+.c3mi.on{background:rgba(255,190,60,.35)}.c3mi.info{opacity:.85}button.c3mi:active{background:rgba(255,255,255,.12)}
+#c3menub.on{background:rgba(255,255,255,.3)}
+.c3card .c3th{width:100%;height:84px;object-fit:contain;margin:-4px 0 2px;filter:drop-shadow(0 6px 8px rgba(0,0,0,.25))}
+.rtile.hl{box-shadow:0 0 0 2.5px #f08a00;animation:c3bump .6s ease 2}
 .c3bub.kz{min-width:30px;height:26px;margin:-26px 0 0 -15px;padding:0 7px;font-size:10.5px;opacity:.8}
+.c3sm{width:56px}
+.qcard{background:var(--card,rgba(127,127,127,.08));border-radius:16px;padding:11px 12px;margin:8px 0;border:1px solid rgba(127,127,127,.14)}
+.qcard.ok{border-color:#3fb950;box-shadow:0 0 0 1px #3fb950 inset}.qcard.done{opacity:.6}
+.qt{display:flex;justify-content:space-between;gap:10px;align-items:baseline}.qt b{font-size:14.5px}.qt span{font-size:12.5px;opacity:.7;font-variant-numeric:tabular-nums;white-space:nowrap}
+.qcard .cbar{height:7px;border-radius:4px;background:rgba(127,127,127,.18);margin:8px 0;overflow:hidden}.qcard .cbar i{display:block;height:100%;background:linear-gradient(90deg,#3fb950,#7ee08f);border-radius:4px}
+.qf{display:flex;justify-content:space-between;align-items:center;gap:8px}.qrws{display:flex;flex-wrap:wrap;gap:5px}
+.qrw{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:650;padding:3px 8px 3px 4px;border-radius:10px;background:rgba(127,127,127,.12)}.qrw .c3cn{width:16px;height:16px;font-size:10px}
+.mslist{display:flex;flex-direction:column;gap:6px}.msrow{display:flex;gap:10px;align-items:center;padding:6px 4px}.msrow img{width:48px;height:48px;object-fit:contain;flex:none}.msrow .gico{flex:none}
+.msrow b{display:block;font-size:14px}.msrow small{display:block;font-size:12px;opacity:.75}.msrow .cbar{height:5px;border-radius:3px;background:rgba(127,127,127,.18);margin-top:5px;overflow:hidden}.msrow .cbar i{display:block;height:100%;background:#0a7cff}
+.cdrow .t{min-width:0}.cdrow .t small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cdbar{display:block;height:5px;border-radius:3px;background:rgba(127,127,127,.18);margin-top:6px;overflow:hidden}.cdbar em{display:block;height:100%;background:var(--accent);border-radius:3px}
+.cdrow.ok .cdbar em{background:#3fb950}.cdrow.warn .cdbar em{background:#e3a008}
+.cdst{flex:none;min-width:46px;text-align:center;display:flex;flex-direction:column;align-items:center;line-height:1.05}.cdst b{font-size:19px;font-weight:800}.cdst small{font-size:10.5px;opacity:.7}
+.cdrow.ok .cdst{color:#3fb950;font-size:22px;font-weight:800}.cdrow.warn .cdst b{color:#c98700}
+.cdterm{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--edge-2,rgba(127,127,127,.15))}.cdterm span{flex:1;font-size:14px;font-weight:600}
+.cdterm input{font:inherit;font-size:14px;padding:5px 8px;border-radius:10px;border:1px solid rgba(127,127,127,.3);background:transparent;color:inherit}.cdterm.ab span{opacity:.5}.cdterm .link{font-size:13px}
 /* ── 3D-STADT CSS ENDE ── */
 
 /* tab bar */
@@ -1563,6 +1597,15 @@ const APP_VERSION = "3.0";
 const KEY = "klausurduell.v1";
 let S = {cards:{}, days:{}, aufg:{}};
 try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch(e) {}
+/* 3.0: Spielstand mit Version. Die alte 8 × 8-Stadt rückt in die Mitte des 12 × 12-Rasters (+2); Gebäude, die in 2.5 geparkt waren (hold), kommen zurück. Vorher wird der alte Stand gesichert. */
+function gMig30(g){
+  if (!g || g.sv >= 3) return;
+  try { if (!localStorage.getItem(KEY + ".vor30")) localStorage.setItem(KEY + ".vor30", JSON.stringify(S)); } catch(e) {}
+  (g.b || []).forEach(b => { if (b.k !== "meinhaus" && b.x >= 0) { b.x += 2; b.y += 2; } });
+  if (Array.isArray(g.hold)) { g.hold.forEach(b => { if (!g.b.some(o => o.id === b.id)) g.b.push(b); }); delete g.hold; }
+  g.sv = 3;
+}
+try { if (S.game) { gMig30(S.game); localStorage.setItem(KEY, JSON.stringify(S)); } } catch(e) {}
 if(!S.aufg) S.aufg = {};
 if(!S.notes) S.notes = []; if(!S.hide) S.hide = {}; if(!S.df) S.df = {}; if(!S.tiefeAus) S.tiefeAus = {};
 /* v1.5: ausgeblendete Fragen/Aufgaben aus allen Listen nehmen (Lernstand bleibt erhalten) */
@@ -1658,6 +1701,7 @@ function vHeute(){
       <div class="chips" style="grid-column:1/-1;margin-top:0"><span class="chip">${I.redo}${due} fällig</span><span class="chip">${I.book}${fresh} neu</span>${nextEx?`<span class="chip">${I.target}${FACH[nextEx.f].n.split(" ").pop()} · Klausur in ${nextEx.d} Tagen</span>`:""}</div>
     </div>
     <button class="cta press" data-act="start-mix">${I.play}Training starten · 10 Fragen</button>
+    ${cdPanel()}
     ${gHeuteCard()}
     <div class="tiles">
       <button class="tile glass press" data-act="start-wrong" ${w?"":"disabled style='opacity:.55'"}><div class="round" style="background:var(--bad-soft);color:var(--bad)">${I.redo}</div><div><b>Fehler wiederholen</b><br><span>${w ? `${w} ${w===1?"Frage":"Fragen"} offen` : "Gerade nichts offen"}</span></div></button>
@@ -1736,10 +1780,14 @@ function vStand(){
       <div class="btnrow" style="margin-top:0"><button class="btn2 press" data-act="notes">Verwalten</button>${o ? `<button class="btn2 acc press" data-act="nsend">Senden (${o})</button>` : `<button class="btn2 press" data-act="note-app">Neue Anmerkung</button>`}</div></div>`; })()}
     ${pushPanel()}
     ${gStandPanel()}
+    ${cdTermPanel()}
     <div class="panel glass"><div class="sec-h" style="padding:0"><h2>Daten sichern</h2><small>Version ${APP_VERSION}</small></div>
       <p class="legend" style="margin:0">Dein Lernstand liegt nur auf diesem Gerät. Ein Backup kannst du in Dateien oder iCloud ablegen und auf einem neuen Gerät wieder einlesen.</p>
       <div class="btnrow" style="margin-top:0"><button class="btn2 press" data-act="export">Backup sichern</button><button class="btn2 press" data-act="import">Backup laden</button></div>
       <input type="file" id="importFile" accept=".json,application/json" hidden></div>
+    ${!framed && /^https?:$/.test(location.protocol) ? `<div class="panel glass"><div class="sec-h" style="padding:0"><h2>Stadt-Version</h2><small>3.0</small></div>
+      <p class="legend" style="margin:0">Dir gefällt die alte Stadt besser? Du kannst jederzeit zu Version 2.5 zurück und wieder hierher wechseln. Lernstand und Spielstand bleiben erhalten; Gebäude, die es in 2.5 noch nicht gibt, warten so lange.</p>
+      <div class="btnrow" style="margin-top:0"><button class="btn2 press" data-act="ver25">Zur alten Version 2.5</button></div></div>` : ""}
     <button class="link danger" data-act="reset">Fortschritt zurücksetzen</button>
   </div>`;
 }
@@ -1970,7 +2018,7 @@ function taskResult(){
   const c = S.aufg[a.id] || {b:0, runs:0, best:0}, dn = dayNum(), good = p >= .8;
   c.b = good ? Math.min(5, c.b+1) : 1; c.due = dn + (good ? INTERVAL[c.b] : 1); c.last = p; c.best = Math.max(c.best||0, p); c.runs = (c.runs||0)+1;
   S.aufg[a.id] = c; save(); haptic(good);
-  const gT = gEarn(10 + 15*p); ecoTask(a, p);
+  const gT = gEarn((10 + 15*p) * gMult()); ecoTask(a, p);
   const head = p===1 ? "Fehlerfrei gelöst" : p>=.8 ? "Stark gelöst" : p>=.5 ? "Weg gefunden" : "Nochmal üben";
   const first = A.sc.filter(x=>x===1).length;
   const nx = nextTask(a.id);
@@ -2289,7 +2337,7 @@ function examResult(timeUp){
   const head = p >= .9 ? "Klausurreif" : p >= .7 ? "Stark" : p >= .5 ? "Bestanden – mit Luft nach oben" : "Noch nicht sicher";
   const ansText = q => q.typ === "mc" ? q.a[0] : q.typ === "wf" ? (q.c ? "Wahr" : "Falsch") : q.typ === "ord" ? q.steps.join(" → ") : q.pairs.map(x => x[0] + " = " + x[1]).join("; ");
   Q.exam = null;
-  const gX = gEarn(2*r) + (Q.coins||0); ecoExam(p);
+  const gX = gEarn(2*r*gMult()) + (Q.coins||0); ecoExam(p);
   $("#quiz").innerHTML = `<div class="ambient"><i></i><i></i><i></i><i></i></div><div class="qwrap"><div class="qbody"><div class="res">
     ${ring(p,170,16,p>=.5?"#7fe8a0":"#ffb199",p>=.5?"var(--ok)":"var(--bad)",`<b>${Math.round(p*100)} %</b><span>${r} von ${n}</span>`)}
     <h1>${head}</h1><p class="sub">${esc(Q.label)} · ${mins} Min.${timeUp ? " · Zeit abgelaufen" : ""}${answered < n ? ` · ${n - answered} nicht beantwortet` : ""}</p>${gChip(gX)}
@@ -2433,8 +2481,8 @@ const GMAST = [0, 0, .10, .25, .45, .65];                          // nötige Be
 function gInit(){
   if (S.game && S.game.v) return S.game;
   const answered = Object.values(S.days).reduce((a,d) => a + (d.n||0), 0);
-  S.game = {v:1, coins:0, total:0, off:false, start:Date.now(), daily:{}, welcome: Math.min(600, 50 + answered),
-            b:[{id:1, k:"rathaus", l:1, x:3, y:3, until:0, from:0}], nid:2};
+  S.game = {v:1, sv:3, coins:0, total:0, off:false, start:Date.now(), daily:{}, welcome: Math.min(600, 50 + answered),
+            b:[{id:1, k:"rathaus", l:1, x:5, y:5, until:0, from:0}], nid:2};
   save(); return S.game;
 }
 const G = () => S.game || gInit();
@@ -2462,7 +2510,7 @@ function gAfter(q, ok, p){
   if (p.first) { const st = Math.min(streak() + 1, 10) * 5; r += st; parts.push("Tagesbonus " + st); }
   (g.daily[dayKey()] || (g.daily[dayKey()] = {e:0, n:0})).n++;
   if (ok) gBoost(60);
-  const n = gEarn(r);
+  const n = gEarn(r * gMult());
   if (Q) Q.coins = (Q.coins || 0) + n;
   return n ? `<div class="gchip"><b>+${n} ₿</b>${parts.length ? `<span>${parts.join(" · ")}</span>` : ""}${ok && gBusy().length ? `<span>Bau −1 Min.</span>` : ""}</div>` : "";
 }
@@ -2658,6 +2706,7 @@ function gReq(k, L){                                             // gibt Text zu
   if (L === 1 && t.cnt && g.b.filter(b => b.k === k).length >= t.cnt) return `Höchstens ${t.cnt}`;
   if (L === 1 && t.cond) { const c = t.cond(); if (c) return c; }
   if (L === 1 && t.rare && !(eco().inv.deko[k] > 0)) return "Gibt es nur in Truhen";
+  if (k === "meinhaus" && HAUSREQ[L]) { const h = HAUSREQ[L](); if (h) return h; }
   if (gBusy().length >= gTr() && t.time[L-1] > 0) return `Alle ${gTr()} Bautrupps sind beschäftigt`;
   return "";
 }
@@ -2752,24 +2801,30 @@ setInterval(() => {
 /* ── 3D-STADT START ── */
 
 /* ═════════ v2.3: Wirtschaft – Ressourcen aus dem Lernen, Fabriken, Lager, Aufträge, Truhe, Serienschutz ═════════ */
-const RES = {
-  wasser: {n: "Wasser", c: "#3d9be0"}, kies: {n: "Kies und Sand", c: "#b39b6e"}, holz: {n: "Bauholz", c: "#b07a45"}, zement: {n: "Zement", c: "#8f969e"},
-  stahl: {n: "Stahl", c: "#55687c"}, strom: {n: "Strom", c: "#e9a800"}, plan: {n: "Baupläne", c: "#2f6fb0"}, daten: {n: "Messdaten", c: "#a64fd9"}, fach: {n: "Fachkräfte", c: "#e8742c"},
-  beton: {n: "Beton", c: "#7c848d", p: 1}, stein: {n: "Mauersteine", c: "#b9ad97", p: 1}, fenster: {n: "Fenster", c: "#4fa3d9", p: 1}, dach: {n: "Dachstühle", c: "#b5773d", p: 1}, fert: {n: "Fertigteile", c: "#5f6a75", p: 1}
+const RES = {                                                         // 3.0: jede Ressource eigene Farbe und Form; Bauteile (p) im abgerundeten Quadrat
+  wasser: {n: "Wasser", c: "#2b8fe6"}, kies: {n: "Kies und Sand", c: "#c9a052"}, holz: {n: "Bauholz", c: "#a8692f"}, zement: {n: "Zement", c: "#8a939d"},
+  stahl: {n: "Stahl", c: "#2f4f86"}, strom: {n: "Strom", c: "#f0b000"}, plan: {n: "Baupläne", c: "#3aa0e8"}, daten: {n: "Messdaten", c: "#9a4fe0"}, fach: {n: "Fachkräfte", c: "#f07c1e"},
+  beton: {n: "Beton", c: "#5f6e80", p: 1}, stein: {n: "Mauersteine", c: "#c4573a", p: 1}, fenster: {n: "Fenster", c: "#22aed3", p: 1}, dach: {n: "Dachstühle", c: "#c98a2c", p: 1}, fert: {n: "Fertigteile", c: "#4b5a9a", p: 1}
 };
 const RBASE = ["wasser", "kies", "holz", "zement", "stahl", "strom", "plan", "daten", "fach"], RPROD = ["beton", "stein", "fenster", "dach", "fert"];
 const RVAL = {wasser: 5, kies: 4, holz: 6, zement: 6, stahl: 8, strom: 5, plan: 8, daten: 8, fach: 6, beton: 10, stein: 8, fenster: 24, dach: 30, fert: 55};
 const RICON = {
-  wasser: '<path d="M12 4c3 4 5 6.6 5 9.3A5 5 0 0 1 7 13.3C7 10.6 9 8 12 4z"/>', kies: '<path d="M5 17l3-4 3 2 2-3 4 5zM7 18h10"/><circle cx="9" cy="9" r="1.6"/><circle cx="14" cy="8" r="1.3"/>',
-  holz: '<rect x="4" y="9" width="16" height="6" rx="3"/><circle cx="17" cy="12" r="1.5"/>', zement: '<path d="M7 6h10l1 13H6zM9 10h6"/>',
-  stahl: '<path d="M6 6h12M6 18h12M12 6v12M9 6v1.5M15 6v1.5M9 18v-1.5M15 18v-1.5"/>', strom: '<path d="M13 3L6 13h5l-1 8 7-10h-5z"/>',
-  plan: '<path d="M6 4h9l3 3v13H6zM9 10h6M9 13h6M9 16h4"/>', daten: '<path d="M5 19V5M5 19h14M8 16v-4M12 16V9M16 16v-6"/>',
-  fach: '<circle cx="12" cy="9" r="3"/><path d="M8 7.5a4 4 0 0 1 8 0M6 20c.6-3.6 3-5.5 6-5.5s5.4 1.9 6 5.5"/>',
-  beton: '<path d="M4 9l8-4 8 4-8 4zM4 9v7l8 4 8-4V9M12 13v7"/>', stein: '<path d="M4 7h16v10H4zM4 12h16M10 7v5M15 12v5"/>',
-  fenster: '<rect x="5" y="4" width="14" height="16" rx="1"/><path d="M12 4v16M5 12h14"/>', dach: '<path d="M3 17l9-10 9 10M7 17l5-5.5 5 5.5M12 7v10M3 17h18"/>',
-  fert: '<path d="M3 9h18v5H3zM6 14v4M18 14v4M3 9l3-3h12l3 3"/>'
+  wasser: '<path d="M12 3.2c3.5 4.4 5.8 7.4 5.8 10.4a5.8 5.8 0 0 1-11.6 0c0-3 2.3-6 5.8-10.4z" fill="#fff" stroke="none"/><path d="M9.6 14.6a2.6 2.6 0 0 0 2.2 2.4" stroke="#2b8fe6" stroke-width="1.5"/>',
+  kies: '<path d="M3.2 18.6c1.7-4.8 4.8-7.7 8.8-7.7s7.1 2.9 8.8 7.7z" fill="#fff" stroke="none"/><circle cx="7.6" cy="7.6" r="1.7" fill="#fff" stroke="none"/><circle cx="12.4" cy="5.8" r="1.4" fill="#fff" stroke="none"/><circle cx="16.4" cy="8.4" r="1.2" fill="#fff" stroke="none"/>',
+  holz: '<rect x="3.2" y="7.6" width="17.6" height="8.8" rx="1.6" fill="#fff" stroke="none"/><path d="M6.2 11h6.6M9.4 13.4h8" stroke="#a8692f" stroke-width="1.4"/>',
+  zement: '<path d="M7 4.6h10l1.6 3.2-1.1 11.6H6.5L5.4 7.8z" fill="#fff" stroke="none"/><path d="M8.6 11.2h6.8M8.6 14.2h4.6" stroke="#8a939d" stroke-width="1.5"/>',
+  stahl: '<path d="M4.8 5.2h14.4v2.8h-5.4v8h5.4v2.8H4.8V16h5.4V8H4.8z" fill="#fff" stroke="none"/>',
+  strom: '<path d="M13.6 2.4L5.4 13.6h5.6l-1.6 8 8.2-11.2H12z" fill="#fff" stroke="none"/>',
+  plan: '<rect x="4.4" y="4.4" width="15.2" height="15.2" rx="1.6" fill="#fff" stroke="none"/><path d="M7.8 8.6h8.4M7.8 12h5.2M7.8 15.4h8.4" stroke="#3aa0e8" stroke-width="1.6"/>',
+  daten: '<path d="M6 19.2v-7.4M10.6 19.2V5.6M15.2 19.2v-9.4M19.4 19.2v-5" stroke="#fff" stroke-width="2.8"/>',
+  fach: '<path d="M5.4 15.8a6.6 6.6 0 0 1 13.2 0z" fill="#fff" stroke="none"/><rect x="3.6" y="15.4" width="16.8" height="2.8" rx="1.4" fill="#fff" stroke="none"/><path d="M12 9.4v3.6" stroke="#f07c1e" stroke-width="1.7"/>',
+  beton: '<path d="M12 3.8l7.6 4.1v8.2L12 20.2l-7.6-4.1V7.9z" fill="#fff" stroke="none"/><path d="M4.4 7.9L12 12l7.6-4.1M12 12v8.2" stroke="#5f6e80" stroke-width="1.4"/>',
+  stein: '<rect x="3.2" y="5.6" width="17.6" height="12.8" rx="1.2" fill="#fff" stroke="none"/><path d="M3.2 12h17.6M9 5.6V12M15 12v6.4" stroke="#c4573a" stroke-width="1.6"/>',
+  fenster: '<rect x="4.8" y="3.6" width="14.4" height="16.8" rx="1.6" fill="#fff" stroke="none"/><path d="M12 3.6v16.8M4.8 11h14.4" stroke="#22aed3" stroke-width="1.9"/>',
+  dach: '<path d="M2.8 18.4L12 5.6l9.2 12.8z" fill="#fff" stroke="none"/><path d="M12 5.6v12.8M7.4 18.4L12 12l4.6 6.4" stroke="#c98a2c" stroke-width="1.4"/>',
+  fert: '<rect x="3.2" y="8.2" width="17.6" height="7.6" rx="1.2" fill="#fff" stroke="none"/><circle cx="7.6" cy="12" r="1.4" fill="#4b5a9a" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="#4b5a9a" stroke="none"/><circle cx="16.4" cy="12" r="1.4" fill="#4b5a9a" stroke="none"/>'
 };
-const ricon = (k, s = 16) => `<span class="ric" style="--rc:${RES[k].c};width:${s}px;height:${s}px"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${RICON[k]}</svg></span>`;
+const ricon = (k, s = 16) => `<span class="ric${RES[k].p ? " sq" : ""}" style="--rc:${RES[k].c};width:${s}px;height:${s}px"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${RICON[k]}</svg></span>`;
 
 /* ── Gebäude: Umbenennungen und neue Typen ── */
 Object.assign(GT.wasserturm, {n: "Wasserwerk", d: "Fördert Wasser für Beton und Häuser. Läuft, wenn du Hydromechanik lernst."});
@@ -2809,6 +2864,7 @@ const GCAT = [["Wohnen", ["meinhaus", "wohnhaus", "mehrfamilienhaus", "park"]], 
   ["Fabriken", ["lagerhaus", "mischanlage", "mauersteinwerk", "glaserei", "abbundhalle", "fertigteilwerk"]], ["Stadt", ["schule", "feuerwache", "buero"]],
   ["Wahrzeichen", ["fernsehturm", "stadion", "kathedrale"]], ["Deko", ["bank", "brunnen", "laterne", "statue", "blumen", "baum", "goldstatue"]]];
 GORDER.splice(0, GORDER.length, ...GCAT.flatMap(c => c[1]));
+for (const k in GT) GT[k].time = GT[k].time.map((s, i) => i < 2 ? Math.min(s, 60) : Math.min(14400, Math.round(s / 2)));   // 3.0: Stufe 1–2 höchstens 1 Min., sonst halb so lang, höchstens 4 Std.
 const WERK = {wasserturm: {f: "hydro", r: "wasser"}, kieswerk: {f: "hydro", r: "kies"}, zimmerei: {f: "bauko", r: "holz"}, betonwerk: {f: "bsk", r: "zement"}, stahlwerk: {f: "bsk", r: "stahl"},
   kran: {f: "phys", r: "strom"}, rechenzentrum: {f: "binf", r: "plan"}, vermessung: {f: "stat", r: "daten"}, bahnhof: {f: "dap", r: "fach"}};
 const WRATE = [0, 1, 1.3, 1.6, 2, 2.5], WCAP = [0, 15, 24, 36, 51, 72], LCAP = [40, 90, 150, 225, 330, 450];   // 3.0: Ertrag ×2, Speicher ×1,5
@@ -2849,18 +2905,18 @@ function ecoInit(){
 const eco = () => ecoInit();
 const hasB = k => G().b.some(b => b.k === k && b.l > 0);
 const lagerL = () => { const b = G().b.find(o => o.k === "lagerhaus"); return b ? b.l : 0; };
-const lagerCap = () => LCAP[lagerL()];
+const lagerCap = () => LCAP[lagerL()] + gHaus().l;
 const lagerUsed = () => { const r = eco().r; return Object.keys(r).filter(k => k !== "daten" && k !== "fach").reduce((a, k) => a + r[k], 0); };
 const extraCap = k => k === "daten" ? 40 : k === "fach" ? 10 + 6 * ((G().b.find(o => o.k === "bahnhof") || {l: 0}).l) : 0;
 function ecoRoom(k){ return (k === "daten" || k === "fach") ? Math.max(0, extraCap(k) - eco().r[k]) : Math.max(0, lagerCap() - lagerUsed()); }
-function ecoStat(kind, k, n){ const g = eco(), d = dayKey(), s = g.stat[d] || (g.stat[d] = {p: {}, u: {}, m: {}}); s[kind][k] = (s[kind][k] || 0) + n;
+function ecoStat(kind, k, n){ const g = eco(), d = dayKey(), s = g.stat[d] || (g.stat[d] = {p: {}, u: {}, m: {}}); s[kind][k] = (s[kind][k] || 0) + n; if (kind === "p") { const c = G().cum || (G().cum = {}); c[k] = (c[k] || 0) + n; }
   const keys = Object.keys(g.stat).sort(); while (keys.length > 14) delete g.stat[keys.shift()]; }
 function ecoHave(c){ const r = eco().r; return Object.keys(c).every(k => (r[k] || 0) >= c[k]); }
 function ecoMiss(c, note){ const r = eco().r, m = Object.keys(c).filter(k => (r[k] || 0) < c[k]); if (note) m.forEach(k => ecoStat("m", k, 1)); return m.map(k => `${c[k] - (r[k] || 0)} ${RES[k].n}`).join(", "); }
 function ecoPay(c){ const r = eco().r; Object.keys(c).forEach(k => { r[k] -= c[k]; ecoStat("u", k, c[k]); }); }
 function ecoAdd(k, n){ const take = Math.min(n, ecoRoom(k)); eco().r[k] += take; return take; }
-function costHTML(c, coins, names){
-  const r = eco().r, parts = Object.keys(c).map(k => `<span class="rc${(r[k] || 0) < c[k] ? " miss" : ""}" title="${RES[k].n}">${ricon(k, 15)}${r[k] >= c[k] ? c[k] : `${Math.floor(r[k] || 0)}/${c[k]}`}${names ? `<small>${c[k] === 1 && k === "fach" ? "Fachkraft" : RES[k].n}</small>` : ""}</span>`);
+function costHTML(c, coins, names, stock){
+  const r = eco().r, parts = Object.keys(c).map(k => `<span class="rc${(r[k] || 0) < c[k] ? " miss" : stock ? " have" : ""}" title="${RES[k].n}">${ricon(k, 15)}${stock ? `<span class="rst">${Math.floor(r[k] || 0)}</span>/${c[k]}` : r[k] >= c[k] ? c[k] : `${Math.floor(r[k] || 0)}/${c[k]}`}${names ? `<small>${c[k] === 1 && k === "fach" ? "Fachkraft" : RES[k].n}</small>` : ""}</span>`);
   if (coins !== undefined) parts.unshift(`<span class="rc${G().coins < coins ? " miss" : ""}"><i class="c3cn sm">₿</i>${fmtB(coins)}</span>`);
   return `<span class="rcs">${parts.join("")}</span>`;
 }
@@ -2960,7 +3016,7 @@ function orderDeliver(i){
   if (o.kind === "res") { if (!ecoHave(o.need)) return "Es fehlen: " + ecoMiss(o.need, true); ecoPay(o.need); } else if (o.c < o.n) return "Noch nicht geschafft";
   const bonus = hasB("buero") ? 1.15 : 1, b = Math.round(o.rew.b * bonus); g.coins += b; g.total += b;
   if (o.rew.speed) g.inv.speed++; if (o.rew.deko) g.inv.deko[o.rew.deko] = (g.inv.deko[o.rew.deko] || 0) + 1; if (o.rew.r) ecoAdd(o.rew.r[0], o.rew.r[1]);
-  ecoXP(o.rew.xp); g.orders[i] = {wait: Date.now() + 10 * 60e3}; save(); return "";
+  ecoXP(o.rew.xp); G().ordN = (G().ordN || 0) + 1; g.orders[i] = {wait: Date.now() + 10 * 60e3}; save(); return "";
 }
 function orderDrop(i){ const g = eco(); if (g.oDrop === dayKey()) return "Heute hast du schon einen Auftrag verworfen"; g.oDrop = dayKey(); g.orders[i] = {wait: Date.now() + 10 * 60e3}; save(); return ""; }
 
@@ -2981,7 +3037,7 @@ function chestOpen(){
 }
 
 /* ── Serienschutz: einmal pro Woche ein Tag Pause ohne Serienbruch ── */
-const shCap = () => 1 + (hasB("feuerwache") ? 1 : 0);
+const shCap = () => 1 + (hasB("feuerwache") ? 1 : 0) + (gHaus().sh || 0);
 function ecoDaily(){
   if (!S.game) return; const g = eco(), wk = Math.floor((dayNum() + 3) / 7);
   if (g.shW !== wk) { if (g.shW !== undefined) g.sh = Math.min(shCap(), g.sh + 1); g.shW = wk; }
@@ -3014,24 +3070,25 @@ const c3ss = (a, b, v) => { const t = c3clamp((v - a) / (b - a), 0, 1); return t
 const c3lerp = (a, b, t) => a + (b - a) * t;
 function c3rng(seed){ let s = seed >>> 0 || 1; return () => { s += 0x6D2B79F5; let t = s; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
 
-/* ── Welt-Maße (Stadt 3.0): 1 Einheit ≈ 10 m. Raster 12 × 12 Grundstücke à 2 × 2 in 3 × 3 Blöcken, Straßen 1,6 breit ── */
-const C3RD = 1.6, C3R = 14.4, C3RX = 18.4, C3FAR = 70, C3PZ = 4.8;
-const C3RL = [-14.4, -4.8, 4.8, 14.4];
-const C3HAUS = {x: -9.6, z: -17.6};                               // Grundstück „Mein Haus“ am Fluss                              // Straßenachsen in x und z
-const c3lot = i => (i - 5.5) * 2 + (Math.floor(i / 4) - 1) * C3RD;
+/* ── Welt-Maße (Stadt 3.0): 1 Einheit ≈ 10 m. Raster 12 × 12 Grundstücke à 2 × 2, Blöcke 2-4-4-2: die alte 8 × 8-Stadt bleibt in der Mitte, ringsum neues Land ── */
+const C3RD = 1.6, C3R = 16, C3RX = 19.4, C3FAR = 70, C3PZ = 0;
+const C3RL = [-16, -9.6, 0, 9.6, 16];                              // Straßenachsen in x und z
+const C3HAUS = {x: -9.6, z: -18.9};                               // Grundstück „Mein Haus“ am Fluss
+const c3blk = i => i < 2 ? 0 : i < 6 ? 1 : i < 10 ? 2 : 3;
+const c3lot = i => (i - 5.5) * 2 + (c3blk(i) - 1.5) * C3RD;
 function c3face(x, y){                                            // Gebäude schaut zur nächsten Straße
   const cx = c3lot(x), cz = c3lot(y); let bx = 99, bz = 99;
   C3RL.forEach(r => { if (Math.abs(r - cz) < Math.abs(bz)) bz = r - cz; if (Math.abs(r - cx) < Math.abs(bx)) bx = r - cx; });
   return Math.abs(bz) <= Math.abs(bx) ? (bz > 0 ? 0 : Math.PI) : (bx > 0 ? Math.PI/2 : -Math.PI/2);
 }
-const c3zr = x => -24 + 3 * Math.sin(x * .055 + .6) + 1.4 * Math.sin(x * .13 + 2.1);   // Flusslauf
+const c3zr = x => -26 + 3 * Math.sin(x * .055 + .6) + 1.4 * Math.sin(x * .13 + 2.1);   // Flusslauf
 function c3h(x, z){                                               // Geländehöhe
-  const m = c3ss(17.5, 34, Math.max(Math.abs(x), Math.abs(z)));
+  const m = c3ss(19.5, 36, Math.max(Math.abs(x), Math.abs(z)));
   let h = Math.max(0, Math.sin(x*.075 + 1.3) * Math.cos(z*.065 - .4) * 2.4 + Math.sin(x*.16 + z*.12) * 1.1 + Math.sin(z*.23 - x*.07 + .8) * .6 + 1.2) * m;
   const dist = Math.hypot(x, z + 10);
   h += c3ss(80, 132, dist) * (13 + 7 * Math.sin(Math.atan2(z, x) * 5 + 1) + 3 * Math.sin(x * .3) * Math.cos(z * .27));
-  if (z > 12) h *= c3ss(1.6, 4.8, Math.abs(x - 4.8));
-  if (x > 12 && Math.abs(z - C3PZ) < 6) h *= c3ss(1.6, 4.8, Math.abs(z - C3PZ));
+  if (z > 14) h *= c3ss(1.6, 4.8, Math.abs(x));
+  if (x > 14 && Math.abs(z - C3PZ) < 6) h *= c3ss(1.6, 4.8, Math.abs(z - C3PZ));
   h *= c3ss(1.4, 4.2, Math.abs(x - C3RX));
   const d = Math.abs(z - c3zr(x)), w = c3ss(3.7, 1.3, d);
   return h * (1 - w) - .95 * w;
@@ -3597,7 +3654,7 @@ function c3terrain(){
     const zr = c3zr(x), d = Math.abs(z - zr), n = Math.sin(x * .21) * Math.cos(z * .17) * .5 + .5;
     if (y < -.32) c.copy(pal.bed); else if (d < 3.9 && y < -.04) c.copy(pal.sand);
     else if (y > 15.5) c.copy(pal.snow); else if (y > 9.5) c.copy(pal.rock).lerp(pal.hi, c3clamp((15.5 - y) / 8, 0, .5)); else if (y > 4.5) c.copy(pal.hi).lerp(pal.g2, .3);
-    else if (Math.abs(x) < 15.6 && Math.abs(z) < 15.6) c.copy(pal.city); else c.copy(pal.g1).lerp(pal.g2, n);
+    else if (Math.abs(x) < 17.2 && Math.abs(z) < 17.2) c.copy(pal.city); else c.copy(pal.g1).lerp(pal.g2, n);
     if (z < zr - 3.4) c.lerp(lock, .38).multiplyScalar(.9);
     c.multiplyScalar(.95 + r() * .1);
     for (let k = 0; k < 3; k++) { col[(i+k)*3] = c.r; col[(i+k)*3+1] = c.g; col[(i+k)*3+2] = c.b; }
@@ -3637,13 +3694,13 @@ function c3platform(){
 function c3forest(){
   const r = c3rng(1234), L = [];
   for (let i = 0; i < 2600 && L.length < 560; i++) { const x = (r() - .5) * 230, z = (r() - .5) * 230;
-    if (Math.abs(x) < 16.8 && Math.abs(z) < 16.8) continue; if (z > 12 && Math.abs(x - 4.8) < 3.2) continue; if (x > 12 && Math.abs(z - C3PZ) < 2.6) continue; if (Math.hypot(x - C3HAUS.x, z - C3HAUS.z) < 2.6) continue; if (Math.abs(x - C3RX) < 2.6) continue;
-    const zr = c3zr(x); if (Math.abs(z - zr) < 4.4) continue; const h = c3h(x, z); if (h > 11) continue; if (Math.hypot(x, z) > 115) continue;
+    if (Math.abs(x) < 18.4 && Math.abs(z) < 18.4) continue; if (z > 14 && Math.abs(x) < 3.2) continue; if (x > 14 && Math.abs(z - C3PZ) < 2.6) continue; if (Math.hypot(x - C3HAUS.x, z - C3HAUS.z) < 2.6) continue; if (Math.abs(x - C3RX) < 2.6) continue;
+    const zr = c3zr(x); if (Math.abs(z - zr) < 4.4 || c3imFeld(x, z, .7)) continue; const h = c3h(x, z); if (h > 11) continue; if (Math.hypot(x, z) > 115) continue;
     const dens = Math.sin(x*.09) * Math.cos(z*.11 + 1) + Math.sin((x + z)*.05) + (z < zr ? .7 : 0); if (dens < -.2 && r() < .75) continue;
     L.push({x, y: h, z, s: .85 + r() * .8, fir: r() < (z < zr ? .65 : .4), ry: r() * 6});
   }
-  for (let v = -C3R - 1; v <= C3R + 1; v += 2.4) for (const [x, z] of [[v, -C3R - 1.45], [-C3R - 1.45, v], [C3R + 1.45, v], [v, C3R + 1.45]]) { if (Math.abs(x - 4.8) < 1.6 && z > 0) continue; if (Math.abs(z - C3PZ) < 1.6 && x > 0) continue; if (Math.abs(x + 4.8) < 1.2 && z < 0) continue; if (Math.hypot(x - C3HAUS.x, z - C3HAUS.z) < 2.2) continue; L.push({x, y: 0, z, s: .8 + r() * .3, fir: false, ry: r() * 6}); }
-  for (let i = 0; i < 26; i++) { const z = C3R + 3 + i * 3.2; L.push({x: 4.8 + (i % 2 ? 2.1 : -2.1), y: 0, z, s: .9 + r() * .3, fir: i % 3 === 0, ry: r()*6}); }
+  for (let v = -C3R - 1; v <= C3R + 1; v += 2.4) for (const [x, z] of [[v, -C3R - 1.45], [-C3R - 1.45, v], [C3R + 1.45, v], [v, C3R + 1.45]]) { if (Math.abs(x) < 1.6 && z > 0) continue; if (Math.abs(z - C3PZ) < 1.6 && x > 0) continue; if (Math.abs(x + 4.8) < 1.2 && z < 0) continue; if (Math.hypot(x - C3HAUS.x, z - C3HAUS.z) < 2.2) continue; L.push({x, y: 0, z, s: .8 + r() * .3, fir: false, ry: r() * 6}); }
+  for (let i = 0; i < 26; i++) { const z = C3R + 3 + i * 3.2; L.push({x: (i % 2 ? 2.1 : -2.1), y: 0, z, s: .9 + r() * .3, fir: i % 3 === 0, ry: r()*6}); }
   const firG = c3merge([new THREE.ConeGeometry(.26, .45, 7).translate(0, .445, 0), new THREE.ConeGeometry(.19, .36, 7).translate(0, .66, 0)]);
   const rndG = c3merge([new THREE.IcosahedronGeometry(.27, 0).translate(0, .5, 0), new THREE.IcosahedronGeometry(.18, 0).translate(.1, .64, -.05)]);
   const trG = new THREE.CylinderGeometry(.03, .04, .32, 5).translate(0, .16, 0);
@@ -3652,7 +3709,7 @@ function c3forest(){
     list.forEach((t, i) => { o.position.set(t.x, t.y - .02, t.z); o.rotation.y = t.ry; o.scale.setScalar(t.s); o.updateMatrix(); m.setMatrixAt(i, o.matrix); const v = .82 + ((i * 37) % 30) / 100; c.setRGB(v, v + .04, v * .92); m.setColorAt(i, c); });
     m.castShadow = true; m.receiveShadow = true; return m; };
   const g = new THREE.Group(); g.add(mk(firG, C3.M.fir, fir), mk(rndG, C3.M.leaf, rnd), mk(trG, C3.M.trunk, L));
-  const rocks = []; for (let i = 0; i < 70; i++) { const x = (r() - .5) * 200, z = (r() - .5) * 200; if (Math.abs(x) < 18 && Math.abs(z) < 18) continue; if (Math.abs(z - c3zr(x)) < 3.6 || (z > 12 && Math.abs(x - 4.8) < 3) || Math.abs(x - C3RX) < 2.4) continue; rocks.push({x, y: c3h(x, z), z, s: .4 + r() * 1.1, fir: 0, ry: r() * 6}); }
+  const rocks = []; for (let i = 0; i < 70; i++) { const x = (r() - .5) * 200, z = (r() - .5) * 200; if (Math.abs(x) < 19.5 && Math.abs(z) < 19.5) continue; if (Math.abs(z - c3zr(x)) < 3.6 || (z > 14 && Math.abs(x) < 3) || Math.abs(x - C3RX) < 2.4) continue; rocks.push({x, y: c3h(x, z), z, s: .4 + r() * 1.1, fir: 0, ry: r() * 6}); }
   g.add(mk(new THREE.DodecahedronGeometry(.3, 0), C3.M.rock, rocks));
   return g;
 }
@@ -3768,7 +3825,7 @@ function c3pit(){
 }
 function c3worker(type, o){ const w = c3person(true); w.userData.anim = Object.assign({type, ph: Math.random() * 6}, o); return w; }
 function c3lotPos(b){ return b.k === "meinhaus" ? new THREE.Vector3(C3HAUS.x, .06, C3HAUS.z) : new THREE.Vector3(c3lot(b.x), .06, c3lot(b.y)); }
-function c3body(k, L, id, raw, ex){ let g = null; try { g = c3modBody(k, L, id, raw, ex); } catch(e) { console.error(e); } return g || c3design(k, L, id, raw, ex); }
+function c3body(k, L, id, raw, ex, dim){ let g = null; try { g = c3modBody(k, L, id, raw, ex, dim); } catch(e) { console.error(e); } return g || c3design(k, L, id, raw, ex); }
 
 /* ── Abgleich Spielstand → Szene ── */
 function c3phase(b, now){
@@ -3782,8 +3839,9 @@ function c3rebuild(b, ph){
   const grp = new THREE.Group(); grp.position.copy(c3lotPos(b)); grp.rotation.y = b.k === "meinhaus" ? 0 : c3face(b.x, b.y); grp.userData = {id: b.id, lot: [b.x, b.y], k: b.k};
   const L = Math.max(1, b.l);
   const ex = b.k === "lagerhaus" ? lagerUsed() / lagerCap() : 0;
-  let body = ph === "done" || ph === "old" ? c3body(b.k, L, b.id, false, ex) : ph === "pit" ? c3pit() : c3body(b.k, b.next, b.id, ph === "shell", ex);
-  if ((WERK[b.k] && werkIdle(b)) || (FAB[b.k] && !(eco().fj[b.id] || []).some(j => j.s <= Date.now() && j.e > Date.now()))) body.userData.emit = [];
+  const idle = (WERK[b.k] && werkIdle(b)) || (FAB[b.k] && !(eco().fj[b.id] || []).some(j => j.s <= Date.now() && j.e > Date.now()));
+  let body = ph === "done" || ph === "old" ? c3body(b.k, L, b.id, false, ex, idle && ph === "done") : ph === "pit" ? c3pit() : c3body(b.k, b.next, b.id, ph === "shell", ex);
+  if (idle) body.userData.emit = [];
   const bb = new THREE.Box3().setFromObject(body); grp.add(body); grp.userData.body = body; grp.userData.top = Math.max(.35, bb.max.y);
   if (ph === "shell") grp.userData.grow = b.l === 0 ? [.3, .78, .1] : [.45, .85, .62];
   if (ph !== "done") {
@@ -3820,7 +3878,7 @@ function c3sync(){
   if (ek !== C3.emptyKey) { C3.emptyKey = ek; c3decor(occ); }
   C3.plat.visible = g.b.some(b => b.k === "bahnhof" && b.l > 0);
   /* Leben passend zur Stadtgröße */
-  const ew = gEinw(), nP = c3clamp(Math.round(ew / 9), 2, 26), nC = c3clamp(1 + Math.floor(ew / 28), 1, 10);
+  const ew = gEinw(), nP = c3clamp(Math.round(ew / 7), 3, 36), nC = c3clamp(2 + Math.floor(ew / 18), 2, 18);
   while (C3.peds.length < nP) C3.peds.push(c3ped()); while (C3.cars.length < nC) C3.cars.push(c3carAgent());
   C3.peds.forEach((a, i) => a.obj.userData.want = i < (C3.night > .6 ? Math.ceil(nP * .35) : nP));
   c3labsSync(); c3hl();
@@ -3837,12 +3895,12 @@ function c3hl(){
 }
 
 /* ── Wege für Autos und Fußgänger ── */
-function c3graph(){                                                 // 4 × 4 Kreuzungen, dazu Landstraße (16) und Bahnhofszufahrt (17)
+function c3graph(){                                                 // 5 × 5 Kreuzungen, dazu Landstraße (25) und Bahnhofszufahrt (26)
   const L = C3RL, N = [];
-  for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) N.push({x: L[i], z: L[j], n: []});
+  for (let i = 0; i < 5; i++) for (let j = 0; j < 5; j++) N.push({x: L[i], z: L[j], n: []});
   const link = (a, b) => { N[a].n.push(b); N[b].n.push(a); };
-  for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) { const k = i * 4 + j; if (i < 3) link(k, k + 4); if (j < 3) link(k, k + 1); }
-  N.push({x: 4.8, z: C3FAR, n: []}); link(16, 11); N.push({x: C3RX - 1.6, z: C3PZ, n: []}); link(17, 14);
+  for (let i = 0; i < 5; i++) for (let j = 0; j < 5; j++) { const k = i * 5 + j; if (i < 4) link(k, k + 5); if (j < 4) link(k, k + 1); }
+  N.push({x: 0, z: C3FAR, n: []}); link(25, 14); N.push({x: C3RX - 1.6, z: C3PZ, n: []}); link(26, 22);
   return N;
 }
 function c3walk(ag, dt, ok){
@@ -3853,21 +3911,21 @@ function c3walk(ag, dt, ok){
 }
 function c3turn(o, ang, k){ let d = ang - o.rotation.y; d = Math.atan2(Math.sin(d), Math.cos(d)); o.rotation.y += d * k; }
 function c3ped(){
-  const o = c3person(false, "shirt" + (Math.random() * 7 | 0)); C3.sc.add(o); const a = Math.random() * 16 | 0;
+  const o = c3person(false, "shirt" + (Math.random() * 7 | 0)); C3.sc.add(o); const a = Math.random() * 25 | 0;
   const ag = {obj: o, a, b: C3.N[a].n[0], s: Math.random() * 4, sp: .28 + Math.random() * .18, side: Math.random() < .5 ? -1 : 1, ph: Math.random() * 6}; o.position.set(C3.N[a].x, .045, C3.N[a].z); return ag;
 }
 function c3carAgent(){
-  const o = c3car("car" + (Math.random() * 6 | 0)); C3.sc.add(o); const a = Math.random() * 16 | 0;
+  const o = c3car("car" + (Math.random() * 6 | 0)); C3.sc.add(o); const a = Math.random() * 25 | 0;
   const ag = {obj: o, a, b: C3.N[a].n[Math.random() * C3.N[a].n.length | 0], s: Math.random() * 5, sp: 1.1 + Math.random() * .7}; o.position.set(C3.N[a].x, .02, C3.N[a].z); return ag;
 }
 function c3route(from, to){
   const prev = {[from]: -1}, q = [from];
-  while (q.length) { const k = q.shift(); if (k === to) break; for (const n of C3.N[k].n) if (prev[n] === undefined && n !== 17) { prev[n] = k; q.push(n); } }
+  while (q.length) { const k = q.shift(); if (k === to) break; for (const n of C3.N[k].n) if (prev[n] === undefined && n !== 26) { prev[n] = k; q.push(n); } }
   const p = []; for (let k = to; k !== -1 && k !== undefined; k = prev[k]) p.unshift(k); return p;
 }
 function c3roadPt(x, z){
   let best = null; const N = C3.N;
-  N.forEach((A, a) => A.n.forEach(b => { if (b < a || a > 15 || b > 15) return; const B = N[b], vx = B.x - A.x, vz = B.z - A.z, L2 = vx * vx + vz * vz, t = c3clamp(((x - A.x) * vx + (z - A.z) * vz) / L2, .08, .92);
+  N.forEach((A, a) => A.n.forEach(b => { if (b < a || a > 24 || b > 24) return; const B = N[b], vx = B.x - A.x, vz = B.z - A.z, L2 = vx * vx + vz * vz, t = c3clamp(((x - A.x) * vx + (z - A.z) * vz) / L2, .08, .92);
     const px = A.x + vx * t, pz = A.z + vz * t, d = Math.hypot(x - px, z - pz); if (!best || d < best.d) best = {d, a, b, x: px, z: pz, t}; }));
   return best;
 }
@@ -3875,8 +3933,8 @@ function c3truckTick(dt, t){
   const T = C3.truck, now = Date.now();
   if (T.st === "idle") { T.wait -= dt; if (T.wait > 0) return;
     const site = G().b.find(b => { const ph = c3phase(b, now)[0]; return ph === "shell" || ph === "finish"; }); if (!site) { T.wait = 3; return; }
-    const sp = c3lotPos(site), rp = c3roadPt(sp.x, sp.z), ea = c3route(16, rp.a), eb = c3route(16, rp.b), path = (ea.length <= eb.length ? ea : eb).map(k => [C3.N[k].x, C3.N[k].z]);
-    path[0] = [4.8, 30]; path.push([rp.x, rp.z]); T.path = path; T.i = 0; T.s = 0; T.st = "go"; T.obj.visible = true; T.obj.position.set(path[0][0], .02, path[0][1]); return; }
+    const sp = c3lotPos(site), rp = c3roadPt(sp.x, sp.z), ea = c3route(25, rp.a), eb = c3route(25, rp.b), path = (ea.length <= eb.length ? ea : eb).map(k => [C3.N[k].x, C3.N[k].z]);
+    path[0] = [0, 30]; path.push([rp.x, rp.z]); T.path = path; T.i = 0; T.s = 0; T.st = "go"; T.obj.visible = true; T.obj.position.set(path[0][0], .02, path[0][1]); return; }
   if (T.st === "go" || T.st === "back") {
     const P = T.path; let A = P[T.i], B = P[T.i + 1]; if (!B) { T.st = T.st === "go" ? "pour" : "idle"; T.wait = T.st === "pour" ? 8 : 30; return; }
     let L = Math.hypot(B[0] - A[0], B[1] - A[1]); T.s += 1.8 * dt * (T.i === P.length - 2 && L - T.s < 1 ? .5 : 1);
@@ -3943,12 +4001,12 @@ function c3agentsTick(dt, t){
   const k = 1 - Math.exp(-dt * 10);
   C3.cars.forEach(c => { const p = c3walk(c, dt, () => true), x = p.x - p.dz * .28, z = p.z + p.dx * .28, o = c.obj;
     o.position.x += (x - o.position.x) * k; o.position.z += (z - o.position.z) * k; o.position.y = c3gy(o.position.x, o.position.z) + .015; c3turn(o, Math.atan2(-p.dz, p.dx), k); });
-  const far = C3CAM.r > 30; C3.peds.forEach(c => { const o = c.obj; o.visible = !!o.userData.want && !far; if (!o.visible) return; const p = c3walk(c, dt, n => n !== 16), hz = Math.abs(p.dz) < .5;
+  const far = C3CAM.r > 30; C3.peds.forEach(c => { const o = c.obj; o.visible = !!o.userData.want && !far; if (!o.visible) return; const p = c3walk(c, dt, n => n !== 25), hz = Math.abs(p.dz) < .5;
     const x = p.x + (hz ? 0 : c.side * .7), z = p.z + (hz ? c.side * .7 : 0); o.position.x += (x - o.position.x) * k; o.position.z += (z - o.position.z) * k; o.position.y = .045;
     c3turn(o, Math.atan2(p.dx, p.dz), k); c3walkPose(o, t * 8 * c.sp / .35 + c.ph, .5); });
-  c3truckTick(dt, t); c3trainTick(dt, t);
-  const day = C3.night < .5; C3.birds.forEach((b, i) => { b.visible = day; if (!day) return; const a = t * .07 + i * .16, R = 13 + Math.sin(i * 1.7) * 2;
-    b.position.set(Math.cos(a) * R + Math.sin(t * .5 + i) * .4, 6.5 + Math.sin(t * .8 + i * 2) * .5 + i * .08, Math.sin(a) * R - 2); b.rotation.y = -a; const f = Math.sin(t * 11 + i * 1.3) * .7; b.userData.w[0].rotation.z = f; b.userData.w[1].rotation.z = -f; });
+  c3truckTick(dt, t); c3trainTick(dt, t); c3lkwTick(dt); c3tractorTick(t);
+  const day = C3.night < .5; C3.birds.forEach((b, i) => { b.visible = day; if (!day) return; const a = t * .07 + i * .16, R = 18 + Math.sin(i * 1.7) * 3;
+    b.position.set(Math.cos(a) * R + Math.sin(t * .5 + i) * .4, 8.5 + Math.sin(t * .8 + i * 2) * .5 + i * .1, Math.sin(a) * R - 2); b.rotation.y = -a; b.visible = b.position.distanceTo(C3.cam.position) > 7; const f = Math.sin(t * 11 + i * 1.3) * .7; b.userData.w[0].rotation.z = f; b.userData.w[1].rotation.z = -f; });
   C3.clouds.children.forEach((c, i) => { c.position.x += dt * (.35 + i * .04); if (c.position.x > 140) c.position.x = -140; });
 }
 
@@ -3956,14 +4014,14 @@ function c3agentsTick(dt, t){
 function c3day(){
   const d = new Date(), h = S.c3tag ? 13.2 : d.getHours() + d.getMinutes() / 60, day = c3ss(6, 8.2, h) * (1 - c3ss(18.2, 20.4, h)), dusk = Math.max(0, 1 - Math.abs(day - .5) * 2);
   C3.night = 1 - day; const C = (a, b, t) => new THREE.Color(a).lerp(new THREE.Color(b), t);
-  const top = C(0x081028, 0x3d8fe2, day).lerp(new THREE.Color(0x5a58b8), dusk * .45), hor = C(0x1b2a58, 0xcde9ff, day).lerp(new THREE.Color(0xffa877), dusk * .7);
+  const top = C(0x0e1a3c, 0x3d8fe2, day).lerp(new THREE.Color(0x6a5fc0), dusk * .5), hor = C(0x24366e, 0xcde9ff, day).lerp(new THREE.Color(0xffb07a), dusk * .8);
   C3.skyTop = "#" + top.getHexString(); C3.skyHor = "#" + hor.getHexString();
   const el = $("#c3"); el.style.setProperty("--c3top", C3.skyTop); el.style.setProperty("--c3hor", C3.skyHor); el.classList.toggle("night", C3.night > .55);
   C3.sc.fog.color.copy(hor);
   const tt = c3clamp((h - 6) / 14, 0, 1), sx = Math.cos(tt * Math.PI) * 22, sy = 6 + Math.sin(tt * Math.PI) * 26, sz = 10 + Math.sin(tt * Math.PI) * 8;
-  if (day > .02) C3.sun.position.set(sx, sy, sz); else C3.sun.position.set(-12, 30, 14);
+  C3.sunO = day > .02 ? {x: sx, y: sy, z: sz} : {x: -12, y: 30, z: 14}; c3shadowTick();
   C3.sun.color.copy(C(0xa9bcff, 0xfff6e8, day).lerp(new THREE.Color(0xffb27a), dusk * .75)); C3.sun.intensity = .42 + day * .42;
-  C3.hemi.color.copy(C(0x5a6cae, 0xdcecff, day)); C3.hemi.groundColor.copy(C(0x1c2436, 0x76805a, day)); C3.hemi.intensity = .52 + .04 * day;
+  C3.hemi.color.copy(C(0x5a6cae, 0xdcecff, day)); C3.hemi.groundColor.copy(C(0x1c2436, 0x76805a, day)); C3.hemi.intensity = .6 - .04 * day;
   const n = C3.night, M = C3.M; M.glassL.emissiveIntensity = n * .95; M.glassB.emissiveIntensity = n * .45; M.rzGlass.emissiveIntensity = .1 + n * .9; M.lamp.emissiveIntensity = n * 1.4; M.headL.emissiveIntensity = n * 1.5; M.tailL.emissiveIntensity = .2 + n;
   M.jet.emissiveIntensity = .25 + n * .5; for (const k in C3MOD.mat) if (C3MOD.mat[k].lit.emissiveMap) C3MOD.mat[k].lit.emissiveIntensity = c3ss(.3, .9, n) * 1.15; C3.spots.material.opacity = n * .55; C3.stars.material.opacity = c3ss(.5, .95, n) * .9;
   C3.clouds.userData.mat.color.copy(C(0x5b6380, 0xffffff, day)); C3.clouds.userData.mat.emissiveIntensity = .05 + .25 * day; M.water.color.copy(C(0x1c3a66, 0x3f8fd2, day));
@@ -4015,8 +4073,9 @@ function c3tap(cx, cy){
   C3.sel = null; c3cardClose(); if (C3.drawer) c3drawer(false); c3hl();
 }
 function c3dbl(cx, cy){
-  const h = c3pick(cx, cy); if (C3CAM.r < 9.5 || !h) { c3fly(c3fit(C3.cam.aspect, C3.cam.fov)); return; }
-  if (h.lot) c3focus(h.lot[0], h.lot[1], 7); else c3fly({tx: h.p.x, tz: h.p.z, r: Math.max(6, C3CAM.r * .5)});
+  const h = c3pick(cx, cy); if (!h) { c3fly(c3fit(C3.cam.aspect, C3.cam.fov)); return; }
+  if (h.id) { c3focus(h.lot[0], h.lot[1], 7); return; }                       // Doppeltipp auf Gebäude: ganz nah ran
+  const i = C3ZOOM.findIndex(z => z < C3CAM.r * .92); c3fly(i < 0 ? c3fit(C3.cam.aspect, C3.cam.fov) : {tx: h.p.x, tz: h.p.z, r: C3ZOOM[i]});
 }
 function c3controls(cv){
   const P = new Map(); let lpT = 0, g0 = null, moved = false, multi = false, t0 = 0, sx = 0, sy = 0, lastTap = 0, lx = 0, ly = 0, tapT = 0, vx = 0, vz = 0;
@@ -4033,7 +4092,7 @@ function c3controls(cv){
     else if (P.size >= 2 && g0) { const g = gest(); C3CAM.r *= g0.d / g.d; let da = g.a - g0.a; da = Math.atan2(Math.sin(da), Math.cos(da)); C3CAM.az += da; C3CAM.po -= (g.my - g0.my) * .004; g0 = g; moved = true; } });
   const up = e => { if (!P.has(e.pointerId)) return; P.delete(e.pointerId); clearTimeout(lpT);
     if (C3.drag && P.size === 0) { C3.ptr = false; c3dragEnd(); return; }
-    if (P.size === 1) { g0 = null; return; }
+    if (P.size === 1) { g0 = null; if (multi) c3zoomSnap(); return; }
     if (P.size === 0) { C3.ptr = false;
       if (!moved && !multi && performance.now() - t0 < 450) { const now = performance.now();
         if (now - lastTap < 320 && Math.hypot(e.clientX - lx, e.clientY - ly) < 34) { clearTimeout(tapT); lastTap = 0; c3dbl(e.clientX, e.clientY); }
@@ -4047,7 +4106,7 @@ function c3controls(cv){
 
 /* ── Szene einmalig aufbauen ── */
 function c3setup(){
-  C3.T = c3texAll(); C3.M = c3mats(C3.T); C3.N = c3graph();
+  C3.T = c3texAll(); C3.M = c3mats(C3.T); if (C3MOD.ready) c3flatStyle(C3.M); C3.N = c3graph();
   const cv = $("#c3cv"); C3.cv = cv;
   const r = new THREE.WebGLRenderer({canvas: cv, antialias: true, alpha: true}); r.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2)); r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFSoftShadowMap; r.setClearColor(0x000000, 0); C3.r = r;
   const sc = new THREE.Scene(); C3.sc = sc; sc.fog = new THREE.Fog(0xcfeaff, 62, 175);
@@ -4060,7 +4119,7 @@ function c3setup(){
   C3.hlMat = new THREE.MeshBasicMaterial({color: 0x5cff8a, transparent: true, opacity: .3, depthWrite: false}); C3.selMat = new THREE.MeshBasicMaterial({color: 0xffffff, transparent: true, opacity: .9});
   C3.terrain = c3terrain(); sc.add(C3.terrain); C3.water = c3waterMesh(); sc.add(C3.water);
   sc.add(c3roads()); C3.spots = c3lampSpots(); sc.add(C3.spots); sc.add(c3rail()); C3.plat = c3platform(); C3.plat.visible = false; sc.add(C3.plat);
-  sc.add(c3forest()); C3.clouds = c3clouds(); sc.add(C3.clouds); C3.stars = c3stars(); sc.add(C3.stars);
+  sc.add(c3forest()); sc.add(c3felder()); sc.add(c3parken()); C3.clouds = c3clouds(); sc.add(C3.clouds); C3.stars = c3stars(); sc.add(C3.stars);
   C3.plates = new THREE.InstancedMesh(c3boxG(1.9, .06, 1.9).translate(0, .03, 0), new THREE.MeshStandardMaterial({color: 0xffffff, roughness: .95, flatShading: true}), GN * GN);
   const o = new THREE.Object3D(); for (let i = 0; i < GN * GN; i++) { o.position.set(c3lot(i % GN), 0, c3lot(i / GN | 0)); o.updateMatrix(); C3.plates.setMatrixAt(i, o.matrix); C3.plates.setColorAt(i, new THREE.Color(0x86c463)); }
   C3.plates.receiveShadow = true; sc.add(C3.plates);
@@ -4069,7 +4128,7 @@ function c3setup(){
   C3.truck = {obj: c3truck(), st: "idle", wait: 4, path: [], i: 0, s: 0}; C3.truck.obj.visible = false; sc.add(C3.truck.obj);
   C3.train = c3trainSet(); sc.add(C3.train);
   C3.birds = Array.from({length: 9}, () => { const b = c3bird(); sc.add(b); return b; });
-  c3controls(cv); C3.init = true; c3day();
+  c3controls(cv); C3.init = true; C3.slowN = 0; c3day(); if (S.c3gfx) c3gfx(); setTimeout(() => { try { c3thumbs(); } catch(e) {} }, 2500);
   Object.assign(C3CAM, c3fit(.5, 50));
 }
 function c3resize(){
@@ -4091,16 +4150,19 @@ function c3dom(){
   const el = document.createElement("section"); el.className = "c3"; el.id = "c3"; el.hidden = true; el.setAttribute("aria-label", "Deine Stadt");
   el.innerHTML = `<canvas id="c3cv"></canvas><div class="c3labs" id="c3labs"></div><div class="c3tag" id="c3tag">Neuland<small>bald mit Brücke</small></div>
     <div class="c3top"><button class="c3btn c3g press" data-act="c3-back" aria-label="Zurück">${C3I.back}</button>
-      <div class="c3mid"><div class="c3chips"><div class="c3chip c3g" id="c3coinChip"><i class="c3cn">₿</i><b id="c3coins">0</b></div><div class="c3chip c3g">${C3I.ew}<b id="c3ew">0</b></div><div class="c3chip c3g">${C3I.crew}<b id="c3crew">0/2</b></div></div><div class="c3sub" id="c3sub"></div></div>
-      <div class="c3col"><button class="c3btn c3g press" data-act="g-info" aria-label="So verdienst du Bitcoin">${C3I.info}</button><button class="c3btn c3g press" data-act="c3-home" aria-label="Ansicht zurücksetzen">${C3I.home}</button><button class="c3btn c3g press" id="c3umb" data-act="c3-umbau" aria-label="Stadt umbauen">${C3I2.move}</button><button class="c3btn c3g press" id="c3tagb" data-act="c3-tag" aria-label="Tag und Nacht"></button></div></div>
+      <div class="c3mid"><div class="c3chips"><div class="c3chip c3g" id="c3coinChip"><i class="c3cn">₿</i><b id="c3coins">0</b></div><div class="c3chip c3g">${C3I.ew}<b id="c3ew">0</b></div></div></div>
+      <button class="c3btn c3g press" id="c3menub" data-act="c3-menu" aria-label="Menü"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5.5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18.5" cy="12" r="2"/></svg></button></div>
+    <div class="c3head2"><div class="c3lvl c3g" id="c3sub"></div><div class="c3res c3g" id="c3res" aria-label="Rohstoffe"></div></div>
+    <div class="c3menu c3g" id="c3menu" hidden></div>
     <div class="c3wel c3g" id="c3wel" hidden></div>
     <div class="c3hint c3g" id="c3hint" hidden></div>
     <div class="c3drawer c3g" id="c3drawer" hidden></div>
-    <button class="c3res c3g press" id="c3res" data-act="c3-lager" aria-label="Rohstoffe – Lager öffnen"></button>
-    <div class="c3bot" id="c3bot"><button class="c3round learn press" data-act="start-mix">${I.play}<span>Lernen</span></button><div class="c3mini"><button class="c3sm c3g press" data-act="c3-orders">${C3I2.orders}<span>Aufträge</span><em id="c3ob" hidden></em></button><button class="c3sm c3g press" data-act="c3-lager">${C3I2.lager}<span>Lager</span></button></div><button class="c3round build press" data-act="c3-drawer">${C3I.crane}<span>Bauen</span></button></div>
+    <div class="c3bot" id="c3bot"><button class="c3round learn press" data-act="start-mix">${I.play}<span>Lernen</span></button><div class="c3mini"><button class="c3sm c3g press" data-act="c3-ziele">${C3SVG.ziel}<span>Ziele</span><em id="c3zb" hidden></em></button><button class="c3sm c3g press" data-act="c3-orders">${C3I2.orders}<span>Aufträge</span><em id="c3ob" hidden></em></button><button class="c3sm c3g press" data-act="c3-lager">${C3I2.lager}<span>Lager</span></button></div><button class="c3round build press" data-act="c3-drawer">${C3I.crane}<span>Bauen</span></button></div>
     <div class="c3card2 c3g" id="c3card" hidden></div><div class="c3undo c3g" id="c3undo" hidden></div>
     <div class="c3fly" id="c3fly"></div>`;
   document.body.insertBefore(el, $("#scrim"));
+  el.addEventListener("pointerdown", e => { if (C3.menu && !e.target.closest("#c3menu, #c3menub")) c3menuShow(false); }, true);
+  el.addEventListener("click", e => { if (C3.menu && e.target.closest('#c3menu [data-act="g-info"]')) setTimeout(() => c3menuShow(false), 0); }, true);
   window.addEventListener("resize", () => { if (C3.open) c3resize(); });
   document.addEventListener("visibilitychange", () => { if (C3.open && !document.hidden) { C3.last = 0; c3sync(); } });
 }
@@ -4109,9 +4171,9 @@ function c3hud(){
   const g = G(), busy = gBusy(), tg = gToday();
   if (C3.shown === undefined) C3.shown = g.seenC !== undefined ? Math.min(g.seenC, g.coins) : g.coins;
   if (g.coins > C3.shown + .5 && !C3.counting) c3count(C3.shown, g.coins); else if (!C3.counting) { C3.shown = g.coins; $("#c3coins").textContent = fmtB(g.coins); if (g.seenC !== g.coins) { g.seenC = g.coins; save(); } }
-  $("#c3ew").textContent = fmtB(gEinw()); $("#c3crew").textContent = `${busy.length}/${gTr()}`;
-  const st = streak(), eg = eco(); $("#c3sub").innerHTML = `Stadtstufe ${eg.lv} <i class="xpb"><em style="width:${Math.min(100, eg.xp / xpNeed(eg.lv) * 100).toFixed(0)}%"></em></i> · +${fmtB(tg.e)} ₿ heute${st ? ` · ${st} ${st === 1 ? "Tag" : "Tage"} Serie` : ""}`;
-  const on = ordersReadyN(), ob = $("#c3ob"); ob.hidden = !on; ob.textContent = on; $("#c3umb").classList.toggle("on", !!C3.umbau); const tb = $("#c3tagb"); if (tb) tb.innerHTML = S.c3tag ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>` : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.3 6.3 0 0 0 10.5 10.5z"/></svg>`;
+  $("#c3ew").textContent = fmtB(gEinw()); const crw = $("#c3crew"); if (crw) crw.textContent = `${busy.length}/${gTr()}`;
+  const st = streak(), eg = eco(); $("#c3sub").innerHTML = `<b>Stadtstufe ${eg.lv}</b><i class="xpb"><em style="width:${Math.min(100, eg.xp / xpNeed(eg.lv) * 100).toFixed(0)}%"></em></i><span>+${fmtB(tg.e)} ₿ heute${st ? ` · ${st} ${st === 1 ? "Tag" : "Tage"} Serie` : ""}</span>`;
+  const on = ordersReadyN(), ob = $("#c3ob"); ob.hidden = !on; ob.textContent = on; const zn = qFertig() + (wochReady() ? 1 : 0), zb = $("#c3zb"); if (zb) { zb.hidden = !zn; zb.textContent = zn; } if (C3.menu) $("#c3menu").innerHTML = c3menuHTML();
   const w = $("#c3wel"); w.hidden = !g.welcome;
   if (g.welcome) w.innerHTML = `<h2>Willkommen in deiner Stadt</h2><p>Für dein bisheriges Lernen bekommst du ein Startkapital. Ab jetzt bringt jede Antwort Bitcoin – richtige mehr, Serien und schwere Fragen noch mehr.</p><button class="cta press" data-act="g-welcome">₿ ${fmtB(g.welcome)} abholen</button>`;
   const h = $("#c3hint"), mv = GMOVE && g.b.find(b => b.id === GMOVE);
@@ -4121,9 +4183,7 @@ function c3hud(){
   else if (mv) h.innerHTML = `<span>Wohin mit <b>${GT[mv.k].n}</b>? Fläche antippen – auf einem Gebäude wird getauscht</span><button class="c3x press" data-act="c3-cancel" aria-label="Abbrechen">${I.close}</button>`;
   if (C3.drawer) $("#c3drawer").innerHTML = c3drawerHTML();
   $("#c3bot").classList.toggle("hide", C3.drawer || !!g.welcome);
-  const rb = $("#c3res"), rr = eco().r; if (rb) { const ks = [...RBASE, ...RPROD].filter(k => RBASE.includes(k) || (rr[k] || 0) >= 1);
-    const html = ks.map(k => `<span class="c3r${(rr[k] || 0) >= 1 ? "" : " zero"}">${ricon(k, 26)}<span><b>${Math.floor(rr[k] || 0)}</b><small>${RES[k].n}</small></span></span>`).join("") + `<span class="c3r cap"><span><b>${Math.floor(lagerUsed())}/${lagerCap()}</b><small>im Lager</small></span></span>`;
-    if (rb.dataset.h !== html) { rb.innerHTML = html; rb.dataset.h = html; } rb.classList.toggle("hide", C3.drawer || !!g.welcome); }
+  c3resSync(); const hd = $(".c3head2"); if (hd) hd.classList.toggle("hide", C3.drawer || !!g.welcome);
   c3bubSync(); if (C3.card) c3cardDraw();
 }
 function c3drawer(on){
@@ -4136,11 +4196,19 @@ function c3buildAt(k, x, y){
   const g = G(), t = GT[k], why = gReq(k, 1), free = t.deko && (eco().inv.deko[k] || 0) > 0;
   if (why) { toast(why); return; } if (!free && g.coins < t.cost[0]) { toast(`Noch ${fmtB(t.cost[0] - g.coins)} ₿ – lerne ein paar Fragen`); return; }
   GSEL = [x, y]; C3.place = null; C3.sel = null; if (C3.drawer) c3drawer(false);
-  gAct("g-build", {k}); C3.shown = G().coins; c3sync(); if (k === "meinhaus") c3fly({tx: C3HAUS.x, tz: C3HAUS.z, r: Math.min(C3CAM.r, 9)}); else c3focus(x, y, 9);
+  gAct("g-build", {k}); haptic(true); C3.shown = G().coins; c3sync(); if (k === "meinhaus") c3fly({tx: C3HAUS.x, tz: C3HAUS.z, r: Math.min(C3CAM.r, 9)}); else c3focus(x, y, 9);
 }
 function c3Act(a, ds){
   if (c3Act23(a, ds)) return true;
-  if (a === "c3-tag") { S.c3tag = !S.c3tag; save(); c3day(); c3hud(); toast(S.c3tag ? "Immer Tag – Nacht ausgeschaltet" : "Echte Tageszeit – nachts wird es dunkel"); return true; }
+  if (a === "c3-menu") { c3menuShow(!C3.menu); return true; }
+  if (a === "c3-ziele") { c3cardClose(); c3zieleSheet(); return true; }
+  if (a === "c3-qclaim") { const out = qClaim(ds.id); if (out) { haptic(true); C3.shown = G().coins; toast(`Ziel erreicht: ${out.b ? "+" + fmtB(out.b) + " ₿ " : ""}${out.items.map(([k, n]) => "+" + n + " " + RES[k].n).join(" ")}${out.deko ? " + " + GT[out.deko].n : ""}`); c3zieleKeep(); c3hud(); } return true; }
+  if (a === "c3-woche") { const out = wochOpen(); if (out) { haptic(true); c3chestSheet(out); c3hud(); } return true; }
+  if (a === "c3-haus") { c3cardClose(); c3hausSheet(); return true; }
+  if (a === "c3-hopt") { const g = G(); g.haus = g.haus || {}; g.haus[ds.k] = ds.v; save(); const b = g.b.find(x => x.k === "meinhaus"); if (b) { C3.keys[b.id] = ""; c3sync(); c3wobble(b.id, .06); } haptic(true); c3hausSheet(); return true; }
+  if (a === "c3-tag") { S.c3tag = !S.c3tag; save(); c3day(); c3hud(); haptic(true); toast(S.c3tag ? "Immer Tag – Nacht ausgeschaltet" : "Echte Tageszeit – nachts wird es dunkel"); return true; }
+  if (a === "c3-gfx") { const o = ["auto", "schoen", "schnell"], n = o[(o.indexOf(S.c3gfx || "auto") + 1) % 3]; S.c3gfx = n === "auto" ? undefined : n; C3.lowAuto = false; C3.slowN = 0; save(); c3gfx(); c3hud(); toast("Grafik: " + {auto: "automatisch", schoen: "schön", schnell: "schnell"}[n]); return true; }
+  if (C3.menu && (a === "c3-home" || a === "c3-umbau")) c3menuShow(false);
   if (a === "c3-back") { C3.place = null; C3.sel = null; GMOVE = null; tab = C3.prev && C3.prev !== "stadt" ? C3.prev : "heute"; render(); }
   else if (a === "c3-drawer") c3drawer(!C3.drawer);
   else if (a === "c3-home") c3fly(c3fit(C3.cam.aspect, C3.cam.fov));
@@ -4223,7 +4291,7 @@ function c3loop(ts){
   const dt = C3.last ? Math.min(.05, (ts - C3.last) / 1000) : .016; C3.last = ts;
   if (!$("#quiz").hidden || document.hidden) return;
   C3.t += dt; const t = C3.t;
-  c3camTick(dt); if ((C3.dayT = (C3.dayT || 0) - dt) <= 0) { C3.dayT = 1; c3day(); }
+  c3camTick(dt); c3shadowTick(); if ((C3.dayT = (C3.dayT || 0) - dt) <= 0) { C3.dayT = 1; c3day(); }
   C3SWAY.value = t; c3waterTick(C3.water, t);
   if ((C3.syncT = (C3.syncT || 0) - dt) <= 0) { C3.syncT = 1; c3sync(); }
   C3.hlMat.opacity = .22 + .14 * Math.sin(t * 4); C3.selMat.opacity = .65 + .3 * Math.sin(t * 5);
@@ -4232,7 +4300,10 @@ function c3loop(ts){
   /* langsames Gerät: Auflösung schrittweise senken */
   C3.pf = (C3.pf || 0) + dt; C3.pn = (C3.pn || 0) + 1;
   if (C3.pf > 2.5) { const avg = C3.pf / C3.pn, pr = C3.r.getPixelRatio(); C3.pf = 0; C3.pn = 0;
-    if (avg > .034 && pr > 1) { C3.r.setPixelRatio(Math.max(1, pr - .25)); c3resize(); } }
+    C3.fps = Math.round(1 / avg);
+    if (avg > .034 && pr > 1 && !S.c3gfx) { C3.r.setPixelRatio(Math.max(1, pr - .25)); c3resize(); }
+    else if (avg > .034 && !S.c3gfx && !C3.lowAuto && ++C3.slowN >= 2) { C3.lowAuto = true; c3gfx(); toast("Grafik auf „schnell“ gestellt, damit die Stadt flüssig läuft"); }
+    else if (avg <= .034) C3.slowN = 0; }
 }
 
 /* ── v2.3: Info-Karte, Lager, Aufträge, Fabriken, Prüflabor, Truhe, Verschieben ── */
@@ -4273,6 +4344,7 @@ function c3cardHTML(b){
     if (run) body += `<div class="cbar"><i style="width:${((now - run.s) / (run.e - run.s) * 100).toFixed(0)}%;background:${RES[ok].c}"></i></div>`;
     body += `<div class="cbtns">${rdy ? `<button class="btn2 acc sm press" data-act="c3-fcol" data-id="${b.id}">${rdy} fertig · abholen</button>` : ""}<button class="btn2 sm press" data-act="c3-fab" data-id="${b.id}">Produzieren</button></div>`; }
   else if (b.k === "lagerhaus") { body += `<div class="cline">${C3I2.lager}<b>${Math.floor(lagerUsed())}</b>&nbsp;von ${lagerCap()} belegt</div><div class="cbar"><i style="width:${(lagerUsed() / lagerCap() * 100).toFixed(0)}%"></i></div><button class="btn2 sm press" data-act="c3-lager">Lager ansehen</button>`; }
+  else if (b.k === "meinhaus") { const B = gHaus(); body += `<div class="cline">Bonus: <b>+${Math.round(B.c * 100)} %</b>&nbsp;Bitcoin${B.l ? ` · +${B.l} Lager` : ""}</div><small class="cnote">${b.l < GT.meinhaus.max ? `Nächste Stufe: ${gReq("meinhaus", b.l + 1) || "bereit"}` : "Höchste Stufe erreicht"}</small><div class="cbtns"><button class="btn2 acc sm press" data-act="c3-haus">Gestalten</button></div>`; }
   else if (b.k === "rathaus") { const n = ordersReadyN(); body += `<div class="cline">Stadtstufe ${g.lv} · ${g.xp}/${xpNeed(g.lv)} XP</div><div class="cbtns"><button class="btn2 acc sm press" data-act="c3-orders">Aufträge${n ? ` · ${n} bereit` : ""}</button>${chestReady() ? `<button class="btn2 sm press" data-act="c3-chest">${TIER[chestTier()]} öffnen</button>` : ""}</div>`; }
   else body += `<small class="cnote">${t.d}${t.ew ? ` · ${t.ew * Math.max(1, b.l)} Einwohner` : ""}</small>`;
   return `<div class="ch"><div class="gico" style="${t.f ? `--c:${cssC(t.f)}` : ""}">${gIcon(b.k)}</div><div><b>${t.n}</b><small>${t.deko ? "Deko" : t.lm ? "Wahrzeichen" : `Stufe ${b.l || 0} von ${t.max}`}</small></div><button class="c3x press" data-act="c3-cclose" aria-label="Schließen">${I.close}</button></div>${body}${c3upLine(b)}
@@ -4286,22 +4358,52 @@ function c3cardTick(){
 }
 
 /* ── Blätter ── */
+function c3lagerKeep(){ const sc = $("#sheet"), y = sc ? sc.scrollTop : 0, b = sc && sc.querySelector(".sbody"), yb = b ? b.scrollTop : 0; c3lagerSheet(); const s2 = $("#sheet"); if (s2) { s2.scrollTop = y; const b2 = s2.querySelector(".sbody"); if (b2) b2.scrollTop = yb; } }
+/* v2.5.3: Bedarf aus offenen Aufträgen und Tauschen im Verhältnis 3 : 1 (nach Wert) */
+function orderNeed(){ const n = {}; (eco().orders || []).forEach(o => { if (o && !o.wait && o.kind === "res") Object.keys(o.need).forEach(k => n[k] = (n[k] || 0) + o.need[k]); }); return n; }
+const TX_F = 3, TX_RES = () => RBASE.concat(RPROD).filter(k => k !== "daten" && k !== "fach");
+const txCost = (from, to, n) => Math.ceil(n * TX_F * RVAL[to] / RVAL[from]);
+function txMax(from, to){ const r = eco().r; let n = 0; while (n < 99 && txCost(from, to, n + 1) <= Math.floor(r[from] || 0)) n++; return n; }
+function txDo(){
+  const t = C3.tx || {}, g = eco(); if (!t.from || !t.to || t.from === t.to) return "Wähle aus, was du abgibst und was du bekommst";
+  const n = Math.max(1, t.n || 1), cost = txCost(t.from, t.to, n);
+  if ((g.r[t.from] || 0) < cost) return `Dafür brauchst du ${cost} ${RES[t.from].n}`;
+  if (lagerCap() - (lagerUsed() - cost) < n) return "Dafür ist im Lager kein Platz – baue das Lagerhaus aus";
+  g.r[t.from] -= cost; ecoStat("u", t.from, cost); const got = ecoAdd(t.to, n); ecoStat("p", t.to, got);
+  save(); haptic(true); return `Getauscht: ${cost} ${RES[t.from].n} → ${got} ${RES[t.to].n}`;
+}
+function txHTML(){
+  const g = eco(), t = C3.tx || (C3.tx = {}), have = TX_RES().filter(k => Math.floor(g.r[k] || 0) > 0);
+  if (!have.length) return `<p class="legend">Sobald du Ressourcen im Lager hast, kannst du Überschuss hier eintauschen.</p>`;
+  if (!t.from || !have.includes(t.from)) { const need = orderNeed(); t.from = have.slice().sort((a, b) => (g.r[b] - (need[b] || 0)) * RVAL[b] - (g.r[a] - (need[a] || 0)) * RVAL[a])[0]; }
+  const tos = RBASE.filter(k => k !== "daten" && k !== "fach" && k !== t.from);
+  if (!t.to || t.to === t.from) { const need = orderNeed(); t.to = tos.slice().sort((a, b) => ((need[b] || 0) - (g.r[b] || 0)) - ((need[a] || 0) - (g.r[a] || 0)))[0]; }
+  const mx = txMax(t.from, t.to); t.n = Math.max(1, Math.min(t.n || 1, Math.max(1, mx)));
+  const cost = txCost(t.from, t.to, t.n), ok = mx >= 1;
+  return `<p class="legend" style="margin-top:0">Für Überschuss: Du gibst Ressourcen ab und bekommst ein Drittel ihres Werts in einer anderen zurück. Lernen bleibt der bessere Weg.</p>
+    <small class="txl">Gib ab</small><div class="chips">${have.map(k => `<button class="chip press${k === t.from ? " on" : ""}" data-act="c3-txf" data-k="${k}">${ricon(k, 14)}${Math.floor(g.r[k])} ${RES[k].n}</button>`).join("")}</div>
+    <small class="txl">Bekomme</small><div class="chips">${tos.map(k => `<button class="chip press${k === t.to ? " on" : ""}" data-act="c3-txt" data-k="${k}">${ricon(k, 14)}${RES[k].n}</button>`).join("")}</div>
+    <div class="txrow"><button class="c3x dk press" data-act="c3-txn" data-d="-1" aria-label="Weniger">−</button><div class="txeq"><span class="rc${ok ? "" : " miss"}">${ricon(t.from, 16)}${cost} ${RES[t.from].n}</span><span class="arr">→</span><span class="rc">${ricon(t.to, 16)}${t.n} ${RES[t.to].n}</span></div><button class="c3x dk press" data-act="c3-txn" data-d="1" aria-label="Mehr">+</button></div>
+    <button class="btn2 acc press" style="width:100%;margin-top:8px" data-act="c3-tx"${ok ? "" : " data-off=\"1\""}>${ok ? "Tauschen" : `Zu wenig ${RES[t.from].n} (mind. ${txCost(t.from, t.to, 1)})`}</button>`;
+}
 function c3lagerSheet(){
-  const g = eco(), used = lagerUsed(), cap = lagerCap(), tile = k => `<div class="rtile">${ricon(k, 26)}<b>${Math.floor(g.r[k])}</b><small>${RES[k].n}</small></div>`;
+  const g = eco(), used = lagerUsed(), cap = lagerCap(), need = orderNeed(), tile = k => `<div class="rtile" data-r="${k}">${ricon(k, 26)}<b>${Math.floor(g.r[k])}</b><small>${RES[k].n}</small>${need[k] ? `<small class="rneed${Math.floor(g.r[k]) >= need[k] ? "" : " miss"}">Aufträge: ${need[k]}</small>` : ""}</div>`;
   openSheet(`<h2>Lager</h2><p class="sub">${Math.floor(used)} von ${cap} Plätzen belegt · ${lagerL() ? `Lagerhaus Stufe ${lagerL()}` : "noch ohne Lagerhaus – baue eins für mehr Platz"}</p><div class="gbar"><i style="width:${Math.min(100, used / cap * 100)}%;background:var(--accent)"></i></div>
     <h3 class="rh">Grund-Ressourcen</h3><div class="rgrid">${RBASE.filter(k => k !== "daten" && k !== "fach").map(tile).join("")}</div>
     <h3 class="rh">Bauteile aus Fabriken</h3><div class="rgrid">${RPROD.map(tile).join("")}</div>
     <h3 class="rh">Außerhalb des Lagers</h3><div class="rgrid">${tile("daten")}${tile("fach")}</div>
-    <p class="legend">Messdaten: höchstens ${extraCap("daten")}. Fachkräfte: höchstens ${extraCap("fach")} (mehr mit höherem Bahnhof). Bau-Beschleuniger: ${g.inv.speed}. Serienschutz: ${g.sh} von ${shCap()}.</p>`);
+    <p class="legend">Messdaten: höchstens ${extraCap("daten")}. Fachkräfte: höchstens ${extraCap("fach")} (mehr mit höherem Bahnhof). Bau-Beschleuniger: ${g.inv.speed}. Serienschutz: ${g.sh} von ${shCap()}.</p>
+    <h3 class="rh">Tauschen</h3><div class="panel glass">${txHTML()}</div>`);
+  C3.sheet = "lager";
 }
 function c3ordersSheet(){
   const g = eco(); ordersTick(); const now = Date.now(), bonus = hasB("buero") ? 1.15 : 1;
   const card = (o, i) => { if (!o || o.wait) return `<div class="ocard wait">${C3I2.orders}<small>Neuer Auftrag in ${gDur(((o && o.wait) - now) / 1000)}</small></div>`;
     const ok = orderOk(o), rew = `<span class="orew"><i class="c3cn sm">₿</i>${fmtB(Math.round(o.rew.b * bonus))} · ${o.rew.xp} XP${o.rew.r ? ` · ${ricon(o.rew.r[0], 14)}${o.rew.r[1]}` : ""}${o.rew.speed ? " · Beschleuniger" : ""}${o.rew.deko ? ` · ${GT[o.rew.deko].n}` : ""}</span>`;
-    const need = o.kind === "res" ? costHTML(o.need, undefined, true) : `<div class="gbar" style="margin:6px 0 2px"><i style="width:${Math.min(100, o.c / o.n * 100)}%;background:${o.f ? cssC(o.f) : "var(--accent)"}"></i></div><small>${Math.min(o.c, o.n)} von ${o.n}</small>`;
+    const need = o.kind === "res" ? costHTML(o.need, undefined, true, true) : `<div class="gbar" style="margin:6px 0 2px"><i style="width:${Math.min(100, o.c / o.n * 100)}%;background:${o.f ? cssC(o.f) : "var(--accent)"}"></i></div><small>${Math.min(o.c, o.n)} von ${o.n}</small>`;
     return `<div class="ocard${ok ? " ok" : ""}${o.kind === "lern" ? " lern" : ""}"><b>${o.kind === "lern" ? "Lernauftrag" : esc(o.name)}</b><small>${o.kind === "lern" ? esc(o.name) : "braucht"}</small>${need}${rew}
       <div class="obtn"><button class="btn2 ${ok ? "acc " : ""}sm press" data-act="c3-odo" data-i="${i}"${ok ? "" : " data-off=\"1\""}>${o.kind === "lern" ? "Abholen" : "Liefern"}</button><button class="c3x dk press" data-act="c3-odrop" data-i="${i}" aria-label="Verwerfen">${I.x}</button></div></div>`; };
-  openSheet(`<h2>Auftragsblatt</h2><p class="sub">Liefere Ressourcen oder erfülle Lernaufträge. Einen Auftrag am Tag darfst du verwerfen.${bonus > 1 ? " Bürohochhaus: +15 % Bitcoin." : ""}</p><div class="ogrid">${g.orders.map(card).join("")}</div>`);
+  openSheet(`<h2>Auftragsblatt</h2><p class="sub">Liefere Ressourcen oder erfülle Lernaufträge. Einen Auftrag am Tag darfst du verwerfen.${bonus > 1 ? " Bürohochhaus: +15 % Bitcoin." : ""}</p><p class="legend" style="margin:-4px 0 6px">Zahlen bei Ressourcen: <b>im Lager / gebraucht</b> – grün reicht, rot fehlt. Überschuss tauschst du im Lager.</p><div class="ogrid">${g.orders.map(card).join("")}</div>`);
   C3.sheet = "orders";
 }
 function c3fabSheet(b){
@@ -4341,27 +4443,42 @@ function c3chestSheet(out){
 
 /* ── Bauleiste mit Kategorien ── */
 function c3drawerHTML(){
-  const g = eco(), s = C3.sel, cat = C3.cat || 0;
+  const g = eco(), s = C3.sel, cat = C3.cat || 0, th = c3thumbs() || {};
   const tabs = GCAT.map((c, i) => `<button class="c3tab press${i === cat ? " on" : ""}" data-act="c3-cat" data-i="${i}">${c[0]}</button>`).join("");
   const cards = GCAT[cat][1].map(k => { const t = GT[k], why = gReq(k, 1), free = t.deko && (g.inv.deko[k] || 0) > 0, rc = free ? {} : ecoCost(k, 1), c = free ? 0 : t.cost[0], poor = !why && g.coins < c, lack = !why && !ecoHave(rc);
-    return `<button class="c3card press${why || poor || lack ? " off" : ""}" data-act="c3-card" data-k="${k}" style="${t.f ? `--c:${cssC(t.f)}` : ""}"><div class="gico">${gIcon(k)}</div><b>${t.n}</b>${free ? `<span class="c3pr">${g.inv.deko[k]}× gratis</span>` : costHTML(rc, c)}<small>${why || (t.time[0] ? `Bauzeit ${gDur(t.time[0])} · ` : "") + t.d}</small></button>`; }).join("");
+    return `<button class="c3card press${why || poor || lack ? " off" : ""}" data-act="c3-card" data-k="${k}" style="${t.f ? `--c:${cssC(t.f)}` : ""}">${th[k] ? `<img class="c3th" src="${th[k]}" alt="">` : `<div class="gico">${gIcon(k)}</div>`}<b>${t.n}</b>${free ? `<span class="c3pr">${g.inv.deko[k]}× gratis</span>` : costHTML(rc, c)}<small>${why || (t.time[0] ? `Bauzeit ${gDur(t.time[0])} · ` : "") + t.d}</small></button>`; }).join("");
   return `<div class="c3dh"><div><b>${s ? `Bauen auf Feld ${s[0] + 1}·${s[1] + 1}` : "Was möchtest du bauen?"}</b><small>Du hast ₿ ${fmtB(g.coins)}${s ? "" : " · danach Fläche antippen"}</small></div><button class="c3x press" data-act="c3-drawer" aria-label="Schließen">${I.close}</button></div><div class="c3tabs">${tabs}</div><div class="c3cards">${cards}</div>`;
 }
 
 /* ── Blasen über Werken und Fabriken ── */
+/* v2.5.4: Restzeit über laufenden Fabriken, „Pause“ über leeren, Rauch und leichtes Arbeiten nur bei Produktion */
+const C3GEAR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.6M12 18.4V21M3 12h2.6M18.4 12H21M5.6 5.6l1.9 1.9M16.5 16.5l1.9 1.9M5.6 18.4l1.9-1.9M16.5 7.5l1.9-1.9"/></svg>';
+const c3tm = s => { s = Math.max(0, Math.ceil(s)); if (s < 3600) return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60); return h + " h " + String(m).padStart(2, "0"); };
+const c3fabAktiv = b => FAB[b.k] && b.l >= 1 && fabJobs(b).some(j => j.s <= Date.now() && j.e > Date.now());
+setInterval(() => {
+  if (!C3.open || document.hidden) return;
+  C3.akt = C3.akt || {}; C3.akTick = (C3.akTick || 0) + 1; let neu = 0;
+  G().b.forEach(b => { if (!FAB[b.k]) return; const a = c3fabAktiv(b);
+    if (C3.akt[b.id] !== undefined && C3.akt[b.id] !== a) { C3.keys[b.id] = ""; neu = 1; }
+    C3.akt[b.id] = a; if (a && C3.akTick % 3 === 0) c3wobble(b.id, .025); });
+  if (neu) { try { c3sync(); } catch (e) {} }
+  c3bubSync();
+}, 1000);
 function c3bubs(){
   const out = [];
   G().b.forEach(b => { if (b.until > Date.now() && b.l < 1) return;
     if (WERK[b.k] && (b.st || 0) >= 1) out.push([b.id, "w", `${ricon(WERK[b.k].r, 18)}<b>${Math.floor(b.st)}</b>`]);
     else if (FAB[b.k] && fabReady(b)) out.push([b.id, "f", `${ricon(Object.keys(FAB[b.k].out)[0], 18)}<b>✓</b>`]);
-    else if (WERK[b.k] && werkIdle(b)) out.push([b.id, "z", "<b>Zz</b>"]);
+    else if (FAB[b.k] && b.l >= 1) { const now = Date.now(), J = fabJobs(b), cur = J.find(j => j.s <= now && j.e > now);
+      if (cur) out.push([b.id, "p", `<i class="gear">${C3GEAR}</i><b>${c3tm((cur.e - now) / 1000)}</b>${J.length > 1 ? `<small>+${J.length - 1}</small>` : ""}`]);
+      else if (!J.length) out.push([b.id, "i", "<b>Pause</b>"]); }
     if (b.k === "rathaus" && chestReady()) out.push([b.id, "c", `${C3I2.chest}<b>Truhe</b>`]); });
   return out;
 }
 function c3bubSync(){
   const box = $("#c3labs"); if (!box) return; C3.bub = C3.bub || {}; const want = {};
   c3bubs().forEach(([id, kind, html]) => { const key = id + kind; want[key] = 1; let o = C3.bub[key];
-    if (!o) { const el = document.createElement("button"); el.className = "c3bub press k" + kind; if (kind !== "z") { el.dataset.act = kind === "c" ? "c3-chest" : kind === "w" ? "c3-col" : "c3-fcol"; el.dataset.id = id; } box.appendChild(el); o = C3.bub[key] = {el, id, kind}; }
+    if (!o) { const el = document.createElement("button"); el.className = "c3bub press k" + kind; if (kind !== "z") { el.dataset.act = kind === "c" ? "c3-chest" : kind === "w" ? "c3-col" : kind === "p" || kind === "i" ? "c3-fab" : "c3-fcol"; el.dataset.id = id; } box.appendChild(el); o = C3.bub[key] = {el, id, kind}; }
     if (o.html !== html) { o.el.innerHTML = html; o.html = html; } });
   for (const k in C3.bub) if (!want[k]) { C3.bub[k].el.remove(); delete C3.bub[k]; }
 }
@@ -4432,11 +4549,15 @@ function c3Act23(a, ds){
   else if (a === "c3-up" && b) { gAct("g-up", {id: b.id}); C3.shown = G().coins; c3cardDraw(); }
   else if (a === "c3-det" && b) { c3cardClose(); gBuildingSheet(b); }
   else if (a === "c3-mv" && b) { c3cardClose(); GMOVE = b.id; C3.hlKey = ""; c3hl(); c3hud(); }
-  else if (a === "c3-col" && b) { const n = ecoCollect(b); if (n) { c3crates(b, n, WERK[b.k].r); toast(`+${n} ${RES[WERK[b.k].r].n}`); } c3cardDraw(); c3bubSync(); }
-  else if (a === "c3-fcol" && b) { const res = Object.keys(FAB[b.k].out)[0], n = fabCollect(b); if (n) { c3crates(b, n, res); toast(`+${n} ${RES[res].n}`); } c3cardDraw(); c3bubSync(); if (C3.sheet === "fab:" + b.id && !$("#sheet").hidden) c3fabSheet(b); }
+  else if (a === "c3-col" && b) { const n = ecoCollect(b); if (n) { haptic(true); c3crates(b, n, WERK[b.k].r); toast(`+${n} ${RES[WERK[b.k].r].n}`); } c3cardDraw(); c3bubSync(); }
+  else if (a === "c3-fcol" && b) { const res = Object.keys(FAB[b.k].out)[0], n = fabCollect(b); if (n) { haptic(true); c3crates(b, n, res); toast(`+${n} ${RES[res].n}`); } c3cardDraw(); c3bubSync(); if (C3.sheet === "fab:" + b.id && !$("#sheet").hidden) c3fabSheet(b); }
   else if (a === "c3-fab" && b) { c3cardClose(); c3fabSheet(b); }
   else if (a === "c3-fgo" && b) { const e = fabStart(b); toast(e || `${GT[b.k].n}: Produktion gestartet`); c3fabSheet(b); C3.keys[b.id] = ""; }
-  else if (a === "c3-lager") { c3cardClose(); c3lagerSheet(); }
+  else if (a === "c3-lager") { c3cardClose(); c3lagerSheet(); if (ds.r) setTimeout(() => { const t = document.querySelector(`#sheet .rtile[data-r="${ds.r}"]`); if (t) { t.classList.add("hl"); t.scrollIntoView({block: "center", behavior: "smooth"}); } }, 120); }
+  else if (a === "c3-txf") { C3.tx = Object.assign(C3.tx || {}, {from: ds.k, n: 1}); if (C3.tx.to === ds.k) C3.tx.to = ""; c3lagerKeep(); }
+  else if (a === "c3-txt") { C3.tx = Object.assign(C3.tx || {}, {to: ds.k, n: 1}); c3lagerKeep(); }
+  else if (a === "c3-txn") { const t = C3.tx || (C3.tx = {}); t.n = Math.max(1, Math.min((t.n || 1) + +ds.d, Math.max(1, txMax(t.from, t.to)))); c3lagerKeep(); }
+  else if (a === "c3-tx") { const e = txDo(); toast(e); c3lagerKeep(); c3hud(); }
   else if (a === "c3-orders") { c3cardClose(); c3ordersSheet(); }
   else if (a === "c3-odo") { const e = orderDeliver(+ds.i); if (e) toast(e); else { toast("Auftrag erledigt"); C3.shown = C3.shown; } c3ordersSheet(); c3hud(); }
   else if (a === "c3-odrop") { const e = orderDrop(+ds.i); toast(e || "Auftrag verworfen – ein neuer kommt in 10 Minuten"); c3ordersSheet(); }
@@ -4452,7 +4573,6 @@ function c3Act23(a, ds){
   else return false;
   return true;
 }
-
 /* ═════════ v3.0: Stadt 3.0 – Modelle aus den Kenney-Baukästen (CC0, kenney.nl) ═════════ */
 const C3MOD = {ready: false, busy: false, cat: {}, mat: {}, err: "", wait: []};
 function c3modLoad(done){
@@ -4495,9 +4615,10 @@ function c3modMat(key, src){
   if (C3MOD.mat[key]) return C3MOD.mat[key];
   if (src.map) { src.map.encoding = THREE.LinearEncoding; src.map.anisotropy = 4; src.map.needsUpdate = true; }       // wie die übrige Szene: Farben unverändert
   const day = new THREE.MeshStandardMaterial({map: src.map || null, color: src.map ? 0xffffff : src.color, roughness: .82, metalness: 0}); day.userData.c3 = 1;
+  const dim = day.clone(); dim.color = new THREE.Color(0xb2b2ba); dim.userData.c3 = 1;              // Stillstand: Gebäude wirkt grau und leer
   const lit = day.clone(); lit.userData.c3 = 1; const gm = src.map && c3modGlow(src.map);
   if (gm) { lit.emissive = new THREE.Color(0xffd48a); lit.emissiveMap = gm; lit.emissiveIntensity = 0; }
-  return C3MOD.mat[key] = {day, lit};
+  return C3MOD.mat[key] = {day, lit, dim};
 }
 function c3modIndex(root){
   root.updateMatrixWorld(true); const inv = new THREE.Matrix4();
@@ -4517,7 +4638,7 @@ function c3modIndex(root){
 function c3M(name, x = 0, z = 0, r = 0, s = 1, o = {}){
   const c = C3MOD.cat[name]; if (!c) return null;
   const g = new THREE.Group(), inner = new THREE.Group(); inner.position.set(-c.c.x, -c.box.min.y, -c.c.z); g.add(inner);
-  c.list.forEach(p => { const m = new THREE.Mesh(p.g, o.raw ? C3MOD.clay : o.lit ? p.m.lit : p.m.day); m.castShadow = o.shadow !== false; m.receiveShadow = true; inner.add(m); });
+  c.list.forEach(p => { const m = new THREE.Mesh(p.g, o.raw ? C3MOD.clay : o.dim ? p.m.dim : o.lit ? p.m.lit : p.m.day); m.castShadow = o.shadow !== false; m.receiveShadow = true; m.userData.bk = 1; inner.add(m); });
   g.position.set(x, o.y || 0, z); g.rotation.y = r * Math.PI / 2; g.scale.setScalar(s); return g;
 }
 const c3MS = name => C3MOD.cat[name] ? C3MOD.cat[name].size : new THREE.Vector3(1, 1, 1);
@@ -4527,20 +4648,40 @@ function c3MI(name, list, shadow = false){
   const o = new THREE.Object3D(), off = new THREE.Matrix4().makeTranslation(-c.c.x, -c.box.min.y, -c.c.z);
   c.list.forEach(p => { const m = new THREE.InstancedMesh(p.g, p.m.day, list.length);
     list.forEach(([x, z, r, s = 1, y = 0], i) => { o.position.set(x, y, z); o.rotation.set(0, r * Math.PI / 2, 0); o.scale.setScalar(s); o.updateMatrix(); m.setMatrixAt(i, o.matrix.clone().multiply(off)); });
-    m.castShadow = shadow; m.receiveShadow = true; g.add(m); });
+    m.castShadow = shadow; m.receiveShadow = true; m.frustumCulled = false; g.add(m); });
   return g;
 }
 
 /* ── Gebäude: Zusammenstellung je Typ und Stufe. Grundstück 2 × 2, Vorderseite zeigt nach +z (Straße) ── */
 const C3V = (id, a) => a[((id * 2654435761) >>> 0) % a.length];
 const C3FIT = 1.8;
-function c3B(spec, raw, lit){
+function c3B(spec, raw, lit, dim){
   const g = new THREE.Group(), emit = [];
   spec.forEach(e => { if (!e) return; const [n, x = 0, z = 0, r = 0, s = 0, smoke] = e; const sz = c3MS(n);
     const fp = Math.max(sz.x, sz.z), sc = s > 0 ? s : Math.min(1.35, (s < 0 ? -s : C3FIT) / fp);
-    const m = c3M(n, x, z, r, sc, {raw, lit: lit && !/^(car|road)_/.test(n)}); if (!m) return; g.add(m);
+    const m = c3M(n, x, z, r, sc, {raw, dim: dim && !/^(car|road)_/.test(n), lit: lit && !/^(car|road)_/.test(n)}); if (!m) return; g.add(m);
     if (smoke) emit.push([x, sz.y * sc + .04, z]); });
-  g.userData.emit = emit; return g;
+  g.userData.emit = emit; return c3bake(g);
+}
+/* Leistung: alle Modellteile eines Gebäudes je Material zu einer Geometrie zusammenfassen (wenige Zeichenaufrufe) */
+function c3bake(g){
+  g.updateMatrixWorld(true); const by = new Map(), inv = new THREE.Matrix4().copy(g.matrixWorld).invert(), rm = [];
+  g.traverse(o => { if (o.isMesh && o.userData.bk) { if (!by.has(o.material)) by.set(o.material, []); by.get(o.material).push({g: o.geometry, m: inv.clone().multiply(o.matrixWorld)}); rm.push(o); } });
+  if (rm.length < 2) return g;
+  rm.forEach(o => o.parent.remove(o));
+  by.forEach((list, mat) => { const geo = c3modMerge(list); geo.userData.mod = 0; const m = new THREE.Mesh(geo, mat); m.castShadow = true; m.receiveShadow = true; g.add(m); });
+  return g;
+}
+/* Grafik: schön / schnell / automatisch; Schatten folgen der Kamera */
+function c3gfx(){
+  if (!C3.r) return; const m = S.c3gfx || "auto", fast = m === "schnell" || (m === "auto" && !!C3.lowAuto);
+  C3.fast = fast; C3.sun.castShadow = !fast; C3.r.setPixelRatio(fast ? 1 : Math.min(window.devicePixelRatio || 1, 2)); c3resize(); C3.shK = "";
+}
+function c3shadowTick(){
+  const s = C3.sun, o = C3.sunO; if (!s || !o) return; const c = C3CAM, q = 2, tx = Math.round(c.tx / q) * q, tz = Math.round(c.tz / q) * q, e = Math.round(c3clamp(c.r * .8, 9, 26)), k = [tx, tz, e, o.x | 0, o.y | 0, o.z | 0].join();
+  if (C3.shK === k) return; C3.shK = k;
+  s.target.position.set(tx, 0, tz); s.target.updateMatrixWorld(); s.position.set(tx + o.x, o.y, tz + o.z);
+  const sc = s.shadow.camera; sc.left = sc.bottom = -e; sc.right = sc.top = e; sc.far = 120; sc.updateProjectionMatrix();
 }
 const S_ = n => "sub_building-type-" + n, CO = n => "com_building-" + n, IN = n => "ind_building-" + n;
 const TREE = (x, z, s = 1.9) => ["sub_tree-large", x, z, 0, s], TREES = (x, z, s = 1.7) => ["sub_tree-small", x, z, 0, s];
@@ -4569,26 +4710,32 @@ const C3BAU = {
   glaserei: L => [[IN("q"), 0, -.1, 0, -1.75], ["ind_chimney-small", .75, -.7, 0, 1.1, 1], L >= 3 && TREES(-.8, .8)],
   abbundhalle: L => [[IN("i"), 0, -.2, 0, -1.7], CAR("truck-flat", .55, .7, 1), L >= 2 && ["ind_shipping-container-c", -.7, .7, 0, 1.1]],
   fertigteilwerk: L => [[IN("o"), 0, -.2, 0, -1.6], ["ind_chimney-medium", .8, -.75, 0, .55, 1], CAR("delivery-flat", -.45, .7, 1), L >= 2 && ["ind_detail-tank", .7, .65, 1, .9]],
-  meinhaus: L => [
-    L === 1 ? ["ind_shipping-container-b", -.2, -.1, 1, 1.5] : L === 5 ? [S_("p"), .2, -.3, 0, 1.45] : [S_(["", "k", "f", "t"][L - 1]), -.05, -.25, 0, -[0, 1.0, 1.6, 1.85][L - 1]],
-    L === 1 && ["road_construction-cone", .55, .55, 0, 1.4], L === 1 && ["road_construction-light", .7, .3, 0, 1.4],
-    L >= 3 && TREE(-.85, -.75), L >= 4 && CAR(L >= 5 ? "suv-luxury" : "sedan", .68, .6, 0), L === 4 && ["sub_planter", -.35, .8, 0, 1.4],
-    L >= 5 && TREES(-.95, -.2), L >= 5 && TREES(.95, -.85, 2)]
+  park: (L, id) => [TREE(-.62, -.6, 2), TREE(.6, .58, 1.8), TREES(.66, -.62), TREES(-.64, .62, 1.9), ["sub_planter", 0, 0, 0, 1.7], C3V(id, [["com_detail-parasol-a", .55, .05, 0, 1.3], ["sub_planter", .6, 0, 1, 1.2]])],
+  meinhaus: L => { const o = Object.assign(hausDef(L), G().haus || {}), alt = o.form === "b", F = "sub_fence-1x4";
+    const H = L === 1 ? ["ind_shipping-container-" + (alt ? "a" : "b"), -.2, -.1, 1, 1.5] : L === 5 ? [S_(alt ? "l" : "p"), alt ? .4 : .2, -.3, 0, alt ? 1.4 : 1.45]
+      : [S_((alt ? ["", "r", "e", "n"] : ["", "k", "f", "t"])[L - 1]), -.05, -.25, 0, -[0, 1.0, 1.6, 1.85][L - 1]];
+    return [H, L === 1 && ["road_construction-cone", .55, .55, 0, 1.4], L === 1 && ["road_construction-light", .7, .3, 0, 1.4],
+      o.zaun === "ja" && [F, 0, -1.12, 0, 1.33], o.zaun === "ja" && [F, -1.12, 0, 1, 1.33], o.zaun === "ja" && [F, 1.12, 0, 1, 1.33],
+      L >= 3 && TREE(-.85, -.75), o.auto && CAR(o.auto, .7, .72, 0),
+      o.garten === "beete" && ["sub_planter", -.35, .8, 0, 1.4], o.garten === "beete" && ["sub_planter", -.85, .2, 1, 1.3],
+      o.garten === "baeume" && TREES(-.9, .8), o.garten === "baeume" && TREE(.9, -.8, 2.1), o.garten === "baeume" && TREES(-.9, .1, 1.5),
+      L >= 5 && TREES(-.95, -.2)]; }
 };
-function c3modBody(k, L, id, raw, ex){
+function c3modBody(k, L, id, raw, ex, dim){
   const f = C3MOD.ready && C3BAU[k]; if (!f) return null;
-  const g = c3B(f(Math.max(1, L), id, ex), raw, c3lit(id));
-  if (k === "meinhaus" && L >= 5 && !raw) { const K = new C3Kit(); K.box("white", .78, .06, .5, -.55, 0, .45); K.box("water", .66, .02, .38, -.55, .05, .45); g.add(K.build()); }
+  const g = c3B(f(Math.max(1, L), id, ex), raw, c3lit(id), dim);
+  if (k === "park") { const K = new C3Kit(); K.box("lawn", 1.86, .05, 1.86); K.box("paving", 1.86, .06, .32); K.box("paving", .32, .06, 1.86); g.add(K.build()); }
+  if (k === "meinhaus" && L >= 5 && !raw) { const K = new C3Kit(); K.box("white", .78, .06, .5, -.6, 0, .6); K.box("water", .66, .02, .38, -.6, .05, .6); g.add(K.build()); }
   return g;
 }
 
 /* ── Straßennetz aus Kacheln (1 Kachel = 1,6) ── */
 const C3T = 1.6;
 function c3roadCells(){
-  const R = [-9, -3, 3, 9], on = {};
-  for (let a = -9; a <= 9; a++) for (const c of R) { on[a + "," + c] = 1; on[c + "," + a] = 1; }
-  for (let z = 10; z <= 44; z++) on["3," + z] = 1;                  // Landstraße nach Süden
-  on["10,3"] = 1;                                                    // Bahnhofszufahrt
+  const R = [-10, -6, 0, 6, 10], on = {};
+  for (let a = -10; a <= 10; a++) for (const c of R) { on[a + "," + c] = 1; on[c + "," + a] = 1; }
+  for (let z = 11; z <= 44; z++) on["0," + z] = 1;                  // Landstraße nach Süden
+  on["11,0"] = 1;                                                    // Bahnhofszufahrt
   return on;
 }
 function c3roads(){
@@ -4598,12 +4745,12 @@ function c3roads(){
   }
   const L = {straight: [], crossing: [], crossroad: [], intersection: [], bend: [], end: []}, lamps = [], tl = [];
   for (const key in on) { const [x, z] = key.split(",").map(Number), n = has(x, z - 1), e = has(x + 1, z), s = has(x, z + 1), w = has(x - 1, z), c = n + e + s + w, P = [x * T, z * T];
-    if (c === 4) { L.crossroad.push([...P, 0]); if (Math.abs(x) === 3 && Math.abs(z) === 3) tl.push(P); }
+    if (c === 4) { L.crossroad.push([...P, 0]); if (Math.abs(x) <= 6 && Math.abs(z) <= 6 && x * z === 0) tl.push(P); }
     else if (c === 3) L.intersection.push([...P, !n ? 0 : !w ? 1 : !s ? 2 : 3]);
     else if (c === 2 && (n && s || e && w)) { const r = n ? 1 : 0, along = r ? z : x, across = r ? x : z;
-      const nb = r ? [[x, z - 1], [x, z + 1]] : [[x - 1, z], [x + 1, z]], nextToX = Math.abs(across) === 3 && nb.some(([a, b]) => has(a - 1, b) + has(a + 1, b) + has(a, b - 1) + has(a, b + 1) === 4);
+      const nb = r ? [[x, z - 1], [x, z + 1]] : [[x - 1, z], [x + 1, z]], nextToX = Math.abs(across) < 10 && nb.some(([a, b]) => has(a - 1, b) + has(a + 1, b) + has(a, b - 1) + has(a, b + 1) === 4);
       (nextToX ? L.crossing : L.straight).push([...P, r]);
-      if (along % 2 === 0 && !nextToX && z < 30) for (const sd of [-1, 1]) { if (across * sd === 9) continue;
+      if (along % 2 === 0 && !nextToX && z < 30) for (const sd of [-1, 1]) { if (across * sd === 10) continue;
         lamps.push([r ? P[0] + .74 * sd : P[0], r ? P[1] : P[1] + .74 * sd, r ? (sd > 0 ? 1 : 3) : (sd > 0 ? 0 : 2)]); } }
     else if (c === 2) L.bend.push([...P, w && s ? 0 : s && e ? 1 : e && n ? 2 : 3]);
     else L.end.push([...P, e ? 0 : n ? 1 : w ? 2 : 3]);
@@ -4620,12 +4767,11 @@ function c3roads(){
   grp.add(K.build());
   grp.add(c3MI("road_construction-fence", [[x0 - .35, zr0 + 3.6, 1, 2], [x0 + .35, zr0 + 3.6, 1, 2]], true));
   grp.add(c3MI("road_construction-light", [[x0 + .9, zr0 + 3.9, 0, 2]], true));
-  grp.add(c3MI("road_sign-highway", [[4.8 + 1.1, C3R + 4, 0, 1.4]], true));
+  grp.add(c3MI("road_sign-highway", [[1.1, C3R + 4, 0, 1.4]], true));
   /* Grundstück „Mein Haus“ am Fluss: Rasen, Zaun, Zufahrt zur Ringstraße */
   const H = C3HAUS, KH = new C3Kit(); KH.box("lawn", 2.3, .06, 2.3, H.x, 0, H.z); KH.box("paving", .5, .03, C3HAUS.z * -1 - C3R - .8 - 1.15 + .05, H.x + .65, 0, (H.z + 1.15 + (-C3R - .8)) / 2); grp.add(KH.build());
-  grp.add(c3MI("sub_fence-1x4", [[H.x, H.z - 1.12, 0, 1.33], [H.x - 1.12, H.z, 1, 1.33], [H.x + 1.12, H.z, 1, 1.33]], true));
   /* Stromleitung an der Landstraße */
-  const poles = []; for (let z = C3R + 2.4; z < 60; z += 4.8) poles.push([4.8 - 1.15, z, 1, 1.5]); grp.add(c3MI("road_electricity-pole", poles, true));
+  const poles = []; for (let z = C3R + 2.4; z < 60; z += 4.8) poles.push([-1.15, z, 1, 1.5]); grp.add(c3MI("road_electricity-pole", poles, true));
   return grp;
 }
 function c3lampSpots(){                                              // Lichtkegel der Laternen am Boden (nachts)
@@ -4662,6 +4808,275 @@ function c3decor(occ){
 }
 
 setTimeout(() => { try { if (c3Ok()) c3modLoad(); } catch(e) {} }, 2500);   // Modelle früh im Hintergrund laden
+
+/* ═════════ v3.0: Bedienung – Menü, Rohstoffleiste, Hochzählen, Vorschaubilder ═════════ */
+const C3SVG = {
+  sun: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>',
+  moon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.3 6.3 0 0 0 10.5 10.5z"/></svg>',
+  gfx: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4M7 13l3-3 2 2 4-4"/></svg>',
+  crew: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16a7 7 0 0 1 14 0zM3.5 16h17v2.5h-17zM12 6v4"/></svg>',
+  ziel: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>'
+};
+function c3menuHTML(){
+  const m = S.c3gfx || "auto";
+  return `<button class="c3mi press" data-act="g-info">${C3I.info}<span>So verdienst du Bitcoin</span></button>
+    <button class="c3mi press" data-act="c3-home">${C3I.home}<span>Ansicht zurücksetzen</span></button>
+    <button class="c3mi press${C3.umbau ? " on" : ""}" data-act="c3-umbau">${C3I2.move}<span>Stadt umbauen</span></button>
+    <button class="c3mi press" data-act="c3-tag">${S.c3tag ? C3SVG.sun : C3SVG.moon}<span>${S.c3tag ? "Immer Tag" : "Echte Tageszeit"}</span><small>wechseln</small></button>
+    <button class="c3mi press" data-act="c3-gfx">${C3SVG.gfx}<span>Grafik: ${{auto: "automatisch", schoen: "schön", schnell: "schnell"}[m]}${m === "auto" && C3.lowAuto ? " (schnell)" : ""}</span><small>${C3.fps ? C3.fps + " Bilder/s" : ""}</small></button>
+    <div class="c3mi info">${C3SVG.crew}<span>Bautrupps frei</span><small id="c3crew">${gBusy().length}/${gTr()}</small></div>`;
+}
+function c3menuShow(on){
+  C3.menu = on; const m = $("#c3menu"); if (!m) return;
+  if (on) { m.innerHTML = c3menuHTML(); m.hidden = false; requestAnimationFrame(() => m.classList.add("show")); }
+  else { m.classList.remove("show"); setTimeout(() => { if (!C3.menu) m.hidden = true; }, 200); }
+  $("#c3menub").classList.toggle("on", on);
+}
+/* Rohstoffleiste oben: feste Reihenfolge, Zahlen zählen hoch, voller Lagerplatz wird orange */
+function c3tween(el, a, b){ const t0 = performance.now(), d = 650; const f = now => { const k = Math.min(1, (now - t0) / d), e = 1 - Math.pow(1 - k, 3); el.textContent = Math.round(a + (b - a) * e); if (k < 1) requestAnimationFrame(f); }; requestAnimationFrame(f); }
+function c3resSync(){
+  const rb = $("#c3res"); if (!rb) return; const rr = eco().r, used = lagerUsed(), cap = lagerCap();
+  const ks = [...RBASE, ...RPROD].filter(k => RBASE.includes(k) || (rr[k] || 0) >= 1), key = ks.join();
+  if (rb.dataset.k !== key) { rb.dataset.k = key; C3.rs = {};
+    rb.innerHTML = ks.map(k => `<button class="c3r press" data-act="c3-lager" data-r="${k}" aria-label="${RES[k].n}">${ricon(k, 28)}<span><b>0</b><small>${RES[k].n}</small></span></button>`).join("")
+      + `<button class="c3r cap press" data-act="c3-lager"><span><b></b><small>im Lager</small></span></button>`; }
+  C3.rs = C3.rs || {};
+  ks.forEach(k => { const v = Math.floor(rr[k] || 0), el = rb.querySelector(`[data-r="${k}"]`); if (!el) return; const o = C3.rs[k], b = el.querySelector("b");
+    el.classList.toggle("zero", v < 1);
+    if (o === undefined) b.textContent = v; else if (o !== v) { c3tween(b, o, v); if (v > o) { el.classList.remove("bump"); void el.offsetWidth; el.classList.add("bump"); } }
+    C3.rs[k] = v; });
+  const ce = rb.querySelector(".cap"); ce.querySelector("b").textContent = `${Math.floor(used)}/${cap}`; ce.classList.toggle("full", used >= cap * .9);
+}
+/* Vorschaubilder der Gebäude für die Bauleiste (einmal gerendert, dann im Speicher) */
+function c3thumbs(){
+  if (C3.thumbs || !C3MOD.ready || !C3.init) return C3.thumbs || null; C3.thumbs = {};
+  let r;
+  try { const N = 168; r = new THREE.WebGLRenderer({antialias: true, alpha: true, preserveDrawingBuffer: true}); r.setPixelRatio(1); r.setSize(N, N); r.setClearColor(0, 0);
+    const sc = new THREE.Scene(); sc.add(new THREE.HemisphereLight(0xeaf3ff, 0x6b7f4f, .95)); const d = new THREE.DirectionalLight(0xfff6e8, .85); d.position.set(4, 7, 5); sc.add(d);
+    const cam = new THREE.PerspectiveCamera(28, 1, .1, 60), v = new THREE.Vector3(.62, .58, .53).normalize();
+    GORDER.forEach(k => { const t = GT[k]; let o; try { o = c3body(k, Math.min(t.max, k === "meinhaus" ? 4 : t.max >= 3 ? 2 : 1), 7, false, .5); } catch(e) { return; }
+      sc.add(o); const bb = new THREE.Box3().setFromObject(o); if (bb.isEmpty()) { sc.remove(o); return; }
+      const c = bb.getCenter(new THREE.Vector3()), rad = Math.max(.6, bb.getSize(new THREE.Vector3()).length() / 2), dist = rad / Math.sin(14 * Math.PI / 180);
+      cam.position.copy(c).addScaledVector(v, dist); cam.lookAt(c); r.render(sc, cam); C3.thumbs[k] = r.domElement.toDataURL("image/png"); sc.remove(o); c3dispose(o); });
+  } catch(e) { console.error(e); }
+  try { r && (r.dispose(), r.forceContextLoss()); } catch(e) {}
+  return C3.thumbs;
+}
+
+/* ═════════ v3.0: Grafik-Rest – flacher Kenney-Stil, Park, Felder, Lkw zu Fabriken, Parken, Zoomstufen ═════════ */
+function c3flatStyle(M){                                             // eigene Modelle (Rathaus, Wahrzeichen, Deko) im Stil der Kenney-Palette
+  const col = {brick: 0xc8694c, plinth: 0x8e8b92, wood: 0xb47a45, woodDark: 0x8f6d55, timber: 0xf0d6b0, concrete: 0xcbc8c2, raw: 0xd6d1c6, paving: 0xe2dfd8, side: 0xc4c3be, plank: 0xe2c49a};
+  ["brick", "plinth", "cream", "white", "lilac", "grey", "roofRed", "roofDark", "roofPurple", "roofPink", "copper", "wood", "woodDark", "timber", "concrete", "raw", "paving", "side", "plank"].forEach(k => {
+    const m = M[k]; if (!m) return; m.map = null; if (col[k]) m.color.setHex(col[k]); m.roughness = .78; m.needsUpdate = true; });
+}
+/* Felder vor der Stadt */
+const C3FELD = [[-28, -4, 9, 7, .15], [-27, 8, 8, 8, -.1], [-14, 27, 10, 6, .05], [14, 28, 9, 7, -.2]];
+const c3imFeld = (x, z, pad = 0) => C3FELD.some(([cx, cz, w, d, r]) => { const dx = x - cx, dz = z - cz, c = Math.cos(r), s = Math.sin(r), u = dx * c - dz * s, v = dx * s + dz * c; return Math.abs(u) < w / 2 + pad && Math.abs(v) < d / 2 + pad; });
+function c3felder(){
+  const g = new THREE.Group(), cols = [[0xd9b64a, 0xc9a43c], [0x7fae45, 0x6c9a3a], [0xa47a4c, 0x8f6a42], [0xc7c45a, 0xb3ae4b]];
+  C3FELD.forEach(([cx, cz, w, d, r], i) => {
+    const geo = new THREE.PlaneGeometry(w, d, Math.round(w / .45), 10).rotateX(-Math.PI / 2), p = geo.attributes.position, c = Math.cos(r), s = Math.sin(r), C = [], ca = new THREE.Color(), [a, b] = cols[i % cols.length];
+    for (let j = 0; j < p.count; j++) { const u = p.getX(j), v = p.getZ(j), x = cx + u * c + v * s, z = cz - u * s + v * c; p.setXYZ(j, x, c3h(x, z) + .05, z); }
+    const ng = geo.toNonIndexed(); geo.dispose(); const q = ng.attributes.position;
+    for (let j = 0; j < q.count; j += 3) { const x = (q.getX(j) + q.getX(j+1) + q.getX(j+2)) / 3 - cx, z = (q.getZ(j) + q.getZ(j+1) + q.getZ(j+2)) / 3 - cz, u = x * c - z * s; ca.setHex(Math.floor((u + w / 2) / .9) % 2 ? a : b);
+      for (let k = 0; k < 3; k++) C.push(ca.r, ca.g, ca.b); }
+    ng.setAttribute("color", new THREE.Float32BufferAttribute(C, 3)); ng.computeVertexNormals();
+    const m = new THREE.Mesh(ng, new THREE.MeshStandardMaterial({vertexColors: true, roughness: 1})); m.receiveShadow = true; g.add(m); });
+  if (C3MOD.ready) { const [cx, cz, w] = C3FELD[0], t = c3M("car_tractor", cx, cz, 0, .2); t.userData.feld = {cx, cz, w: w / 2 - .8, r: C3FELD[0][4]}; g.add(t); C3.tractor = t; }
+  return g;
+}
+function c3tractorTick(t){
+  const o = C3.tractor; if (!o) return; const f = o.userData.feld, u = Math.sin(t * .09) * f.w, dir = Math.cos(t * .09) >= 0 ? 1 : -1, v = (Math.floor(t * .09 / Math.PI) % 6 - 2.5) * .9, c = Math.cos(f.r), s = Math.sin(f.r);
+  const x = f.cx + u * c + v * s, z = f.cz - u * s + v * c; o.position.set(x, c3h(x, z) + .05, z); o.rotation.y = f.r + (dir > 0 ? 1 : -1) * Math.PI / 2;
+}
+/* Lkw bringen Rohstoffe von den Werken zu arbeitenden Fabriken */
+function c3lkwTick(dt){
+  if (!C3MOD.ready) return; C3.lkw = C3.lkw || []; const now = Date.now(), B = G().b;
+  if ((C3.lkwT = (C3.lkwT || 0) - dt) <= 0) { C3.lkwT = 3;
+    const fabs = B.filter(b => FAB[b.k] && (eco().fj[b.id] || []).some(j => j.s <= now && j.e > now)), werke = B.filter(b => WERK[b.k] && b.l >= 1 && !(b.until > now && b.l < 1));
+    C3.lkwWant = werke.length ? Math.min(8, fabs.length * 2) : 0;
+    if (C3.lkw.length < C3.lkwWant) { const f = fabs[C3.lkw.length % fabs.length], w = werke[Math.random() * werke.length | 0], a = c3lotPos(w), b = c3lotPos(f), ra = c3roadPt(a.x, a.z), rb = c3roadPt(b.x, b.z);
+      if (ra && rb) { const nodes = c3route(ra.a, rb.a), path = [[ra.x, ra.z], ...nodes.map(k => [C3.N[k].x, C3.N[k].z]), [rb.x, rb.z]];
+        const o = c3M("car_" + ["truck", "delivery", "truck-flat", "delivery-flat"][Math.random() * 4 | 0], path[0][0], path[0][1], 1, .17); const g = new THREE.Group(); g.add(o); g.position.set(path[0][0], .02, path[0][1]); C3.sc.add(g);
+        C3.lkw.push({obj: g, path, i: 0, s: 0, wait: 0, n: 0}); } } }
+  const k = 1 - Math.exp(-dt * 8);
+  C3.lkw = C3.lkw.filter(L => {
+    if (L.wait > 0) { L.wait -= dt; return true; }
+    const A = L.path[L.i], Bp = L.path[L.i + 1];
+    if (!Bp) { L.n++; if (L.n >= 4 || C3.lkw.length > C3.lkwWant) { C3.sc.remove(L.obj); return false; } L.path = L.path.slice().reverse(); L.i = 0; L.s = 0; L.wait = 2.5; return true; }
+    const len = Math.max(.01, Math.hypot(Bp[0] - A[0], Bp[1] - A[1])); L.s += 1.5 * dt; if (L.s >= len) { L.i++; L.s = 0; return true; }
+    const dx = (Bp[0] - A[0]) / len, dz = (Bp[1] - A[1]) / len, x = A[0] + dx * L.s - dz * .28, z = A[1] + dz * L.s + dx * .28, o = L.obj;
+    o.position.x += (x - o.position.x) * k; o.position.z += (z - o.position.z) * k; o.position.y = c3gy(o.position.x, o.position.z) + .015; c3turn(o, Math.atan2(-dz, dx), k); return true; });
+}
+/* Geparkte Autos am Straßenrand */
+function c3parken(){
+  if (!C3MOD.ready) return new THREE.Group(); const g = new THREE.Group(), r = c3rng(42), by = {}, on = c3roadCells();
+  for (const key in on) { const [x, z] = key.split(",").map(Number); if (Math.abs(x) > 10 || Math.abs(z) > 10 || r() > .16) continue;
+    const ns = on[x + "," + (z - 1)] && on[x + "," + (z + 1)], ew = on[(x - 1) + "," + z] && on[(x + 1) + "," + z]; if (ns === ew) continue;
+    if ((ns ? x : z) === 0 && Math.abs(ns ? z : x) < 2) continue;
+    const sd = r() < .5 ? -1 : 1, n = C3CARS[r() * C3CARS.length | 0]; if (/police|ambulance|garbage|truck/.test(n)) continue;
+    (by[n] = by[n] || []).push(ns ? [x * C3T + sd * .56, z * C3T, sd > 0 ? 0 : 2, .17] : [x * C3T, z * C3T + sd * .56, sd > 0 ? 3 : 1, .17]); }
+  for (const n in by) g.add(c3MI("car_" + n, by[n], true));
+  return g;
+}
+/* Drei Zoomstufen: Übersicht, Viertel, Gebäude */
+const C3ZOOM = [30, 15, 7];
+function c3zoomSnap(){ const r = C3CAM.r; let best = C3ZOOM[0]; C3ZOOM.forEach(z => { if (Math.abs(Math.log(z / r)) < Math.abs(Math.log(best / r))) best = z; }); c3fly({r: best}, .35); }
+
+/* ═════════ v3.0: Ertrag und Fortschritt – Ziele-Kette, Wochentruhe, Meilensteine, Mein Haus ═════════ */
+const gAnsAll = () => Object.values(S.days).reduce((a, d) => a + (d.n || 0), 0);
+const gOrdN = () => G().ordN || 0;
+const gCum = ks => ks.reduce((a, k) => a + ((G().cum || {})[k] || 0), 0);
+const gCnt = (f) => G().b.filter(b => !(b.until > Date.now() && b.l < 1) && f(b)).length;
+const gLvl = k => Math.max(0, ...G().b.filter(b => b.k === k).map(b => b.l));
+/* Jedes Ziel: Text, Messwert (v), Zielwert (n), relativ (rel: zählt ab Aktivierung), Belohnung */
+const QZ = [
+  {id: "q1", t: "Baue ein Wohnhaus", v: () => gCnt(b => b.k === "wohnhaus"), n: 1, rw: {b: 40, xp: 10}},
+  {id: "q2", t: "Beantworte 20 Fragen", v: gAnsAll, n: 20, rel: 1, rw: {r: {holz: 4}, b: 30}},
+  {id: "q3", t: "Baue dein eigenes Haus am Fluss", v: () => gLvl("meinhaus"), n: 1, rw: {b: 60, xp: 10}},
+  {id: "q4", t: "Baue ein Werk für eines deiner Fächer", v: () => gCnt(b => WERK[b.k] && b.l > 0), n: 1, rw: {r: {wasser: 5}, xp: 15}},
+  {id: "q5", t: "Erreiche 50 Einwohner", v: () => gEinw(), n: 50, rw: {b: 80}},
+  {id: "q6", t: "Hole 10 Rohstoffe aus deinen Werken ab", v: () => gCum(RBASE), n: 10, rel: 1, rw: {r: {zement: 4}, xp: 15}},
+  {id: "q7", t: "Baue das Rathaus auf Stufe 2 aus", v: () => gLvl("rathaus"), n: 2, rw: {b: 100, xp: 20}},
+  {id: "q8", t: "Beantworte 30 Fragen in einem Fach deiner Wahl", v: () => Math.max(0, ...Object.keys(FACH).map(f => gAnsF(f))), n: 30, rel: "fach", rw: {r: {plan: 3}, xp: 15}},
+  {id: "q9", t: "Baue ein Lagerhaus", v: () => gLvl("lagerhaus"), n: 1, rw: {r: {stahl: 3}, b: 60}},
+  {id: "q10", t: "Schließe 3 Aufträge ab", v: gOrdN, n: 3, rel: 1, rw: {b: 120, xp: 20}},
+  {id: "q11", t: "Baue Mein Haus auf Stufe 2 aus", v: () => gLvl("meinhaus"), n: 2, rw: {r: {holz: 6}, b: 80, deko: "blumen"}},
+  {id: "q12", t: "Erreiche 100 Einwohner", v: () => gEinw(), n: 100, rw: {b: 150, xp: 20}},
+  {id: "q13", t: "Baue eine Fabrik", v: () => gCnt(b => FAB[b.k] && b.l > 0), n: 1, rw: {r: {beton: 2}, xp: 20}},
+  {id: "q14", t: "Stelle 10 Bauteile in Fabriken her", v: () => gCum(RPROD), n: 10, rel: 1, rw: {b: 200, xp: 25}},
+  {id: "q15", t: "Beantworte 100 Fragen", v: gAnsAll, n: 100, rel: 1, rw: {r: {fenster: 2}, b: 100, xp: 30}},
+  {id: "q16", t: "Baue das Rathaus auf Stufe 3 aus", v: () => gLvl("rathaus"), n: 3, rw: {b: 250, xp: 30}},
+  {id: "q17", t: "Bringe drei Werke auf Stufe 2", v: () => gCnt(b => WERK[b.k] && b.l >= 2), n: 3, rw: {r: {stein: 4}, xp: 25}},
+  {id: "q18", t: "Baue Mein Haus auf Stufe 3 aus", v: () => gLvl("meinhaus"), n: 3, rw: {r: {dach: 1}, b: 150}},
+  {id: "q19", t: "Erreiche Stadtstufe 5", v: () => eco().lv, n: 5, rw: {b: 300, xp: 30}},
+  {id: "q20", t: "Schließe 10 Aufträge ab", v: gOrdN, n: 10, rel: 1, rw: {r: {fert: 1}, b: 200}},
+  {id: "q21", t: "Erreiche 250 Einwohner", v: () => gEinw(), n: 250, rw: {b: 400, xp: 40}},
+  {id: "q22", t: "Baue das Rathaus auf Stufe 4 aus", v: () => gLvl("rathaus"), n: 4, rw: {b: 500, xp: 40}},
+  {id: "q23", t: "Baue Mein Haus auf Stufe 4 aus", v: () => gLvl("meinhaus"), n: 4, rw: {b: 400, deko: "baum"}},
+  {id: "q24", t: "Beantworte 300 Fragen", v: gAnsAll, n: 300, rel: 1, rw: {b: 500, xp: 50}},
+  {id: "q25", t: "Baue ein Wahrzeichen", v: () => gCnt(b => GT[b.k] && GT[b.k].lm && b.l > 0), n: 1, rw: {b: 600, xp: 50}},
+  {id: "q26", t: "Mach Mein Haus zur Villa mit Pool (Stufe 5)", v: () => gLvl("meinhaus"), n: 5, rw: {b: 1000, deko: "goldstatue"}}
+];
+const qEndlos = i => ({id: "e" + i, t: i % 2 ? "Beantworte 100 weitere Fragen" : "Stelle 15 weitere Bauteile her", v: i % 2 ? gAnsAll : () => gCum(RPROD), n: i % 2 ? 100 : 15, rel: 1, rw: {b: 250 + 25 * Math.min(i, 20), xp: 40}});
+function qBase(q){ return q.rel === "fach" ? Object.fromEntries(Object.keys(FACH).map(f => [f, gAnsF(f)])) : q.v(); }
+function qProg(q){ const g = G(), b = (g.qb || {})[q.id];
+  if (q.rel === "fach") return Math.max(0, ...Object.keys(FACH).map(f => gAnsF(f) - ((b || {})[f] || 0)));
+  return q.rel ? Math.max(0, q.v() - (b || 0)) : q.v(); }
+function qAktiv(){
+  const g = G(); g.qd = g.qd || []; g.qb = g.qb || {}; const out = [];
+  for (const q of QZ) { if (out.length >= 3) break; if (!g.qd.includes(q.id)) out.push(q); }
+  for (let i = 1; out.length < 3 && i < 999; i++) { const q = qEndlos(i); if (!g.qd.includes(q.id)) out.push(q); }
+  let ch = 0; out.forEach(q => { if (q.rel && g.qb[q.id] === undefined) { g.qb[q.id] = qBase(q); ch = 1; } }); if (ch) save();
+  return out;
+}
+const qFertig = () => qAktiv().filter(q => qProg(q) >= q.n).length;
+function qClaim(id){
+  const q = qAktiv().find(x => x.id === id); if (!q || qProg(q) < q.n) return null; const g = G(), w = q.rw, got = [];
+  if (w.r) for (const k in w.r) { const n = ecoAdd(k, w.r[k]); if (n) got.push([k, n]); }
+  if (w.b) gEarn(w.b, true); if (w.xp) ecoXP(w.xp); if (w.deko) { eco().inv.deko[w.deko] = (eco().inv.deko[w.deko] || 0) + 1; }
+  g.qd.push(id); delete g.qb[id]; save(); return {items: got, b: w.b || 0, deko: w.deko};
+}
+const qRwHTML = w => [w.b ? `<span class="qrw"><i class="c3cn">₿</i>${w.b}</span>` : "", ...Object.entries(w.r || {}).map(([k, n]) => `<span class="qrw">${ricon(k, 16)}${n}</span>`), w.xp ? `<span class="qrw">${w.xp} XP</span>` : "", w.deko ? `<span class="qrw">🎁 ${GT[w.deko].n}</span>` : ""].join("");
+
+/* Wochenziel: 150 Antworten von Montag bis Sonntag → große Truhe */
+const WOCHE = 150;
+function wochKey(d = new Date()){ const x = new Date(d); x.setHours(0, 0, 0, 0); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return dayKey(x); }
+function wochN(){ const a = new Date(); a.setHours(0, 0, 0, 0); a.setDate(a.getDate() - ((a.getDay() + 6) % 7)); let n = 0;
+  for (let i = 0; i < 7; i++) { const d = new Date(a); d.setDate(a.getDate() + i); n += ((S.days || {})[dayKey(d)] || {}).n || 0; } return n; }
+const wochReady = () => wochN() >= WOCHE && G().wochK !== wochKey();
+function wochOpen(){
+  if (!wochReady()) return null; const g = eco(), out = {tier: 2, items: [], woche: 1};
+  const base = RBASE.filter(r => r !== "fach" && r !== "daten"); for (let i = 0; i < 4; i++) { const r = base[Math.random() * base.length | 0], got = ecoAdd(r, 6 + (Math.random() * 4 | 0)); if (got) out.items.push([r, got]); }
+  const pr = RPROD.slice(); for (let i = 0; i < 2; i++) { const p = pr[Math.random() * pr.length | 0], got = ecoAdd(p, 2); if (got) out.items.push([p, got]); }
+  const b = 200 + (Math.random() * 120 | 0); g.coins += b; g.total += b; out.b = b; g.inv.speed += 2; out.speed = 1;
+  if (Math.random() < .5) { const d = ["blumen", "baum", "goldstatue"][Math.random() * 3 | 0]; g.inv.deko[d] = (g.inv.deko[d] || 0) + 1; out.deko = d; }
+  G().wochK = wochKey(); ecoXP(40); save(); return out;
+}
+/* Als Nächstes freischalten: Zeitleiste mit dem, was noch fehlt */
+function msListe(){
+  const L = [], g = G();
+  GORDER.forEach(k => { const t = GT[k]; if (t.deko || g.b.some(b => b.k === k)) return; const why = gReq(k, 1); if (!why || /Bautrupps|zu wenig/.test(why)) return;
+    let p = null; const m = why.match(/^(\d+) Antworten in/); if (m) p = 1 - (+m[1]) / 10; const r = why.match(/Rathaus.*?(\d)/); if (r) p = gRat() / +r[1];
+    L.push({k, why, p}); });
+  const mh = g.b.find(b => b.k === "meinhaus"); if (mh && mh.l < GT.meinhaus.max && !(mh.until > Date.now())) { const why = gReq("meinhaus", mh.l + 1); if (why) L.unshift({k: "meinhaus", why: `Stufe ${mh.l + 1}: ${why}`, p: null}); }
+  return L.sort((a, b) => (b.p || 0) - (a.p || 0)).slice(0, 6);
+}
+function c3zieleSheet(){
+  const Q = qAktiv(), wn = wochN(), wdone = G().wochK === wochKey(), th = c3thumbs() || {};
+  const qh = Q.map(q => { const v = Math.min(q.n, qProg(q)), ok = v >= q.n;
+    return `<div class="qcard${ok ? " ok" : ""}"><div class="qt"><b>${q.t}</b><span>${fmtB(v)} / ${fmtB(q.n)}</span></div><div class="cbar"><i style="width:${(v / q.n * 100).toFixed(0)}%"></i></div>
+      <div class="qf"><div class="qrws">${qRwHTML(q.rw)}</div>${ok ? `<button class="btn2 acc sm press" data-act="c3-qclaim" data-id="${q.id}">Abholen</button>` : ""}</div></div>`; }).join("");
+  const ms = msListe().map(m => `<div class="msrow">${th[m.k] ? `<img src="${th[m.k]}" alt="">` : `<div class="gico">${gIcon(m.k)}</div>`}<div><b>${GT[m.k].n}</b><small>${m.why}</small>${m.p !== null ? `<div class="cbar"><i style="width:${(c3clamp(m.p, 0, 1) * 100).toFixed(0)}%"></i></div>` : ""}</div></div>`).join("");
+  openSheet(`<h2>Ziele</h2><p class="sub">Immer drei Ziele gleichzeitig – jedes bringt eine Belohnung und schaltet das nächste frei.</p>${qh}
+    <h3 class="rh">Wochenziel</h3><div class="qcard${wdone ? " done" : wn >= WOCHE ? " ok" : ""}"><div class="qt"><b>${wdone ? "Wochentruhe geöffnet – nächste Woche geht es weiter" : `${WOCHE} Antworten diese Woche`}</b><span>${fmtB(Math.min(wn, WOCHE))} / ${WOCHE}</span></div><div class="cbar"><i style="width:${Math.min(100, wn / WOCHE * 100).toFixed(0)}%"></i></div>
+      <div class="qf"><div class="qrws"><span class="qrw">Große Truhe: Rohstoffe, Bauteile, ₿ 200+, 2 Beschleuniger</span></div>${wochReady() ? `<button class="btn2 acc sm press" data-act="c3-woche">Öffnen</button>` : ""}</div></div>
+    ${ms ? `<h3 class="rh">Als Nächstes freischalten</h3><div class="mslist">${ms}</div>` : ""}`);
+}
+function c3zieleKeep(){ const sc = $("#sheet"), y = sc ? sc.scrollTop : 0; c3zieleSheet(); requestAnimationFrame(() => { const s2 = $("#sheet"); if (s2) s2.scrollTop = y; }); }
+
+/* ── Mein Haus: Lernmeilensteine je Stufe, Bonus, Gestalten ── */
+const HAUSREQ = [null, null,
+  () => gAnsAll() >= 150 ? "" : `Noch ${150 - gAnsAll()} Antworten (insgesamt 150)`,
+  () => gAnsAll() < 400 ? `Noch ${400 - gAnsAll()} Antworten (insgesamt 400)` : Object.keys(FACH).some(f => mastery(qsOf(f)) >= .25) ? "" : "Ein Fach zu 25 % beherrschen",
+  () => gAnsAll() < 800 ? `Noch ${800 - gAnsAll()} Antworten (insgesamt 800)` : Object.keys(FACH).filter(f => mastery(qsOf(f)) >= .4).length >= 2 ? "" : "Zwei Fächer zu 40 % beherrschen",
+  () => gAnsAll() < 1500 ? `Noch ${1500 - gAnsAll()} Antworten (insgesamt 1500)` : Object.keys(FACH).filter(f => mastery(qsOf(f)) >= .5).length >= 3 ? "" : "Drei Fächer zu 50 % beherrschen"];
+const HAUSB = [{c: 0, l: 0}, {c: .02, l: 0}, {c: .04, l: 10}, {c: .06, l: 20}, {c: .08, l: 35}, {c: .1, l: 50, sh: 1}];
+const gHaus = () => HAUSB[Math.min(5, gLvl("meinhaus"))] || HAUSB[0];
+const gMult = () => 2 * (1 + gHaus().c);                             // 3.0: Bitcoin ×2, dazu Bonus von Mein Haus
+const HAUSOPT = {
+  auto: [["", "Kein Auto", 1], ["sedan", "Limousine", 2], ["hatchback-sports", "Kompakt", 2], ["suv", "SUV", 3], ["taxi", "Gelbes Taxi", 3], ["sedan-sports", "Sportwagen", 4], ["suv-luxury", "Luxus-SUV", 5]],
+  garten: [["rasen", "Rasen", 1], ["beete", "Blumenbeete", 2], ["baeume", "Viele Bäume", 3]],
+  zaun: [["ja", "Gartenzaun", 1], ["nein", "Kein Zaun", 1]],
+  form: [["a", "Variante A", 2], ["b", "Variante B", 2]]
+};
+const hausDef = L => ({auto: L >= 5 ? "suv-luxury" : L >= 4 ? "sedan" : "", garten: L >= 4 ? "beete" : "rasen", zaun: L >= 3 ? "ja" : "nein", form: "a"});
+function c3hausSheet(){
+  const b = G().b.find(x => x.k === "meinhaus"); if (!b) return; const o = G().haus || {}, L = b.l, B = gHaus();
+  const cur = Object.assign(hausDef(L), o);
+  const row = (key, title) => `<h3 class="rh">${title}</h3><div class="chips">${HAUSOPT[key].map(([v, n, ab]) => { const sel = cur[key] === v, lock = L < ab;
+    return `<button class="chip press${sel ? " on" : ""}${lock ? " off" : ""}" data-act="c3-hopt" data-k="${key}" data-v="${v}" ${lock ? "disabled" : ""}>${n}${lock ? ` · ab Stufe ${ab}` : ""}</button>`; }).join("")}</div>`;
+  openSheet(`<h2>Mein Haus gestalten</h2><p class="sub">Stufe ${L} · Bonus: +${Math.round(B.c * 100)} % Bitcoin${B.l ? ` · +${B.l} Lagerplätze` : ""}${B.sh ? " · +1 Serienschutz" : ""}</p>
+    ${row("form", "Haus")}${row("auto", "Auto vor dem Haus")}${row("garten", "Garten")}${row("zaun", "Zaun")}
+    <p class="legend">Mehr Möglichkeiten mit jeder Stufe. Nächste Stufe: ${L < 5 ? (gReq("meinhaus", L + 1) || "bereit zum Ausbauen") : "Höchste Stufe erreicht"}.</p>`);
+}
+
+/* ═════════ v3.0: Klausur-Countdown – rückwärts geplantes Tagespensum je Fach ═════════ */
+const KDAY = 864e5;
+function exDate(f){ const o = (S.ex || {})[f]; if (o === "x" || o === "-") return null; return o || FACH[f].ex || null; }
+function cdList(){
+  const t0 = new Date(dayKey()).getTime(), L = [];
+  ORDER.forEach(f => { const ex = exDate(f); if (!ex) return; const D = Math.round((new Date(ex) - t0) / KDAY); if (D >= 0) L.push({f, ex, D, E: D}); });
+  L.sort((a, b) => a.D - b.D);
+  for (let i = 1; i < L.length; i++) { const gap = L[i].D - L[i - 1].D; if (gap < 10) L[i].E = L[i].D - (10 - gap); }   // dicht beieinander: die spätere früher fertig haben
+  return L.map(x => {
+    const qs = qsOf(x.f), n = qs.length, open = qs.filter(q => boxOf(q.id) === 0).length, weak = qs.filter(q => boxOf(q.id) <= 2).length, due = qs.filter(q => isDue(q.id)).length, sicher = qs.filter(q => boxOf(q.id) >= 3).length;
+    const E = Math.max(0, x.E), ph = E > 28 ? "Aufbau" : E > 7 ? "Festigen" : "Endspurt";
+    const tage = ph === "Aufbau" ? Math.max(1, E - 28 - 3) : ph === "Festigen" ? Math.max(1, E - 7 - 3) : Math.max(1, E - 1);
+    const p = Math.max(ph === "Endspurt" ? 10 : 3, Math.min(60, Math.ceil((ph === "Aufbau" ? open : weak) / tage) + Math.min(due, 25)));
+    const heute = ((S.df || {})[dayKey()] || {})[x.f] || 0;
+    return Object.assign(x, {n, open, weak, due, ph, p, heute, ber: n ? Math.round(sicher / n * 100) : 0, ok: heute >= p, warn: heute < p && p > 35});
+  });
+}
+const CDPH = {Aufbau: "neue Fragen, bis jede einmal richtig war", Festigen: "Wiederholungen und Lösungswege", Endspurt: "Probeklausuren und Schwachstellen"};
+function cdPanel(){
+  const L = cdList(); if (!L.length) return "";
+  return `<div class="sec"><div class="sec-h"><h2>Klausur-Countdown</h2><small>Pensum heute</small></div><div class="list glass">${L.map(x =>
+    `<button class="row press cdrow${x.ok ? " ok" : x.warn ? " warn" : ""}" data-act="${x.ph === "Endspurt" && x.ok ? "exam" : "start-subject"}" data-f="${x.f}"><div class="round" style="--c:${cssC(x.f)};background:color-mix(in srgb, var(--c) 18%, transparent);color:var(--c)">${SVG(ICON[x.f], 1.8)}</div>
+      <div class="t"><b>${FACH[x.f].n.replace("Angewandte ", "")} in ${x.D} ${x.D === 1 ? "Tag" : "Tagen"}</b><small>${x.ph}: ${CDPH[x.ph]} · bereit ${x.ber} %</small><i class="cdbar"><em style="width:${Math.min(100, x.heute / x.p * 100).toFixed(0)}%"></em></i></div>
+      <span class="cdst">${x.ok ? "✓" : `<b>${x.p - x.heute}</b><small>Fragen</small>`}</span></button>`).join("")}</div></div>`;
+}
+function cdTermPanel(){
+  return `<div class="panel glass"><div class="sec-h" style="padding:0"><h2>Klausurtermine</h2><small>für den Countdown</small></div>${ORDER.map(f => { const o = (S.ex || {})[f], v = o === "x" || o === "-" ? "" : (o || FACH[f].ex || "");
+    return `<div class="cdterm${o === "x" ? " ab" : ""}"><span>${FACH[f].n}</span><input type="date" value="${v}" data-exf="${f}" ${o === "x" ? "disabled" : ""} aria-label="Klausurtermin ${FACH[f].n}"><button class="link press" data-act="cd-ab" data-f="${f}">${o === "x" ? "anmelden" : "abmelden"}</button></div>`; }).join("")}
+    <p class="legend" style="margin:0">Ohne Datum oder abgemeldet ist das Fach nicht im Plan. Eine Woche vor jeder Klausur erinnert dich die App an den Endspurt.</p></div>`;
+}
+document.addEventListener("change", e => { const f = e.target && e.target.dataset && e.target.dataset.exf; if (!f) return; S.ex = S.ex || {}; S.ex[f] = e.target.value || "-"; save(); render(); });
+function cdPush(){                                                    // für die Erinnerungen: Pensum heute und Endspurt-Hinweise
+  const L = cdList(); if (!L.length) return null; const offen = L.filter(x => !x.ok);
+  return {text: offen.length ? "Heute im Plan: " + offen.slice(0, 3).map(x => `${x.p - x.heute} ${FACH[x.f].n.replace("Angewandte ", "")}`).join(", ") : "Pensum für heute geschafft",
+    exams: L.map(x => ({f: FACH[x.f].n.replace("Angewandte ", ""), ex: x.ex}))};
+}
 
 /* ── 3D-STADT ENDE ── */
 
@@ -4739,6 +5154,8 @@ document.addEventListener("click", e => {
   else if(a==="ex-n"){ EX.n=+b.dataset.n; examSheet(); }
   else if(a==="ex-go") examGo();
   else if(a==="export") exportBackup();
+  else if(a==="cd-ab") { S.ex = S.ex || {}; const f = b.dataset.f; S.ex[f] = S.ex[f] === "x" ? "" : "x"; save(); render(); }
+  else if(a==="ver25") { try { save(); localStorage.setItem("klausurduell.version", "2.5"); } catch(e) {} location.href = "v25/"; }
   else if(a==="import") $("#importFile").click();
   else if(a==="reload"){ try{ navigator.serviceWorker.getRegistration().then(r=>{ if(r&&r.waiting) r.waiting.postMessage("skip"); setTimeout(()=>location.reload(),400); }); }catch(e){ location.reload(); } }
   else if(a==="more"){ const m=b.nextElementSibling; m.hidden=!m.hidden; b.classList.toggle("open",!m.hidden); if(!m.hidden) setTimeout(()=>m.scrollIntoView({behavior:"smooth",block:"nearest"}),50); }
@@ -4862,7 +5279,7 @@ function pushStand(){
   for (let i = 0; i < 7; i++) { wn += (S.days[dayKey(d)] || {}).n || 0; d.setDate(d.getDate() + 1); }
   const lastF = f => { const k = Object.keys(S.df).filter(x => (S.df[x] || {})[f] > 0).sort(); return k.length ? k[k.length - 1] : null; };
   const werke = (S.game && gOn()) ? (S.game.b || []).filter(b => WERK[b.k] && b.l >= 1 && FACH[WERK[b.k].f]).map(b => ({name: GT[b.k] ? GT[b.k].n : b.k, fach: FACH[WERK[b.k].f].n, zuletzt: lastF(WERK[b.k].f)})) : [];
-  return {am: dayKey(), heute: {tag: dayKey(), n: today().n}, letzter, serie: streak(), faellig: fl, werke: werke.slice(0, 20), woche: {ab: dayKey(mo), n: wn}};
+  return {am: dayKey(), heute: {tag: dayKey(), n: today().n}, letzter, serie: streak(), faellig: fl, werke: werke.slice(0, 20), woche: {ab: dayKey(mo), n: wn}, plan: (() => { try { return cdPush(); } catch(e) { return null; } })()};
 }
 async function pushPost(pfad, body){
   const r = await fetch(PUSH_URL + pfad, {method: "POST", body: JSON.stringify(body), keepalive: true, headers: {"Content-Type": "text/plain"}});
