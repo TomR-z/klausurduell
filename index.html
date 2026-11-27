@@ -1430,6 +1430,29 @@ const FIG = (() => {
       <circle cx="57" cy="84" r="4.5" style="fill:var(--bad)"/><circle cx="160" cy="84" r="4.5" style="fill:var(--bad)"/>${t(57,74,"x<tspan baseline-shift='sub' font-size='8'>u</tspan>","middle","font-size:11px")}${t(160,74,"x<tspan baseline-shift='sub' font-size='8'>u</tspan>","middle","font-size:11px")}
       <circle cx="101" cy="130" r="4" style="fill:var(--ink)"/>${t(104,168,"Minimum: stabil","middle","font-size:11px;font-weight:600")}
       ${t(230,178,"E<tspan baseline-shift='sub' font-size='8'>kin</tspan> = E<tspan baseline-shift='sub' font-size='8'>mech</tspan> − E<tspan baseline-shift='sub' font-size='8'>pot</tspan>","middle","font-size:11.5px;font-weight:600")}`, 186),
+    /* v3.x – Skizzen zu Physik V08 Impuls */
+    impulsboot: () => S(arrow("aib","var(--accent)")+arrow("aib2","var(--c-phys)")+`
+      <path d="M10 118H310" style="stroke:var(--c-hydro);stroke-width:1.6"/><path d="M10 118H310V150H10Z" style="fill:color-mix(in srgb,var(--c-hydro) 18%,transparent)"/>
+      <path d="M60 104H250L236 122H74Z" style="fill:color-mix(in srgb,var(--ink) 14%,transparent);stroke:var(--ink);stroke-width:1.4"/>
+      <circle cx="100" cy="84" r="11" style="fill:var(--c-phys)"/>${t(100,88,"R","middle","font-size:11px;font-weight:700;fill:#fff")}
+      <circle cx="210" cy="88" r="8" style="fill:var(--accent)"/>${t(210,92,"C","middle","font-size:10px;font-weight:700;fill:#fff")}
+      <path d="M104 62C130 40 180 40 204 62" style="stroke:var(--c-phys);stroke-width:1.8;fill:none;marker-end:url(#aib2)"/>${t(154,38,"+l relativ zum Boot","middle","font-size:10.5px;fill:var(--c-phys);font-weight:600")}
+      <path d="M155 104V130" style="stroke:var(--ink);stroke-width:2;stroke-dasharray:3 3"/>${t(155,144,"S bleibt stehen","middle","font-size:10.5px;font-weight:700")}
+      <path d="M200 160H150" style="stroke:var(--accent);stroke-width:2.4;marker-end:url(#aib)"/>${t(206,164,"Boot: −d","start","font-size:11px;fill:var(--accent);font-weight:700")}
+      <path d="M290 118V150M284 150H296" style="stroke:var(--ink-3);stroke-width:2"/>${t(290,112,"Bezug A (Grund)","middle","font-size:10px;fill:var(--ink-3)")}
+      ${t(160,184,"keine äußere Kraft in x:  Σ mᵢ·Δxᵢ = 0 (bzgl. A)","middle","font-size:11.5px;font-weight:700")}`, 192),
+    atwood: () => S(arrow("aat","var(--accent)")+arrow("aat2","var(--c-phys)")+`
+      <path d="M110 12H210" style="stroke:var(--ink);stroke-width:3"/>${[0,1,2,3,4,5].map(i=>`<path d="M${116+i*16} 12l-8-8" style="${ink};stroke-width:1"/>`).join("")}
+      <path d="M160 12V40" style="${ink};stroke-width:1.6"/><circle cx="160" cy="54" r="22" style="fill:color-mix(in srgb,var(--ink) 10%,transparent);stroke:var(--ink);stroke-width:1.6"/><circle cx="160" cy="54" r="2.5" style="fill:var(--ink)"/>
+      <path d="M138 54V110M182 54V130" style="${ink};stroke-width:1.4"/>
+      <rect x="124" y="110" width="28" height="28" rx="3" style="fill:color-mix(in srgb,var(--c-phys) 30%,transparent);stroke:var(--c-phys);stroke-width:1.6"/>${t(138,128,"m₁","middle","font-size:11px;font-weight:700")}
+      <rect x="166" y="130" width="32" height="34" rx="3" style="fill:color-mix(in srgb,var(--c-phys) 55%,transparent);stroke:var(--c-phys);stroke-width:1.6"/>${t(182,151,"m₂","middle","font-size:11px;font-weight:700")}
+      <path d="M110 136V104" style="stroke:var(--c-phys);stroke-width:2;marker-end:url(#aat2)"/>${t(104,124,"a","end","font-size:12px;font-weight:700;fill:var(--c-phys)")}
+      <path d="M212 136V168" style="stroke:var(--c-phys);stroke-width:2;marker-end:url(#aat2)"/>${t(218,156,"a","start","font-size:12px;font-weight:700;fill:var(--c-phys)")}
+      <path d="M232 52V18" style="stroke:var(--accent);stroke-width:2.6;marker-end:url(#aat)"/>${t(240,34,"F (Decke)","start","font-size:11px;font-weight:700;fill:var(--accent)")}
+      ${t(20,60,"m₂ > m₁","start","font-size:11px")}${t(20,78,"a = (m₂−m₁)g/(m₁+m₂)","start","font-size:10.5px")}${t(20,96,"F = 2T < (m₁+m₂)g","start","font-size:10.5px;font-weight:700")}
+      ${t(160,190,"Schwerpunkt beschleunigt nach unten → Decke hält weniger","middle","font-size:11px;font-weight:600")}`, 198),
+
     stuetze: () => S(arrow("as","var(--accent)")+`
       <path d="M160 6V36" style="${acc};stroke-width:2.4" marker-end="url(#as)"/>${t(176,24,"44 t","start","fill:var(--accent);font-weight:700")}
       <rect x="146" y="42" width="28" height="110" rx="3" style="fill:color-mix(in srgb,var(--ink-3) 35%,transparent);stroke:var(--ink);stroke-width:1.5"/>
@@ -1593,7 +1616,7 @@ if (typeof KORREKTUR !== "undefined") AUFG.forEach(a => { const x = KORREKTUR[a.
 const ALLQ = FRAGEN.filter(q => !q.weg), ALLA = AUFG.filter(a => !a.weg);
 
 /* storage */
-const APP_VERSION = "3.0";
+const APP_VERSION = "3.1";
 const KEY = "klausurduell.v1";
 let S = {cards:{}, days:{}, aufg:{}};
 try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch(e) {}

@@ -1,5 +1,5 @@
-/* Klausurduell Offline-Speicher · Version 3.0 (e74c4050) */
-const CACHE = "klausurduell-3.0-e74c4050";
+/* Klausurduell Offline-Speicher · Version 3.1 (b3d7920d) */
+const CACHE = "klausurduell-3.1-b3d7920d";
 const FILES = ["./", "index.html", "fragen.js", "three.min.js", "gltf-umd.js", "stadt.glb", "manifest.webmanifest", "icons/icon-180.png", "icons/icon-192.png", "icons/icon-512.png", "v25/", "v25/index.html", "v25/fragen.js", "v25/three.min.js"];
 self.addEventListener("install", e => { self.skipWaiting(); e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES))); });
 self.addEventListener("message", e => { if (e.data === "skip") self.skipWaiting(); if (e.data === "version" && e.ports && e.ports[0]) e.ports[0].postMessage(CACHE); });
